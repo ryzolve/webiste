@@ -135,7 +135,7 @@ const PricingCard2: FC<PricingCard2Props> = (props) => {
               <li key={i}>
                 <FontAwesomeIcon
                   icon={faCircleCheck}
-                  color="#007aff"
+                  color="#0D5992"
                   style={{
                     height: 18,
                     marginRight: 20,

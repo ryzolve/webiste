@@ -47,9 +47,9 @@ const ProcessList1: FC<ProcessList1Props> = (props) => {
             </span> */}
             {isDesktop ? (
               <div>
-                {index === 0 && <Bs1CircleFill color="#007aff" size={50} />}
-                {index === 1 && <Bs2CircleFill color="#007aff" size={50} />}
-                {index === 2 && <Bs3CircleFill color="#007aff" size={50} />}
+                {index === 0 && <Bs1CircleFill color="#0D5992" size={50} />}
+                {index === 1 && <Bs2CircleFill color="#0D5992" size={50} />}
+                {index === 2 && <Bs3CircleFill color="#0D5992" size={50} />}
               </div>
             ) : null}
           </div>

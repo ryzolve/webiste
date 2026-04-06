@@ -146,7 +146,7 @@ const List = ({ color, title, description }: ListProps) => {
           <li className="custom-card-description-text">
             <FontAwesomeIcon
               icon={faCircleCheck}
-              color="#007aff"
+              color="#0D5992"
               style={{
                 height: 18,
                 marginRight: 10,

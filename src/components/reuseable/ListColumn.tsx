@@ -33,7 +33,7 @@ const ListColumn: FC<ListColumnProps> = ({
                 >
                   <FontAwesomeIcon
                     icon={faCircleCheck}
-                    color="#007aff"
+                    color="#0D5992"
                     style={{
                       height: 18,
                       marginRight: 20,
