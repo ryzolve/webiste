@@ -27,7 +27,7 @@ const changeColor = (colorPath?: string | null, fontPath?: string | null) => {
 const changeTheme = (pathname: string) => {
   switch (pathname) {
     case '/':
-      changeColor('/css/colors/grape.css', '/css/fonts/space.css');
+      changeColor(null, null);
       break;
 
     case '/demo-1':
