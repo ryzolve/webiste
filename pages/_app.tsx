@@ -23,12 +23,16 @@ import "glightbox/dist/css/glightbox.css";
 import "plugins/scrollcue/scrollCue.css";
 // Bootstrap and custom scss
 import "assets/scss/style.scss";
+import "redesign/site.css";
 
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
-  const [loading, setLoading] = useState(true);
+  // Start with `false` so SSR/SSG renders the page (and its per-page <Head>
+  // SEO tags) on first paint instead of a blank loader. The old `loading=true`
+  // default meant search engines and OG scrapers saw an empty page.
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -94,8 +98,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Fragment>
       <Head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>ryzolve</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        {/* Default title — pages override via next/head */}
+        <title>Ryzolve — Provider Management Software for Texas Care Agencies</title>
+        <meta
+          name="description"
+          content="Provider management software for PAS, Home Health, and Hospice agencies. Less paperwork. Fewer denials. Audit-ready by default."
+        />
       </Head>
 
       <QueryClientProvider client={queryClient}>

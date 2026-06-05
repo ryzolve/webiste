@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /blank
+Disallow: /404
+
+Sitemap: https://ryzolve.com/sitemap.xml

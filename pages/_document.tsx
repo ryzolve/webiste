@@ -11,7 +11,23 @@ export default class ryzolve extends Document {
     return (
       <Html lang="en" style={{ scrollBehavior: "smooth" }}>
         <Head>
-          <link rel="shortcut icon" href="/img/favicon.svg" type="image/svg" />
+          {/* Favicons */}
+          <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
+          <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon.png" />
+          <link rel="shortcut icon" href="/img/favicon.png" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon.png" />
+          <link rel="mask-icon" href="/img/favicon.svg" color="#0D5992" />
+          <link rel="manifest" href="/site.webmanifest" />
+
+          {/* Typography */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif&display=swap"
+            rel="stylesheet"
+          />
+
+          {/* Analytics */}
           <script src="https://t.contentsquare.net/uxa/eb7f21fdbf12f.js" async />
         </Head>
 

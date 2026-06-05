@@ -1,0 +1,604 @@
+export type ProductSlug = 'document-management' | 'compliance-regulation' | 'claims-and-bills';
+
+export const routes = [
+  '/',
+  '/document-management',
+  '/compliance-regulation',
+  '/claims-and-bills',
+  '/about-us',
+  '/contact',
+  '/calendly',
+  '/training',
+  '/blank',
+  '/404',
+];
+
+export const company = {
+  name: 'Ryzolve LLC',
+  address: '9309 Highway 75 S Ste 102, New Waverly, TX 77358',
+  email: 'pas@ryzolve.com',
+  phone: '9363550920',
+  phoneDisplay: '(936) 355-0920',
+  mobilePhone: '9363559490',
+  calendlyUrl: 'https://calendly.com/ryzolve-pas-software/ryzolve-demo',
+  providerLoginUrl: 'https://ryzolve.com/providerapp',
+};
+
+export const nav = {
+  products: [
+    { label: 'Document Management', href: '/document-management', slug: 'document-management', short: 'Document Management that suites to fit your healthcare structure to increase Efficiency' },
+    { label: 'Compliance Regulation', href: '/compliance-regulation', slug: 'compliance-regulation', short: 'Compliance that meets all government requirements, providing automation and peace of mind.' },
+    { label: 'Claims & Bills', href: '/claims-and-bills', slug: 'claims-and-bills', short: 'Receive payments directly from your chosen medical insurance partner, without the need to chase.' },
+  ],
+  links: [
+    { label: 'Home', href: '/', slug: 'home' },
+    { label: 'Training', href: '/training', slug: 'training' },
+    { label: 'About', href: '/about-us', slug: 'about-us' },
+    { label: 'Contact', href: '/contact', slug: 'contact' },
+  ],
+};
+
+export const sharedServices = [
+  {
+    title: 'Improve Efficiency',
+    description: 'Document Management that suites to fit your healthcare structure to increase Efficiency',
+    href: '/document-management',
+    icon: 'document',
+  },
+  {
+    title: 'Stay Compliant',
+    description: 'Compliance that meets all government requirements, providing automation and peace of mind.',
+    href: '/compliance-regulation',
+    icon: 'shield',
+  },
+  {
+    title: 'Increase Profits',
+    description:
+      'Receive payments directly from your chosen medical insurance partner, without the need to chase.',
+    href: '/claims-and-bills',
+    icon: 'card',
+  },
+  {
+    title: 'Training',
+    description: 'We facilitate the licensing and training processes for home care, provide certificates.',
+    href: '/training',
+    icon: 'training',
+  },
+];
+
+export const home = {
+  hero: {
+    title: "Enhance your agency's",
+    animatedWords: ['profits', 'efficiency', 'compliance'],
+    subtitle: 'Provider management software to help PAS agencies be more efficient',
+  },
+  benefits: {
+    title: 'Built for the four bottlenecks every Texas agency hits.',
+  },
+  solutions: {
+    eyebrow: 'Our Solutions',
+    title: 'Transform your PAS agency: No more time wasted on outdated processes',
+    description:
+      "Bid farewell to manual processes causing staff overwhelm, paperwork delays, and financial losses. Crafted from our own challenges, Ryzolve guarantees efficiency, slashing time wasted on hiring, minimizing financial losses from claim denials, and ensuring compliance with government regulations. Don't let paperwork and denials impact your bottom line - embrace a seamless, cost-saving solution with Ryzolve",
+    subheading: 'Personal Agency',
+    bullets: [
+      'Over four Years of no penalties',
+      'Saved hundreds of hours hiring staff',
+      'Increased revenue while reducing or eliminating denials!',
+    ],
+    bulletStats: [
+      { value: '04+', unit: 'YRS' },
+      { value: '300+', unit: 'HRS' },
+      { value: '99.2%', unit: 'PASS' },
+    ],
+  },
+  strategy: {
+    eyebrow: 'Our Strategy',
+    title: 'All in one platform to help your agency grow',
+    description: 'Three connected modules. Each one earns its keep on its own — together, they remove a category of work from your week.',
+    steps: [
+      {
+        title: 'Digital document management',
+        href: '/document-management',
+        bullets: ['Run PAS position background checks for you', 'Reduces paperwork', 'Minimizes errors', 'Saves time'],
+      },
+      {
+        title: 'Compliance regulation',
+        href: '/compliance-regulation',
+        bullets: [
+          'Conducts monthly compliance and background checks',
+          'Assists in preventing non-compliance fines and sanctions',
+          'Maintains compliance with government policies and standards',
+        ],
+      },
+      {
+        title: 'Claims & Billing',
+        href: '/claims-and-bills',
+        bullets: [
+          'Simplifies filing claims with state and managed care organizations',
+          'Simplifies provider/client scheduling and payroll data aggregation',
+          'Improves efficiency in claims approvals and reimbursement',
+        ],
+      },
+    ],
+  },
+  howItWorks: {
+    eyebrow: 'How it Works',
+    title: 'Managing claims and paperwork should be easier',
+    steps: [
+      {
+        title: 'Book a demo',
+        description:
+          'Book a demo to see how our software can help you improve your systems to start reducing down paperwork & errors',
+      },
+      {
+        title: 'Implement the software',
+        description:
+          'Implementing the software can be done in as little as week. A streamlined and seamless process so you can improve efficiency',
+      },
+      {
+        title: 'Improve efficiency & Stay compliant',
+        description:
+          'Each tool works for you to continue making your agency more efficient and continually giving you confidence in staying compliant',
+      },
+    ],
+  },
+};
+
+export const proofPoints = [
+  { stat: '4+ yrs', label: 'No penalties', sub: 'Across founding-customer agencies' },
+  { stat: '< 1 wk', label: 'Average implementation', sub: 'From contract to first live client' },
+  { stat: '99.2%', label: 'Claim acceptance', sub: 'First-pass approval rate' },
+  { stat: '$1.4M', label: 'Recovered revenue', sub: 'In year-one denials, agency average' },
+];
+
+export const statsBand = {
+  titlePrefix: 'Eight years of building from inside an agency.',
+  titleAccent: 'Distilled',
+  titleSuffix: 'into one platform.',
+  description:
+    'Built and re-built around what HHSC actually surveys for — not a generic EHR bolted onto a state form. Numbers across our founding-customer cohort.',
+  stats: [
+    { value: '4+', unit: 'yrs', label: 'Zero penalties · founding customers' },
+    { value: '99.2', unit: '%', label: 'First-pass claim acceptance' },
+    { value: '86', unit: '%', label: 'Drop in denials, year one' },
+    { value: '$1.4M', unit: '+', label: 'Recovered revenue, agency avg' },
+  ],
+};
+
+export const homeTrainingCta = {
+  eyebrow: 'Training',
+  title: 'Need Administrator or In-Service Training?',
+  description:
+    'Go straight to the Training page to compare required Administrator courses and agency In-Service plans in one place.',
+  supporting: 'Compare administrator and agency training without relying on placeholder software pricing.',
+  primaryCta: 'View training options',
+  secondaryCta: 'Compare paths',
+  highlights: [
+    '8h, 12h & 16h Administrator courses',
+    'Agency In-Service plans',
+    'Self-paced certificates and records',
+  ],
+};
+
+interface ProductPageContent {
+  active: ProductSlug;
+  label: string;
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  solutionTitle: string;
+  solutionDescription: string;
+  solutionLead?: string;
+  solutionBullets?: string[];
+  aboutTitle: string;
+  aboutDescription: string;
+  aboutBullets?: string[];
+  extraSections?: Array<{ eyebrow: string; title: string; description: string }>;
+}
+
+export const products: Record<ProductSlug, ProductPageContent> = {
+  'document-management': {
+    active: 'document-management',
+    label: 'Document Management',
+    eyebrow: 'Document Management',
+    title: 'Managing paper work made easier',
+    subtitle:
+      'Our solution, designed to eliminate paperwork filing and streamline document management, enhances efficiency with electronic document management',
+    solutionTitle: 'Are you risking liability with outdated document management methods?',
+    solutionDescription:
+      'Designed to address your challenges, Ryzolve software has all you need to organize your agency, ensure compliance, and avoid document management errors',
+    solutionBullets: [
+      'Tailored document suites to fit your healthcare structure',
+      'Templates for painless authorization, client intake and medication workflows',
+      'Flexible digital filing system personalized to your needs',
+    ],
+    aboutTitle: '',
+    aboutDescription: '',
+  },
+  'compliance-regulation': {
+    active: 'compliance-regulation',
+    label: 'Compliance Regulation',
+    eyebrow: 'Compliance Regulation',
+    title: 'Stay compliant',
+    subtitle:
+      "We've got you covered during state audits. Our solution manages compliance, meeting all government requirements with automation for peace of mind",
+    solutionTitle: "You shouldn't need to perform background checks by hand",
+    solutionDescription:
+      "Performing background checks for pre-hire and on a monthly basis for potential employees shouldn't have to be done manually. Let's streamline and modernize this process for efficiency",
+    solutionLead: 'Automate your scheduled and on-demand background checks for all of the following reports:',
+    solutionBullets: ['OIG U.S.DHHS', 'TXL OIG HHSC', 'TX: DADS - EMR'],
+    aboutTitle: 'Maintain governmental compliance with regular process evaluation',
+    aboutDescription:
+      'Take advantage of annual evaluations and semi-annual supervisory visits with a compliance expert to ensure your agency maintains an optimal setup.',
+    extraSections: [
+      {
+        eyebrow: 'Our Solutions',
+        title: 'Save time with data verification services',
+        description:
+          'Perform automated verification checks for credentials and age. Reduce human error and agency effort while quickly highlighting issues through exception reporting.',
+      },
+    ],
+  },
+  'claims-and-bills': {
+    active: 'claims-and-bills',
+    label: 'Claims & Bills',
+    eyebrow: 'Claims & Bills',
+    title: 'Claims are handled quickly.',
+    subtitle:
+      'Receive prompt payments from your selected Managed Care Organization (MCOs) or State Insurance, eliminating the need to pursue or stress over unpaid claims.',
+    solutionTitle: 'Claims aggregation and cost reporting readiness',
+    solutionDescription:
+      'We help reduce claim rejections & denials and make yearly Cost Reporting Preparation easier.',
+    solutionLead:
+      'Add the necessary contraints before submitting claims to increase the chance of quick acceptance and payment.',
+    aboutTitle: 'Reduced workload, improved accuracy',
+    aboutDescription:
+      "Our simplified claims entry process aggregates visit data efficiently, reducing repetitive tasks for a smoother workflow. With automated Authorization and Eligibility validation in place, we drastically cut down the chance of human error, speeding up the claims' payment procedure.",
+  },
+};
+
+export const whatWeDo = {
+  eyebrow: 'What We Do?',
+  title: "The service we offer is designed to meet your agency's needs.",
+  description:
+    'Our solutions are carefully crafted to cater to your unique needs, emphasizing enhanced efficiency, streamlined hiring processes, strict government compliance standards, and increased profitability. We are committed to delivering a solution that not only meets but exceeds your expectations, creating an environment marked by operational efficiency, regulatory adherence, and financial growth.',
+};
+
+export const about = {
+  title: 'About Us',
+  introTitle: 'Empowering Growth Through Smart Solutions',
+  introDescription:
+    'Ryzolve is dedicated to transforming the way organizations manage learning, development, and digital adoption. With a deep understanding of modern business needs, we design scalable solutions that simplify processes, improve productivity, and foster continuous improvement.',
+  philosophyEyebrow: 'Our Philosophy ?',
+  philosophy: [
+    'At Ryzolve, we believe that progress starts with people. Our philosophy centers around user empowerment, innovation, and impact. We strive to:',
+    'Build intuitive solutions that adapt to real-world challenges.',
+    'Encourage lifelong learning and continuous development.',
+    'Collaborate closely with our partners to create measurable change.',
+  ],
+  contactTitle: "Got any questions? Don't hesitate to get in touch.",
+};
+
+export const contact = {
+  title: 'Get in Touch',
+  breadcrumb: ['Home', 'Contact'],
+  formTitle: 'Send us a message',
+  required: '* These fields are required.',
+};
+
+export const blank = {
+  title: 'This is blank page',
+};
+
+export const leadMagnet = {
+  title: '7 Common Reasons Agencies Fail State Audits.',
+  description: 'Complete the form below to receive the free downloadable guide',
+  button: 'Send email',
+};
+
+interface TestimonialItem {
+  name: string;
+  role: string;
+  quote: string;
+  media?: string;
+  cardTitle?: string;
+  cardSub?: string;
+}
+
+export const testimonials: { eyebrow: string; title: string; items: TestimonialItem[] } = {
+  eyebrow: 'HAPPY CUSTOMERS',
+  title: 'Our clients speak',
+  items: [
+    {
+      name: 'Ryzolve PAS',
+      role: 'Media, Ryzolve.com',
+      quote: 'Watch a quick summary video of how our software can help streamline your PAS business processes.',
+      media: 'https://youtu.be/KeVOcQhl2S4',
+      cardTitle: 'How Ryzolve streamlines a Texas PAS agency.',
+      cardSub: 'A short walkthrough of where Ryzolve fits — from intake to claim paid.',
+    },
+    {
+      name: 'Lola',
+      role: 'CFO, TRM Hospice Care',
+      quote: 'Four years with Ryzolve and we have not received a single penalty. The compliance side runs itself — that alone paid for it.',
+    },
+    {
+      name: 'Marcus',
+      role: 'Administrator, Lone Star Home Health',
+      quote: 'Onboarding a new aide used to take half a day. Now it is twenty minutes, and nothing slips. The team actually likes the software.',
+    },
+  ],
+};
+
+type IconKindTopic =
+  | 'shield'
+  | 'person'
+  | 'people'
+  | 'heart'
+  | 'alarm'
+  | 'hand'
+  | 'wind'
+  | 'activity'
+  | 'scales'
+  | 'clipboard'
+  | 'badge'
+  | 'stethoscope';
+
+export const training = {
+  title: 'Optimal compliance training experience',
+  description:
+    'We facilitate the licensing and training processes for home care businesses. Embark on our Administrator/Manager Training programs in Texas, offering flexible durations of 8, 12, or 16 hours. Experience the convenience of our training programs - upon completion, print your certificates instantly!',
+  // New hero (per design handoff)
+  hero: {
+    line1: 'Administrator Training &',
+    line2Accent: 'In-Service Training',
+    line3: 'for Texas Care Agencies',
+    subtitle:
+      'Complete required Administrator training as an individual learner, or subscribe your agency to monthly In-Service Training for caregivers and staff.',
+  },
+  trustPills: ['HHSC-aligned', 'Instant certificate', 'Self-paced', 'Audit-ready records'],
+  marquee: [
+    '8h · 12h · 16h Administrator courses',
+    '12 monthly in-service topics',
+    'Instant state-recognized certificates',
+    'HHSC-aligned',
+    'Self-paced',
+    'Audit-ready records',
+    'New topics every month',
+    'Up to unlimited learners',
+  ],
+  pathSplit: {
+    adminPillLabel: 'For Administrators & Alternates',
+    adminTitle: 'Certify yourself',
+    adminDescription:
+      'Buy a single Administrator Training course, study at your own pace, and download your certificate after completion.',
+    agencyPillLabel: 'For Agencies',
+    agencyTitle: 'Train your whole care team',
+    agencyDescription:
+      'One monthly subscription for caregiver and staff in-service training, with progress tracking, completion records, and certificates for audit readiness.',
+  },
+  // Admin training section
+  adminEyebrow: 'Administrator Training',
+  adminTitle: 'Required training for Administrators and Alternates.',
+  adminSubtitle:
+    'Choose the one-time course that matches your role and training requirement.',
+  // Full course catalogue (preserve original copy)
+  coursesTitle: 'Featured courses',
+  courses: [
+    {
+      slug: '8-hour-initial',
+      hours: '8 Hrs',
+      hoursNum: 8,
+      tier: 'Basic',
+      price: '$79',
+      priceNum: 79,
+      title: 'Texas Administration Program',
+      description: '8 Hours Initial Administrator Training Program',
+      short:
+        'First course for Administrators & Alternate Administrators of Home Health, Hospice, and PAS agencies in Texas.',
+      audienceShort: 'First-time',
+      eyebrow: 'Administrator training',
+      tagline: 'First-Time Administrator Training',
+      approvedFor: ['Home Health', 'Hospice', 'PAS'],
+    },
+    {
+      slug: '12-hour-existing',
+      hours: '12 Hrs',
+      hoursNum: 12,
+      tier: 'Advanced',
+      price: '$109',
+      priceNum: 109,
+      title: 'Texas Administration Program',
+      description: '12 Hours for existing administrators and alternates',
+      short:
+        'Required continuing education — 12 clock hours within each 12-month period from the date of designation.',
+      audienceShort: 'Renewal',
+      eyebrow: 'Administrator training',
+      tagline: 'Renewal Training',
+      featured: true,
+      approvedFor: ['Home Health', 'Hospice', 'PAS'],
+    },
+    {
+      slug: '16-hour-new',
+      hours: '16 Hrs',
+      hoursNum: 16,
+      tier: 'Basic & Beyond',
+      price: '$129',
+      priceNum: 129,
+      title: 'Texas Administration Program',
+      description: '16 Hours for new administrators and alternates',
+      short:
+        'Additional 16 clock hours for first-time Administrators within the first 12 months of designation (may be completed up to 12 months prior).',
+      audienceShort: 'New admins',
+      eyebrow: 'Administrator training',
+      tagline: 'New-Admin Onboarding',
+      approvedFor: ['Home Health', 'Hospice', 'PAS'],
+    },
+  ],
+  adminCoursePills: ['Self-paced', 'Instant cert', '1-year access'],
+  // In-Service intro
+  inServiceEyebrow: 'In-Service Training for Agencies',
+  inServiceLeadTitle: 'One subscription. Your care team trained every month.',
+  inServiceLeadDescription:
+    'Ryzolve In-Service Training helps agencies keep caregivers, attendants, aides, and staff trained, documented, and audit-ready with monthly training topics and completion tracking.',
+  inServiceDisclaimer:
+    'These agency plans are for In-Service Training only. They do not include Administrator Training courses.',
+  inServiceIncluded: ['Monthly topics', 'Admin dashboard', 'Completion records', 'Certificates'],
+  inServiceTitle: 'In-Service Training',
+  inServiceDescription:
+    'Monthly agency training for caregivers and staff with progress tracking, completion records, and certificates for audit readiness.',
+  inServicePlans: [
+    {
+      name: 'Starter',
+      seats: 'Up to 50 learners',
+      price: '$299',
+      description: 'For small agencies that need monthly caregiver and staff in-service training.',
+      features: [
+        'Up to 50 learners',
+        'Monthly in-service training library',
+        'Completion tracking',
+        'Certificates / completion records',
+        'Admin dashboard',
+      ],
+    },
+    {
+      name: 'Growth',
+      seats: 'Up to 100 learners',
+      price: '$499',
+      featured: true,
+      note: 'Most chosen',
+      description:
+        'For growing agencies that need better visibility into care team training completion.',
+      features: [
+        'Up to 100 learners',
+        'Monthly in-service training library',
+        'Completion tracking',
+        'Certificates / completion records',
+        'Priority support',
+      ],
+    },
+    {
+      name: 'Unlimited',
+      seats: 'Unlimited learners',
+      price: '$899',
+      description:
+        'For larger or multi-location agencies that need unlimited staff training access.',
+      features: [
+        'Unlimited learners',
+        'Monthly in-service training library',
+        'Completion tracking',
+        'Certificates / completion records',
+        'Dedicated success support',
+      ],
+    },
+  ],
+  libraryTitle: 'The monthly library, in detail.',
+  libraryDescription:
+    'Every plan above unlocks all 12 topics below — a consistent monthly program for caregivers and staff, all year long.',
+  libraryFooter:
+    'New topics and updates are added throughout the year. Every In-Service plan includes the full library.',
+  topicsTitle: 'Monthly In-Service Library',
+  topicCategories: ['All', 'Safety', 'Compliance'] as const,
+  topics: [
+    { month: 'Jan', title: 'Infection Control', category: 'Safety', icon: 'shield' as IconKindTopic },
+    { month: 'Feb', title: 'Client Rights, HIPAA & Elder Abuse', category: 'Compliance', icon: 'person' as IconKindTopic },
+    { month: 'Mar', title: 'Communication Skills & Cultural Competency', category: 'Care', icon: 'people' as IconKindTopic },
+    { month: 'Apr', title: "Dementia & Alzheimer's Care", category: 'Care', icon: 'heart' as IconKindTopic },
+    { month: 'May', title: 'Emergency & Disaster Preparedness', category: 'Safety', icon: 'alarm' as IconKindTopic },
+    { month: 'Jun', title: 'Assisting with ADLs & Safe Transfer', category: 'Safety', icon: 'hand' as IconKindTopic },
+    { month: 'Jul', title: 'TB / Airborne Pathogen + Safety Precautions', category: 'Safety', icon: 'wind' as IconKindTopic },
+    { month: 'Aug', title: 'Caregiver Self-Care', category: 'Care', icon: 'activity' as IconKindTopic },
+    { month: 'Sep', title: 'Ethics & Professional Conduct', category: 'Compliance', icon: 'scales' as IconKindTopic },
+    { month: 'Oct', title: 'Documentation & Charting', category: 'Compliance', icon: 'clipboard' as IconKindTopic },
+    { month: 'Nov', title: 'Abuse, Neglect & Exploitation Reporting', category: 'Compliance', icon: 'badge' as IconKindTopic },
+    { month: 'Dec', title: 'Vital Signs & Health Monitoring', category: 'Care', icon: 'stethoscope' as IconKindTopic },
+  ],
+  benefits: [
+    'Our programs not only meet but surpass the licensing standards mandated by the state of Texas.',
+    'Enjoy 24/7 support through chat, text, email, and phone.',
+    'Centralized account for all courses and for all certificates.',
+    'Flexible courses allow for personalized learning experiences.',
+  ],
+  // Closing dark CTA
+  cta: {
+    title: 'Get your whole team certified.',
+    description:
+      'Take a one-time Administrator course, or choose an In-Service plan for your agency.',
+  },
+  // "How it works" (from the design's shared D2 section)
+  howItWorks: {
+    eyebrow: 'How it works',
+    title: 'From purchase to certificate, in your browser.',
+    steps: [
+      {
+        n: '01',
+        t: 'Pick the right course',
+        d: 'New, renewing, or onboarding — choose the program that matches your role and the hours your license requires.',
+      },
+      {
+        n: '02',
+        t: 'Learn at your pace',
+        d: 'Self-paced modules in your browser. Pause anytime, resume on any device. One year of access included.',
+      },
+      {
+        n: '03',
+        t: 'Print your certificate',
+        d: 'Pass the final assessment and your state-recognized certificate is generated instantly. Download, print, file with HHSC.',
+      },
+    ],
+  },
+  // FAQs (preserve original copy verbatim)
+  faqs: {
+    eyebrow: 'FAQs',
+    title: 'Questions, answered straight.',
+    items: [
+      {
+        q: 'How do I sign up for Ryzolve training?',
+        a: "Pick a course and click Buy Now. You'll be redirected to the new Ryzolve learning portal at learn.ryzolve.app to create your account and complete checkout in a single flow.",
+      },
+      {
+        q: "I'm an existing learner — where do I sign in?",
+        a: 'Use the Training Login button in the header, or go straight to learn.ryzolve.app. Your courses, progress, and certificates all live in the new portal.',
+      },
+      {
+        q: 'Are these courses approved for Texas administrators?',
+        a: 'Yes. All three programs meet or exceed the licensing standards mandated by the State of Texas (HHSC) for Home Health, Hospice, and PAS administrators.',
+      },
+      {
+        q: 'How fast do I get my certificate?',
+        a: 'Instantly. Once you complete the final assessment, your certificate is generated and available to download from the portal. No waiting, no mailing.',
+      },
+      {
+        q: 'Can I take a course at my own pace?',
+        a: 'Yes. Start, stop, and resume on any device. You have one year of access from the date of purchase to complete and revisit the material.',
+      },
+      {
+        q: 'Do I need to install anything?',
+        a: 'No. Everything runs in your browser — desktop, tablet, or mobile. We never ask you to install software.',
+      },
+      {
+        q: "What if I have a question while I'm taking the course?",
+        a: 'Reach our team 24/7 by chat, text, email, or phone. We answer most questions within minutes during business hours.',
+      },
+    ],
+  },
+};
+
+export const footer = {
+  heading: 'Join the Community',
+  intro: 'Provider management software for PAS, Home Health, and Hospice agencies. Less paperwork. Fewer denials. Audit-ready by default.',
+  needHelp:
+    'Reach out to us by clicking here to book a session with one of our specialists',
+  learnMore: [
+    { label: 'Document management', href: '/document-management' },
+    { label: 'Compliance & Regulations', href: '/compliance-regulation' },
+    { label: 'Claims & Billing', href: '/claims-and-bills' },
+  ],
+  social: [
+    { label: 'FB', fullLabel: 'Facebook', href: 'https://facebook.com/ryzolve' },
+    { label: 'IG', fullLabel: 'Instagram', href: 'https://instagram.com/' },
+    { label: 'YT', fullLabel: 'YouTube', href: 'https://www.youtube.com/@Ryzolve' },
+    { label: 'X', fullLabel: 'Twitter / X', href: 'https://twitter.com/' },
+  ],
+};

@@ -1,0 +1,2618 @@
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import SEO from './SEO';
+import { SHADER_FLOW, SHADER_LIQUID } from './ShaderCanvas';
+
+// Client-only — WebGL needs window
+const ShaderCanvas = dynamic(() => import('./ShaderCanvas'), { ssr: false });
+
+import {
+  agencyInServiceSignupHref,
+  fallbackAdministratorCourses,
+  trainingCourseDetailHref,
+  trainingCoursePurchaseHref,
+  trainingBaseUrl,
+  type TrainingCourseCard,
+} from './training-courses';
+
+import {
+  about,
+  blank,
+  company,
+  contact,
+  footer,
+  home,
+  homeTrainingCta,
+  leadMagnet,
+  nav,
+  products,
+  proofPoints,
+  sharedServices,
+  testimonials,
+  training,
+  whatWeDo,
+  type ProductSlug,
+} from './content';
+
+type ActiveKey =
+  | ProductSlug
+  | 'home'
+  | 'products'
+  | 'training'
+  | 'about-us'
+  | 'contact'
+  | 'calendly'
+  | 'blank';
+
+function strapiBaseUrl() {
+  return process.env.NEXT_PUBLIC_STRAPI_URL || '';
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Brand mark + product icons
+   ════════════════════════════════════════════════════════════════ */
+
+export function RyzolveMark({
+  className = '',
+  accent = '#FF774C',
+}: {
+  className?: string;
+  /** Middle band color. Top + bottom bands use `currentColor`. */
+  accent?: string;
+}) {
+  return (
+    <svg className={`rz-mark ${className}`} viewBox="0 0 217 156" fill="none" aria-hidden="true">
+      <path d="M216.457 46.4253H55.909L0 0H160.548L216.457 46.4253Z" fill="currentColor" />
+      <path d="M0 99.0439H160.548L216.456 46.4253H55.9098L0 99.0439Z" fill={accent} />
+      <path d="M216.443 155.821H55.8947L0 99.044H160.548L216.443 155.821Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+type IconKind = 'document' | 'shield' | 'card' | 'training';
+
+function ProductIcon({ kind, size = 22 }: { kind: IconKind; size?: number }) {
+  const common = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none' as const };
+  switch (kind) {
+    case 'document':
+      return (
+        <svg {...common} aria-hidden="true">
+          <path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.6" />
+          <path d="M15 3v4h4M8 12h8M8 16h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+    case 'shield':
+      return (
+        <svg {...common} aria-hidden="true">
+          <path d="M12 3 4 6v6c0 4.5 3.4 8.4 8 9 4.6-.6 8-4.5 8-9V6l-8-3Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="m8.5 12 2.5 2.5L15.5 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case 'card':
+      return (
+        <svg {...common} aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.6" />
+          <path d="M3 10h18M7 15h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+    case 'training':
+      return (
+        <svg {...common} aria-hidden="true">
+          <path d="M2 9l10-4 10 4-10 4L2 9Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M6 11v4c0 1.5 2.7 3 6 3s6-1.5 6-3v-4M21 10v6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+  }
+}
+
+function serviceToIcon(slug: string): IconKind {
+  if (slug === 'compliance-regulation' || slug.includes('compliant')) return 'shield';
+  if (slug === 'claims-and-bills' || slug.includes('profits')) return 'card';
+  if (slug === 'training') return 'training';
+  return 'document';
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Buttons
+   ════════════════════════════════════════════════════════════════ */
+
+type BtnVariant = 'primary' | 'secondary' | 'coral' | 'light' | 'ghost';
+
+function CTA({
+  href,
+  variant = 'primary',
+  children,
+  icon = '→',
+  block = false,
+  newTab = false,
+  className,
+}: {
+  href: string;
+  variant?: BtnVariant;
+  children: ReactNode;
+  icon?: ReactNode | false;
+  block?: boolean;
+  newTab?: boolean;
+  className?: string;
+}) {
+  const cls = ['rz-btn', `rz-btn-${variant}`, block && 'rz-btn-block', className]
+    .filter(Boolean)
+    .join(' ');
+  const isExternal = /^https?:\/\//.test(href) || newTab;
+  if (isExternal) {
+    return (
+      <a className={cls} href={href} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>
+        <span>{children}</span>
+        {icon !== false && <span className="rz-btn-arrow" aria-hidden="true">{icon}</span>}
+      </a>
+    );
+  }
+  return (
+    <Link className={cls} href={href}>
+      <span>{children}</span>
+      {icon !== false && <span className="rz-btn-arrow" aria-hidden="true">{icon}</span>}
+    </Link>
+  );
+}
+
+function ButtonBtn({
+  onClick,
+  variant = 'primary',
+  type = 'button',
+  children,
+  icon = '→',
+  block = false,
+  disabled,
+}: {
+  onClick?: () => void;
+  variant?: BtnVariant;
+  type?: 'button' | 'submit';
+  children: ReactNode;
+  icon?: ReactNode | false;
+  block?: boolean;
+  disabled?: boolean;
+}) {
+  const cls = ['rz-btn', `rz-btn-${variant}`, block && 'rz-btn-block'].filter(Boolean).join(' ');
+  return (
+    <button type={type} className={cls} onClick={onClick} disabled={disabled}>
+      <span>{children}</span>
+      {icon !== false && <span className="rz-btn-arrow" aria-hidden="true">{icon}</span>}
+    </button>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Animated word swap (hero)
+   ════════════════════════════════════════════════════════════════ */
+
+function AnimatedWords({ words }: { words: string[] }) {
+  const cycle = words.length * 2400;
+  return (
+    <span className="rz-word-frame" aria-live="polite" style={{ ['--rz-word-count' as never]: words.length }}>
+      <span className="rz-word-ghost">{words[0]}</span>
+      {words.map((word, i) => (
+        <span
+          key={word}
+          className="rz-word"
+          style={{ animationDelay: `${i * 2400}ms`, animationDuration: `${cycle}ms` }}
+        >
+          {word}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Header / Footer / Layout
+   ════════════════════════════════════════════════════════════════ */
+
+function Header({ active, inner = false }: { active: ActiveKey; inner?: boolean }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const trainingUrl = trainingBaseUrl();
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const productsActive = active === 'products' || nav.products.some((p) => p.slug === active);
+
+  useEffect(() => {
+    function handler(e: MouseEvent) {
+      if (!wrapRef.current?.contains(e.target as Node)) setProductsOpen(false);
+    }
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  function openProducts() {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setProductsOpen(true);
+  }
+  function scheduleCloseProducts() {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = setTimeout(() => setProductsOpen(false), 180);
+  }
+
+  return (
+    <>
+      <div className="rz-promo">
+        <span>New</span>
+        <strong>2026 HHSC compliance updates are live in Ryzolve.</strong>
+        <Link href="/training">See what&apos;s new →</Link>
+      </div>
+      <header className={mobileOpen ? 'rz-header rz-nav-open' : 'rz-header'}>
+        <Link href="/" className="rz-brand" aria-label="Ryzolve home">
+          <RyzolveMark />
+          <span>Ryzolve</span>
+        </Link>
+
+        <button
+          className="rz-menu-button"
+          type="button"
+          onClick={() => setMobileOpen((v) => !v)}
+          aria-expanded={mobileOpen}
+        >
+          Menu
+        </button>
+
+        <nav className="rz-nav" aria-label="Main navigation">
+          {nav.links
+            .filter((item) => item.slug === 'home')
+            .map((item) => (
+              <Link key={item.href} className={active === item.slug ? 'active' : ''} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          <div
+            className={productsActive ? 'rz-products-nav active' : 'rz-products-nav'}
+            data-open={productsOpen}
+            ref={wrapRef}
+            onMouseEnter={openProducts}
+            onMouseLeave={scheduleCloseProducts}
+          >
+            <button type="button" onClick={() => setProductsOpen((v) => !v)} aria-expanded={productsOpen}>
+              Our Products
+              <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              </svg>
+            </button>
+            {productsOpen && (
+              <div className="rz-products-menu" role="menu">
+                {nav.products.map((p) => (
+                  <Link key={p.href} href={p.href} role="menuitem">
+                    <span className="rz-pm-icon">
+                      <ProductIcon kind={serviceToIcon(p.slug)} size={18} />
+                    </span>
+                    <div>
+                      <strong>{p.label}</strong>
+                      <span>{p.short}</span>
+                    </div>
+                  </Link>
+                ))}
+                <hr />
+                <Link href="/#products" className="rz-menu-see-all">See all products →</Link>
+              </div>
+            )}
+          </div>
+          {nav.links
+            .filter((item) => item.slug !== 'home')
+            .map((item) => (
+              <Link key={item.href} className={active === item.slug ? 'active' : ''} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+        </nav>
+
+        <div className="rz-header-actions">
+          {inner ? (
+            <>
+              <a href={company.providerLoginUrl}>Login</a>
+              <Link href="/calendly" className="rz-pill-cta">
+                Book a demo
+                <span aria-hidden="true">→</span>
+              </Link>
+            </>
+          ) : (
+            <>
+              <a href={`${trainingUrl}/auth/login`}>Training login</a>
+              <a href={company.providerLoginUrl} className="rz-pill-cta">
+                Login
+                <span aria-hidden="true">→</span>
+              </a>
+            </>
+          )}
+        </div>
+      </header>
+    </>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="rz-footer">
+      <div className="rz-footer-grid">
+        <section>
+          <div className="rz-footer-brand">
+            <RyzolveMark accent="#FFFFFF" />
+            <span>Ryzolve</span>
+          </div>
+          <p className="rz-footer-intro">{footer.intro}</p>
+          <div className="rz-footer-cta-row">
+            <CTA href="/calendly" variant="coral">Book a demo</CTA>
+            <CTA href={company.providerLoginUrl} variant="ghost" icon={false}>Login</CTA>
+          </div>
+        </section>
+        <section>
+          <h4>Products</h4>
+          {nav.products.map((p) => (
+            <Link key={p.href} href={p.href}>{p.label}</Link>
+          ))}
+          <Link href="/training">Training</Link>
+        </section>
+        <section>
+          <h4>Company</h4>
+          <Link href="/about-us">About</Link>
+          <Link href="/contact">Contact</Link>
+          <Link href="/training">Training</Link>
+          <Link href="/calendly">Book a demo</Link>
+        </section>
+        <section>
+          <h4>Get in touch</h4>
+          <div className="rz-footer-contact">
+            {company.address}
+            <br />
+            <br />
+            <a href={`tel:${company.phone}`}>{company.phoneDisplay}</a>
+            <br />
+            <a href={`mailto:${company.email}`}>{company.email}</a>
+          </div>
+          <div className="rz-social-row">
+            {footer.social.map((s) => (
+              <a key={s.label} href={s.href} aria-label={s.fullLabel} target="_blank" rel="noopener noreferrer">
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </section>
+      </div>
+      <div className="rz-footer-bottom">
+        <div>© {new Date().getFullYear()} {company.name}. All rights reserved.</div>
+        <div className="rz-footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export function SiteLayout({
+  active,
+  inner = false,
+  children,
+}: {
+  active: ActiveKey;
+  inner?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div className="rz-site">
+      <Header active={active} inner={inner} />
+      {children}
+      <Footer />
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Section header
+   ════════════════════════════════════════════════════════════════ */
+
+function SectionHeader({
+  eyebrow,
+  eyebrowColor = 'blue',
+  title,
+  description,
+  center = false,
+  dark = false,
+  className,
+}: {
+  eyebrow?: string;
+  eyebrowColor?: 'blue' | 'coral';
+  title: ReactNode;
+  description?: string;
+  center?: boolean;
+  dark?: boolean;
+  className?: string;
+}) {
+  const cls = [
+    'rz-shead',
+    center && 'rz-shead-center',
+    dark && 'rz-shead-dark',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+  const eyebrowCls = ['rz-eyebrow', eyebrowColor === 'coral' && 'rz-eyebrow-coral'].filter(Boolean).join(' ');
+  return (
+    <div className={cls}>
+      {eyebrow && <p className={eyebrowCls}>{eyebrow}</p>}
+      <h2>{title}</h2>
+      {description && <p>{description}</p>}
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Hero illustration (faithful SVG)
+   ════════════════════════════════════════════════════════════════ */
+
+function HeroIllo() {
+  return (
+    <div className="rz-hero-illo">
+      <svg viewBox="0 0 600 540" aria-hidden="true">
+        <g stroke="#0D5992" fill="none" opacity="0.28">
+          <circle cx="380" cy="270" r="60" />
+          <circle cx="380" cy="270" r="130" />
+          <circle cx="380" cy="270" r="200" />
+          <circle cx="380" cy="270" r="270" strokeDasharray="2 6" />
+        </g>
+        <circle cx="380" cy="270" r="44" fill="#FFFFFF" stroke="#DCEAF5" strokeWidth="2" />
+        <path d="M363 270 l12 12 22-26" stroke="#0D5992" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+
+        {/* Compliance card */}
+        <g transform="translate(80,130)">
+          <rect width="220" height="96" rx="14" fill="#FFFFFF" stroke="#E7E5E0" />
+          <rect x="16" y="16" width="32" height="32" rx="8" fill="#DCEAF5" />
+          <path d="M24 32 l6 6 10-12" stroke="#083E69" strokeWidth="2.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <text x="60" y="34" fontFamily="Inter, system-ui, sans-serif" fontSize="11" fontWeight="600" fill="#6B7280" letterSpacing="1.5">COMPLIANT</text>
+          <text x="60" y="54" fontFamily="Inter, system-ui, sans-serif" fontSize="16" fontWeight="700" fill="#0B0E12">HHSC audit ready</text>
+          <text x="16" y="80" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#6B7280">Last check · 04 hrs ago</text>
+        </g>
+
+        {/* Claim card */}
+        <g transform="translate(60,340)">
+          <rect width="280" height="124" rx="14" fill="#0D5992" />
+          <rect x="16" y="16" width="44" height="44" rx="22" fill="#FF774C" />
+          <text x="38" y="44" textAnchor="middle" fontFamily="Inter, system-ui, sans-serif" fontSize="18" fontWeight="700" fill="#fff">$</text>
+          <text x="72" y="36" fontFamily="Inter, system-ui, sans-serif" fontSize="11" fontWeight="600" fill="#FF774C" letterSpacing="1.5">CLAIM PAID</text>
+          <text x="72" y="56" fontFamily="Inter, system-ui, sans-serif" fontSize="20" fontWeight="600" fill="#fff">$4,820.00</text>
+          <text x="16" y="92" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="rgba(255,255,255,0.5)">RYZ-CLM-7741 · Amerigroup TX</text>
+          <text x="16" y="108" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="rgba(255,255,255,0.5)">Approved · 05/22/26 · First pass</text>
+        </g>
+
+        {/* Stat */}
+        <g transform="translate(400,440)">
+          <rect width="170" height="60" rx="12" fill="#FFFFFF" stroke="#E7E5E0" />
+          <text x="14" y="22" fontFamily="Inter, system-ui, sans-serif" fontSize="10" fontWeight="600" fill="#6B7280" letterSpacing="1.5">DENIALS · 30D</text>
+          <text x="14" y="44" fontFamily="Inter, system-ui, sans-serif" fontSize="22" fontWeight="700" fill="#0B0E12">0.8%</text>
+          <text x="105" y="44" fontFamily="Inter, system-ui, sans-serif" fontSize="12" fontWeight="500" fill="#1F8A5B">↓ 86%</text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Home page sections
+   ════════════════════════════════════════════════════════════════ */
+
+function OrganizationJsonLd() {
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ryzolve.com').replace(/\/$/, '');
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: company.name,
+    legalName: company.name,
+    url: siteUrl,
+    logo: `${siteUrl}/img/favicon.png`,
+    description:
+      'Provider management software for PAS, Home Health, and Hospice agencies. Less paperwork. Fewer denials. Audit-ready by default.',
+    foundingLocation: 'New Waverly, Texas',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '9309 Highway 75 S Ste 102',
+      addressLocality: 'New Waverly',
+      addressRegion: 'TX',
+      postalCode: '77358',
+      addressCountry: 'US',
+    },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        telephone: '+1-936-355-0920',
+        email: company.email,
+        availableLanguage: ['en'],
+        areaServed: 'US',
+      },
+    ],
+    sameAs: [
+      'https://facebook.com/ryzolve',
+      'https://www.youtube.com/@Ryzolve',
+    ],
+  };
+  return (
+    <script
+      type="application/ld+json"
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+function HomeHero() {
+  return (
+    <section className="rz-hero">
+      <div className="rz-shader-bg" aria-hidden="true">
+        {/* SHADER_FLOW @ 0.45 — matches RZ_Hero in main-sections.jsx */}
+        <ShaderCanvas
+          shader={SHADER_FLOW}
+          palette={['#0D5992', '#FF774C', '#083E69', '#FAFAF7']}
+          opacity={0.45}
+        />
+      </div>
+      <div className="rz-hero-grid">
+        <div>
+          <span className="rz-pill">Provider management software · Built in Texas</span>
+          <h1>
+            {home.hero.title}
+            <br />
+            <AnimatedWords words={home.hero.animatedWords} />
+          </h1>
+          <p className="rz-hero-sub">{home.hero.subtitle}</p>
+          <div className="rz-hero-actions">
+            <CTA href="/calendly">Book a demo</CTA>
+            <CTA href="#products" variant="secondary" icon={false}>See our products</CTA>
+          </div>
+          <div className="rz-hero-trust">
+            <span>✓ HHSC-aligned</span>
+            <span>✓ Implements in &lt;1 week</span>
+            <span>✓ 4+ yrs no penalties (founding customers)</span>
+          </div>
+        </div>
+        <HeroIllo />
+      </div>
+    </section>
+  );
+}
+
+function ProofBand() {
+  return (
+    <section className="rz-proof-band">
+      <div className="rz-wrap">
+        {proofPoints.map((p) => (
+          <div className="rz-proof-cell" key={p.label}>
+            <strong>{p.stat}</strong>
+            <b>{p.label}</b>
+            <span>{p.sub}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function CountUp({ to, duration = 1600, decimals = 0 }: { to: number; duration?: number; decimals?: number }) {
+  const [v, setV] = useState(0);
+  const ref = useRef<HTMLSpanElement | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let raf = 0;
+    let start = 0;
+    let started = false;
+    const animate = (now: number) => {
+      if (!start) start = now;
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setV(to * eased);
+      if (t < 1) raf = requestAnimationFrame(animate);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !started) {
+            started = true;
+            raf = requestAnimationFrame(animate);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+    };
+  }, [to, duration]);
+  return <span ref={ref}>{v.toFixed(decimals)}</span>;
+}
+
+function StatsBand() {
+  return (
+    <section className="rz-stats-band">
+      {/* SHADER_LIQUID — the cosmic metaball the design actually uses, with the
+          canonical palette [accentDeep, accent, coral, white] from main-fx.jsx. */}
+      <div className="rz-shader-bg" aria-hidden="true">
+        <ShaderCanvas
+          shader={SHADER_LIQUID}
+          palette={['#083E69', '#0D5992', '#FF774C', '#FFFFFF']}
+          opacity={1}
+        />
+      </div>
+      <div className="rz-wrap">
+        <span className="rz-stats-badge">
+          <span className="rz-stats-badge-dot" aria-hidden="true" />
+          By the numbers
+        </span>
+        <h2>
+          Eight years of building from inside an agency. <em>Distilled</em> into one platform.
+        </h2>
+        <p>
+          Built and re-built around what HHSC actually surveys for — not a generic EHR bolted onto a state form. Numbers across our founding-customer cohort.
+        </p>
+        <div className="rz-stats-grid">
+          <div className="rz-stat-card">
+            <strong>
+              <CountUp to={4} duration={1400} /><span className="rz-stat-suffix">+ yrs</span>
+            </strong>
+            <span className="rz-stat-label">Zero penalties · founding customers</span>
+          </div>
+          <div className="rz-stat-card">
+            <strong>
+              <CountUp to={99.2} duration={1800} decimals={1} /><span className="rz-stat-suffix">%</span>
+            </strong>
+            <span className="rz-stat-label">First-pass claim acceptance</span>
+          </div>
+          <div className="rz-stat-card">
+            <strong>
+              <CountUp to={86} duration={1600} /><span className="rz-stat-suffix">%</span>
+            </strong>
+            <span className="rz-stat-label">Drop in denials, year one</span>
+          </div>
+          <div className="rz-stat-card">
+            <strong>
+              <span className="rz-stat-coral">$</span>
+              <CountUp to={1.4} duration={1600} decimals={1} /><span className="rz-stat-suffix">M+</span>
+            </strong>
+            <span className="rz-stat-label">Recovered revenue, agency avg</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BenefitsSection() {
+  return (
+    <section id="products" className="rz-section rz-benefits">
+      <div className="rz-wrap">
+        <SectionHeader
+          eyebrow="What we do"
+          title={home.benefits.title}
+        />
+        <div className="rz-benefits-grid">
+          {sharedServices.map((service, index) => (
+            <Link key={service.title} href={service.href} className="rz-benefit-card">
+              <div className="rz-benefit-card-head">
+                <span className="rz-icon-square rz-icon-square-deep">
+                  <ProductIcon kind={service.icon as IconKind} size={22} />
+                </span>
+                <span className="rz-step-tag">STEP 0{index + 1}</span>
+              </div>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <span className="rz-card-foot">
+                Learn more <span className="rz-btn-arrow" aria-hidden="true">→</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeSolutions() {
+  return (
+    <section className="rz-section rz-solutions rz-solutions-home">
+      <div className="rz-wrap rz-solutions-board">
+        <div className="rz-solutions-copy">
+          <p className="rz-eyebrow">{home.solutions.eyebrow}</p>
+          <h2>{home.solutions.title}</h2>
+          <p>{home.solutions.description}</p>
+          <div className="rz-solutions-actions">
+            <CTA href="/calendly">Book a Demo</CTA>
+          </div>
+        </div>
+        <div className="rz-solutions-ledger">
+          <div className="rz-solutions-ledger-head">
+            <span className="rz-icon-square rz-icon-square-deep">
+              <ProductIcon kind="shield" size={22} />
+            </span>
+            <div>
+              <span className="rz-panel-eyebrow">Agency outcomes</span>
+              <div className="rz-panel-title">{home.solutions.subheading}</div>
+            </div>
+          </div>
+          <div className="rz-solutions-metrics">
+            {home.solutions.bullets.map((bullet, i) => {
+              const meta = home.solutions.bulletStats[i] ?? { value: '—', unit: '' };
+              return (
+                <div className="rz-solutions-metric-row" key={bullet}>
+                  <span className="rz-solutions-metric-index">0{i + 1}</span>
+                  <div className="rz-solutions-metric-value">
+                    <b>{meta.value}</b>
+                    <span>{meta.unit}</span>
+                  </div>
+                  <p>{bullet}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeStrategy() {
+  return (
+    <section className="rz-section rz-strategy">
+      <div className="rz-wrap">
+        <SectionHeader
+          eyebrow={home.strategy.eyebrow}
+          title={home.strategy.title}
+          description={home.strategy.description}
+        />
+        <div className="rz-strategy-grid">
+          {home.strategy.steps.map((step, i) => (
+            <Link key={step.title} href={step.href} className="rz-strategy-card">
+              <div className="rz-strategy-card-head">
+                <span className="rz-icon-square rz-icon-square-deep">
+                  <ProductIcon kind={(['document', 'shield', 'card'] as IconKind[])[i]} size={22} />
+                </span>
+                <span className="rz-step-tag">STEP 0{i + 1}</span>
+              </div>
+              <h3>{step.title}</h3>
+              <ul className="rz-check-list">
+                {step.bullets.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+              <span className="rz-card-foot">
+                See module <span className="rz-btn-arrow" aria-hidden="true">→</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeHowItWorks() {
+  return (
+    <section className="rz-section rz-how">
+      <div className="rz-wrap">
+        <SectionHeader
+          eyebrow={home.howItWorks.eyebrow}
+          title={home.howItWorks.title}
+        />
+        <div className="rz-how-grid">
+          {home.howItWorks.steps.map((step, i) => (
+            <article className="rz-how-card" key={step.title}>
+              <div className="rz-how-head">
+                <span className="rz-n">0{i + 1}</span>
+                <span className="rz-n-circle">{i + 1}</span>
+              </div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </article>
+          ))}
+        </div>
+        <div className="rz-how-cta">
+          <CTA href="/calendly">Book a demo</CTA>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeTrainingCta() {
+  return (
+    <section id="training-cta" className="rz-section rz-training-cta">
+      <div className="rz-wrap rz-training-cta-grid">
+        <div className="rz-training-cta-copy">
+          <p className="rz-eyebrow rz-eyebrow-coral">{homeTrainingCta.eyebrow}</p>
+          <h2>{homeTrainingCta.title}</h2>
+          <p>{homeTrainingCta.description}</p>
+          <div className="rz-training-cta-actions">
+            <CTA href="/training" variant="coral">{homeTrainingCta.primaryCta}</CTA>
+            <CTA href="/training#admin-training" variant="light">{homeTrainingCta.secondaryCta}</CTA>
+          </div>
+          <p className="rz-training-cta-note">{homeTrainingCta.supporting}</p>
+        </div>
+        <ul className="rz-training-cta-list" aria-label="Training options">
+          {homeTrainingCta.highlights.map((item) => (
+            <li key={item}>
+              <span aria-hidden="true">✓</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function TestimonialsSection() {
+  const video = testimonials.items.find((t) => t.media) ?? testimonials.items[0];
+  const quotes = testimonials.items.filter((t) => !t.media).slice(0, 2);
+  return (
+    <section className="rz-section rz-tm">
+      <div className="rz-wrap">
+        <SectionHeader
+          eyebrow={testimonials.eyebrow}
+          title={testimonials.title}
+          center
+        />
+        <div className="rz-tm-layout">
+          <div className="rz-tm-video">
+            <span className="rz-tm-tag">Watch · 2 min</span>
+            <h3>{video.cardTitle ?? 'How Ryzolve streamlines a Texas PAS agency.'}</h3>
+            <p>{video.cardSub ?? video.quote}</p>
+            <div className="rz-tm-video-action">
+              <a className="rz-tm-play" href={video.media ?? '#'} target="_blank" rel="noopener noreferrer" aria-label={`Watch ${video.name}`}>
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M5 3l12 7-12 7z" fill="currentColor" />
+                </svg>
+                <span className="rz-tm-play-label">Watch video</span>
+              </a>
+              <span>Opens YouTube</span>
+            </div>
+            <div className="rz-tm-video-meta">
+              <div>
+                <b>{video.name}</b>
+                <span>{video.role}</span>
+              </div>
+            </div>
+          </div>
+          <div className="rz-tm-quotes">
+            {quotes.map((q) => (
+              <div className="rz-tm-quote" key={q.name}>
+                <div className="rz-tm-mark">&ldquo;</div>
+                <blockquote>{q.quote}</blockquote>
+                <div className="rz-tm-author">
+                  <span className="rz-tm-avatar">{q.name.charAt(0)}</span>
+                  <div>
+                    <b>{q.name}</b>
+                    <span>{q.role}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeTrainingBand() {
+  const trainingUrl = trainingBaseUrl();
+  return (
+    <section className="rz-training-band">
+      <div className="rz-training-band-inner">
+        <div>
+          <p className="rz-eyebrow rz-eyebrow-coral">Ryzolve Training</p>
+          <h2>{training.title}</h2>
+          <p>{training.description}</p>
+          <div className="rz-hero-actions">
+            <CTA href="/training" variant="coral">Browse the 3 courses</CTA>
+            <CTA href={`${trainingUrl}/auth/login`} variant="ghost" icon={false}>Training login</CTA>
+          </div>
+        </div>
+        <div className="rz-training-courses-mini">
+          {[
+            { h: '8', tag: 'First-time' },
+            { h: '12', tag: 'Renewal' },
+            { h: '16', tag: 'Onboarding' },
+          ].map((c) => (
+            <div className="rz-mini-course-card" key={c.h}>
+              <b>
+                {c.h}
+                <span>h</span>
+              </b>
+              <span>{c.tag}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LeadMagnetSection() {
+  const [form, setForm] = useState({ name: '', email: '' });
+  const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmitting(true);
+    try {
+      await fetch(`${strapiBaseUrl()}/api/customers`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: { name: form.name, email: form.email, source: 'ryzolve' } }),
+      });
+      toast('Email sent successfully');
+      setSent(true);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <section className="rz-section rz-lead">
+      <div className="rz-lead-card">
+        <div>
+          <p className="rz-eyebrow">Free guide</p>
+          <h2>{leadMagnet.title}</h2>
+          <p>{leadMagnet.description}</p>
+          <ul className="rz-lead-bullets">
+            <li>What HHSC actually looks for</li>
+            <li>The 7 most common audit triggers</li>
+            <li>A weekly 60-minute prep checklist</li>
+          </ul>
+        </div>
+        <div>
+          {sent ? (
+            <div className="rz-form-card rz-form-success">
+              <div className="rz-success-mark">✓</div>
+              <h3>Email sent successfully.</h3>
+              <p>Check {form.email || 'your inbox'} — the guide is on its way.</p>
+            </div>
+          ) : (
+            <form className="rz-form-card" onSubmit={submit}>
+              <label className="rz-field">
+                <span className="rz-field-label">Your name</span>
+                <input className="rz-input" required placeholder="Jane Doe" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              </label>
+              <label className="rz-field">
+                <span className="rz-field-label">Work email</span>
+                <input className="rz-input" required type="email" placeholder="jane@agency.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              </label>
+              <div className="rz-submit-row">
+                <ButtonBtn type="submit" block disabled={submitting} icon={false}>
+                  {submitting ? 'Sending…' : leadMagnet.button}
+                </ButtonBtn>
+              </div>
+              <p className="rz-form-helper rz-form-helper-center">No spam. We email it once. Unsubscribe anytime.</p>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function HomePage() {
+  return (
+    <SiteLayout active="home">
+      <SEO
+        title="Provider Management Software for PAS, Home Health & Hospice"
+        description="Ryzolve is provider management software for Texas PAS, Home Health, and Hospice agencies. Cut paperwork, reduce denials, stay HHSC audit-ready — in one platform."
+        path="/"
+        keywords={[
+          'provider management software',
+          'PAS software',
+          'home health software',
+          'hospice software',
+          'HHSC compliance',
+          'Texas home care',
+          'claims management',
+          'document management',
+        ]}
+      />
+      <OrganizationJsonLd />
+      <main>
+        <HomeHero />
+        <ProofBand />
+        <BenefitsSection />
+        <StatsBand />
+        <HomeStrategy />
+        <HomeSolutions />
+        <HomeHowItWorks />
+        <HomeTrainingCta />
+        <TestimonialsSection />
+        <HomeTrainingBand />
+        <LeadMagnetSection />
+      </main>
+    </SiteLayout>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Product pages
+   ════════════════════════════════════════════════════════════════ */
+
+function ProductHero({ slug }: { slug: ProductSlug }) {
+  const product = products[slug];
+  return (
+    <section className="rz-prod-hero">
+      <span className="rz-tr-hero-blob rz-tr-hero-blob-a" aria-hidden="true" />
+      <span className="rz-tr-hero-blob rz-tr-hero-blob-b" aria-hidden="true" />
+      <div className="rz-prod-hero-inner">
+        <p className="rz-breadcrumb rz-about-breadcrumb">
+          <Link href="/">Home</Link>
+          <span className="sep">/</span>
+          <Link href="/#products">Products</Link>
+          <span className="sep">/</span>
+          <span className="current">{product.eyebrow}</span>
+        </p>
+        <span className="rz-pill rz-contact-hero-pill">{product.eyebrow}</span>
+        <h1>
+          <span className="rz-tr-hline"><span style={{ animationDelay: '.12s' }}>{product.title}</span></span>
+        </h1>
+        <p className="rz-prod-hero-sub">{product.subtitle}</p>
+        <div className="rz-page-hero-actions rz-prod-hero-actions">
+          <CTA href="/calendly">Book a demo</CTA>
+          <CTA href="#solutions" variant="secondary" icon={false}>Explore</CTA>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhatWeDoSection() {
+  return (
+    <section className="rz-wwd">
+      <div className="rz-wrap">
+        <div className="rz-wwd-head">
+          <div>
+            <p className="rz-eyebrow">{whatWeDo.eyebrow.replace(/\?$/, '')}</p>
+            <h2>{whatWeDo.title}</h2>
+          </div>
+          <p>{whatWeDo.description}</p>
+        </div>
+        <div className="rz-wwd-grid">
+          {sharedServices.map((service, i) => (
+            <Link key={service.title} href={service.href} className="rz-wwd-card">
+              <span className="rz-icon-square">
+                <ProductIcon kind={service.icon as IconKind} size={20} />
+              </span>
+              <p className="rz-benefit-num">0{i + 1}</p>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DocFilingMock() {
+  const rows: Array<[string, string, 'ok' | 'warn' | 'muted']> = [
+    ['Client intake', 'Complete', 'ok'],
+    ['Plan of care', 'Complete', 'ok'],
+    ['Medication list', 'Complete', 'ok'],
+    ['Background check', 'Complete', 'ok'],
+    ['Auth · Amerigroup', 'In review', 'warn'],
+    ['Annual eval', 'Scheduled', 'muted'],
+  ];
+  return (
+    <div className="rz-doc-mock">
+      <div className="rz-doc-mock-head">
+        <div>
+          <ProductIcon kind="document" size={18} />
+          Documents · A. Khan
+        </div>
+        <span className="rz-filed">FILED · 05/22/26</span>
+      </div>
+      <div className="rz-doc-mock-grid">
+        {rows.map(([label, status, tone]) => (
+          <div key={label}>
+            <b>{label}</b>
+            <span className={`rz-doc-status-${tone}`}>{status}</span>
+          </div>
+        ))}
+      </div>
+      <div className="rz-doc-mock-footer">
+        <i>i</i>
+        All required documents on file. Audit-ready.
+      </div>
+    </div>
+  );
+}
+
+function DocTemplatesMock() {
+  const docs = [
+    ['Client Intake · PAS', 'Updated 2 days ago'],
+    ['Medication Management', 'Updated last week'],
+    ['Plan of Care · Home Health', 'Updated last month'],
+    ['Auth Request · Amerigroup', 'Updated 3 days ago'],
+    ['Annual Eval Checklist', 'Updated 4 days ago'],
+  ];
+  return (
+    <div className="rz-templates-mock">
+      <div className="rz-templates-mock-head">
+        <b>Document templates</b>
+        <span>5 of 47</span>
+      </div>
+      <div className="rz-templates-list">
+        {docs.map(([name, when], i) => (
+          <div className="rz-templates-list-row" key={name}>
+            <span className={i === 1 ? 'rz-icon-square rz-icon-square-deep' : 'rz-icon-square'}>
+              <ProductIcon kind="document" size={16} />
+            </span>
+            <div>
+              <b>{name}</b>
+              <span>{when}</span>
+            </div>
+            <i>Live</i>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ShieldMock() {
+  return (
+    <div className="rz-doc-mock">
+      <div className="rz-doc-mock-head">
+        <div>
+          <ProductIcon kind="shield" size={18} />
+          Compliance monitor · 30 days
+        </div>
+        <span className="rz-filed">UPDATED · 06h ago</span>
+      </div>
+      <div className="rz-doc-mock-grid">
+        {[
+          ['OIG U.S.DHHS', 'Clear', 'ok'],
+          ['TXL OIG HHSC', 'Clear', 'ok'],
+          ['TX DADS · EMR', 'Clear', 'ok'],
+          ['License renewal', 'Due in 22d', 'warn'],
+          ['Annual eval', 'Scheduled', 'muted'],
+          ['Survey-ready', 'Yes', 'ok'],
+        ].map(([label, status, tone]) => (
+          <div key={label as string}>
+            <b>{label}</b>
+            <span className={`rz-doc-status-${tone}`}>{status}</span>
+          </div>
+        ))}
+      </div>
+      <div className="rz-doc-mock-footer">
+        <i>i</i>
+        Background checks rerun monthly. No exceptions outstanding.
+      </div>
+    </div>
+  );
+}
+
+function ClaimsMock() {
+  return (
+    <div className="rz-doc-mock">
+      <div className="rz-doc-mock-head">
+        <div>
+          <ProductIcon kind="card" size={18} />
+          Claims · this week
+        </div>
+        <span className="rz-filed">99.2% FIRST PASS</span>
+      </div>
+      <div className="rz-doc-mock-grid">
+        {[
+          ['Amerigroup · $4,820', 'Paid', 'ok'],
+          ['Superior · $2,150', 'Paid', 'ok'],
+          ['Molina · $3,640', 'Paid', 'ok'],
+          ['Texas STAR · $1,980', 'Paid', 'ok'],
+          ['United HC · $5,210', 'In review', 'warn'],
+          ['Anthem · $890', 'Scheduled', 'muted'],
+        ].map(([label, status, tone]) => (
+          <div key={label as string}>
+            <b>{label}</b>
+            <span className={`rz-doc-status-${tone}`}>{status}</span>
+          </div>
+        ))}
+      </div>
+      <div className="rz-doc-mock-footer">
+        <i>i</i>
+        Auth + eligibility validated automatically before submit.
+      </div>
+    </div>
+  );
+}
+
+function DocEvidence() {
+  return (
+    <section className="rz-evidence">
+      <div className="rz-wrap">
+        <div className="rz-evidence-head">
+          <p className="rz-eyebrow rz-eyebrow-coral">The before &amp; after</p>
+          <h2>Onboarding a new aide should take minutes, not afternoons.</h2>
+          <p>
+            Average measured time to onboard one aide — from offer accepted to first shift cleared — across founding-customer agencies before and after switching to Ryzolve.
+          </p>
+        </div>
+        <div className="rz-evidence-grid">
+          <div className="rz-evidence-card">
+            <div className="rz-evidence-tag">Before · Manual filing</div>
+            <div className="rz-evidence-big">
+              4<span>hrs 12m</span>
+            </div>
+            <div className="rz-evidence-rows">
+              {[
+                ['Paper intake forms', '52m'],
+                ['Background check (manual)', '1h 20m'],
+                ['Filing in cabinet', '24m'],
+                ['Auth letter to MCO', '38m'],
+                ['Plan of care printout', '58m'],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <span>{k}</span>
+                  <span>{v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rz-evidence-card is-after">
+            <span className="rz-evidence-badge">↓ 87% faster</span>
+            <div className="rz-evidence-tag">After · Ryzolve</div>
+            <div className="rz-evidence-big">
+              32<span>min</span>
+            </div>
+            <div className="rz-evidence-rows">
+              {[
+                ['Digital intake (templated)', '6m'],
+                ['Automated background check', '4m'],
+                ['Digital filing (instant)', '0m'],
+                ['Auth sent to MCO (1-click)', '2m'],
+                ['Plan of care · e-signed', '20m'],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <span>{k}</span>
+                  <span>{v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="rz-evidence-meth">
+          <span>Methodology</span>
+          <span>Median across 14 PAS agencies · 412 aide onboardings · Jan 2024 – Dec 2025 · self-reported, audited at our quarterly customer review.</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DocFeature() {
+  return (
+    <section className="rz-section rz-doc-feature">
+      <div className="rz-wrap rz-doc-feature-grid">
+        <DocTemplatesMock />
+        <div>
+          <p className="rz-eyebrow">Made to fit your agency</p>
+          <h2>Every form your agency uses — already in the system.</h2>
+          <ul className="rz-num-list">
+            {[
+              ['Tailored document suites', 'Document libraries shaped around your service lines — PAS, Home Health, Hospice — not a generic template pack.'],
+              ['Painless workflow templates', 'Authorization, client intake, and medication management already wired up. Edit once, deploys to every client.'],
+              ['Flexible digital filing', 'Folders, tags, and audit trail. Find any document in three keystrokes — never dig through a cabinet.'],
+            ].map(([t, d]) => (
+              <li key={t}>
+                <span>✓</span>
+                <div>
+                  <b>{t}</b>
+                  <p>{d}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="rz-prod-cta">
+            <CTA href="/calendly">Book a demo</CTA>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductSolutions({ slug }: { slug: ProductSlug }) {
+  const product = products[slug];
+  const Mock =
+    slug === 'document-management'
+      ? DocFilingMock
+      : slug === 'compliance-regulation'
+        ? ShieldMock
+        : ClaimsMock;
+  const bullets = product.solutionBullets;
+
+  return (
+    <section id="solutions" className="rz-section rz-prod-solutions">
+      <div className="rz-wrap rz-prod-solutions-grid">
+        <div>
+          <p className="rz-eyebrow">Our Solutions</p>
+          <h2>{product.solutionTitle}</h2>
+          <p>{product.solutionDescription}</p>
+          {product.solutionLead && (
+            <p style={{ marginTop: 16 }}>{product.solutionLead}</p>
+          )}
+          {bullets && bullets.length > 0 && (
+            <ul className="rz-prod-bullet-list">
+              {bullets.map((b) => <li key={b}>{b}</li>)}
+            </ul>
+          )}
+          <div className="rz-prod-cta">
+            <CTA href="/calendly">Book a demo</CTA>
+          </div>
+        </div>
+        <div>
+          <Mock />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductAbout({ slug }: { slug: ProductSlug }) {
+  const product = products[slug];
+  if (!product.aboutTitle && !product.aboutDescription && !product.aboutBullets) return null;
+  return (
+    <section className="rz-section rz-doc-feature">
+      <div className="rz-wrap rz-doc-feature-grid">
+        <div>
+          <p className="rz-eyebrow">Why agencies pick this</p>
+          <h2>{product.aboutTitle || product.label}</h2>
+          {product.aboutDescription && <p style={{ fontSize: 16, color: 'var(--rz-ink-2)', lineHeight: 1.6, marginTop: 20 }}>{product.aboutDescription}</p>}
+          {product.aboutBullets && product.aboutBullets.length > 0 && (
+            <ul className="rz-prod-bullet-list">
+              {product.aboutBullets.map((b) => <li key={b}>{b}</li>)}
+            </ul>
+          )}
+          <div className="rz-prod-cta">
+            <CTA href="/calendly">Book a demo</CTA>
+          </div>
+        </div>
+        <div>
+          {slug === 'document-management' ? <DocTemplatesMock /> : slug === 'compliance-regulation' ? <ShieldMock /> : <ClaimsMock />}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductExtras({ slug }: { slug: ProductSlug }) {
+  const product = products[slug];
+  if (!product.extraSections || product.extraSections.length === 0) return null;
+  return (
+    <>
+      {product.extraSections.map((section) => (
+        <section className="rz-section rz-prod-solutions" key={section.title}>
+          <div className="rz-wrap rz-prod-solutions-grid">
+            <div>
+              <p className="rz-eyebrow">{section.eyebrow}</p>
+              <h2>{section.title}</h2>
+              <p>{section.description}</p>
+              <div className="rz-prod-cta">
+                <CTA href="/calendly">Book a demo</CTA>
+              </div>
+            </div>
+            <div>
+              {slug === 'compliance-regulation' ? <ShieldMock /> : slug === 'claims-and-bills' ? <ClaimsMock /> : <DocFilingMock />}
+            </div>
+          </div>
+        </section>
+      ))}
+    </>
+  );
+}
+
+const PRODUCT_SEO: Record<ProductSlug, { title: string; description: string; keywords: string[] }> = {
+  'document-management': {
+    title: 'Document Management for PAS, Home Health & Hospice Agencies',
+    description:
+      'Electronic intake, templated workflows, instant digital filing, and an audit trail on every change. Built for the way HHSC actually surveys Texas home care agencies.',
+    keywords: [
+      'document management',
+      'home health document management',
+      'PAS paperwork',
+      'electronic intake',
+      'audit trail',
+      'HHSC documents',
+    ],
+  },
+  'compliance-regulation': {
+    title: 'Compliance Regulation & Automated Background Checks',
+    description:
+      'Monthly background checks, exception reporting, and annual evaluations so your agency stays survey-ready every day of the year — not just before HHSC visits.',
+    keywords: [
+      'compliance regulation',
+      'background checks',
+      'HHSC compliance',
+      'OIG check',
+      'DADS verification',
+      'audit ready',
+    ],
+  },
+  'claims-and-bills': {
+    title: 'Claims & Billing — Faster Reimbursement, Fewer Denials',
+    description:
+      'Visit-data aggregation, eligibility validation, simplified claim entry, and cost-reporting readiness — get paid faster by Managed Care Organizations and State Insurance.',
+    keywords: [
+      'claims management',
+      'home health billing',
+      'PAS claims',
+      'MCO reimbursement',
+      'cost reporting',
+      'denial management',
+    ],
+  },
+};
+
+export function ProductPage({ slug }: { slug: ProductSlug }) {
+  const seo = PRODUCT_SEO[slug];
+  return (
+    <SiteLayout active={slug} inner>
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        path={`/${slug}`}
+        keywords={seo.keywords}
+      />
+      <main>
+        <ProductHero slug={slug} />
+        <WhatWeDoSection />
+        <ProductSolutions slug={slug} />
+        {slug === 'document-management' ? (
+          <>
+            <DocEvidence />
+            <DocFeature />
+          </>
+        ) : (
+          <ProductAbout slug={slug} />
+        )}
+        <ProductExtras slug={slug} />
+        <TestimonialsSection />
+        <LeadMagnetSection />
+      </main>
+    </SiteLayout>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   About page
+   ════════════════════════════════════════════════════════════════ */
+
+export function AboutPage() {
+  return (
+    <SiteLayout active="about-us" inner>
+      <SEO
+        title="About Ryzolve — Built Inside a Texas Care Agency"
+        description="Ryzolve is provider-management and training software designed by people who ran a regulated home care agency. Texas Home Health, Hospice, and PAS — built around HHSC."
+        path="/about-us"
+        keywords={[
+          'about Ryzolve',
+          'Texas home care software',
+          'PAS company',
+          'home health platform',
+          'Ryzolve LLC',
+        ]}
+      />
+      <main>
+        <section className="rz-about-hero-v2">
+          <span className="rz-tr-hero-blob rz-tr-hero-blob-a" aria-hidden="true" />
+          <span className="rz-tr-hero-blob rz-tr-hero-blob-b" aria-hidden="true" />
+          <div className="rz-about-hero-inner">
+            <p className="rz-breadcrumb rz-about-breadcrumb">
+              <Link href="/">Home</Link>
+              <span className="sep">/</span>
+              <span className="current">About</span>
+            </p>
+            <h1>
+              <span className="rz-tr-hline"><span style={{ animationDelay: '.12s' }}>{about.title}</span></span>
+            </h1>
+            <p className="rz-about-hero-subtitle">
+              <span className="rz-tr-hline">
+                <span style={{ animationDelay: '.24s' }}>
+                  <span className="rz-tr-accent">
+                    {about.introTitle}
+                    <span className="rz-tr-accent-underline" aria-hidden="true" />
+                  </span>
+                </span>
+              </span>
+            </p>
+          </div>
+        </section>
+
+        <section className="rz-section rz-solutions">
+          <div className="rz-wrap rz-solutions-grid">
+            <div>
+              <p className="rz-eyebrow">Who we are</p>
+              <h2>{about.introTitle}</h2>
+              <p>{about.introDescription}</p>
+            </div>
+            <div className="rz-stat-panel">
+              <span className="rz-panel-eyebrow">Where we come from</span>
+              <div className="rz-panel-title">TRM Hospice Care</div>
+              <div className="rz-stat-rows">
+                {[
+                  { big: '04+', unit: 'YRS', t: 'Over four years with zero penalties' },
+                  { big: '300+', unit: 'HRS', t: 'Hundreds of hours saved on hiring' },
+                  { big: '99.2%', unit: 'PASS', t: 'First-pass claim acceptance' },
+                ].map((row) => (
+                  <div className="rz-stat-row" key={row.t}>
+                    <div className="rz-stat-big">
+                      <b>{row.big}</b>
+                      <span>{row.unit}</span>
+                    </div>
+                    <p>{row.t}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="rz-section rz-benefits rz-about-philosophy">
+          <div className="rz-wrap">
+            <div className="rz-shead">
+              <p className="rz-eyebrow">{about.philosophyEyebrow}</p>
+              <h2 className="rz-about-philosophy-lead">{about.philosophy[0]}</h2>
+            </div>
+            <div className="rz-about-values-grid">
+              {about.philosophy.slice(1).map((statement, i) => (
+                <article className="rz-about-value-card" key={statement}>
+                  <span className="rz-about-value-num">0{i + 1}</span>
+                  <h3>{statement}</h3>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="rz-about-cta">
+          <div className="rz-about-cta-card">
+            <div>
+              <h2>{about.contactTitle}</h2>
+              <p>Talk to someone who has run an agency — not a call center. We&apos;ll walk through where Ryzolve fits and what it would take to get you live.</p>
+              <div className="rz-page-hero-actions" style={{ justifyContent: 'flex-start' }}>
+                <CTA href="/contact" variant="coral">Contact us</CTA>
+                <CTA href="/calendly" variant="light" icon={false}>Book a demo</CTA>
+              </div>
+            </div>
+            <div className="rz-about-contact-card">
+              <div>
+                <span>Address</span>
+                <span>{company.address}</span>
+              </div>
+              <div>
+                <span>Phone</span>
+                <span><a href={`tel:${company.phone}`} style={{ color: '#fff', textDecoration: 'none' }}>{company.phoneDisplay}</a></span>
+              </div>
+              <div>
+                <span>Email</span>
+                <span><a href={`mailto:${company.email}`} style={{ color: '#fff', textDecoration: 'none' }}>{company.email}</a></span>
+              </div>
+              <div>
+                <span>Hours</span>
+                <span>Mon–Fri, 8am–6pm CT</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </SiteLayout>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Contact page
+   ════════════════════════════════════════════════════════════════ */
+
+export function ContactPage() {
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmitting(true);
+    try {
+      await fetch(`${strapiBaseUrl()}/api/contacts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          data: {
+            fullname: form.name,
+            email: form.email,
+            subject: form.subject,
+            message: form.message,
+          },
+        }),
+      });
+      toast('Thank you for contacting us');
+      setSent(true);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <SiteLayout active="contact" inner>
+      <SEO
+        title="Contact Ryzolve — We Reply Within One Business Hour"
+        description="Questions about Ryzolve, pricing, or an active demo? Call (936) 355-0920, email pas@ryzolve.com, or send the form — we answer within one business hour, Mon–Fri."
+        path="/contact"
+        keywords={[
+          'contact Ryzolve',
+          'PAS software contact',
+          'Ryzolve phone',
+          'demo request',
+        ]}
+      />
+      <main>
+        <section className="rz-contact-hero">
+          <span className="rz-tr-hero-blob rz-tr-hero-blob-a" aria-hidden="true" />
+          <span className="rz-tr-hero-blob rz-tr-hero-blob-b" aria-hidden="true" />
+          <div className="rz-contact-hero-inner">
+            <p className="rz-breadcrumb rz-about-breadcrumb">
+              {contact.breadcrumb.map((b, i, arr) => (
+                <span key={b}>
+                  {i === 0 ? <Link href="/">{b}</Link> : <span className="current">{b}</span>}
+                  {i < arr.length - 1 && <span className="sep">/</span>}
+                </span>
+              ))}
+            </p>
+            <span className="rz-pill rz-contact-hero-pill">We typically reply within 1 business hour</span>
+            <h1>
+              <span className="rz-tr-hline"><span style={{ animationDelay: '.12s' }}>{contact.title}</span></span>
+            </h1>
+            <p className="rz-contact-hero-sub">Questions about Ryzolve, pricing, an active demo, or just need a human? We&apos;re here every weekday — call, email, or send the form below.</p>
+          </div>
+        </section>
+
+        <section className="rz-section">
+          <div className="rz-wrap rz-contact-grid">
+            <form className="rz-form-card" onSubmit={submit}>
+              {sent ? (
+                <div className="rz-form-success">
+                  <div className="rz-success-mark">✓</div>
+                  <h3>Thank you for contacting us</h3>
+                  <p>We received your note and will reply to <strong style={{ color: 'var(--rz-ink)' }}>{form.email}</strong> within one business hour.</p>
+                </div>
+              ) : (
+                <>
+                  <h2 style={{ fontSize: 24, fontWeight: 600, letterSpacing: '-0.4px', margin: 0, color: 'var(--rz-ink)' }}>{contact.formTitle}</h2>
+                  <p style={{ fontSize: 14, color: 'var(--rz-ink-2)', margin: '6px 0 18px' }}>We answer within one business hour, Mon–Fri.</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                    <label className="rz-field">
+                      <span className="rz-field-label">First Name <span className="rz-req">*</span></span>
+                      <input className="rz-input" required placeholder="Jane" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+                    </label>
+                    <label className="rz-field">
+                      <span className="rz-field-label">Email <span className="rz-req">*</span></span>
+                      <input className="rz-input" required type="email" placeholder="jane@agency.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+                    </label>
+                  </div>
+                  <label className="rz-field">
+                    <span className="rz-field-label">Subject <span className="rz-req">*</span></span>
+                    <input className="rz-input" required placeholder="Demo request" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} />
+                  </label>
+                  <label className="rz-field">
+                    <span className="rz-field-label">Message <span className="rz-req">*</span></span>
+                    <textarea className="rz-textarea" required placeholder="What can we help with? Agency size, current systems, anything you'd want covered in the demo." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
+                  </label>
+                  <p className="rz-form-helper">{contact.required}</p>
+                  <div className="rz-submit-row">
+                    <ButtonBtn type="submit" block disabled={submitting} icon={false}>
+                      {submitting ? 'Sending…' : 'Send message →'}
+                    </ButtonBtn>
+                  </div>
+                </>
+              )}
+            </form>
+            <div className="rz-contact-side">
+              <div className="rz-demo-card">
+                <p className="rz-eyebrow rz-eyebrow-coral" style={{ margin: 0 }}>Book a demo</p>
+                <h3>30 minutes, no slides.</h3>
+                <p>A working session — walk through your bottleneck, see where Ryzolve fits, leave with next steps.</p>
+                <CTA href="/calendly" variant="coral">Pick a time</CTA>
+              </div>
+              <div className="rz-contact-person">
+                <p className="rz-eyebrow" style={{ margin: 0 }}>Talk to a person</p>
+                <div>
+                  <span>Phone</span>
+                  <a href={`tel:${company.phone}`}>{company.phoneDisplay}</a>
+                </div>
+                <div>
+                  <span>Email</span>
+                  <a href={`mailto:${company.email}`}>{company.email}</a>
+                </div>
+                <div>
+                  <span>Address</span>
+                  <span>{company.address}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </SiteLayout>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Calendly page
+   ════════════════════════════════════════════════════════════════ */
+
+export function CalendlyPage() {
+  return (
+    <SiteLayout active="calendly" inner>
+      <SEO
+        title="Book a Demo — 30 Minutes, No Slides"
+        description="Schedule a working session with the Ryzolve team. Walk through your bottleneck, see where Ryzolve fits, and leave with next steps."
+        path="/calendly"
+        keywords={['book a demo', 'Ryzolve demo', 'Calendly', 'PAS software demo']}
+      />
+      <main>
+        <section className="rz-page-hero">
+          <div className="rz-page-hero-inner">
+            <p className="rz-breadcrumb">
+              <Link href="/">Home</Link>
+              <span className="sep">/</span>
+              <span className="current">Book a demo</span>
+            </p>
+            <span className="rz-pill">30 minutes · No slides</span>
+            <h1>Book a demo.</h1>
+            <p>Pick a time that works for you. We&apos;ll walk through where Ryzolve fits — intake, compliance, claims — and answer any questions about pricing and rollout.</p>
+          </div>
+        </section>
+        <section className="rz-section" style={{ paddingTop: 0 }}>
+          <div className="rz-calendly-wrap">
+            <iframe title="Ryzolve demo booking" src={company.calendlyUrl} loading="lazy" />
+          </div>
+        </section>
+      </main>
+    </SiteLayout>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Training page
+   ════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════
+   Training page — Administrator courses + In-Service plans
+   ════════════════════════════════════════════════════════════════ */
+
+type TopicIconKind =
+  | 'shield' | 'person' | 'people' | 'heart' | 'alarm' | 'hand'
+  | 'wind' | 'activity' | 'scales' | 'clipboard' | 'badge' | 'stethoscope';
+
+function TopicIcon({ kind, size = 38 }: { kind: TopicIconKind; size?: number }) {
+  const common = {
+    width: size,
+    height: size,
+    viewBox: '0 0 24 24',
+    fill: 'none' as const,
+    'aria-hidden': true,
+  };
+  const p = {
+    stroke: 'currentColor',
+    strokeWidth: 1.7,
+    fill: 'none' as const,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+  };
+  switch (kind) {
+    case 'shield':
+      return (
+        <svg {...common}>
+          <path d="M12 3 5 6v5c0 4 3 7.5 7 8.5 4-1 7-4.5 7-8.5V6l-7-3Z" {...p} />
+          <path d="m9 11 2 2 4-4" {...p} />
+        </svg>
+      );
+    case 'person':
+      return (
+        <svg {...common}>
+          <circle cx="10" cy="8" r="3.2" {...p} />
+          <path d="M4 20c0-3.3 2.7-6 6-6 1.3 0 2.4.4 3.4 1" {...p} />
+          <path d="m15 16 1.8 1.8L20 14" {...p} />
+        </svg>
+      );
+    case 'people':
+      return (
+        <svg {...common}>
+          <circle cx="8.5" cy="9" r="2.6" {...p} />
+          <circle cx="16" cy="10" r="2.2" {...p} />
+          <path d="M3.5 19c0-2.8 2.2-5 5-5s5 2.2 5 5M14.5 18c.2-2.2 1.9-4 4-4 1 0 1.9.4 2.6 1" {...p} />
+        </svg>
+      );
+    case 'heart':
+      return (
+        <svg {...common}>
+          <path d="M12 20s-7-4.3-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7-2.2c0 .5 0 1-.2 1.4" {...p} />
+          <path d="M13 12h2l1.5-2 2 4H21" {...p} />
+        </svg>
+      );
+    case 'alarm':
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="13" r="6" {...p} />
+          <path d="M12 10v3l2 1M9 3 6 5M15 3l3 2M12 7V5" {...p} />
+        </svg>
+      );
+    case 'hand':
+      return (
+        <svg {...common}>
+          <path d="M5 12v5a2 2 0 0 0 2 2h6l5-4c1-1 0-2.5-1.2-2.2L13 16" {...p} />
+          <path d="M12 11c2-2.5 1-5-1-5-1.4 0-2 1.2-2 2 0-.8-.6-2-2-2-2 0-3 2.5-1 5l3 3 3-3Z" {...p} />
+        </svg>
+      );
+    case 'wind':
+      return (
+        <svg {...common}>
+          <path d="M3 9h10a2.5 2.5 0 1 0-2.5-2.5M3 14h13a2.5 2.5 0 1 1-2.5 2.5M3 12h7" {...p} />
+        </svg>
+      );
+    case 'activity':
+      return (
+        <svg {...common}>
+          <path d="M3 12h4l2 6 4-14 2 8h6" {...p} />
+        </svg>
+      );
+    case 'scales':
+      return (
+        <svg {...common}>
+          <path d="M12 4v16M7 20h10M5 8h14M5 8l-2 5h4l-2-5ZM19 8l-2 5h4l-2-5ZM12 4l-7 4M12 4l7 4" {...p} />
+        </svg>
+      );
+    case 'clipboard':
+      return (
+        <svg {...common}>
+          <rect x="6" y="4" width="12" height="17" rx="2" {...p} />
+          <path d="M9 4a3 3 0 0 1 6 0M9 11h6M9 15h4" {...p} />
+        </svg>
+      );
+    case 'badge':
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="10" r="6" {...p} />
+          <path d="m9 10 2 2 4-4M9 19l3-2 3 2v-3" {...p} />
+        </svg>
+      );
+    case 'stethoscope':
+      return (
+        <svg {...common}>
+          <path d="M6 4v5a4 4 0 0 0 8 0V4M6 4H4M14 4h2M10 17a4 4 0 0 0 8 0v-2" {...p} />
+          <circle cx="18" cy="13" r="2" {...p} />
+        </svg>
+      );
+  }
+}
+
+function CapIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M2 9l10-4 10 4-10 4L2 9Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M6 11v4c0 1.4 2.7 3 6 3s6-1.6 6-3v-4M21 10v6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function IndividualIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function BookIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M3 5a2 2 0 0 1 2-2h6v17H5a2 2 0 0 0-2 2V5ZM21 5a2 2 0 0 0-2-2h-6v17h6a2 2 0 0 1 2 2V5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function scrollToId(id: string) {
+  const el = typeof document !== 'undefined' ? document.getElementById(id) : null;
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - 72;
+  window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+}
+
+function TrainingHero() {
+  return (
+    <section className="rz-tr-hero">
+      <span className="rz-tr-hero-blob rz-tr-hero-blob-a" aria-hidden="true" />
+      <span className="rz-tr-hero-blob rz-tr-hero-blob-b" aria-hidden="true" />
+      <div className="rz-tr-hero-inner">
+        <h1>
+          <span className="rz-tr-hline"><span style={{ animationDelay: '.15s' }}>{training.hero.line1}</span></span>
+          <span className="rz-tr-hline">
+            <span style={{ animationDelay: '.28s' }}>
+              <span className="rz-tr-accent">
+                {training.hero.line2Accent}
+                <span className="rz-tr-accent-underline" aria-hidden="true" />
+              </span>
+            </span>
+          </span>
+          <span className="rz-tr-hline"><span style={{ animationDelay: '.41s' }}>{training.hero.line3}</span></span>
+        </h1>
+        <p className="rz-tr-hero-sub">{training.hero.subtitle}</p>
+        <div className="rz-tr-hero-actions">
+          <button type="button" className="rz-btn rz-btn-blue" onClick={() => scrollToId('admin-training')}>
+            <span>View Administrator Courses</span>
+            <span className="rz-btn-arrow" aria-hidden="true">↓</span>
+          </button>
+          <button type="button" className="rz-btn rz-btn-primary" onClick={() => scrollToId('in-service')}>
+            <span>View In-Service Plans</span>
+            <span className="rz-btn-arrow" aria-hidden="true">↓</span>
+          </button>
+        </div>
+        <div className="rz-tr-trust-pills">
+          {training.trustPills.map((t) => (
+            <span key={t}>
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2.5 7.5 5.5 10.5 11.5 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrainingMarquee() {
+  const row = (
+    <div className="rz-tr-marquee-row">
+      {training.marquee.map((t, i) => (
+        <span key={`${t}-${i}`} className="rz-tr-marquee-item">
+          {t}
+          <span className="rz-tr-marquee-dot" aria-hidden="true" />
+        </span>
+      ))}
+    </div>
+  );
+  return (
+    <div className="rz-tr-marquee" aria-hidden="true">
+      <div className="rz-tr-marquee-track">
+        {row}
+        {row}
+      </div>
+    </div>
+  );
+}
+
+function TrainingPathSplit({ courses }: { courses: TrainingCourseCard[] }) {
+  return (
+    <section className="rz-tr-paths">
+      <div className="rz-wrap rz-tr-paths-grid">
+        {/* Admin (light) */}
+        <div className="rz-tr-path">
+          <span className="rz-tr-path-pill">{training.pathSplit.adminPillLabel}</span>
+          <h2>{training.pathSplit.adminTitle}</h2>
+          <p>{training.pathSplit.adminDescription}</p>
+          <div className="rz-tr-path-list">
+            {courses.map((c) => (
+              <button
+                key={c.slug}
+                type="button"
+                className="rz-tr-path-row"
+                onClick={() => scrollToId('admin-training')}
+              >
+                <span className="rz-tr-path-row-left">
+                  <span className="rz-tr-path-hours">{c.hoursNum}h</span>
+                  <span className="rz-tr-path-name">{c.tagline}</span>
+                </span>
+                <span className="rz-tr-path-price">${c.priceNum}</span>
+              </button>
+            ))}
+          </div>
+          <button type="button" className="rz-btn rz-btn-blue" onClick={() => scrollToId('admin-training')}>
+            <span>View Administrator Courses</span>
+            <span className="rz-btn-arrow" aria-hidden="true">↓</span>
+          </button>
+        </div>
+        {/* Agency (dark) */}
+        <div className="rz-tr-path rz-tr-path-dark">
+          <span className="rz-tr-path-pill rz-tr-path-pill-coral">{training.pathSplit.agencyPillLabel}</span>
+          <h2>{training.pathSplit.agencyTitle}</h2>
+          <p>{training.pathSplit.agencyDescription}</p>
+          <div className="rz-tr-path-list">
+            {training.inServicePlans.map((p) => (
+              <div key={p.name} className={p.featured ? 'rz-tr-path-row is-featured' : 'rz-tr-path-row'}>
+                <span className="rz-tr-path-row-left">
+                  <span className="rz-tr-path-name">{p.name}</span>
+                  <span className="rz-tr-path-seats">{p.seats}</span>
+                </span>
+                <span className="rz-tr-path-price">
+                  {p.price}
+                  <span className="rz-tr-path-per">/mo</span>
+                </span>
+              </div>
+            ))}
+          </div>
+          <button type="button" className="rz-btn rz-btn-coral" onClick={() => scrollToId('in-service')}>
+            <span>View In-Service Plans</span>
+            <span className="rz-btn-arrow" aria-hidden="true">↓</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrainingJumpNav() {
+  const [active, setActive] = useState('admin-training');
+  const trainingUrl = trainingBaseUrl();
+  const loginHref = `${trainingUrl}/auth/login`;
+
+  useEffect(() => {
+    const ids = ['admin-training', 'in-service', 'library'];
+    const els = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+    if (!els.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  const tab = (id: string, label: string) => (
+    <button
+      type="button"
+      className={active === id ? 'is-on' : ''}
+      onClick={() => scrollToId(id)}
+    >
+      {label}
+    </button>
+  );
+
+  return (
+    <div className="rz-tr-jumpnav" role="navigation" aria-label="Training sections">
+      <div className="rz-tr-jumpnav-inner">
+        <div className="rz-tr-jumpnav-tabs">
+          {tab('admin-training', 'Administrator Training')}
+          {tab('in-service', 'In-Service Plans')}
+          {tab('library', 'Monthly Library')}
+        </div>
+        <div className="rz-tr-jumpnav-right">
+          <a href={loginHref} target="_blank" rel="noopener noreferrer">Training login</a>
+          <button type="button" className="rz-btn rz-btn-primary rz-btn-sm" onClick={() => scrollToId('in-service')}>
+            <span>View plans</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TrainingAdminCourses({ courses: adminCourses }: { courses: TrainingCourseCard[] }) {
+  const [q, setQ] = useState('');
+  const courses = adminCourses.filter(
+    (c) =>
+      !q.trim() ||
+      `${c.title} ${c.short} ${c.audienceShort} ${c.tagline}`.toLowerCase().includes(q.toLowerCase()),
+  );
+  return (
+    <section id="admin-training" className="rz-tr-admin">
+      <div className="rz-wrap">
+        <div className="rz-tr-section-head">
+          <div className="rz-tr-section-head-left">
+            <div className="rz-tr-eyebrow-row">
+              <CapIcon size={20} />
+              <span>{training.adminEyebrow}</span>
+            </div>
+            <h2>{training.adminTitle}</h2>
+            <p>{training.adminSubtitle}</p>
+          </div>
+          <label className="rz-tr-search">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+            <input
+              type="search"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Search administrator courses"
+            />
+          </label>
+        </div>
+
+        {courses.length === 0 ? (
+          <div className="rz-tr-empty">No courses match &ldquo;{q}&rdquo;.</div>
+        ) : (
+          <div className="rz-tr-admin-grid">
+            {courses.map((c) => (
+              <article
+                key={c.slug}
+                className={c.featured ? 'rz-tr-course-card is-featured' : 'rz-tr-course-card'}
+              >
+                <div className="rz-tr-course-card-head">
+                  <span className="rz-tr-hours-badge">{c.hoursNum}h</span>
+                  {c.featured && <span className="rz-tr-most-chosen">Most chosen</span>}
+                </div>
+                <div>
+                  <span className="rz-tr-course-eyebrow">{c.eyebrow}</span>
+                  <h3>{c.title}</h3>
+                  <p>{c.short}</p>
+                </div>
+                <div className="rz-tr-course-pills">
+                  {training.adminCoursePills.map((t) => (
+                    <span key={t}>{t}</span>
+                  ))}
+                </div>
+                <div className="rz-tr-course-foot">
+                  <div>
+                    <span className="rz-tr-course-price">{c.price}</span>
+                    <span className="rz-tr-course-once">one-time</span>
+                  </div>
+                  <Link className="rz-btn rz-btn-primary rz-btn-sm" href={trainingCourseDetailHref(c.slug)}>
+                    <span>View course</span>
+                    <span className="rz-btn-arrow" aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function TrainingInServicePlans() {
+  const inServiceHref = agencyInServiceSignupHref();
+  return (
+    <section id="in-service" className="rz-tr-inservice">
+      <div className="rz-wrap">
+        <div className="rz-tr-section-head">
+          <div className="rz-tr-section-head-left">
+            <div className="rz-tr-eyebrow-row">
+              <IndividualIcon size={20} />
+              <span>{training.inServiceEyebrow}</span>
+            </div>
+            <h2>{training.inServiceLeadTitle}</h2>
+            <p>{training.inServiceLeadDescription}</p>
+          </div>
+          <a href="#in-service" className="rz-tr-compare-link">Compare plans <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div className="rz-tr-disclaimer">{training.inServiceDisclaimer}</div>
+
+        <div className="rz-tr-plans-grid">
+          {training.inServicePlans.map((plan) => (
+            <article
+              key={plan.name}
+              className={plan.featured ? 'rz-tr-plan-card is-featured' : 'rz-tr-plan-card'}
+            >
+              {plan.featured && plan.note && <span className="rz-tr-plan-badge">{plan.note}</span>}
+              <div>
+                <div className="rz-tr-plan-name">{plan.name}</div>
+                <div className="rz-tr-plan-seats">{plan.seats}</div>
+              </div>
+              <div className="rz-tr-plan-price">
+                <span className="rz-tr-plan-amount">{plan.price}</span>
+                <span className="rz-tr-plan-per">/mo</span>
+              </div>
+              <p className="rz-tr-plan-desc">{plan.description}</p>
+              <ul className="rz-tr-plan-features">
+                {plan.features.map((f) => (
+                  <li key={f}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                      <circle cx="10" cy="10" r="9" stroke="currentColor" strokeWidth="1.5" />
+                      <path d="m6.5 10 2.2 2.2L13.5 7.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                className={plan.featured ? 'rz-btn rz-btn-coral rz-btn-block' : 'rz-btn rz-btn-primary rz-btn-block'}
+                href={inServiceHref}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>Choose plan</span>
+                <span className="rz-btn-arrow" aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <div className="rz-tr-included">
+          <strong>Included in every In-Service plan:</strong>
+          {training.inServiceIncluded.map((t, i) => (
+            <span key={t}>
+              {i > 0 && <span aria-hidden="true">·</span>}
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrainingLibrary() {
+  const [filter, setFilter] = useState<'All' | 'Safety' | 'Compliance'>('All');
+  const shown = training.topics.filter((t) => filter === 'All' || t.category === filter);
+  const inServiceHref = agencyInServiceSignupHref();
+  return (
+    <section id="library" className="rz-tr-library">
+      <div className="rz-wrap">
+        <div className="rz-tr-library-connector">
+          <span className="rz-tr-library-connector-line" />
+          <span className="rz-tr-library-connector-pill">
+            <BookIcon size={16} />
+            Included in every In-Service plan
+          </span>
+          <span className="rz-tr-library-connector-line" />
+        </div>
+        <div className="rz-tr-section-head">
+          <div className="rz-tr-section-head-left">
+            <h2>{training.libraryTitle}</h2>
+            <p>{training.libraryDescription}</p>
+          </div>
+          <div className="rz-tr-filter">
+            {training.topicCategories.map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                className={filter === tab ? 'is-on' : ''}
+                onClick={() => setFilter(tab as 'All' | 'Safety' | 'Compliance')}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="rz-tr-topic-grid">
+          {shown.map((topic) => (
+            <a
+              key={topic.month}
+              href={inServiceHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rz-tr-topic-card"
+            >
+              <div className="rz-tr-topic-thumb">
+                <span className="rz-tr-topic-month">{topic.month}</span>
+                <span className="rz-tr-topic-icon-wrap">
+                  <TopicIcon kind={topic.icon as TopicIconKind} size={44} />
+                </span>
+              </div>
+              <div className="rz-tr-topic-body">
+                <h3>{topic.title}</h3>
+                <span className="rz-tr-topic-cta">
+                  View agency plans <span aria-hidden="true">→</span>
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <p className="rz-tr-library-foot">{training.libraryFooter}</p>
+      </div>
+    </section>
+  );
+}
+
+function TrainingClosingCTA() {
+  return (
+    <section className="rz-tr-cta">
+      <div className="rz-shader-bg" aria-hidden="true">
+        {/* LIQUID metaball — matches RZ_TrainingCTA in the bundle */}
+        <ShaderCanvas
+          shader={SHADER_LIQUID}
+          palette={['#083E69', '#0D5992', '#FF774C', '#FFFFFF']}
+          opacity={1}
+        />
+      </div>
+      <div className="rz-tr-cta-vignette" aria-hidden="true" />
+      <div className="rz-tr-cta-inner">
+        <h2>{training.cta.title}</h2>
+        <p>{training.cta.description}</p>
+        <div className="rz-tr-cta-actions">
+          <button type="button" className="rz-btn rz-btn-light" onClick={() => scrollToId('admin-training')}>
+            <span>View Administrator Courses</span>
+          </button>
+          <button type="button" className="rz-btn rz-btn-coral" onClick={() => scrollToId('in-service')}>
+            <span>View In-Service plans</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrainingHowItWorks() {
+  return (
+    <section className="rz-tr-how">
+      <div className="rz-wrap">
+        <div className="rz-shead">
+          <p className="rz-eyebrow">{training.howItWorks.eyebrow}</p>
+          <h2>{training.howItWorks.title}</h2>
+        </div>
+        <div className="rz-tr-how-grid">
+          {training.howItWorks.steps.map((s, i) => (
+            <article className="rz-tr-how-card" key={s.n}>
+              <div className="rz-tr-how-head">
+                <span className="rz-tr-how-step">STEP {s.n}</span>
+                <span className="rz-tr-how-circle">{i + 1}</span>
+              </div>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TrainingFAQs() {
+  return (
+    <section className="rz-tr-faqs">
+      <div className="rz-tr-faqs-inner">
+        <div className="rz-shead rz-shead-center">
+          <p className="rz-eyebrow">{training.faqs.eyebrow}</p>
+          <h2>{training.faqs.title}</h2>
+        </div>
+        <div className="rz-tr-faqs-list">
+          {training.faqs.items.map((f, i) => (
+            <details className="rz-tr-faq" key={f.q} open={i === 0}>
+              <summary>
+                <span>{f.q}</span>
+                <span className="rz-tr-faq-plus" aria-hidden="true">+</span>
+              </summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function courseOutcomes(course: TrainingCourseCard) {
+  if (course.learningOutcomes?.length) return course.learningOutcomes;
+
+  return [
+    'Complete HHSC-aligned Administrator Training at your own pace.',
+    'Understand the requirements tied to Administrator and Alternate Administrator duties.',
+    'Download your certificate after successful course completion.',
+  ];
+}
+
+function courseSkills(course: TrainingCourseCard) {
+  if (course.skills?.length) return course.skills;
+  return ['Self-paced learning', 'Administrator readiness', 'Certificate completion'];
+}
+
+export function TrainingCourseDetailPage({ course }: { course: TrainingCourseCard }) {
+  const purchaseHref = trainingCoursePurchaseHref(course.slug);
+  const outcomes = courseOutcomes(course);
+  const skills = courseSkills(course);
+
+  return (
+    <SiteLayout active="training" inner>
+      <SEO
+        title={`${course.title} · Ryzolve Training`}
+        description={course.short || course.description}
+        path={trainingCourseDetailHref(course.slug)}
+        keywords={[
+          'Texas administrator training',
+          `${course.hoursNum} hour administrator training`,
+          'HHSC training',
+          'Ryzolve Training',
+        ]}
+      />
+      <main className="rz-tr-detail">
+        <section className="rz-tr-detail-hero">
+          <div className="rz-wrap rz-tr-detail-hero-grid">
+            <div className="rz-tr-detail-copy">
+              <Link className="rz-tr-detail-back" href="/training#admin-training">
+                <span aria-hidden="true">←</span>
+                All Administrator courses
+              </Link>
+              <h1>{course.title}</h1>
+              <p>{course.short || course.description}</p>
+              <div className="rz-tr-detail-stats" aria-label="Course details">
+                <span><b>{course.hoursNum}h</b> clock hours</span>
+                <span><b>{course.price}</b> one-time</span>
+                <span><b>Instant</b> certificate</span>
+              </div>
+            </div>
+
+            <aside className="rz-tr-detail-purchase" aria-label="Course purchase">
+              {course.featured && <span className="rz-tr-plan-badge">Most chosen</span>}
+              <span className="rz-tr-detail-purchase-kicker">One-time purchase</span>
+              <strong>{course.price}</strong>
+              <p>1-year access. Complete at your own pace.</p>
+              <a className="rz-btn rz-btn-blue rz-btn-block" href={purchaseHref}>
+                <span>Purchase course</span>
+                <span className="rz-btn-arrow" aria-hidden="true">→</span>
+              </a>
+              <ul>
+                <li><span aria-hidden="true">✓</span>Secure payment via Stripe</li>
+                <li><span aria-hidden="true">✓</span>Instant access after purchase</li>
+                <li><span aria-hidden="true">✓</span>Certificate on completion</li>
+              </ul>
+            </aside>
+          </div>
+        </section>
+
+        <section className="rz-tr-detail-body">
+          <div className="rz-wrap rz-tr-detail-body-grid">
+            <article className="rz-tr-detail-main">
+              <p className="rz-eyebrow">Course overview</p>
+              <h2>What this course covers</h2>
+              <p>{course.description}</p>
+
+              <div className="rz-tr-detail-tags" aria-label="Approved for">
+                {course.approvedFor.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+
+              <h3>Learning outcomes</h3>
+              <ul className="rz-tr-detail-check-grid">
+                {outcomes.map((outcome) => (
+                  <li key={outcome}>
+                    <span aria-hidden="true">✓</span>
+                    <span>{outcome}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <aside className="rz-tr-detail-side">
+              <div className="rz-tr-detail-visual">
+                {course.thumbnailUrl ? (
+                  <img src={course.thumbnailUrl} alt={`${course.title} course artwork`} />
+                ) : (
+                  <div className="rz-tr-detail-visual-fallback">
+                    <CapIcon size={48} />
+                    <span>{course.hoursNum}h</span>
+                  </div>
+                )}
+              </div>
+              <div className="rz-tr-detail-skill-card">
+                <h3>Course format</h3>
+                <ul>
+                  {training.adminCoursePills.map((pill) => (
+                    <li key={pill}>{pill}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rz-tr-detail-skill-card">
+                <h3>Skills covered</h3>
+                <ul>
+                  {skills.map((skill) => (
+                    <li key={skill}>{skill}</li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </SiteLayout>
+  );
+}
+
+export function TrainingPage({
+  adminCourses = fallbackAdministratorCourses(),
+}: {
+  adminCourses?: TrainingCourseCard[];
+}) {
+  const courses = adminCourses.length ? adminCourses : fallbackAdministratorCourses();
+
+  return (
+    <SiteLayout active="training" inner>
+      <SEO
+        title="Texas Administrator Training — 8, 12 & 16 Hour Courses"
+        description="HHSC-aligned administrator training for Texas Home Health, Hospice, and PAS agencies. Self-paced, instant certificates, monthly in-service library for full care teams."
+        path="/training"
+        keywords={[
+          'Texas administrator training',
+          'HHSC training',
+          'home health training',
+          'hospice training',
+          'PAS training',
+          'in-service training',
+          'caregiver certification',
+        ]}
+      />
+      <main>
+        <TrainingHero />
+        <TrainingMarquee />
+        <TrainingPathSplit courses={courses} />
+        <TrainingJumpNav />
+        <TrainingAdminCourses courses={courses} />
+        <TrainingInServicePlans />
+        <TrainingLibrary />
+        <TrainingClosingCTA />
+        <TrainingHowItWorks />
+        <TrainingFAQs />
+      </main>
+    </SiteLayout>
+  );
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   Utility pages
+   ════════════════════════════════════════════════════════════════ */
+
+export function BlankPage() {
+  return (
+    <SiteLayout active="blank" inner>
+      <SEO
+        title="Ryzolve"
+        description="Ryzolve provider management software."
+        path="/blank"
+        noindex
+      />
+      <main className="rz-section">
+        <div className="rz-wrap" style={{ textAlign: 'center' }}>
+          <h1 style={{ fontSize: 48, fontWeight: 600, letterSpacing: '-1.5px', margin: 0 }}>{blank.title}</h1>
+        </div>
+      </main>
+    </SiteLayout>
+  );
+}
+
+export function NotFoundPage() {
+  return (
+    <SiteLayout active="home" inner>
+      <SEO
+        title="Page Not Found"
+        description="The page you are looking for is not available or has been moved. Head back to the Ryzolve homepage or get in touch with us."
+        path="/404"
+        noindex
+      />
+      <main>
+        <section className="rz-notfound">
+          <div className="rz-notfound-wrap">
+            <span className="rz-num">Error · 404</span>
+            <h1>Oops! Page Not Found.</h1>
+            <p>The page you are looking for is not available or has been moved. Try a different page or go to homepage with the button below.</p>
+            <div className="rz-page-hero-actions">
+              <CTA href="/">Go to Homepage</CTA>
+              <CTA href="/contact" variant="secondary" icon={false}>Contact us</CTA>
+            </div>
+          </div>
+        </section>
+      </main>
+    </SiteLayout>
+  );
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Ryzolve",
+  "short_name": "Ryzolve",
+  "description": "Provider management software for PAS, Home Health, and Hospice agencies. Less paperwork. Fewer denials. Audit-ready by default.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FAFAF7",
+  "theme_color": "#0D5992",
+  "icons": [
+    {
+      "src": "/img/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/favicon.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "any"
+    }
+  ]
+}
