@@ -202,19 +202,20 @@ export const products: Record<ProductSlug, ProductPageContent> = {
     active: 'document-management',
     label: 'Document Management',
     eyebrow: 'Document Management',
-    title: 'Managing paper work made easier',
+    title: 'Document management without the paper chase.',
     subtitle:
-      'Our solution, designed to eliminate paperwork filing and streamline document management, enhances efficiency with electronic document management',
-    solutionTitle: 'Are you risking liability with outdated document management methods?',
+      'Keep client, caregiver, and compliance documents organized in one place with templates, reminders, and audit-ready visibility for your agency.',
+    solutionTitle: 'Keep every client file complete, current, and audit-ready.',
     solutionDescription:
-      'Designed to address your challenges, Ryzolve software has all you need to organize your agency, ensure compliance, and avoid document management errors',
+      'Ryzolve helps agencies organize client intake, plans of care, medication lists, background checks, authorizations, and annual evaluations in one digital filing system.',
     solutionBullets: [
-      'Tailored document suites to fit your healthcare structure',
-      'Templates for painless authorization, client intake and medication workflows',
-      'Flexible digital filing system personalized to your needs',
+      'Document suites built for home care workflows',
+      'Intake, authorization, and medication templates that reduce rework',
+      'Centralized filing, reminders, and audit-ready status tracking',
     ],
-    aboutTitle: '',
-    aboutDescription: '',
+    aboutTitle: 'Built to keep your agency inspection-ready.',
+    aboutDescription:
+      'From intake packets and plans of care to medication records, background checks, and authorizations, Ryzolve helps your team stay organized, reduce paperwork, and prepare for audits with confidence.',
   },
   'compliance-regulation': {
     active: 'compliance-regulation',
@@ -244,17 +245,17 @@ export const products: Record<ProductSlug, ProductPageContent> = {
     active: 'claims-and-bills',
     label: 'Claims & Bills',
     eyebrow: 'Claims & Bills',
-    title: 'Claims are handled quickly.',
+    title: 'Claims & billing with fewer denials.',
     subtitle:
-      'Receive prompt payments from your selected Managed Care Organization (MCOs) or State Insurance, eliminating the need to pursue or stress over unpaid claims.',
-    solutionTitle: 'Claims aggregation and cost reporting readiness',
+      'Ryzolve helps Texas PAS agencies aggregate visit data, validate authorizations and eligibility, and submit TMHP or Managed Care claims with better visibility from submission to payment.',
+    solutionTitle: 'Claims aggregation and cost-report readiness',
     solutionDescription:
-      'We help reduce claim rejections & denials and make yearly Cost Reporting Preparation easier.',
+      'We help reduce claim rejections and denials while making yearly cost reporting preparation easier.',
     solutionLead:
-      'Add the necessary contraints before submitting claims to increase the chance of quick acceptance and payment.',
-    aboutTitle: 'Reduced workload, improved accuracy',
+      'Review payer totals, submission status, and reimbursement visibility in one place—and add the right checks before submitting claims to improve first-pass acceptance and payment speed.',
+    aboutTitle: 'Built to simplify claims operations for your agency.',
     aboutDescription:
-      "Our simplified claims entry process aggregates visit data efficiently, reducing repetitive tasks for a smoother workflow. With automated Authorization and Eligibility validation in place, we drastically cut down the chance of human error, speeding up the claims' payment procedure.",
+      'From claims aggregation and cost-report readiness to authorization checks and payment visibility, Ryzolve gives your team the tools to file more accurately, reduce rework, and get paid faster.',
   },
 };
 
