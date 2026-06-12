@@ -86,14 +86,20 @@
 .rz-header {
   background: var(--rz-bg);
   padding: 20px 56px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 24px;
   border-bottom: 1px solid var(--rz-rule);
   position: sticky;
   top: 0;
   z-index: 80;
+}
+
+.rz-header-inner {
+  width: 100%;
+  max-width: 1328px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
 }
 
 .rz-brand {
@@ -498,8 +504,196 @@ button.rz-btn-ghost {
   aspect-ratio: 10 / 9;
   position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .rz-hero-illo svg { display: block; width: 100%; height: 100%; }
+
+.rz-hero-ops {
+  min-height: 520px;
+}
+
+.rz-ops-card {
+  width: min(100%, 590px);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(13, 89, 146, 0.18);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(13, 89, 146, 0.12), transparent 34%),
+    radial-gradient(circle at 92% 88%, rgba(255, 119, 76, 0.12), transparent 30%),
+    rgba(255, 255, 255, 0.9);
+  box-shadow: 0 34px 80px rgba(21, 32, 45, 0.12);
+  backdrop-filter: blur(18px);
+  padding: 34px;
+}
+
+.rz-ops-card::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(13, 89, 146, 0.08);
+  border-radius: 26px;
+  pointer-events: none;
+}
+
+.rz-ops-kicker {
+  color: var(--rz-blue);
+  font-family: var(--rz-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.rz-ops-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.rz-ops-head h3 {
+  margin: 0;
+  color: var(--rz-ink);
+  font-size: clamp(27px, 2.3vw, 38px);
+  line-height: 1.08;
+  letter-spacing: -1.2px;
+  font-weight: 650;
+}
+
+.rz-ops-head > span {
+  width: 72px;
+  height: 72px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+  background: var(--rz-blue);
+  color: #fff;
+  font-family: var(--rz-mono);
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: 0 18px 44px rgba(13, 89, 146, 0.24);
+}
+
+.rz-ops-card > p {
+  max-width: 470px;
+  color: var(--rz-ink-2);
+  margin: 18px 0 26px;
+  font-size: 16px;
+  line-height: 1.65;
+  position: relative;
+  z-index: 1;
+}
+
+.rz-ops-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  position: relative;
+  z-index: 1;
+}
+
+.rz-ops-col {
+  border-radius: 22px;
+  border: 1px solid var(--rz-rule);
+  background: rgba(255, 255, 255, 0.68);
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.rz-ops-col b {
+  color: var(--rz-ink);
+  font-size: 15px;
+  letter-spacing: -0.2px;
+}
+
+.rz-ops-col span {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: rgba(250, 250, 247, 0.9);
+  border: 1px solid rgba(231, 229, 224, 0.9);
+  padding: 8px 10px;
+  color: var(--rz-ink-2);
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.rz-ops-before span::before,
+.rz-ops-after span::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+}
+
+.rz-ops-before span::before { background: var(--rz-coral); }
+.rz-ops-after span::before { background: var(--rz-blue); }
+
+.rz-ops-bridge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--rz-muted);
+}
+
+.rz-ops-bridge strong {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--rz-coral);
+  color: #fff;
+  font-size: 24px;
+  box-shadow: 0 16px 34px rgba(255, 119, 76, 0.28);
+}
+
+.rz-ops-bridge small {
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-family: var(--rz-mono);
+  font-size: 9px;
+}
+
+.rz-ops-next {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  border-radius: 18px;
+  background: var(--rz-blue);
+  color: #fff;
+  padding: 15px 18px;
+  font-size: 15px;
+  font-weight: 650;
+  position: relative;
+  z-index: 1;
+}
+
+.rz-ops-next span {
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--rz-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
 
 /* ─── Stats band (dark/cosmic) ────────────────────────────── */
 .rz-stats-band {
@@ -4402,9 +4596,9 @@ button.rz-btn-blue {
 /* ─── Responsive ──────────────────────────────────────────── */
 @media (max-width: 1080px) {
   .rz-header {
-    grid-template-columns: 1fr auto;
     padding: 16px 24px;
   }
+  .rz-header-inner { grid-template-columns: 1fr auto; }
   .rz-menu-button {
     display: inline-flex;
     align-items: center;
@@ -4471,6 +4665,7 @@ button.rz-btn-blue {
     gap: 36px;
   }
   .rz-hero-illo { max-width: 540px; margin: 0 auto; }
+  .rz-hero-ops { min-height: auto; }
   .rz-stats-grid,
   .rz-proof-band .rz-wrap,
   .rz-benefits-grid,
@@ -4774,5 +4969,42 @@ button.rz-btn-blue {
   .rz-lead-card { padding: 28px; }
   .rz-hero h1 { letter-spacing: -1.5px; }
   .rz-page-hero h1 { letter-spacing: -1.5px; }
+  .rz-ops-card {
+    border-radius: 26px;
+    padding: 24px;
+  }
+  .rz-ops-card::before { inset: 12px; border-radius: 20px; }
+  .rz-ops-head {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .rz-ops-head > span {
+    width: auto;
+    height: auto;
+    justify-self: start;
+    border-radius: 999px;
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+  .rz-ops-flow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .rz-ops-bridge {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-left: 4px;
+  }
+  .rz-ops-bridge strong {
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+    transform: rotate(90deg);
+  }
+  .rz-ops-bridge small { writing-mode: horizontal-tb; }
+  .rz-ops-next {
+    align-items: flex-start;
+    flex-direction: column;
+  }
   .rz-word-frame { min-width: 0; }
 }

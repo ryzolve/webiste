@@ -296,86 +296,88 @@ function Header({ active, inner = false }: { active: ActiveKey; inner?: boolean 
         <Link href="/calendly">Book a demo →</Link>
       </div>
       <header className={mobileOpen ? 'rz-header rz-nav-open' : 'rz-header'}>
-        <Link href="/" className="rz-brand" aria-label="Ryzolve home">
-          <RyzolveMark />
-          <span>Ryzolve</span>
-        </Link>
+        <div className="rz-header-inner">
+          <Link href="/" className="rz-brand" aria-label="Ryzolve home">
+            <RyzolveMark />
+            <span>Ryzolve</span>
+          </Link>
 
-        <button
-          className="rz-menu-button"
-          type="button"
-          onClick={() => setMobileOpen((v) => !v)}
-          aria-expanded={mobileOpen}
-        >
-          Menu
-        </button>
-
-        <nav className="rz-nav" aria-label="Main navigation">
-          {nav.links
-            .filter((item) => item.slug === 'home')
-            .map((item) => (
-              <Link key={item.href} className={active === item.slug ? 'active' : ''} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
-          <div
-            className={productsActive ? 'rz-products-nav active' : 'rz-products-nav'}
-            data-open={productsOpen}
-            ref={wrapRef}
-            onMouseEnter={openProducts}
-            onMouseLeave={scheduleCloseProducts}
+          <button
+            className="rz-menu-button"
+            type="button"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-expanded={mobileOpen}
           >
-            <button type="button" onClick={() => setProductsOpen((v) => !v)} aria-expanded={productsOpen}>
-              Our Products
-              <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
-                <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-              </svg>
-            </button>
-            {productsOpen && (
-              <div className="rz-products-menu" role="menu">
-                {nav.products.map((p) => (
-                  <Link key={p.href} href={p.href} role="menuitem">
-                    <span className="rz-pm-icon">
-                      <ProductIcon kind={serviceToIcon(p.slug)} size={18} />
-                    </span>
-                    <div>
-                      <strong>{p.label}</strong>
-                      <span>{p.short}</span>
-                    </div>
-                  </Link>
-                ))}
-                <hr />
-                <Link href="/#products" className="rz-menu-see-all">See all products →</Link>
-              </div>
+            Menu
+          </button>
+
+          <nav className="rz-nav" aria-label="Main navigation">
+            {nav.links
+              .filter((item) => item.slug === 'home')
+              .map((item) => (
+                <Link key={item.href} className={active === item.slug ? 'active' : ''} href={item.href}>
+                  {item.label}
+                </Link>
+              ))}
+            <div
+              className={productsActive ? 'rz-products-nav active' : 'rz-products-nav'}
+              data-open={productsOpen}
+              ref={wrapRef}
+              onMouseEnter={openProducts}
+              onMouseLeave={scheduleCloseProducts}
+            >
+              <button type="button" onClick={() => setProductsOpen((v) => !v)} aria-expanded={productsOpen}>
+                Our Products
+                <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                  <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                </svg>
+              </button>
+              {productsOpen && (
+                <div className="rz-products-menu" role="menu">
+                  {nav.products.map((p) => (
+                    <Link key={p.href} href={p.href} role="menuitem">
+                      <span className="rz-pm-icon">
+                        <ProductIcon kind={serviceToIcon(p.slug)} size={18} />
+                      </span>
+                      <div>
+                        <strong>{p.label}</strong>
+                        <span>{p.short}</span>
+                      </div>
+                    </Link>
+                  ))}
+                  <hr />
+                  <Link href="/#products" className="rz-menu-see-all">See all products →</Link>
+                </div>
+              )}
+            </div>
+            {nav.links
+              .filter((item) => item.slug !== 'home')
+              .map((item) => (
+                <Link key={item.href} className={active === item.slug ? 'active' : ''} href={item.href}>
+                  {item.label}
+                </Link>
+              ))}
+          </nav>
+
+          <div className="rz-header-actions">
+            {inner ? (
+              <>
+                <a href={company.providerLoginUrl}>Login</a>
+                <Link href="/calendly" className="rz-pill-cta">
+                  Book a demo
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </>
+            ) : (
+              <>
+                <a href={`${trainingUrl}/auth/login`}>Training login</a>
+                <a href={company.providerLoginUrl} className="rz-pill-cta">
+                  Login
+                  <span aria-hidden="true">→</span>
+                </a>
+              </>
             )}
           </div>
-          {nav.links
-            .filter((item) => item.slug !== 'home')
-            .map((item) => (
-              <Link key={item.href} className={active === item.slug ? 'active' : ''} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
-        </nav>
-
-        <div className="rz-header-actions">
-          {inner ? (
-            <>
-              <a href={company.providerLoginUrl}>Login</a>
-              <Link href="/calendly" className="rz-pill-cta">
-                Book a demo
-                <span aria-hidden="true">→</span>
-              </Link>
-            </>
-          ) : (
-            <>
-              <a href={`${trainingUrl}/auth/login`}>Training login</a>
-              <a href={company.providerLoginUrl} className="rz-pill-cta">
-                Login
-                <span aria-hidden="true">→</span>
-              </a>
-            </>
-          )}
         </div>
       </header>
     </>
@@ -507,48 +509,47 @@ function SectionHeader({
    Hero illustration (faithful SVG)
    ════════════════════════════════════════════════════════════════ */
 
+const heroPainPoints = ['Missed clock-ins', 'Paper forms', 'Claim follow-ups', 'Survey stress'];
+const heroGainPoints = ['EVV-connected workflows', 'Digital records', 'Claim visibility', 'Audit-ready files'];
+
 function HeroIllo() {
   return (
-    <div className="rz-hero-illo">
-      <svg viewBox="0 0 600 540" aria-hidden="true">
-        <g stroke="#0D5992" fill="none" opacity="0.28">
-          <circle cx="380" cy="270" r="60" />
-          <circle cx="380" cy="270" r="130" />
-          <circle cx="380" cy="270" r="200" />
-          <circle cx="380" cy="270" r="270" strokeDasharray="2 6" />
-        </g>
-        <circle cx="380" cy="270" r="44" fill="#FFFFFF" stroke="#DCEAF5" strokeWidth="2" />
-        <path d="M363 270 l12 12 22-26" stroke="#0D5992" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <div className="rz-hero-illo rz-hero-ops">
+      <div className="rz-ops-card">
+        <div className="rz-ops-kicker">The agency operations problem</div>
+        <div className="rz-ops-head">
+          <h3>Your team should not need five systems to know what happened today.</h3>
+          <span>5 → 1</span>
+        </div>
+        <p>
+          Ryzolve brings the daily work into one operating flow so your agency can move from
+          scattered tasks to organized execution.
+        </p>
 
-        {/* Compliance card */}
-        <g transform="translate(80,130)">
-          <rect width="220" height="96" rx="14" fill="#FFFFFF" stroke="#E7E5E0" />
-          <rect x="16" y="16" width="32" height="32" rx="8" fill="#DCEAF5" />
-          <path d="M24 32 l6 6 10-12" stroke="#083E69" strokeWidth="2.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-          <text x="60" y="34" fontFamily="Inter, system-ui, sans-serif" fontSize="11" fontWeight="600" fill="#6B7280" letterSpacing="1.5">COMPLIANT</text>
-          <text x="60" y="54" fontFamily="Inter, system-ui, sans-serif" fontSize="16" fontWeight="700" fill="#0B0E12">HHSC audit ready</text>
-          <text x="16" y="80" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#6B7280">Last check · 04 hrs ago</text>
-        </g>
+        <div className="rz-ops-flow" aria-label="Before and with Ryzolve comparison">
+          <div className="rz-ops-col rz-ops-before">
+            <b>Before Ryzolve</b>
+            {heroPainPoints.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+          <div className="rz-ops-bridge" aria-hidden="true">
+            <strong>→</strong>
+            <small>connected</small>
+          </div>
+          <div className="rz-ops-col rz-ops-after">
+            <b>With Ryzolve</b>
+            {heroGainPoints.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </div>
 
-        {/* Claim card */}
-        <g transform="translate(60,340)">
-          <rect width="280" height="124" rx="14" fill="#0D5992" />
-          <rect x="16" y="16" width="44" height="44" rx="22" fill="#FF774C" />
-          <text x="38" y="44" textAnchor="middle" fontFamily="Inter, system-ui, sans-serif" fontSize="18" fontWeight="700" fill="#fff">$</text>
-          <text x="72" y="36" fontFamily="Inter, system-ui, sans-serif" fontSize="11" fontWeight="600" fill="#FF774C" letterSpacing="1.5">CLAIM PAID</text>
-          <text x="72" y="56" fontFamily="Inter, system-ui, sans-serif" fontSize="20" fontWeight="600" fill="#fff">$4,820.00</text>
-          <text x="16" y="92" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="rgba(255,255,255,0.5)">RYZ-CLM-7741 · Amerigroup TX</text>
-          <text x="16" y="108" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="rgba(255,255,255,0.5)">Approved · 05/22/26 · First pass</text>
-        </g>
-
-        {/* Stat */}
-        <g transform="translate(400,440)">
-          <rect width="170" height="60" rx="12" fill="#FFFFFF" stroke="#E7E5E0" />
-          <text x="14" y="22" fontFamily="Inter, system-ui, sans-serif" fontSize="10" fontWeight="600" fill="#6B7280" letterSpacing="1.5">DENIALS · 30D</text>
-          <text x="14" y="44" fontFamily="Inter, system-ui, sans-serif" fontSize="22" fontWeight="700" fill="#0B0E12">0.8%</text>
-          <text x="105" y="44" fontFamily="Inter, system-ui, sans-serif" fontSize="12" fontWeight="500" fill="#1F8A5B">↓ 86%</text>
-        </g>
-      </svg>
+        <Link href="/calendly" className="rz-ops-next">
+          <span>Simple next step</span>
+          Schedule a 15-minute demo →
+        </Link>
+      </div>
     </div>
   );
 }

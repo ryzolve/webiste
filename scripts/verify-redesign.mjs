@@ -274,14 +274,18 @@ assert.ok(site.includes('function HomeTrainingCta'), 'homepage should render a t
 assert.ok(site.includes('href="/training"'), 'homepage training CTA should link to /training');
 
 for (const phrase of [
-  '<circle cx="380" cy="270" r="44" fill="#FFFFFF" stroke="#DCEAF5" strokeWidth="2" />',
-  '<path d="M363 270 l12 12 22-26" stroke="#0D5992"',
-  '<rect width="220" height="96" rx="14" fill="#FFFFFF" stroke="#E7E5E0" />',
-  '<rect x="16" y="16" width="32" height="32" rx="8" fill="#DCEAF5" />',
-  '<path d="M24 32 l6 6 10-12" stroke="#083E69"',
-  '<rect width="280" height="124" rx="14" fill="#0D5992" />',
+  'rz-header-inner',
+  'max-width: 1328px',
+  'The agency operations problem',
+  'Your team should not need five systems to know what happened today.',
+  'Before Ryzolve',
+  'With Ryzolve',
+  'Schedule a 15-minute demo',
 ]) {
-  assert.ok(site.includes(phrase), `home hero SVG should keep compliance white and make claim card blue: ${phrase}`);
+  assert.ok(
+    site.includes(phrase) || css.includes(phrase),
+    `header and home hero operations panel should preserve: ${phrase}`
+  );
 }
 
 const homepageVideoUrl = 'https://youtu.be/KeVOcQhl2S4';
