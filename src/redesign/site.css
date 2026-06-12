@@ -707,9 +707,11 @@ button.rz-btn-ghost {
 }
 .rz-benefits-intro h2 {
   max-width: 760px;
-  font-size: clamp(42px, 5.4vw, 64px);
-  line-height: 1.06;
-  letter-spacing: -2px;
+  font-size: clamp(36px, 4.5vw, 52px);
+  color: var(--rz-ink);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
   margin: 0;
 }
 .rz-benefits-intro p {
@@ -4442,8 +4444,8 @@ button.rz-btn-blue {
     margin-bottom: 30px;
   }
   .rz-benefits-intro h2 {
-    font-size: clamp(36px, 11vw, 46px);
-    letter-spacing: -1.4px;
+    font-size: clamp(34px, 10vw, 42px);
+    letter-spacing: -1.2px;
   }
   .rz-benefits-intro p,
   .rz-benefits-intro > p {
