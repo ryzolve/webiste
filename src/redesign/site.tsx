@@ -72,7 +72,16 @@ export function RyzolveMark({
   );
 }
 
-type IconKind = 'document' | 'shield' | 'card' | 'training';
+type IconKind =
+  | 'document'
+  | 'shield'
+  | 'card'
+  | 'training'
+  | 'calendar'
+  | 'claim'
+  | 'dollar'
+  | 'clipboard'
+  | 'user';
 
 function ProductIcon({ kind, size = 22 }: { kind: IconKind; size?: number }) {
   const common = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none' as const };
@@ -103,6 +112,44 @@ function ProductIcon({ kind, size = 22 }: { kind: IconKind; size?: number }) {
         <svg {...common} aria-hidden="true">
           <path d="M2 9l10-4 10 4-10 4L2 9Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
           <path d="M6 11v4c0 1.5 2.7 3 6 3s6-1.5 6-3v-4M21 10v6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+    case 'calendar':
+      return (
+        <svg {...common} aria-hidden="true">
+          <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" strokeWidth="1.6" />
+          <path d="M8 3v4M16 3v4M4 10h16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          <path d="m8.5 15 2.1 2.1 4.9-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case 'claim':
+      return (
+        <svg {...common} aria-hidden="true">
+          <path d="M7 3h8l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M15 3v5h4" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M12 11v6M14 12.2c-.5-.8-1.5-1.1-2.5-.8-1.2.4-1.5 1.8-.2 2.4l1.5.7c1.3.6 1 2-.2 2.4-1 .3-2-.1-2.6-.9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      );
+    case 'dollar':
+      return (
+        <svg {...common} aria-hidden="true">
+          <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.6" />
+          <path d="M12 7.5v9M14.6 9.2c-.6-.8-1.6-1.2-2.7-1.1-1.4.1-2.4.9-2.4 2s.8 1.6 2.6 2.1c1.9.6 2.8 1.1 2.8 2.3s-1.1 2.1-2.7 2.1c-1.3 0-2.5-.5-3.2-1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      );
+    case 'clipboard':
+      return (
+        <svg {...common} aria-hidden="true">
+          <path d="M8.5 5h-2A1.5 1.5 0 0 0 5 6.5v13A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 17.5 5h-2" stroke="currentColor" strokeWidth="1.6" />
+          <rect x="8.5" y="3" width="7" height="4" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
+          <path d="M9 12h6M9 16h4M15.5 16.2l1.2 1.2 2.3-2.7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case 'user':
+      return (
+        <svg {...common} aria-hidden="true">
+          <circle cx="12" cy="8" r="3.25" stroke="currentColor" strokeWidth="1.6" />
+          <path d="M5 20c.6-3.7 3.1-5.7 7-5.7s6.4 2 7 5.7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
         </svg>
       );
   }
@@ -695,25 +742,26 @@ function BenefitsSection() {
   return (
     <section id="products" className="rz-section rz-benefits">
       <div className="rz-wrap">
-        <SectionHeader
-          eyebrow="What we do"
-          title={home.benefits.title}
-        />
-        <div className="rz-benefits-grid">
-          {sharedServices.map((service, index) => (
-            <Link key={service.title} href={service.href} className="rz-benefit-card">
-              <div className="rz-benefit-card-head">
+        <div className="rz-benefits-intro">
+          <div>
+            <p className="rz-eyebrow">{home.benefits.eyebrow}</p>
+            <h2>{home.benefits.title}</h2>
+            <p>{home.benefits.description}</p>
+          </div>
+          <p>{home.benefits.lead}</p>
+        </div>
+        <div className="rz-benefits-platform-grid">
+          {home.benefits.cards.map((card, index) => (
+            <article key={card.title} className="rz-platform-card">
+              <div className="rz-platform-card-head">
                 <span className="rz-icon-square rz-icon-square-deep">
-                  <ProductIcon kind={service.icon as IconKind} size={22} />
+                  <ProductIcon kind={card.icon as IconKind} size={22} />
                 </span>
                 <span className="rz-step-tag">STEP 0{index + 1}</span>
               </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-              <span className="rz-card-foot">
-                Learn more <span className="rz-btn-arrow" aria-hidden="true">→</span>
-              </span>
-            </Link>
+              <h3>{card.title}</h3>
+              <p>{card.description}</p>
+            </article>
           ))}
         </div>
       </div>

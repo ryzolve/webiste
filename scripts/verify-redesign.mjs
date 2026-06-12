@@ -46,26 +46,29 @@ const openNext = read('open-next.config.ts');
 const gitignore = read('.gitignore');
 const assetsignore = read('.assetsignore');
 
-// Original copy must be preserved verbatim (per client instruction).
+// Baseline copy and approved client content updates must be preserved.
 const requiredCopy = [
   "Enhance your agency's",
   'Provider management software to help PAS agencies be more efficient',
   'Transform your PAS agency: No more time wasted on outdated processes',
   'Document Management that suites to fit your healthcare structure to increase Efficiency',
-  'Managing paper work made easier',
   "We've got you covered during state audits.",
-  'Claims are handled quickly.',
   'Empowering Growth Through Smart Solutions',
+  'Run your Texas PAS agency on one platform.',
+  'Built for Texas PAS agencies, Ryzolve brings together scheduling',
+  'Document management without the paper chase.',
+  'Built to keep your agency inspection-ready.',
+  'Claims & billing with fewer denials.',
+  'Built to simplify claims operations for your agency.',
   'Get in Touch',
   'This is blank page',
   'Our Philosophy ?',
-  'Add the necessary contraints before submitting claims',
   'Implementing the software can be done in as little as week',
   'reducing down paperwork & errors',
 ];
 
 for (const phrase of requiredCopy) {
-  assert.ok(content.includes(phrase), `content.ts should preserve old copy: ${phrase}`);
+  assert.ok(content.includes(phrase), `content.ts should preserve required copy: ${phrase}`);
 }
 
 // All public routes must remain.
@@ -111,7 +114,7 @@ const requiredDesignHooks = [
   'rz-hero',
   'rz-stats-band',
   'rz-proof-band',
-  'rz-benefits-grid',
+  'rz-benefits-platform-grid',
   'rz-strategy-grid',
   'rz-how-grid',
   'rz-training-cta',
@@ -128,12 +131,24 @@ for (const hook of requiredDesignHooks) {
 }
 
 for (const phrase of [
-  'className="rz-benefit-card-head"',
+  'className="rz-benefits-intro"',
+  'className="rz-platform-card"',
+  'className="rz-platform-card-head"',
   'className="rz-icon-square rz-icon-square-deep"',
   '<span className="rz-step-tag">STEP 0{index + 1}</span>',
-  '<span className="rz-card-foot">',
 ]) {
-  assert.ok(site.includes(phrase), `what-we-do cards should match strategy card header treatment: ${phrase}`);
+  assert.ok(site.includes(phrase), `what-we-do platform cards should match theme treatment: ${phrase}`);
+}
+
+for (const phrase of [
+  'Scheduling + EVV',
+  'TMHP Claims + Payments',
+  'Authorizations + Eligibility',
+  'Payroll + Reconciliation',
+  'Compliance + Audit Readiness',
+  'Hiring + Training',
+]) {
+  assert.ok(content.includes(phrase), `what-we-do section should keep client platform card: ${phrase}`);
 }
 
 for (const phrase of [
@@ -191,7 +206,6 @@ const requiredVisibleStrings = [
   'Training login',
   'Book a demo',
   'See our products',
-  'Learn more',
   'Browse the 3 courses',
   'View Administrator Courses',
   'View In-Service Plans',

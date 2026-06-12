@@ -73,7 +73,50 @@ export const home = {
     subtitle: 'Provider management software to help PAS agencies be more efficient',
   },
   benefits: {
-    title: 'Built for the four bottlenecks every Texas agency hits.',
+    eyebrow: 'What we do',
+    title: 'Run your Texas PAS agency on one platform.',
+    description:
+      'Ryzolve helps agencies manage EVV, claims, compliance, payroll, hiring, and training—without juggling multiple systems.',
+    lead:
+      'Built for Texas PAS agencies, Ryzolve brings together scheduling, EVV-connected workflows, TMHP claims, authorization tracking, caregiver onboarding, compliance documentation, payroll support, and training management in one streamlined system. The result is fewer manual tasks, fewer denials, stronger compliance, and better visibility across your operations.',
+    cards: [
+      {
+        title: 'Scheduling + EVV',
+        description:
+          'Create schedules, manage hours, and keep visits aligned with EVV workflows without duplicate data entry.',
+        icon: 'calendar',
+      },
+      {
+        title: 'TMHP Claims + Payments',
+        description:
+          'Submit claims faster, monitor 277 and 835 responses, and reduce denials with better visibility into billing status.',
+        icon: 'claim',
+      },
+      {
+        title: 'Authorizations + Eligibility',
+        description:
+          'Track authorized hours, monitor utilization, and review eligibility details to keep services aligned and billable.',
+        icon: 'shield',
+      },
+      {
+        title: 'Payroll + Reconciliation',
+        description:
+          'Bring together timesheets, visit data, and payroll-ready totals so your team can review and process with confidence.',
+        icon: 'dollar',
+      },
+      {
+        title: 'Compliance + Audit Readiness',
+        description:
+          'Organize forms, reminders, and required checks so your agency stays inspection-ready and well documented.',
+        icon: 'clipboard',
+      },
+      {
+        title: 'Hiring + Training',
+        description:
+          'Manage caregiver onboarding, background checks, employability review, and training certificates in one place.',
+        icon: 'user',
+      },
+    ],
   },
   solutions: {
     eyebrow: 'Our Solutions',
