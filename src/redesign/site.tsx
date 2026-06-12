@@ -289,9 +289,11 @@ function Header({ active, inner = false }: { active: ActiveKey; inner?: boolean 
   return (
     <>
       <div className="rz-promo">
-        <span>New</span>
-        <strong>2026 HHSC compliance updates are live in Ryzolve.</strong>
-        <Link href="/training">See what&apos;s new →</Link>
+        <strong>
+          Built for Texas PAS agencies that want less paperwork, cleaner compliance, and better
+          operational control.
+        </strong>
+        <Link href="/calendly">Book a demo →</Link>
       </div>
       <header className={mobileOpen ? 'rz-header rz-nav-open' : 'rz-header'}>
         <Link href="/" className="rz-brand" aria-label="Ryzolve home">
@@ -386,7 +388,9 @@ function Footer() {
       <div className="rz-footer-grid">
         <section>
           <div className="rz-footer-brand">
-            <RyzolveMark accent="#FFFFFF" />
+            <span className="rz-footer-logo-chip" aria-hidden="true">
+              <RyzolveMark />
+            </span>
             <span>Ryzolve</span>
           </div>
           <p className="rz-footer-intro">{footer.intro}</p>
@@ -419,6 +423,7 @@ function Footer() {
             <br />
             <a href={`mailto:${company.email}`}>{company.email}</a>
           </div>
+          {/* Social links hidden until client-provided social profiles are ready.
           <div className="rz-social-row">
             {footer.social.map((s) => (
               <a key={s.label} href={s.href} aria-label={s.fullLabel} target="_blank" rel="noopener noreferrer">
@@ -426,6 +431,7 @@ function Footer() {
               </a>
             ))}
           </div>
+          */}
         </section>
       </div>
       <div className="rz-footer-bottom">
@@ -610,7 +616,8 @@ function HomeHero() {
         <div>
           <span className="rz-pill">{home.hero.eyebrow}</span>
           <h1>
-            {home.hero.title}
+            Stop chasing paperwork. <span className="rz-text-blue">Run your agency</span> with
+            confidence.
             {home.hero.animatedWords.length > 0 && (
               <>
                 <br />
@@ -749,7 +756,9 @@ function BenefitsSection() {
         <div className="rz-benefits-intro">
           <div>
             <p className="rz-eyebrow">{home.benefits.eyebrow}</p>
-            <h2>{home.benefits.title}</h2>
+            <h2>
+              Run your Texas PAS agency on <span className="rz-text-blue">one platform.</span>
+            </h2>
             <p>{home.benefits.description}</p>
           </div>
           <p>{home.benefits.lead}</p>
@@ -791,7 +800,7 @@ function BeforeAfterSection() {
       <div className="rz-wrap rz-before-after-inner">
         <SectionHeader
           eyebrow={home.beforeAfter.eyebrow}
-          title={home.beforeAfter.title}
+          title={<>Replace scattered processes with <span className="rz-text-blue">one connected workflow.</span></>}
           center
           dark
         />
@@ -876,7 +885,7 @@ function HomeStrategy() {
       <div className="rz-wrap">
         <SectionHeader
           eyebrow={home.strategy.eyebrow}
-          title={home.strategy.title}
+          title={<>Each module <span className="rz-text-blue">earns its keep.</span> Together, they remove a category of work from your week.</>}
           description={home.strategy.description}
         />
         <div className="rz-strategy-grid">
@@ -911,7 +920,7 @@ function HomeHowItWorks() {
       <div className="rz-wrap">
         <SectionHeader
           eyebrow={home.howItWorks.eyebrow}
-          title={home.howItWorks.title}
+          title={<>Managing claims and paperwork should be <span className="rz-text-blue">easier.</span></>}
         />
         <div className="rz-how-grid">
           {home.howItWorks.steps.map((step, i) => (
@@ -944,7 +953,10 @@ function HomeTrainingCta() {
       <div className="rz-wrap rz-training-cta-grid">
         <div className="rz-training-cta-copy">
           <p className="rz-eyebrow rz-eyebrow-coral">{homeTrainingCta.eyebrow}</p>
-          <h2>{homeTrainingCta.title}</h2>
+          <h2>
+            Administrator Training and In-Service Training,{' '}
+            <span className="rz-text-blue">clearly separated.</span>
+          </h2>
           <p>{homeTrainingCta.description}</p>
           <div className="rz-training-cta-actions">
             <CTA href="/training" variant="coral">{homeTrainingCta.primaryCta}</CTA>

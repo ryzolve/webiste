@@ -115,6 +115,8 @@ const requiredDesignHooks = [
   'rz-nav',
   'rz-products-menu',
   'rz-footer',
+  'rz-footer-logo-chip',
+  'rz-text-blue',
   'rz-hero',
   'rz-stats-band',
   'rz-proof-band',
@@ -136,6 +138,14 @@ for (const hook of requiredDesignHooks) {
 }
 
 for (const phrase of [
+  '<RyzolveMark />',
+  'Social links hidden until client-provided social profiles are ready.',
+  'Built for Texas PAS agencies that want less paperwork, cleaner compliance, and better',
+  'operational control.',
+  'Book a demo →',
+  '<span className="rz-text-blue">Run your agency</span>',
+  '<span className="rz-text-blue">one platform.</span>',
+  '<span className="rz-text-blue">one connected workflow.</span>',
   'className="rz-benefits-intro"',
   'className="rz-platform-card"',
   'className="rz-platform-card-head"',
@@ -172,6 +182,24 @@ assert.match(
   css,
   /\.rz-eyebrow\s*\{[^}]*font-size:\s*11px[^}]*letter-spacing:\s*0\.16em/s,
   'section preheadings should be slightly smaller and tighter'
+);
+
+assert.match(
+  css,
+  /\.rz-site \.rz-btn-primary,[\s\S]*?background:\s*var\(--rz-blue\);[\s\S]*?border-color:\s*var\(--rz-blue\);/s,
+  'primary CTAs should use the Ryzolve logo blue instead of black'
+);
+
+assert.match(
+  css,
+  /\.rz-header-actions > a\.rz-pill-cta\s*\{[\s\S]*?background:\s*var\(--rz-blue\);/s,
+  'header CTA pill should use the Ryzolve logo blue instead of black'
+);
+
+assert.match(
+  css,
+  /\.rz-shead-dark \.rz-text-blue,[\s\S]*?color:\s*#BFE4FF;[\s\S]*?text-shadow:/s,
+  'blue text callouts on dark sections should use a lighter high-contrast blue treatment'
 );
 
 assert.ok(!site.includes('<HomeSolutions />'), 'old homepage solutions block should not render in final landing page flow');

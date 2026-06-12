@@ -76,7 +76,7 @@ export const home = {
     trust: ['Less paperwork', 'Fewer missed tasks', 'Cleaner agency operations'],
   },
   benefits: {
-    eyebrow: 'What we do',
+    eyebrow: 'What Ryzolve does',
     title: 'Run your Texas PAS agency on one platform.',
     description:
       'Ryzolve helps agencies manage EVV, claims, compliance, payroll, hiring, and training—without juggling multiple systems.',

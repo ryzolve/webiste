@@ -36,6 +36,20 @@
 .rz-site a { color: inherit; text-decoration: none; }
 .rz-site button { font-family: inherit; }
 .rz-site h1, .rz-site h2, .rz-site h3, .rz-site h4 { font-family: var(--rz-sans); }
+.rz-text-blue { color: var(--rz-blue); }
+.rz-shead-dark .rz-text-blue,
+.rz-band-dark .rz-text-blue,
+.rz-before-after .rz-text-blue,
+.rz-training-cta .rz-text-blue,
+.rz-evidence .rz-text-blue,
+.rz-tr-cta .rz-text-blue {
+  color: #BFE4FF;
+  text-shadow: 0 0 26px rgba(13, 89, 146, 0.72), 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(191, 228, 255, 0) 58%, rgba(13, 89, 146, 0.44) 58%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.04em;
+}
 
 /* Animated WebGL shader background — used in hero, stats band, training band, evidence */
 .rz-shader-bg {
@@ -246,7 +260,7 @@
   border-radius: 999px;
 }
 .rz-header-actions > a.rz-pill-cta {
-  background: var(--rz-ink);
+  background: var(--rz-blue);
   color: #fff;
   padding: 11px 20px;
   display: inline-flex;
@@ -290,11 +304,11 @@
 .rz-site .rz-btn-primary,
 a.rz-btn-primary,
 button.rz-btn-primary {
-  background: var(--rz-ink);
+  background: var(--rz-blue);
   color: #fff;
-  border-color: var(--rz-ink);
+  border-color: var(--rz-blue);
 }
-.rz-btn-primary:hover { box-shadow: 0 10px 28px rgba(13,14,18,0.18); filter: none; }
+.rz-btn-primary:hover { box-shadow: 0 12px 32px rgba(13, 89, 146, 0.32); filter: none; }
 
 .rz-site .rz-btn-secondary,
 a.rz-btn-secondary,
@@ -1793,8 +1807,19 @@ button.rz-btn-ghost {
 }
 .rz-footer-grid a:hover { opacity: 1; }
 .rz-footer-brand { display: flex; align-items: center; gap: 12px; }
-.rz-footer-brand .rz-mark {
-  color: var(--rz-coral);
+.rz-footer-logo-chip {
+  width: 44px;
+  height: 34px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: var(--rz-blue);
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+.rz-footer-logo-chip .rz-mark {
   width: 32px;
   height: 23px;
   display: block;
