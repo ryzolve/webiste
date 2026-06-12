@@ -68,9 +68,12 @@ export const sharedServices = [
 
 export const home = {
   hero: {
-    title: "Enhance your agency's",
-    animatedWords: ['profits', 'efficiency', 'compliance'],
-    subtitle: 'Provider management software to help PAS agencies be more efficient',
+    eyebrow: 'Built for Texas PAS agencies',
+    title: 'Stop chasing paperwork. Run your agency with confidence.',
+    animatedWords: [],
+    subtitle:
+      'Ryzolve gives PAS agencies one place to manage EVV-connected schedules, claims, compliance records, payroll, hiring, and staff training.',
+    trust: ['Less paperwork', 'Fewer missed tasks', 'Cleaner agency operations'],
   },
   benefits: {
     eyebrow: 'What we do',
@@ -78,16 +81,16 @@ export const home = {
     description:
       'Ryzolve helps agencies manage EVV, claims, compliance, payroll, hiring, and training—without juggling multiple systems.',
     lead:
-      'Built for Texas PAS agencies, Ryzolve brings together scheduling, EVV-connected workflows, TMHP claims, authorization tracking, caregiver onboarding, compliance documentation, payroll support, and training management in one streamlined system. The result is fewer manual tasks, fewer denials, stronger compliance, and better visibility across your operations.',
+      'Built for Texas PAS agencies first, with support for Home Health and Hospice operations, Ryzolve brings together the daily workflows that determine whether your agency stays compliant, gets paid, and grows with confidence.',
     cards: [
       {
-        title: 'Scheduling + EVV',
+        title: 'EVV-Connected Scheduling',
         description:
           'Create schedules, manage hours, and keep visits aligned with EVV workflows without duplicate data entry.',
         icon: 'calendar',
       },
       {
-        title: 'TMHP Claims + Payments',
+        title: 'TMHP Claims & Payments',
         description:
           'Submit claims faster, monitor 277 and 835 responses, and reduce denials with better visibility into billing status.',
         icon: 'claim',
@@ -107,15 +110,33 @@ export const home = {
       {
         title: 'Compliance + Audit Readiness',
         description:
-          'Organize forms, reminders, and required checks so your agency stays inspection-ready and well documented.',
+          'Organize forms, reminders, background checks, monthly checks, and required documentation for survey readiness.',
         icon: 'clipboard',
       },
       {
-        title: 'Hiring + Training',
+        title: 'Hiring, Onboarding & Training',
         description:
-          'Manage caregiver onboarding, background checks, employability review, and training certificates in one place.',
+          'Manage caregiver onboarding, employability review, hire forms, administrator training, and in-service training records.',
         icon: 'user',
       },
+    ],
+  },
+  beforeAfter: {
+    eyebrow: 'Before & after',
+    title: 'Replace scattered processes with one connected workflow.',
+    withoutTitle: 'Without Ryzolve',
+    withTitle: 'With Ryzolve',
+    without: [
+      'Schedules, EVV, claims, forms, and payroll live in different places.',
+      'Staff spend hours chasing missing documents, signatures, and training records.',
+      'Claims are submitted without enough visibility into line-level status or denials.',
+      'Audit preparation becomes a scramble instead of a routine.',
+    ],
+    with: [
+      'Agency workflows are centralized across scheduling, EVV, claims, compliance, and training.',
+      'Admins can track caregiver records, training, forms, and compliance requirements.',
+      'Billing teams see claim and payment status with fewer blind spots.',
+      'Survey readiness becomes a daily operating standard.',
     ],
   },
   solutions: {
@@ -136,32 +157,24 @@ export const home = {
     ],
   },
   strategy: {
-    eyebrow: 'Our Strategy',
-    title: 'All in one platform to help your agency grow',
-    description: 'Three connected modules. Each one earns its keep on its own — together, they remove a category of work from your week.',
+    eyebrow: 'Product modules',
+    title: 'Each module earns its keep. Together, they remove a category of work from your week.',
+    description: 'Three connected modules help your team organize documents, stay survey-ready, and keep claims moving from submission to payment.',
     steps: [
       {
-        title: 'Digital document management',
+        title: 'Document Management',
         href: '/document-management',
-        bullets: ['Run PAS position background checks for you', 'Reduces paperwork', 'Minimizes errors', 'Saves time'],
+        bullets: ['Caregiver and client forms', 'Audit-ready document tracking', 'Hiring and onboarding records'],
       },
       {
-        title: 'Compliance regulation',
+        title: 'Compliance Regulation',
         href: '/compliance-regulation',
-        bullets: [
-          'Conducts monthly compliance and background checks',
-          'Assists in preventing non-compliance fines and sanctions',
-          'Maintains compliance with government policies and standards',
-        ],
+        bullets: ['Monthly OIG and LEIE checks', 'Training and certificate records', 'Survey-focused reminders'],
       },
       {
         title: 'Claims & Billing',
         href: '/claims-and-bills',
-        bullets: [
-          'Simplifies filing claims with state and managed care organizations',
-          'Simplifies provider/client scheduling and payroll data aggregation',
-          'Improves efficiency in claims approvals and reimbursement',
-        ],
+        bullets: ['TMHP and MCO claim workflows', '277 / 835 visibility', 'Payment and denial tracking'],
       },
     ],
   },
@@ -172,17 +185,17 @@ export const home = {
       {
         title: 'Book a demo',
         description:
-          'Book a demo to see how our software can help you improve your systems to start reducing down paperwork & errors',
+          'See how Ryzolve fits your current workflows and where your agency can reduce manual work.',
       },
       {
         title: 'Implement the software',
         description:
-          'Implementing the software can be done in as little as week. A streamlined and seamless process so you can improve efficiency',
+          'Start with core agency setup, workflow training, data import, and operational readiness.',
       },
       {
-        title: 'Improve efficiency & Stay compliant',
+        title: 'Improve efficiency and stay compliant',
         description:
-          'Each tool works for you to continue making your agency more efficient and continually giving you confidence in staying compliant',
+          'Use connected workflows to reduce paperwork, monitor claims, track training, and stay survey-ready.',
       },
     ],
   },
@@ -210,17 +223,16 @@ export const statsBand = {
 };
 
 export const homeTrainingCta = {
-  eyebrow: 'Training',
-  title: 'Need Administrator or In-Service Training?',
+  eyebrow: 'Ryzolve Training',
+  title: 'Administrator Training and In-Service Training, clearly separated.',
   description:
-    'Go straight to the Training page to compare required Administrator courses and agency In-Service plans in one place.',
-  supporting: 'Compare administrator and agency training without relying on placeholder software pricing.',
-  primaryCta: 'View training options',
+    'Give users the right path without confusing one-time administrator courses with agency in-service plans.',
+  supporting: 'Administrator courses are one-time learner purchases. In-Service plans are monthly agency subscriptions.',
+  primaryCta: 'Explore Training Options',
   secondaryCta: 'Compare paths',
   highlights: [
-    '8h, 12h & 16h Administrator courses',
-    'Agency In-Service plans',
-    'Self-paced certificates and records',
+    '8h, 12h, and 16h self-paced courses for Administrators and Alternate Administrators.',
+    'Agency plans for monthly caregiver and staff training, completion records, and audit-ready documentation.',
   ],
 };
 
@@ -337,8 +349,9 @@ export const blank = {
 
 export const leadMagnet = {
   title: '7 Common Reasons Agencies Fail State Audits.',
-  description: 'Complete the form below to receive the free downloadable guide',
-  button: 'Send email',
+  description:
+    'Get a practical checklist for what HHSC looks for, common audit triggers, and a weekly 60-minute prep routine.',
+  button: 'Send guide',
 };
 
 interface TestimonialItem {

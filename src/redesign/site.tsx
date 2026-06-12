@@ -608,21 +608,25 @@ function HomeHero() {
       </div>
       <div className="rz-hero-grid">
         <div>
-          <span className="rz-pill">Provider management software · Built in Texas</span>
+          <span className="rz-pill">{home.hero.eyebrow}</span>
           <h1>
             {home.hero.title}
-            <br />
-            <AnimatedWords words={home.hero.animatedWords} />
+            {home.hero.animatedWords.length > 0 && (
+              <>
+                <br />
+                <AnimatedWords words={home.hero.animatedWords} />
+              </>
+            )}
           </h1>
           <p className="rz-hero-sub">{home.hero.subtitle}</p>
           <div className="rz-hero-actions">
             <CTA href="/calendly">Book a demo</CTA>
-            <CTA href="#products" variant="secondary" icon={false}>See our products</CTA>
+            <CTA href="#products" variant="secondary" icon={false}>See How Ryzolve Works</CTA>
           </div>
           <div className="rz-hero-trust">
-            <span>✓ HHSC-aligned</span>
-            <span>✓ Implements in &lt;1 week</span>
-            <span>✓ 4+ yrs no penalties (founding customers)</span>
+            {home.hero.trust.map((item) => (
+              <span key={item}>✓ {item}</span>
+            ))}
           </div>
         </div>
         <HeroIllo />
@@ -769,6 +773,60 @@ function BenefitsSection() {
   );
 }
 
+function BeforeAfterSection() {
+  const pairedRows = home.beforeAfter.without.map((problem, index) => ({
+    problem,
+    outcome: home.beforeAfter.with[index],
+  }));
+
+  return (
+    <section className="rz-section rz-before-after">
+      <div className="rz-shader-bg" aria-hidden="true">
+        <ShaderCanvas
+          shader={SHADER_LIQUID}
+          palette={['#083E69', '#0D5992', '#FF774C', '#FFFFFF']}
+          opacity={1}
+        />
+      </div>
+      <div className="rz-wrap rz-before-after-inner">
+        <SectionHeader
+          eyebrow={home.beforeAfter.eyebrow}
+          title={home.beforeAfter.title}
+          center
+          dark
+        />
+        <div className="rz-before-flow">
+          <div className="rz-before-flow-head">
+            <div className="rz-before-flow-label rz-before-flow-label-muted">
+              <span className="rz-before-mark rz-before-mark-x">×</span>
+              <span>{home.beforeAfter.withoutTitle}</span>
+            </div>
+            <div className="rz-before-flow-label rz-before-flow-label-active">
+              <span className="rz-before-mark rz-before-mark-check">✓</span>
+              <span>{home.beforeAfter.withTitle}</span>
+            </div>
+          </div>
+          <div className="rz-before-flow-list">
+            {pairedRows.map((row, index) => (
+              <article className="rz-before-flow-row" key={row.problem}>
+                <div className="rz-before-flow-cell rz-before-flow-cell-muted">
+                  <span className="rz-before-index">0{index + 1}</span>
+                  <p>{row.problem}</p>
+                </div>
+                <div className="rz-before-flow-arrow" aria-hidden="true" />
+                <div className="rz-before-flow-cell rz-before-flow-cell-active">
+                  <span className="rz-before-index">0{index + 1}</span>
+                  <p>{row.outcome}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function HomeSolutions() {
   return (
     <section className="rz-section rz-solutions rz-solutions-home">
@@ -876,6 +934,11 @@ function HomeHowItWorks() {
 }
 
 function HomeTrainingCta() {
+  const paths = [
+    { title: 'Administrator Training', description: homeTrainingCta.highlights[0], tags: ['8h First-time', '12h Renewal', '16h New Admins'] },
+    { title: 'In-Service Training', description: homeTrainingCta.highlights[1], tags: ['Starter', 'Growth', 'Unlimited'] },
+  ];
+
   return (
     <section id="training-cta" className="rz-section rz-training-cta">
       <div className="rz-wrap rz-training-cta-grid">
@@ -889,14 +952,20 @@ function HomeTrainingCta() {
           </div>
           <p className="rz-training-cta-note">{homeTrainingCta.supporting}</p>
         </div>
-        <ul className="rz-training-cta-list" aria-label="Training options">
-          {homeTrainingCta.highlights.map((item) => (
-            <li key={item}>
-              <span aria-hidden="true">✓</span>
-              {item}
-            </li>
+        <div className="rz-training-cta-list" aria-label="Training options">
+          {paths.map((path) => (
+            <article key={path.title} className="rz-training-path-mini">
+              <span className="rz-training-path-mini-icon" aria-hidden="true">✓</span>
+              <h3>{path.title}</h3>
+              <p>{path.description}</p>
+              <div>
+                {path.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+            </article>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
@@ -1077,13 +1146,11 @@ export function HomePage() {
         <HomeHero />
         <ProofBand />
         <BenefitsSection />
-        <StatsBand />
+        <BeforeAfterSection />
         <HomeStrategy />
-        <HomeSolutions />
         <HomeHowItWorks />
         <HomeTrainingCta />
         <TestimonialsSection />
-        <HomeTrainingBand />
         <LeadMagnetSection />
       </main>
     </SiteLayout>

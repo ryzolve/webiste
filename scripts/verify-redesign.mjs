@@ -27,6 +27,7 @@ const requiredFiles = [
   'pages/blank.tsx',
   'pages/404.tsx',
   'docs/content-mapping-old-to-new.md',
+  'docs/landing-storybrand-content-mapping.md',
 ];
 
 for (const file of requiredFiles) {
@@ -48,14 +49,17 @@ const assetsignore = read('.assetsignore');
 
 // Baseline copy and approved client content updates must be preserved.
 const requiredCopy = [
-  "Enhance your agency's",
-  'Provider management software to help PAS agencies be more efficient',
-  'Transform your PAS agency: No more time wasted on outdated processes',
+  'Stop chasing paperwork. Run your agency with confidence.',
+  'Ryzolve gives PAS agencies one place to manage EVV-connected schedules',
+  'Replace scattered processes with one connected workflow.',
+  'Each module earns its keep. Together, they remove a category of work from your week.',
+  'Administrator Training and In-Service Training, clearly separated.',
+  'Get a practical checklist for what HHSC looks for',
   'Document Management that suites to fit your healthcare structure to increase Efficiency',
   "We've got you covered during state audits.",
   'Empowering Growth Through Smart Solutions',
   'Run your Texas PAS agency on one platform.',
-  'Built for Texas PAS agencies, Ryzolve brings together scheduling',
+  'Built for Texas PAS agencies first, with support for Home Health and Hospice operations',
   'Document management without the paper chase.',
   'Built to keep your agency inspection-ready.',
   'Claims & billing with fewer denials.',
@@ -63,8 +67,8 @@ const requiredCopy = [
   'Get in Touch',
   'This is blank page',
   'Our Philosophy ?',
-  'Implementing the software can be done in as little as week',
-  'reducing down paperwork & errors',
+  'Start with core agency setup, workflow training, data import, and operational readiness.',
+  'Use connected workflows to reduce paperwork, monitor claims, track training, and stay survey-ready.',
 ];
 
 for (const phrase of requiredCopy) {
@@ -115,6 +119,7 @@ const requiredDesignHooks = [
   'rz-stats-band',
   'rz-proof-band',
   'rz-benefits-platform-grid',
+  'rz-before-flow',
   'rz-strategy-grid',
   'rz-how-grid',
   'rz-training-cta',
@@ -141,26 +146,26 @@ for (const phrase of [
 }
 
 for (const phrase of [
-  'Scheduling + EVV',
-  'TMHP Claims + Payments',
+  'EVV-Connected Scheduling',
+  'TMHP Claims & Payments',
   'Authorizations + Eligibility',
   'Payroll + Reconciliation',
   'Compliance + Audit Readiness',
-  'Hiring + Training',
+  'Hiring, Onboarding & Training',
 ]) {
   assert.ok(content.includes(phrase), `what-we-do section should keep client platform card: ${phrase}`);
 }
 
 for (const phrase of [
-  'rz-solutions-home',
-  'rz-solutions-board',
-  'rz-solutions-copy',
-  'rz-solutions-ledger',
-  'rz-solutions-ledger-head',
-  'rz-solutions-metric-row',
+  'rz-before-after',
+  'rz-before-flow',
+  'rz-before-flow-row',
+  'rz-before-flow-cell-muted',
+  'rz-before-flow-cell-active',
+  'rz-before-flow-arrow',
 ]) {
-  assert.ok(site.includes(phrase), `homepage solutions section should use the refreshed layout: ${phrase}`);
-  assert.ok(css.includes(phrase), `homepage solutions section CSS should style refreshed layout: ${phrase}`);
+  assert.ok(site.includes(phrase), `homepage before/after section should use the final layout: ${phrase}`);
+  assert.ok(css.includes(phrase), `homepage before/after section CSS should style final layout: ${phrase}`);
 }
 
 assert.match(
@@ -169,10 +174,9 @@ assert.match(
   'section preheadings should be slightly smaller and tighter'
 );
 
-assert.ok(
-  site.includes('<span className="rz-panel-eyebrow">Agency outcomes</span>'),
-  'homepage solutions ledger should not repeat Personal Agency as both eyebrow and title'
-);
+assert.ok(!site.includes('<HomeSolutions />'), 'old homepage solutions block should not render in final landing page flow');
+assert.ok(!site.includes('<StatsBand />'), 'duplicate stats band should not render in final landing page flow');
+assert.ok(!site.includes('<HomeTrainingBand />'), 'duplicate training band should not render in final landing page flow');
 assert.ok(
   !site.includes('<span className="rz-panel-eyebrow">Personal agency</span>'),
   'homepage solutions ledger should avoid duplicate Personal Agency text'
@@ -205,7 +209,7 @@ const requiredVisibleStrings = [
   'Login',
   'Training login',
   'Book a demo',
-  'See our products',
+  'See How Ryzolve Works',
   'Browse the 3 courses',
   'View Administrator Courses',
   'View In-Service Plans',
@@ -231,8 +235,9 @@ for (const phrase of [
 
 for (const phrase of [
   'homeTrainingCta',
-  'View training options',
-  'Compare administrator and agency training',
+  'Explore Training Options',
+  'Administrator Training and In-Service Training, clearly separated.',
+  'In-Service plans are monthly agency subscriptions.',
 ]) {
   assert.ok(content.includes(phrase) || site.includes(phrase), `homepage should use training CTA copy: ${phrase}`);
 }
