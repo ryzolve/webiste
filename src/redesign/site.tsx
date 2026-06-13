@@ -515,32 +515,29 @@ const heroGainPoints = ['EVV-connected workflows', 'Digital records', 'Claim vis
 function HeroIllo() {
   return (
     <div className="rz-hero-illo rz-hero-ops">
-      <div className="rz-ops-card">
-        <div className="rz-ops-kicker">The agency operations problem</div>
-        <div className="rz-ops-head">
-          <h3>Your team should not need five systems to know what happened today.</h3>
-          <span>5 → 1</span>
-        </div>
-        <p>
-          Ryzolve brings the daily work into one operating flow so your agency can move from
-          scattered tasks to organized execution.
-        </p>
-
-        <div className="rz-ops-flow" aria-label="Before and with Ryzolve comparison">
-          <div className="rz-ops-col rz-ops-before">
-            <b>Before Ryzolve</b>
+      <div className="rz-ops-card rz-funnel">
+        <div className="rz-funnel-scatter" aria-label="Before Ryzolve: scattered tools">
+          <span className="rz-funnel-tag rz-funnel-tag-coral">Before · 5 disconnected tools</span>
+          <div className="rz-funnel-chips">
             {heroPainPoints.map((item) => (
               <span key={item}>{item}</span>
             ))}
           </div>
-          <div className="rz-ops-bridge" aria-hidden="true">
-            <strong>→</strong>
-            <small>connected</small>
-          </div>
-          <div className="rz-ops-col rz-ops-after">
-            <b>With Ryzolve</b>
+        </div>
+
+        <div className="rz-funnel-hub" aria-hidden="true">
+          <span className="rz-funnel-hub-badge">5 → 1</span>
+          <span className="rz-funnel-hub-label">one operating flow</span>
+        </div>
+
+        <div className="rz-funnel-result" aria-label="With Ryzolve: organized outcomes">
+          <span className="rz-funnel-tag rz-funnel-tag-blue">With Ryzolve</span>
+          <div className="rz-funnel-rows">
             {heroGainPoints.map((item) => (
-              <span key={item}>{item}</span>
+              <div className="rz-funnel-row" key={item}>
+                <span className="rz-funnel-check" aria-hidden="true">✓</span>
+                {item}
+              </div>
             ))}
           </div>
         </div>
@@ -784,11 +781,6 @@ function BenefitsSection() {
 }
 
 function BeforeAfterSection() {
-  const pairedRows = home.beforeAfter.without.map((problem, index) => ({
-    problem,
-    outcome: home.beforeAfter.with[index],
-  }));
-
   return (
     <section className="rz-section rz-before-after">
       <div className="rz-shader-bg" aria-hidden="true">
@@ -805,31 +797,34 @@ function BeforeAfterSection() {
           center
           dark
         />
-        <div className="rz-before-flow">
-          <div className="rz-before-flow-head">
-            <div className="rz-before-flow-label rz-before-flow-label-muted">
-              <span className="rz-before-mark rz-before-mark-x">×</span>
+        <div className="rz-ba-panels">
+          <div className="rz-ba-panel rz-ba-panel-out">
+            <div className="rz-ba-panel-head rz-ba-panel-head-out">
+              <span className="rz-before-mark rz-before-mark-x" aria-hidden="true">×</span>
               <span>{home.beforeAfter.withoutTitle}</span>
             </div>
-            <div className="rz-before-flow-label rz-before-flow-label-active">
-              <span className="rz-before-mark rz-before-mark-check">✓</span>
-              <span>{home.beforeAfter.withTitle}</span>
+            <div className="rz-ba-notes">
+              {home.beforeAfter.without.map((problem) => (
+                <div className="rz-ba-note" key={problem}>
+                  <span className="rz-ba-note-dot" aria-hidden="true" />
+                  <p>{problem}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="rz-before-flow-list">
-            {pairedRows.map((row, index) => (
-              <article className="rz-before-flow-row" key={row.problem}>
-                <div className="rz-before-flow-cell rz-before-flow-cell-muted">
-                  <span className="rz-before-index">0{index + 1}</span>
-                  <p>{row.problem}</p>
+          <div className="rz-ba-panel rz-ba-panel-in">
+            <div className="rz-ba-panel-head rz-ba-panel-head-in">
+              <span className="rz-before-mark rz-before-mark-check" aria-hidden="true">✓</span>
+              <span>{home.beforeAfter.withTitle}</span>
+            </div>
+            <div className="rz-ba-wins">
+              {home.beforeAfter.with.map((outcome) => (
+                <div className="rz-ba-win" key={outcome}>
+                  <span className="rz-ba-win-check" aria-hidden="true">✓</span>
+                  <p>{outcome}</p>
                 </div>
-                <div className="rz-before-flow-arrow" aria-hidden="true" />
-                <div className="rz-before-flow-cell rz-before-flow-cell-active">
-                  <span className="rz-before-index">0{index + 1}</span>
-                  <p>{row.outcome}</p>
-                </div>
-              </article>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
