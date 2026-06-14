@@ -19,6 +19,7 @@
     "@emotion/styled": "^11.11.5",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@marsidev/react-turnstile": "^1.5.3",
     "@mui/material": "^5.15.14",
     "@opennextjs/cloudflare": "^1.14.10",
     "@popperjs/core": "^2.11.6",

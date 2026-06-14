@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import { Turnstile } from '@marsidev/react-turnstile';
 import { toast } from 'react-toastify';
 
 import SEO from './SEO';
@@ -47,8 +48,27 @@ type ActiveKey =
   | 'calendly'
   | 'blank';
 
-function strapiBaseUrl() {
-  return process.env.NEXT_PUBLIC_STRAPI_URL || '';
+function apiBaseUrl() {
+  return (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
+}
+
+async function postJson(path: string, body: Record<string, unknown>) {
+  const res = await fetch(apiBaseUrl() + path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    let errMsg = 'Request failed';
+    try {
+      const json = await res.json();
+      if (json && json.error) errMsg = json.error;
+    } catch {
+      // non-JSON body — keep default message
+    }
+    throw new Error(errMsg);
+  }
+  return res.json();
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -1068,20 +1088,30 @@ function HomeTrainingBand() {
 
 function LeadMagnetSection() {
   const [form, setForm] = useState({ name: '', email: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const [consent, setConsent] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  const canSubmit = consent && turnstileToken !== '' && !submitting;
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!canSubmit) return;
     setSubmitting(true);
     try {
-      await fetch(`${strapiBaseUrl()}/api/customers`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: { name: form.name, email: form.email, source: 'ryzolve' } }),
+      await postJson('/website/leads', {
+        name: form.name,
+        email: form.email,
+        consent,
+        turnstileToken,
+        website: honeypot,
       });
-      toast('Email sent successfully');
+      toast('Check your email to confirm!');
       setSent(true);
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -1104,11 +1134,22 @@ function LeadMagnetSection() {
           {sent ? (
             <div className="rz-form-card rz-form-success">
               <div className="rz-success-mark">✓</div>
-              <h3>Email sent successfully.</h3>
-              <p>Check {form.email || 'your inbox'} — the guide is on its way.</p>
+              <h3>Almost there!</h3>
+              <p>Check {form.email || 'your inbox'} — confirm your email and we&apos;ll send your guide right over.</p>
             </div>
           ) : (
             <form className="rz-form-card" onSubmit={submit}>
+              {/* Honeypot — hidden from real users, catches bots */}
+              <input
+                name="website"
+                type="text"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
               <label className="rz-field">
                 <span className="rz-field-label">Your name</span>
                 <input className="rz-input" required placeholder="Jane Doe" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
@@ -1117,12 +1158,39 @@ function LeadMagnetSection() {
                 <span className="rz-field-label">Work email</span>
                 <input className="rz-input" required type="email" placeholder="jane@agency.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
               </label>
+              <label className="rz-field" style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  required
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  style={{ marginTop: 3, flexShrink: 0, accentColor: 'var(--rz-blue)' }}
+                />
+                <span className="rz-field-label" style={{ margin: 0, fontSize: 12, fontWeight: 400, lineHeight: 1.5 }}>
+                  I agree to receive the guide and occasional emails from Ryzolve. Unsubscribe anytime. <span className="rz-req">*</span>
+                </span>
+              </label>
+              <div style={{ margin: '4px 0 12px' }}>
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+                  onSuccess={setTurnstileToken}
+                  onExpire={() => setTurnstileToken('')}
+                  onError={() => setTurnstileToken('')}
+                />
+              </div>
               <div className="rz-submit-row">
-                <ButtonBtn type="submit" block disabled={submitting} icon={false}>
+                <ButtonBtn type="submit" block disabled={!canSubmit} icon={false}>
                   {submitting ? 'Sending…' : leadMagnet.button}
                 </ButtonBtn>
               </div>
-              <p className="rz-form-helper rz-form-helper-center">No spam. We email it once. Unsubscribe anytime.</p>
+              {(!consent || !turnstileToken) && !submitting && (
+                <p className="rz-form-helper rz-form-helper-center" style={{ color: 'var(--rz-muted)' }}>
+                  {!consent ? 'Please check the consent box above to continue.' : 'Please complete the verification above.'}
+                </p>
+              )}
+              {consent && turnstileToken && (
+                <p className="rz-form-helper rz-form-helper-center">No spam. Unsubscribe anytime.</p>
+              )}
             </form>
           )}
         </div>
@@ -1746,27 +1814,30 @@ export function AboutPage() {
 
 export function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  const canSubmit = turnstileToken !== '' && !submitting;
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!canSubmit) return;
     setSubmitting(true);
     try {
-      await fetch(`${strapiBaseUrl()}/api/contacts`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          data: {
-            fullname: form.name,
-            email: form.email,
-            subject: form.subject,
-            message: form.message,
-          },
-        }),
+      await postJson('/website/contact', {
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+        turnstileToken,
+        website: honeypot,
       });
       toast('Thank you for contacting us');
       setSent(true);
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -1809,6 +1880,17 @@ export function ContactPage() {
         <section className="rz-section">
           <div className="rz-wrap rz-contact-grid">
             <form className="rz-form-card" onSubmit={submit}>
+              {/* Honeypot — hidden from real users, catches bots */}
+              <input
+                name="website"
+                type="text"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
               {sent ? (
                 <div className="rz-form-success">
                   <div className="rz-success-mark">✓</div>
@@ -1838,11 +1920,22 @@ export function ContactPage() {
                     <textarea className="rz-textarea" required placeholder="What can we help with? Agency size, current systems, anything you'd want covered in the demo." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
                   </label>
                   <p className="rz-form-helper">{contact.required}</p>
+                  <div style={{ margin: '12px 0 4px' }}>
+                    <Turnstile
+                      siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+                      onSuccess={setTurnstileToken}
+                      onExpire={() => setTurnstileToken('')}
+                      onError={() => setTurnstileToken('')}
+                    />
+                  </div>
                   <div className="rz-submit-row">
-                    <ButtonBtn type="submit" block disabled={submitting} icon={false}>
+                    <ButtonBtn type="submit" block disabled={!canSubmit} icon={false}>
                       {submitting ? 'Sending…' : 'Send message →'}
                     </ButtonBtn>
                   </div>
+                  {!turnstileToken && !submitting && (
+                    <p className="rz-form-helper" style={{ marginTop: 8 }}>Please complete the verification above to send your message.</p>
+                  )}
                 </>
               )}
             </form>
