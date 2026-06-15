@@ -182,6 +182,79 @@ export function normalisePublicCourse(item: PublicCourse): TrainingCourseCard | 
   };
 }
 
+// ─── In-Service Agency Plans ────────────────────────────────────────────────
+
+export type InServicePlanCard = {
+  name: string;
+  seats: string;
+  price: string;
+  description: string;
+  features: string[];
+  featured?: boolean;
+  note?: string;
+};
+
+export function fallbackInServicePlans(): InServicePlanCard[] {
+  return training.inServicePlans.map((p) => ({ ...p }));
+}
+
+type PublicPlan = {
+  documentId?: string;
+  name?: string;
+  description?: string;
+  features?: unknown;
+  maxLearners?: number | null;
+  monthlyPriceCents?: number | string;
+  currency?: string;
+  isFeatured?: boolean;
+  displayOrder?: number;
+};
+
+function normalisePlan(item: PublicPlan): InServicePlanCard | null {
+  const name = cleanText(item.name);
+  if (!name) return null;
+
+  const { price } = priceFromCents(item.monthlyPriceCents);
+  const seats =
+    item.maxLearners != null
+      ? `Up to ${item.maxLearners} learners`
+      : 'Unlimited learners';
+  const description = cleanText(item.description);
+  const features = cleanList(item.features);
+  const featured = Boolean(item.isFeatured);
+  const note = featured ? 'Most chosen' : undefined;
+
+  return { name, seats, price, description, features, featured, note };
+}
+
+export async function fetchInServicePlans(): Promise<InServicePlanCard[]> {
+  try {
+    const response = await fetch(`${coursesApiBaseUrl()}/public/plans`, {
+      cache: 'no-store',
+      headers: { Accept: 'application/json' },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Plans API returned ${response.status}`);
+    }
+
+    const json = await response.json();
+    const items = Array.isArray(json?.data?.plans) ? json.data.plans : [];
+    const plans = items
+      .map((item: PublicPlan) => normalisePlan(item))
+      .filter((plan: InServicePlanCard | null): plan is InServicePlanCard => Boolean(plan));
+
+    return plans.length ? plans : fallbackInServicePlans();
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('Unable to fetch in-service plans, using local fallback.', error);
+    }
+    return fallbackInServicePlans();
+  }
+}
+
+// ─── Administrator Courses ───────────────────────────────────────────────────
+
 export async function fetchAdministratorCourses(): Promise<TrainingCourseCard[]> {
   try {
     const response = await fetch(`${coursesApiBaseUrl()}${ADMIN_COURSES_PATH}`, {

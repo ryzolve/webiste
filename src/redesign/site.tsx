@@ -13,9 +13,11 @@ const ShaderCanvas = dynamic(() => import('./ShaderCanvas'), { ssr: false });
 import {
   agencyInServiceSignupHref,
   fallbackAdministratorCourses,
+  fallbackInServicePlans,
   trainingCourseDetailHref,
   trainingCoursePurchaseHref,
   trainingBaseUrl,
+  type InServicePlanCard,
   type TrainingCourseCard,
 } from './training-courses';
 
@@ -2217,7 +2219,14 @@ function TrainingMarquee() {
   );
 }
 
-function TrainingPathSplit({ courses }: { courses: TrainingCourseCard[] }) {
+function TrainingPathSplit({
+  courses,
+  inServicePlans,
+}: {
+  courses: TrainingCourseCard[];
+  inServicePlans?: InServicePlanCard[];
+}) {
+  const plans = inServicePlans ?? training.inServicePlans;
   return (
     <section className="rz-tr-paths">
       <div className="rz-wrap rz-tr-paths-grid">
@@ -2253,7 +2262,7 @@ function TrainingPathSplit({ courses }: { courses: TrainingCourseCard[] }) {
           <h2>{training.pathSplit.agencyTitle}</h2>
           <p>{training.pathSplit.agencyDescription}</p>
           <div className="rz-tr-path-list">
-            {training.inServicePlans.map((p) => (
+            {plans.map((p) => (
               <div key={p.name} className={p.featured ? 'rz-tr-path-row is-featured' : 'rz-tr-path-row'}>
                 <span className="rz-tr-path-row-left">
                   <span className="rz-tr-path-name">{p.name}</span>
@@ -2403,7 +2412,8 @@ function TrainingAdminCourses({ courses: adminCourses }: { courses: TrainingCour
   );
 }
 
-function TrainingInServicePlans() {
+function TrainingInServicePlans({ inServicePlans }: { inServicePlans?: InServicePlanCard[] }) {
+  const plans = inServicePlans ?? training.inServicePlans;
   const inServiceHref = agencyInServiceSignupHref();
   return (
     <section id="in-service" className="rz-tr-inservice">
@@ -2423,7 +2433,7 @@ function TrainingInServicePlans() {
         <div className="rz-tr-disclaimer">{training.inServiceDisclaimer}</div>
 
         <div className="rz-tr-plans-grid">
-          {training.inServicePlans.map((plan) => (
+          {plans.map((plan) => (
             <article
               key={plan.name}
               className={plan.featured ? 'rz-tr-plan-card is-featured' : 'rz-tr-plan-card'}
@@ -2747,10 +2757,13 @@ export function TrainingCourseDetailPage({ course }: { course: TrainingCourseCar
 
 export function TrainingPage({
   adminCourses = fallbackAdministratorCourses(),
+  inServicePlans = fallbackInServicePlans(),
 }: {
   adminCourses?: TrainingCourseCard[];
+  inServicePlans?: InServicePlanCard[];
 }) {
   const courses = adminCourses.length ? adminCourses : fallbackAdministratorCourses();
+  const plans = inServicePlans.length ? inServicePlans : fallbackInServicePlans();
 
   return (
     <SiteLayout active="training" inner>
@@ -2771,10 +2784,10 @@ export function TrainingPage({
       <main>
         <TrainingHero />
         <TrainingMarquee />
-        <TrainingPathSplit courses={courses} />
+        <TrainingPathSplit courses={courses} inServicePlans={plans} />
         <TrainingJumpNav />
         <TrainingAdminCourses courses={courses} />
-        <TrainingInServicePlans />
+        <TrainingInServicePlans inServicePlans={plans} />
         <TrainingLibrary />
         <TrainingClosingCTA />
         <TrainingHowItWorks />
