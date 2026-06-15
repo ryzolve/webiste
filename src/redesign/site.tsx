@@ -2,7 +2,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import { Turnstile } from '@marsidev/react-turnstile';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 import SEO from './SEO';
 import { SHADER_FLOW, SHADER_LIQUID } from './ShaderCanvas';
@@ -1108,7 +1108,7 @@ function LeadMagnetSection() {
         turnstileToken,
         website: honeypot,
       });
-      toast('Check your email to confirm!');
+      toast.success('Check your email to confirm!');
       setSent(true);
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
@@ -1834,7 +1834,7 @@ export function ContactPage() {
         turnstileToken,
         website: honeypot,
       });
-      toast('Thank you for contacting us');
+      toast.success('Thank you for contacting us');
       setSent(true);
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
