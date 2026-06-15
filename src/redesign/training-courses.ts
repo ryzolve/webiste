@@ -210,6 +210,13 @@ type PublicPlan = {
   displayOrder?: number;
 };
 
+// The three bullets common to every In-Service tier — only the learner count
+// changes per plan. Used when a plan has no explicit features in the backend so
+// cards stay visually consistent instead of half-empty.
+function defaultPlanFeatures(seats: string): string[] {
+  return ['Sample package access', seats, 'Certificates and reports'];
+}
+
 function normalisePlan(item: PublicPlan): InServicePlanCard | null {
   const name = cleanText(item.name);
   if (!name) return null;
@@ -220,7 +227,11 @@ function normalisePlan(item: PublicPlan): InServicePlanCard | null {
       ? `Up to ${item.maxLearners} learners`
       : 'Unlimited learners';
   const description = cleanText(item.description);
-  const features = cleanList(item.features);
+  // Respect backend-authored features when present; otherwise fall back to the
+  // common three so Growth/Enterprise don't render an empty card next to a
+  // fully-populated Starter.
+  const backendFeatures = cleanList(item.features);
+  const features = backendFeatures.length ? backendFeatures : defaultPlanFeatures(seats);
   const featured = Boolean(item.isFeatured);
   const note = featured ? 'Most chosen' : undefined;
 
