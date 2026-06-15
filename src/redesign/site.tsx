@@ -2262,8 +2262,15 @@ function TrainingPathSplit({
           <h2>{training.pathSplit.agencyTitle}</h2>
           <p>{training.pathSplit.agencyDescription}</p>
           <div className="rz-tr-path-list">
-            {plans.map((p) => (
-              <div key={p.name} className={p.featured ? 'rz-tr-path-row is-featured' : 'rz-tr-path-row'}>
+            {plans.map((p, index) => (
+              <div
+                key={p.name}
+                className={
+                  index === Math.floor(plans.length / 2)
+                    ? 'rz-tr-path-row is-featured'
+                    : 'rz-tr-path-row'
+                }
+              >
                 <span className="rz-tr-path-row-left">
                   <span className="rz-tr-path-name">{p.name}</span>
                   <span className="rz-tr-path-seats">{p.seats}</span>
@@ -2433,12 +2440,20 @@ function TrainingInServicePlans({ inServicePlans }: { inServicePlans?: InService
         <div className="rz-tr-disclaimer">{training.inServiceDisclaimer}</div>
 
         <div className="rz-tr-plans-grid">
-          {plans.map((plan) => (
+          {plans.map((plan, index) => {
+            // In a 3-tier pricing layout the recommended plan belongs in the
+            // center column with the highlight, so the emphasis is balanced and
+            // prices still read left→right ascending. Highlight the middle card
+            // by position rather than the backend `isFeatured` flag (seed data
+            // currently flags the cheapest tier).
+            const featured = index === Math.floor(plans.length / 2);
+            const note = plan.note ?? 'Most chosen';
+            return (
             <article
               key={plan.name}
-              className={plan.featured ? 'rz-tr-plan-card is-featured' : 'rz-tr-plan-card'}
+              className={featured ? 'rz-tr-plan-card is-featured' : 'rz-tr-plan-card'}
             >
-              {plan.featured && plan.note && <span className="rz-tr-plan-badge">{plan.note}</span>}
+              {featured && <span className="rz-tr-plan-badge">{note}</span>}
               <div>
                 <div className="rz-tr-plan-name">{plan.name}</div>
                 <div className="rz-tr-plan-seats">{plan.seats}</div>
@@ -2460,7 +2475,7 @@ function TrainingInServicePlans({ inServicePlans }: { inServicePlans?: InService
                 ))}
               </ul>
               <a
-                className={plan.featured ? 'rz-btn rz-btn-coral rz-btn-block' : 'rz-btn rz-btn-primary rz-btn-block'}
+                className={featured ? 'rz-btn rz-btn-coral rz-btn-block' : 'rz-btn rz-btn-primary rz-btn-block'}
                 href={inServiceHref}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -2469,7 +2484,8 @@ function TrainingInServicePlans({ inServicePlans }: { inServicePlans?: InService
                 <span className="rz-btn-arrow" aria-hidden="true">→</span>
               </a>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         <div className="rz-tr-included">
