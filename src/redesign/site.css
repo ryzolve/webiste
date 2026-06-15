@@ -1876,6 +1876,18 @@ button.rz-btn-ghost {
   display: block;
 }
 .rz-field-label .rz-req { color: var(--rz-coral); }
+/* Consent checkbox: restore native rendering — the legacy _forms.scss forces
+   -webkit-appearance:none !important on ALL inputs, which hides checkboxes. */
+.rz-field input[type='checkbox'] {
+  -webkit-appearance: checkbox !important;
+  -moz-appearance: checkbox !important;
+  appearance: auto !important;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--rz-blue);
+  cursor: pointer;
+}
 .rz-input,
 .rz-textarea {
   width: 100%;
