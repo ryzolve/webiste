@@ -15,13 +15,17 @@ const root = join(__dirname, '..');
 const W = 1200;
 const H = 630;
 
-// Brand mark — three stacked parallelograms (217×156 source), placed top-left.
-const mark = `
-  <g transform="translate(80, 70) scale(0.32)">
-    <path d="M216.457 46.4253H55.909L0 0H160.548L216.457 46.4253Z" fill="#DCEAF5"/>
+// Brand lockup — white chip behind the logo so the mark keeps its TRUE brand
+// colors (navy top/bottom, coral middle) and reads on the dark background.
+// Never recolor the logo; only the backing changes.
+const lockup = `
+  <rect x="56" y="56" width="296" height="80" rx="20" fill="#FFFFFF"/>
+  <g transform="translate(80, 71) scale(0.32)">
+    <path d="M216.457 46.4253H55.909L0 0H160.548L216.457 46.4253Z" fill="#0D5992"/>
     <path d="M0 99.0439H160.548L216.456 46.4253H55.9098L0 99.0439Z" fill="#FF774C"/>
-    <path d="M216.443 155.821H55.8947L0 99.044H160.548L216.443 155.821Z" fill="#DCEAF5"/>
-  </g>`;
+    <path d="M216.443 155.821H55.8947L0 99.044H160.548L216.443 155.821Z" fill="#0D5992"/>
+  </g>
+  <text x="158" y="109" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#0B0E12" letter-spacing="-0.5">Ryzolve</text>`;
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs>
@@ -44,8 +48,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   <rect width="${W}" height="${H}" fill="url(#glow)"/>
   <rect width="${W}" height="${H}" fill="url(#glow2)"/>
 
-  ${mark}
-  <text x="158" y="118" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#FFFFFF" letter-spacing="-0.5">Ryzolve</text>
+  ${lockup}
 
   <text x="80" y="280" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="68" font-weight="800" fill="#FFFFFF" letter-spacing="-2">Provider management software</text>
   <text x="80" y="356" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="-2"><tspan fill="#FFFFFF">for Texas </tspan><tspan fill="#FFB59A">PAS agencies</tspan><tspan fill="#FFFFFF">.</tspan></text>
