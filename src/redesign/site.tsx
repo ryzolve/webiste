@@ -5,6 +5,15 @@ import { Turnstile } from '@marsidev/react-turnstile';
 import { toast } from 'sonner';
 
 import SEO from './SEO';
+import {
+  BreadcrumbJsonLd,
+  CourseJsonLd,
+  FaqJsonLd,
+  LocalBusinessJsonLd,
+  OrganizationJsonLd,
+  ServiceJsonLd,
+  WebSiteJsonLd,
+} from './structured-data';
 import { SHADER_FLOW, SHADER_LIQUID } from './ShaderCanvas';
 
 // Client-only — WebGL needs window
@@ -576,50 +585,6 @@ function HeroIllo() {
 /* ════════════════════════════════════════════════════════════════
    Home page sections
    ════════════════════════════════════════════════════════════════ */
-
-function OrganizationJsonLd() {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ryzolve.com').replace(/\/$/, '');
-  const data = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: company.name,
-    legalName: company.name,
-    url: siteUrl,
-    logo: `${siteUrl}/img/favicon.png`,
-    description:
-      'Provider management software for PAS, Home Health, and Hospice agencies. Less paperwork. Fewer denials. Audit-ready by default.',
-    foundingLocation: 'New Waverly, Texas',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: '9309 Highway 75 S Ste 102',
-      addressLocality: 'New Waverly',
-      addressRegion: 'TX',
-      postalCode: '77358',
-      addressCountry: 'US',
-    },
-    contactPoint: [
-      {
-        '@type': 'ContactPoint',
-        contactType: 'customer support',
-        telephone: '+1-936-355-0920',
-        email: company.email,
-        availableLanguage: ['en'],
-        areaServed: 'US',
-      },
-    ],
-    sameAs: [
-      'https://facebook.com/ryzolve',
-      'https://www.youtube.com/@Ryzolve',
-    ],
-  };
-  return (
-    <script
-      type="application/ld+json"
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
-}
 
 function HomeHero() {
   return (
@@ -1220,6 +1185,8 @@ export function HomePage() {
         ]}
       />
       <OrganizationJsonLd />
+      <WebSiteJsonLd />
+      <LocalBusinessJsonLd />
       <main>
         <HomeHero />
         <ProofBand />
@@ -1664,6 +1631,19 @@ export function ProductPage({ slug }: { slug: ProductSlug }) {
         path={`/${slug}`}
         keywords={seo.keywords}
       />
+      <ServiceJsonLd
+        name={products[slug].title}
+        description={seo.description}
+        path={`/${slug}`}
+        serviceType={products[slug].label}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Products', path: '/#products' },
+          { name: products[slug].label, path: `/${slug}` },
+        ]}
+      />
       <main>
         <ProductHero slug={slug} />
         <WhatWeDoSection />
@@ -1701,6 +1681,13 @@ export function AboutPage() {
           'PAS company',
           'home health platform',
           'Ryzolve LLC',
+        ]}
+      />
+      <LocalBusinessJsonLd />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'About', path: '/about-us' },
         ]}
       />
       <main>
@@ -1858,6 +1845,13 @@ export function ContactPage() {
           'demo request',
         ]}
       />
+      <LocalBusinessJsonLd />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Contact', path: '/contact' },
+        ]}
+      />
       <main>
         <section className="rz-contact-hero">
           <span className="rz-tr-hero-blob rz-tr-hero-blob-a" aria-hidden="true" />
@@ -1983,6 +1977,12 @@ export function CalendlyPage() {
         description="Schedule a working session with the Ryzolve team. Walk through your bottleneck, see where Ryzolve fits, and leave with next steps."
         path="/calendly"
         keywords={['book a demo', 'Ryzolve demo', 'Calendly', 'PAS software demo']}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Book a demo', path: '/calendly' },
+        ]}
       />
       <main>
         <section className="rz-page-hero">
@@ -2677,6 +2677,14 @@ export function TrainingCourseDetailPage({ course }: { course: TrainingCourseCar
           'Ryzolve Training',
         ]}
       />
+      <CourseJsonLd course={course} path={trainingCourseDetailHref(course.slug)} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Training', path: '/training' },
+          { name: course.title, path: trainingCourseDetailHref(course.slug) },
+        ]}
+      />
       <main className="rz-tr-detail">
         <section className="rz-tr-detail-hero">
           <div className="rz-wrap rz-tr-detail-hero-grid">
@@ -2797,6 +2805,13 @@ export function TrainingPage({
           'caregiver certification',
         ]}
       />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Training', path: '/training' },
+        ]}
+      />
+      <FaqJsonLd items={training.faqs.items} />
       <main>
         <TrainingHero />
         <TrainingMarquee />

@@ -1,10 +1,15 @@
 import Head from "next/head";
+import Script from "next/script";
 import { useRouter } from "next/router";
 import type { AppProps } from "next/app";
 import { Fragment, useEffect, useState } from "react";
 import ThemeProvider from "theme/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
+
+// Optional, env-driven SEO/analytics wiring. Leave the env vars unset to disable.
+const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 // animate css
 import "animate.css";
@@ -93,6 +98,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     setLoading(false);
   }, []);
 
+  // GA4 SPA page_view on client-side route changes.
+  useEffect(() => {
+    if (!GA_ID) return;
+    const onRouteChange = (url: string) => {
+      const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+      w.gtag?.("config", GA_ID, { page_path: url });
+    };
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const Router = require("next/router").default;
+    Router.events.on("routeChangeComplete", onRouteChange);
+    return () => Router.events.off("routeChangeComplete", onRouteChange);
+  }, []);
+
   return (
     <Fragment>
       <Head>
@@ -104,7 +122,25 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="description"
           content="Provider management software for PAS, Home Health, and Hospice agencies. Less paperwork. Fewer denials. Audit-ready by default."
         />
+        {GSC_VERIFICATION && (
+          <meta name="google-site-verification" content={GSC_VERIFICATION} />
+        )}
       </Head>
+
+      {GA_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="ga4-init" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}', { send_page_view: true });`}
+          </Script>
+        </>
+      )}
 
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>

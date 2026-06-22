@@ -6,9 +6,12 @@ import Head from 'next/head';
    / robots / favicon / theme-color / icon set.
    ════════════════════════════════════════════════════════════════ */
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ryzolve.com').replace(/\/$/, '');
+// The marketing site is served at home.ryzolve.com — the apex ryzolve.com is
+// occupied by another app and 301-redirects here, so canonicals point at the
+// subdomain (the URL that actually returns 200). Override with NEXT_PUBLIC_SITE_URL.
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://home.ryzolve.com').replace(/\/$/, '');
 const SITE_NAME = 'Ryzolve';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/img/favicon.png`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og/ryzolve-og.png`;
 
 interface Props {
   title: string;
@@ -58,6 +61,9 @@ export default function SEO({
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={og} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/png" />
       <meta property="og:image:alt" content={`${SITE_NAME} — ${title}`} />
       <meta property="og:locale" content="en_US" />
 
