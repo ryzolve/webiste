@@ -288,7 +288,7 @@ function AnimatedWords({ words }: { words: string[] }) {
    Header / Footer / Layout
    ════════════════════════════════════════════════════════════════ */
 
-function Header({ active, inner = false }: { active: ActiveKey; inner?: boolean }) {
+function Header({ active }: { active: ActiveKey }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const trainingUrl = trainingBaseUrl();
@@ -391,23 +391,11 @@ function Header({ active, inner = false }: { active: ActiveKey; inner?: boolean 
           </nav>
 
           <div className="rz-header-actions">
-            {inner ? (
-              <>
-                <a href={company.providerLoginUrl}>Login</a>
-                <Link href="/calendly" className="rz-pill-cta">
-                  Book a demo
-                  <span aria-hidden="true">→</span>
-                </Link>
-              </>
-            ) : (
-              <>
-                <a href={`${trainingUrl}/auth/login`}>Training login</a>
-                <a href={company.providerLoginUrl} className="rz-pill-cta">
-                  Login
-                  <span aria-hidden="true">→</span>
-                </a>
-              </>
-            )}
+            <a href={`${trainingUrl}/auth/login`}>Training login</a>
+            <a href={company.providerLoginUrl} className="rz-pill-cta">
+              Login
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
       </header>
@@ -481,16 +469,14 @@ function Footer() {
 
 export function SiteLayout({
   active,
-  inner = false,
   children,
 }: {
   active: ActiveKey;
-  inner?: boolean;
   children: ReactNode;
 }) {
   return (
     <div className="rz-site">
-      <Header active={active} inner={inner} />
+      <Header active={active} />
       {children}
       <Footer />
     </div>
@@ -1624,7 +1610,7 @@ const PRODUCT_SEO: Record<ProductSlug, { title: string; description: string; key
 export function ProductPage({ slug }: { slug: ProductSlug }) {
   const seo = PRODUCT_SEO[slug];
   return (
-    <SiteLayout active={slug} inner>
+    <SiteLayout active={slug}>
       <SEO
         title={seo.title}
         description={seo.description}
@@ -1670,7 +1656,7 @@ export function ProductPage({ slug }: { slug: ProductSlug }) {
 
 export function AboutPage() {
   return (
-    <SiteLayout active="about-us" inner>
+    <SiteLayout active="about-us">
       <SEO
         title="About Ryzolve — Built Inside a Texas Care Agency"
         description="Ryzolve is provider-management and training software designed by people who ran a regulated home care agency. Texas Home Health, Hospice, and PAS — built around HHSC."
@@ -1833,7 +1819,7 @@ export function ContactPage() {
   }
 
   return (
-    <SiteLayout active="contact" inner>
+    <SiteLayout active="contact">
       <SEO
         title="Contact Ryzolve — We Reply Within One Business Hour"
         description="Questions about Ryzolve, pricing, or an active demo? Call (936) 355-0920, email pas@ryzolve.com, or send the form — we answer within one business hour, Mon–Fri."
@@ -1971,7 +1957,7 @@ export function ContactPage() {
 
 export function CalendlyPage() {
   return (
-    <SiteLayout active="calendly" inner>
+    <SiteLayout active="calendly">
       <SEO
         title="Book a Demo — 30 Minutes, No Slides"
         description="Schedule a working session with the Ryzolve team. Walk through your bottleneck, see where Ryzolve fits, and leave with next steps."
@@ -2665,7 +2651,7 @@ export function TrainingCourseDetailPage({ course }: { course: TrainingCourseCar
   const skills = courseSkills(course);
 
   return (
-    <SiteLayout active="training" inner>
+    <SiteLayout active="training">
       <SEO
         title={`${course.title} · Ryzolve Training`}
         description={course.short || course.description}
@@ -2790,7 +2776,7 @@ export function TrainingPage({
   const plans = inServicePlans.length ? inServicePlans : fallbackInServicePlans();
 
   return (
-    <SiteLayout active="training" inner>
+    <SiteLayout active="training">
       <SEO
         title="Texas Administrator Training — 8, 12 & 16 Hour Courses"
         description="HHSC-aligned administrator training for Texas Home Health, Hospice, and PAS agencies. Self-paced, instant certificates, monthly in-service library for full care teams."
@@ -2835,7 +2821,7 @@ export function TrainingPage({
 
 export function BlankPage() {
   return (
-    <SiteLayout active="blank" inner>
+    <SiteLayout active="blank">
       <SEO
         title="Ryzolve"
         description="Ryzolve provider management software."
@@ -2853,7 +2839,7 @@ export function BlankPage() {
 
 export function NotFoundPage() {
   return (
-    <SiteLayout active="home" inner>
+    <SiteLayout active="home">
       <SEO
         title="Page Not Found"
         description="The page you are looking for is not available or has been moved. Head back to the Ryzolve homepage or get in touch with us."

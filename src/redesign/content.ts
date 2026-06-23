@@ -21,7 +21,7 @@ export const company = {
   phoneDisplay: '(936) 355-0920',
   mobilePhone: '9363559490',
   calendlyUrl: 'https://calendly.com/ryzolve-pas-software/ryzolve-demo',
-  providerLoginUrl: 'https://ryzolve.com/providerapp',
+  providerLoginUrl: 'https://app.ryzolve.com/providerapp',
 };
 
 export const nav = {
