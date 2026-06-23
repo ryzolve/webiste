@@ -6,10 +6,9 @@ import Head from 'next/head';
    / robots / favicon / theme-color / icon set.
    ════════════════════════════════════════════════════════════════ */
 
-// The marketing site is served at home.ryzolve.com — the apex ryzolve.com is
-// occupied by another app and 301-redirects here, so canonicals point at the
-// subdomain (the URL that actually returns 200). Override with NEXT_PUBLIC_SITE_URL.
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://home.ryzolve.com').replace(/\/$/, '');
+// The marketing site is served at the apex ryzolve.com. Override with
+// NEXT_PUBLIC_SITE_URL if it ever moves.
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://ryzolve.com').replace(/\/$/, '');
 const SITE_NAME = 'Ryzolve';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og/ryzolve-og.png`;
 

@@ -9,7 +9,7 @@ import type { TrainingCourseCard } from './training-courses';
    ════════════════════════════════════════════════════════════════ */
 
 export function siteUrl() {
-  return (process.env.NEXT_PUBLIC_SITE_URL || 'https://home.ryzolve.com').replace(/\/$/, '');
+  return (process.env.NEXT_PUBLIC_SITE_URL || 'https://ryzolve.com').replace(/\/$/, '');
 }
 
 function abs(path: string) {

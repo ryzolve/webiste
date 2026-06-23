@@ -57,7 +57,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
 
   <line x1="80" y1="500" x2="1120" y2="500" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="1"/>
 
-  <text x="80" y="556" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#FFFFFF">home.ryzolve.com</text>
+  <text x="80" y="556" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#FFFFFF">ryzolve.com</text>
   <text x="1120" y="556" text-anchor="end" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" font-weight="500" fill="#9FC0D8">HHSC-aligned · Home Health · Hospice · PAS</text>
 </svg>`;
 

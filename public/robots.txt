@@ -3,4 +3,4 @@ Allow: /
 Disallow: /blank
 Disallow: /404
 
-Sitemap: https://home.ryzolve.com/sitemap.xml
+Sitemap: https://ryzolve.com/sitemap.xml
