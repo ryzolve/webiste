@@ -1133,27 +1133,7 @@ button.rz-btn-ghost {
   font-size: 15px;
   line-height: 1.48;
 }
-.rz-solutions-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-.rz-solutions-grid h2 {
-  font-size: clamp(36px, 4.5vw, 52px);
-  margin: 0;
-  font-weight: 600;
-  letter-spacing: -1.5px;
-  line-height: 1.05;
-  color: var(--rz-ink);
-}
-.rz-solutions-grid p {
-  font-size: 17px;
-  line-height: 1.6;
-  color: var(--rz-ink-2);
-  margin: 24px 0 0;
-  max-width: 540px;
-}
+/* .rz-solutions-grid (+ h2/p) → Tailwind utilities (AboutPage who-we-are). */
 .rz-stat-panel {
   background: var(--rz-bg);
   border: 1px solid var(--rz-rule);
@@ -2384,11 +2364,7 @@ button.rz-btn-ghost {
   letter-spacing: -1px;
   max-width: 920px;
 }
-.rz-about-values-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
+/* .rz-about-values-grid → Tailwind utilities (AboutPage philosophy). */
 .rz-about-value-card {
   background: var(--rz-paper);
   border: 1px solid var(--rz-rule);

@@ -1709,12 +1709,12 @@ export function AboutPage() {
           </div>
         </section>
 
-        <section className="rz-section rz-solutions">
-          <div className="rz-wrap rz-solutions-grid">
+        <section className="rz-section border-y border-rule bg-paper">
+          <div className="rz-wrap grid grid-cols-[1.1fr_1fr] items-center gap-20 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
             <div>
               <p className="rz-eyebrow">Who we are</p>
-              <h2>{about.introTitle}</h2>
-              <p>{about.introDescription}</p>
+              <h2 className="m-0 text-[clamp(36px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-1.5px] text-ink">{about.introTitle}</h2>
+              <p className="mt-6 max-w-[540px] text-[17px] leading-[1.6] text-ink-2">{about.introDescription}</p>
             </div>
             <div className="rz-stat-panel">
               <span className="rz-panel-eyebrow">Where we come from</span>
@@ -1744,7 +1744,7 @@ export function AboutPage() {
               <p className="rz-eyebrow">{about.philosophyEyebrow}</p>
               <h2 className="rz-about-philosophy-lead">{about.philosophy[0]}</h2>
             </div>
-            <div className="rz-about-values-grid">
+            <div className="grid grid-cols-3 gap-6 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
               {about.philosophy.slice(1).map((statement, i) => (
                 <article className="rz-about-value-card" key={statement}>
                   <span className="rz-about-value-num">0{i + 1}</span>
