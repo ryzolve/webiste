@@ -2222,7 +2222,7 @@ function TrainingPathSplit({
   const plans = inServicePlans ?? training.inServicePlans;
   return (
     <section className="rz-tr-paths">
-      <div className="rz-wrap rz-tr-paths-grid">
+      <div className="rz-wrap grid grid-cols-2 gap-6 max-[640px]:grid-cols-1">
         {/* Admin (light) */}
         <div className="rz-tr-path">
           <span className="rz-tr-path-pill">{training.pathSplit.adminPillLabel}</span>
@@ -2373,7 +2373,7 @@ function TrainingAdminCourses({ courses: adminCourses }: { courses: TrainingCour
         {courses.length === 0 ? (
           <div className="rz-tr-empty">No courses match &ldquo;{q}&rdquo;.</div>
         ) : (
-          <div className="rz-tr-admin-grid">
+          <div className="grid grid-cols-3 items-stretch gap-6 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
             {courses.map((c) => (
               <article
                 key={c.slug}
@@ -2432,7 +2432,7 @@ function TrainingInServicePlans({ inServicePlans }: { inServicePlans?: InService
 
         <div className="rz-tr-disclaimer">{training.inServiceDisclaimer}</div>
 
-        <div className="rz-tr-plans-grid">
+        <div className="grid grid-cols-3 items-stretch gap-5 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
           {plans.map((plan, index) => {
             // In a 3-tier pricing layout the recommended plan belongs in the
             // center column with the highlight, so the emphasis is balanced and
@@ -2529,7 +2529,7 @@ function TrainingLibrary() {
           </div>
         </div>
 
-        <div className="rz-tr-topic-grid">
+        <div className="grid grid-cols-4 gap-5 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
           {shown.map((topic) => (
             <a
               key={topic.month}
@@ -2596,7 +2596,7 @@ function TrainingHowItWorks() {
           <p className="rz-eyebrow">{training.howItWorks.eyebrow}</p>
           <h2>{training.howItWorks.title}</h2>
         </div>
-        <div className="rz-tr-how-grid">
+        <div className="grid grid-cols-3 gap-6 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
           {training.howItWorks.steps.map((s, i) => (
             <article className="rz-tr-how-card" key={s.n}>
               <div className="rz-tr-how-head">
@@ -2680,7 +2680,7 @@ export function TrainingCourseDetailPage({ course }: { course: TrainingCourseCar
       />
       <main className="rz-tr-detail">
         <section className="rz-tr-detail-hero">
-          <div className="rz-wrap rz-tr-detail-hero-grid">
+          <div className="rz-wrap grid grid-cols-[minmax(0,1fr)_380px] items-center gap-14 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
             <div className="rz-tr-detail-copy">
               <Link className="rz-tr-detail-back" href="/training#admin-training">
                 <span aria-hidden="true">←</span>
@@ -2714,7 +2714,7 @@ export function TrainingCourseDetailPage({ course }: { course: TrainingCourseCar
         </section>
 
         <section className="rz-tr-detail-body">
-          <div className="rz-wrap rz-tr-detail-body-grid">
+          <div className="rz-wrap grid grid-cols-[minmax(0,1fr)_360px] items-start gap-12 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
             <article className="rz-tr-detail-main">
               <p className="rz-eyebrow">Course overview</p>
               <h2>What this course covers</h2>
@@ -2727,7 +2727,7 @@ export function TrainingCourseDetailPage({ course }: { course: TrainingCourseCar
               </div>
 
               <h3>Learning outcomes</h3>
-              <ul className="rz-tr-detail-check-grid">
+              <ul className="m-0 grid list-none grid-cols-2 gap-3 p-0 max-[640px]:grid-cols-1">
                 {outcomes.map((outcome) => (
                   <li key={outcome}>
                     <span aria-hidden="true">✓</span>

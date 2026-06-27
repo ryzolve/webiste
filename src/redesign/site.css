@@ -3095,11 +3095,7 @@ button.rz-btn-blue {
   background: var(--rz-bg);
   padding: 44px 56px 8px;
 }
-.rz-tr-paths-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
+/* .rz-tr-paths-grid → Tailwind utilities (TrainingPathSplit) */
 .rz-tr-path {
   background: var(--rz-paper);
   border: 1px solid var(--rz-rule);
@@ -3379,12 +3375,7 @@ button.rz-btn-blue {
   border-radius: 16px;
   color: var(--rz-ink-2);
 }
-.rz-tr-admin-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  align-items: stretch;
-}
+/* .rz-tr-admin-grid → Tailwind utilities (TrainingAdminCourses) */
 .rz-tr-course-card {
   background: var(--rz-paper);
   border-radius: 20px;
@@ -3505,12 +3496,7 @@ button.rz-btn-blue {
     linear-gradient(180deg, #fff 0%, var(--rz-bg) 100%);
   border-bottom: 1px solid var(--rz-rule);
 }
-.rz-tr-detail-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 380px;
-  gap: 56px;
-  align-items: center;
-}
+/* .rz-tr-detail-hero-grid → Tailwind utilities (TrainingCourseDetailPage) */
 .rz-tr-detail-back {
   display: inline-flex;
   align-items: center;
@@ -3615,12 +3601,7 @@ button.rz-btn-blue {
 .rz-tr-detail-body {
   padding: 72px 56px 96px;
 }
-.rz-tr-detail-body-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
-  gap: 48px;
-  align-items: start;
-}
+/* .rz-tr-detail-body-grid → Tailwind utilities (TrainingCourseDetailPage) */
 .rz-tr-detail-main {
   background: var(--rz-paper);
   border: 1px solid var(--rz-rule);
@@ -3660,14 +3641,7 @@ button.rz-btn-blue {
   font-size: 13px;
   font-weight: 600;
 }
-.rz-tr-detail-check-grid {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
+/* .rz-tr-detail-check-grid → Tailwind utilities (TrainingCourseDetailPage) */
 .rz-tr-detail-check-grid li {
   display: grid;
   grid-template-columns: 24px 1fr;
@@ -3777,12 +3751,7 @@ button.rz-btn-blue {
   font-weight: 500;
   margin-bottom: 36px;
 }
-.rz-tr-plans-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  align-items: stretch;
-}
+/* .rz-tr-plans-grid → Tailwind utilities (TrainingInServicePlans) */
 .rz-tr-plan-card {
   background: var(--rz-paper);
   color: var(--rz-ink);
@@ -3964,11 +3933,7 @@ button.rz-btn-blue {
   background: var(--rz-ink);
   color: #fff;
 }
-.rz-tr-topic-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
+/* .rz-tr-topic-grid → Tailwind utilities (TrainingLibrary) */
 .rz-tr-topic-card {
   background: var(--rz-bg);
   border: 1px solid var(--rz-rule);
@@ -4106,11 +4071,7 @@ button.rz-btn-blue {
   border-bottom: 1px solid var(--rz-rule);
 }
 .rz-tr-how .rz-shead { max-width: 640px; margin-bottom: 56px; }
-.rz-tr-how-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
+/* .rz-tr-how-grid → Tailwind utilities (TrainingHowItWorks) */
 .rz-tr-how-card {
   background: var(--rz-bg);
   border-radius: 20px;
