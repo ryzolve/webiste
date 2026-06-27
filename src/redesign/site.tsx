@@ -926,21 +926,21 @@ function HomeTrainingCta() {
 
   return (
     <section id="training-cta" className="rz-section rz-training-cta">
-      <div className="rz-wrap rz-training-cta-grid">
-        <div className="rz-training-cta-copy">
+      <div className="rz-wrap relative z-[1] grid grid-cols-[minmax(0,1.18fr)_minmax(280px,0.82fr)] items-center gap-14 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
+        <div>
           <p className="rz-eyebrow rz-eyebrow-coral">{homeTrainingCta.eyebrow}</p>
-          <h2>
+          <h2 className="m-0 text-[clamp(38px,5vw,62px)] font-bold leading-[1.02] tracking-[-1.7px] text-white">
             Administrator Training and In-Service Training,{' '}
             <span className="rz-text-blue">clearly separated.</span>
           </h2>
-          <p>{homeTrainingCta.description}</p>
-          <div className="rz-training-cta-actions">
+          <p className="mt-5 max-w-[720px] text-[18px] leading-[1.6] text-white/[0.78]">{homeTrainingCta.description}</p>
+          <div className="mt-[30px] flex flex-wrap gap-3">
             <CTA href="/training" variant="coral">{homeTrainingCta.primaryCta}</CTA>
             <CTA href="/training#admin-training" variant="light">{homeTrainingCta.secondaryCta}</CTA>
           </div>
-          <p className="rz-training-cta-note">{homeTrainingCta.supporting}</p>
+          <p className="mt-[18px] max-w-[620px] text-[13.5px] leading-[1.55] text-white/[0.58]">{homeTrainingCta.supporting}</p>
         </div>
-        <div className="rz-training-cta-list" aria-label="Training options">
+        <div className="grid gap-4" aria-label="Training options">
           {paths.map((path) => (
             <article key={path.title} className="rz-training-path-mini">
               <span className="rz-training-path-mini-icon" aria-hidden="true">✓</span>

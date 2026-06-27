@@ -1354,46 +1354,8 @@ button.rz-btn-ghost {
     radial-gradient(circle at 88% 72%, rgba(255, 119, 76, 0.28), transparent 34%);
   pointer-events: none;
 }
-.rz-training-cta-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.82fr);
-  gap: 56px;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-.rz-training-cta-copy h2 {
-  font-size: clamp(38px, 5vw, 62px);
-  line-height: 1.02;
-  margin: 0;
-  font-weight: 700;
-  letter-spacing: -1.7px;
-  color: #fff;
-}
-.rz-training-cta-copy > p:not(.rz-eyebrow):not(.rz-training-cta-note) {
-  font-size: 18px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.78);
-  margin: 20px 0 0;
-  max-width: 720px;
-}
-.rz-training-cta-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-.rz-training-cta-note {
-  color: rgba(255, 255, 255, 0.58);
-  font-size: 13.5px;
-  line-height: 1.55;
-  margin: 18px 0 0;
-  max-width: 620px;
-}
-.rz-training-cta-list {
-  display: grid;
-  gap: 16px;
-}
+/* .rz-training-cta-grid / -copy / -actions / -note / -list → Tailwind utilities
+   (HomeTrainingCta in site.tsx). Band (.rz-training-cta + ::before) kept. */
 .rz-training-path-mini {
   position: relative;
   min-height: 180px;
@@ -4411,7 +4373,6 @@ button.rz-btn-blue {
   .rz-contact-grid,
   .rz-lead-card,
   .rz-training-band-inner,
-  .rz-training-cta-grid,
   .rz-about-cta-card,
   .rz-training-paths,
   .rz-tr-detail-hero-grid,
