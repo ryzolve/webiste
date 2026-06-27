@@ -421,23 +421,7 @@ button.rz-btn-ghost {
 .rz-shead-dark p { color: rgba(255,255,255,0.75); }
 
 /* ─── Hero (home) ──────────────────────────────────────────── */
-.rz-hero {
-  background: var(--rz-bg);
-  padding: 48px 56px 96px;
-  position: relative;
-  overflow: hidden;
-}
-.rz-hero > .rz-shader-bg { z-index: 0; }
-.rz-hero-grid {
-  max-width: 1328px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: 48px;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
+/* .rz-hero / .rz-hero-grid → Tailwind utilities (HomePage hero in site.tsx) */
 .rz-pill {
   display: inline-flex;
   align-items: center;
@@ -458,36 +442,7 @@ button.rz-btn-ghost {
 }
 .rz-pill-coral::before { background: var(--rz-coral); }
 
-.rz-hero h1 {
-  font-size: clamp(48px, 6vw, 76px);
-  line-height: 1.02;
-  color: var(--rz-ink);
-  margin: 24px 0 0;
-  font-weight: 600;
-  letter-spacing: -2.4px;
-}
-.rz-hero h1 > br { display: block; content: ""; }
-.rz-hero-sub {
-  font-size: 19px;
-  line-height: 1.55;
-  color: var(--rz-ink-2);
-  margin: 24px 0 36px;
-  max-width: 560px;
-}
-.rz-hero-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-}
-.rz-hero-trust {
-  display: flex;
-  gap: 28px;
-  font-size: 13px;
-  color: var(--rz-muted);
-  flex-wrap: wrap;
-}
+/* .rz-hero h1 / -sub / -actions / -trust → Tailwind utilities (HomePage hero) */
 
 /* animated word swap */
 .rz-word-frame {
@@ -4521,7 +4476,6 @@ button.rz-btn-blue {
     padding: 18px;
   }
   .rz-products-menu { position: static; box-shadow: none; width: 100%; margin-top: 8px; }
-  .rz-hero,
   .rz-page-hero,
   .rz-about-hero-v2,
   .rz-section,
@@ -4536,7 +4490,6 @@ button.rz-btn-blue {
     padding-left: 28px;
     padding-right: 28px;
   }
-  .rz-hero-grid,
   .rz-solutions-grid,
   .rz-solutions-board,
   .rz-prod-solutions-grid,
@@ -4609,7 +4562,6 @@ button.rz-btn-blue {
 }
 
 @media (max-width: 640px) {
-  .rz-hero,
   .rz-page-hero,
   .rz-about-hero-v2,
   .rz-section,
@@ -4828,7 +4780,7 @@ button.rz-btn-blue {
   .rz-training-band-inner,
   .rz-about-cta-card { padding: 32px; }
   .rz-lead-card { padding: 28px; }
-  .rz-hero h1 { letter-spacing: -1.5px; }
+  /* .rz-hero h1 mobile tracking → max-[640px]:tracking-[-1.5px] inline */
   .rz-page-hero h1 { letter-spacing: -1.5px; }
   .rz-ops-card {
     border-radius: 26px;

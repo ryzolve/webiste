@@ -581,8 +581,8 @@ function HeroIllo() {
 
 function HomeHero() {
   return (
-    <section className="rz-hero">
-      <div className="rz-shader-bg" aria-hidden="true">
+    <section className="relative overflow-hidden bg-bg px-14 pt-12 pb-24 max-[1080px]:px-7 max-[640px]:px-[18px]">
+      <div className="rz-shader-bg z-0" aria-hidden="true">
         {/* SHADER_FLOW @ 0.45 — matches RZ_Hero in main-sections.jsx */}
         <ShaderCanvas
           shader={SHADER_FLOW}
@@ -590,25 +590,25 @@ function HomeHero() {
           opacity={0.45}
         />
       </div>
-      <div className="rz-hero-grid">
+      <div className="relative z-[2] mx-auto grid max-w-[1328px] grid-cols-[1.05fr_1fr] items-center gap-12 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
         <div>
           <span className="rz-pill">{home.hero.eyebrow}</span>
-          <h1>
+          <h1 className="mt-6 text-[clamp(48px,6vw,76px)] font-semibold leading-[1.02] tracking-[-2.4px] text-ink max-[640px]:tracking-[-1.5px]">
             Stop chasing paperwork. <span className="rz-text-blue">Run your agency</span> with
             confidence.
             {home.hero.animatedWords.length > 0 && (
               <>
-                <br />
+                <br className="block" />
                 <AnimatedWords words={home.hero.animatedWords} />
               </>
             )}
           </h1>
-          <p className="rz-hero-sub">{home.hero.subtitle}</p>
-          <div className="rz-hero-actions">
+          <p className="mt-6 mb-9 max-w-[560px] text-[19px] leading-[1.55] text-ink-2">{home.hero.subtitle}</p>
+          <div className="mb-8 flex flex-wrap items-center gap-3">
             <CTA href="/calendly">Book a demo</CTA>
             <CTA href="#products" variant="secondary" icon={false}>See How Ryzolve Works</CTA>
           </div>
-          <div className="rz-hero-trust">
+          <div className="flex flex-wrap gap-7 text-[13px] text-muted">
             {home.hero.trust.map((item) => (
               <span key={item}>✓ {item}</span>
             ))}
