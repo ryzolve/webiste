@@ -159,6 +159,9 @@ export function normalisePublicCourse(item: PublicCourse): TrainingCourseCard | 
   const fallback = training.courses.find((course) => course.hoursNum === hoursNum) || training.courses[0];
   const { price, priceNum } = priceFromCents(item.priceCents || fallback.priceNum);
   const meta = metaForCourse(item, hoursNum);
+  // Omit when absent — `thumbnailUrl: undefined` can't be serialized by
+  // getServerSideProps and would 500 the page.
+  const thumbnailUrl = courseImageUrl(item.thumbnailUrl);
 
   return {
     slug,
@@ -177,7 +180,7 @@ export function normalisePublicCourse(item: PublicCourse): TrainingCourseCard | 
     approvedFor: fallback.approvedFor,
     learningOutcomes: cleanList(item.learningOutcomes),
     skills: cleanList(item.skills),
-    thumbnailUrl: courseImageUrl(item.thumbnailUrl),
+    ...(thumbnailUrl ? { thumbnailUrl } : {}),
     href: trainingCoursePurchaseHref(slug),
   };
 }
@@ -233,9 +236,18 @@ function normalisePlan(item: PublicPlan): InServicePlanCard | null {
   const backendFeatures = cleanList(item.features);
   const features = backendFeatures.length ? backendFeatures : defaultPlanFeatures(seats);
   const featured = Boolean(item.isFeatured);
-  const note = featured ? 'Most chosen' : undefined;
 
-  return { name, seats, price, description, features, featured, note };
+  // Omit `note` entirely when not featured — returning `note: undefined` from
+  // getServerSideProps throws "cannot be serialized as JSON" and 500s the page.
+  return {
+    name,
+    seats,
+    price,
+    description,
+    features,
+    featured,
+    ...(featured ? { note: 'Most chosen' } : {}),
+  };
 }
 
 export async function fetchInServicePlans(): Promise<InServicePlanCard[]> {
