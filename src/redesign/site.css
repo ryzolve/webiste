@@ -886,20 +886,8 @@ button.rz-btn-ghost {
     radial-gradient(ellipse at 50% 8%, rgba(255, 255, 255, 0.14), transparent 34%),
     radial-gradient(ellipse at center, rgba(15, 22, 30, 0.18) 0%, rgba(15, 22, 30, 0.78) 100%);
 }
-.rz-before-after-inner {
-  position: relative;
-  z-index: 2;
-}
-/* ── Before/After contrast panels (scattered vs aligned) ──── */
-.rz-ba-panels {
-  position: relative;
-  max-width: 1120px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  align-items: start;
-}
+/* ── Before/After contrast panels (scattered vs aligned) ──────
+   .rz-before-after-inner + .rz-ba-panels → utilities (BeforeAfterSection) */
 .rz-ba-panel {
   position: relative;
   overflow: hidden;
@@ -4474,9 +4462,7 @@ button.rz-btn-blue {
     padding-top: 92px;
     padding-bottom: 96px;
   }
-  .rz-ba-panels {
-    gap: 14px;
-  }
+  /* .rz-ba-panels @1080 → max-[1080px]:gap-[14px] inline */
   .rz-ba-panel {
     padding: 22px 20px 26px;
   }
@@ -4635,10 +4621,7 @@ button.rz-btn-blue {
     padding-top: 72px;
     padding-bottom: 76px;
   }
-  .rz-ba-panels {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
+  /* .rz-ba-panels @640 → max-[640px]:grid-cols-1 inline */
   .rz-ba-panel {
     padding: 22px 18px 24px;
     border-radius: 22px;

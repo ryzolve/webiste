@@ -770,14 +770,14 @@ function BeforeAfterSection() {
           opacity={1}
         />
       </div>
-      <div className="rz-wrap rz-before-after-inner">
+      <div className="rz-wrap relative z-[2]">
         <SectionHeader
           eyebrow={home.beforeAfter.eyebrow}
           title={<>Replace scattered processes with <span className="rz-text-blue">one connected workflow.</span></>}
           center
           dark
         />
-        <div className="rz-ba-panels">
+        <div className="relative mx-auto grid max-w-[1120px] grid-cols-2 items-start gap-[18px] max-[1080px]:gap-[14px] max-[640px]:grid-cols-1">
           <div className="rz-ba-panel rz-ba-panel-out">
             <div className="rz-ba-panel-head rz-ba-panel-head-out">
               <span className="rz-before-mark rz-before-mark-x" aria-hidden="true">×</span>
