@@ -1229,16 +1229,16 @@ function ProductHero({ slug }: { slug: ProductSlug }) {
 
 function WhatWeDoSection() {
   return (
-    <section className="rz-wwd">
+    <section className="border-y border-rule bg-paper px-14 py-24 max-[1080px]:px-7 max-[640px]:px-[18px]">
       <div className="rz-wrap">
-        <div className="rz-wwd-head">
+        <div className="mb-12 grid grid-cols-[1fr_1.4fr] items-start gap-20 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
           <div>
             <p className="rz-eyebrow">{whatWeDo.eyebrow.replace(/\?$/, '')}</p>
-            <h2>{whatWeDo.title}</h2>
+            <h2 className="m-0 text-[clamp(32px,4vw,44px)] font-semibold leading-[1.1] tracking-[-1.2px] text-ink">{whatWeDo.title}</h2>
           </div>
-          <p>{whatWeDo.description}</p>
+          <p className="m-0 pt-1 text-[16px] leading-[1.6] text-ink-2">{whatWeDo.description}</p>
         </div>
-        <div className="rz-wwd-grid">
+        <div className="grid grid-cols-4 gap-5 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
           {sharedServices.map((service, i) => (
             <Link key={service.title} href={service.href} className="rz-wwd-card">
               <span className="rz-icon-square">

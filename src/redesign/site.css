@@ -1847,39 +1847,8 @@ button.rz-btn-ghost {
 .rz-page-hero-left .rz-page-hero-actions { justify-content: flex-start; }
 
 /* ─── What we do (product pages) ──────────────────────────── */
-.rz-wwd {
-  background: var(--rz-paper);
-  border-top: 1px solid var(--rz-rule);
-  border-bottom: 1px solid var(--rz-rule);
-  padding: 96px 56px;
-}
-.rz-wwd-head {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 80px;
-  align-items: start;
-  margin-bottom: 48px;
-}
-.rz-wwd-head h2 {
-  font-size: clamp(32px, 4vw, 44px);
-  margin: 0;
-  font-weight: 600;
-  letter-spacing: -1.2px;
-  line-height: 1.1;
-  color: var(--rz-ink);
-}
-.rz-wwd-head p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--rz-ink-2);
-  margin: 0;
-  padding-top: 4px;
-}
-.rz-wwd-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
+/* .rz-wwd / -head / -grid → Tailwind utilities (WhatWeDoSection in site.tsx).
+   Dead group-selector entries (.rz-wwd*) cleaned up in a final pass. */
 .rz-wwd-card {
   background: var(--rz-bg);
   border: 1px solid var(--rz-rule);
