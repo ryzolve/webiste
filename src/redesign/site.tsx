@@ -319,12 +319,14 @@ function Header({ active }: { active: ActiveKey }) {
 
   return (
     <>
-      <div className="rz-promo">
-        <strong>
+      <div className="flex items-center justify-center gap-3.5 bg-ink px-8 py-2.5 text-[13px] tracking-[0.01em] text-white max-[640px]:flex-col max-[640px]:gap-1 max-[640px]:px-4 max-[640px]:text-center">
+        <strong className="font-normal opacity-[0.92]">
           Built for Texas PAS agencies that want less paperwork, cleaner compliance, and better
           operational control.
         </strong>
-        <Link href="/calendly">Book a demo →</Link>
+        <Link href="/calendly" className="font-medium !text-coral">
+          Book a demo →
+        </Link>
       </div>
       <header className={mobileOpen ? 'rz-header rz-nav-open' : 'rz-header'}>
         <div className="rz-header-inner">

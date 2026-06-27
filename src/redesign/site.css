@@ -1,3 +1,9 @@
+/* Tailwind: base + components here, utilities appended at the very end of this
+   file so they out-cascade any leftover .rz-* rule during the migration.
+   Preflight is disabled in tailwind.config.js. */
+@tailwind base;
+@tailwind components;
+
 /* ============================================================
    Ryzolve redesign — design tokens + global styles
    Faithful to the Figma/JSX handoff (RZ_T tokens).
@@ -81,24 +87,7 @@ body {
 .rz-shader-rounded { border-radius: inherit; }
 
 /* ─── Promo bar ─────────────────────────────────────────────── */
-.rz-promo {
-  background: var(--rz-ink);
-  color: #fff;
-  padding: 10px 32px;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  letter-spacing: 0.01em;
-}
-.rz-promo > span { opacity: 0.7; }
-.rz-promo > strong { font-weight: 400; opacity: 0.92; }
-.rz-promo > a {
-  color: var(--rz-coral);
-  text-decoration: none;
-  font-weight: 500;
-}
+/* .rz-promo → Tailwind utilities (see SiteLayout in site.tsx) */
 
 /* ─── Header ────────────────────────────────────────────────── */
 .rz-header {
@@ -4712,12 +4701,6 @@ button.rz-btn-blue {
 }
 
 @media (max-width: 640px) {
-  .rz-promo {
-    flex-direction: column;
-    gap: 4px;
-    padding: 10px 16px;
-    text-align: center;
-  }
   .rz-hero,
   .rz-page-hero,
   .rz-about-hero-v2,
@@ -4958,3 +4941,7 @@ button.rz-btn-blue {
   }
   .rz-word-frame { min-width: 0; }
 }
+
+/* Tailwind utilities last — they win over the .rz-* rules above when both are
+   applied to the same element during the section-by-section migration. */
+@tailwind utilities;
