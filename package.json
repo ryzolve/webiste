@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "lint": "next lint",
-    "verify:redesign": "node scripts/verify-redesign.mjs",
     "build": "next build",
     "build:cloudflare": "opennextjs-cloudflare build && node scripts/prepare-cloudflare-assets.mjs",
     "preview:cloudflare": "npm run build:cloudflare && opennextjs-cloudflare preview",
