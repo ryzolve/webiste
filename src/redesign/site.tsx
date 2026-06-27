@@ -297,6 +297,13 @@ function Header({ active }: { active: ActiveKey }) {
 
   const productsActive = active === 'products' || nav.products.some((p) => p.slug === active);
 
+  // Shared nav-link utilities. `!text-*` beats the global `a { color: inherit }`
+  // reset; the active underline is a Tailwind `after:` pseudo-element.
+  const navLink =
+    'relative inline-flex items-center gap-1 whitespace-nowrap py-1.5 text-sm font-medium hover:!text-ink';
+  const navLinkActive =
+    "!text-ink font-semibold after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-[1px] after:bg-blue after:content-['']";
+
   useEffect(() => {
     function handler(e: MouseEvent) {
       if (!wrapRef.current?.contains(e.target as Node)) setProductsOpen(false);
@@ -328,15 +335,19 @@ function Header({ active }: { active: ActiveKey }) {
           Book a demo →
         </Link>
       </div>
-      <header className={mobileOpen ? 'rz-header rz-nav-open' : 'rz-header'}>
-        <div className="rz-header-inner">
-          <Link href="/" className="rz-brand" aria-label="Ryzolve home">
+      <header className="sticky top-0 z-[80] border-b border-rule bg-bg px-14 py-5 max-[1080px]:px-6 max-[1080px]:py-4">
+        <div className="mx-auto grid w-full max-w-[1328px] grid-cols-[1fr_auto_1fr] items-center gap-6 max-[1080px]:grid-cols-[1fr_auto]">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2.5 justify-self-start text-[18px] font-semibold tracking-[-0.3px]"
+            aria-label="Ryzolve home"
+          >
             <RyzolveMark />
             <span>Ryzolve</span>
           </Link>
 
           <button
-            className="rz-menu-button"
+            className="hidden cursor-pointer max-[1080px]:inline-flex max-[1080px]:items-center max-[1080px]:gap-2 max-[1080px]:rounded-full max-[1080px]:border max-[1080px]:border-rule max-[1080px]:bg-paper max-[1080px]:px-3.5 max-[1080px]:py-2.5 max-[1080px]:text-sm max-[1080px]:font-medium max-[1080px]:!text-ink"
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             aria-expanded={mobileOpen}
@@ -344,57 +355,93 @@ function Header({ active }: { active: ActiveKey }) {
             Menu
           </button>
 
-          <nav className="rz-nav" aria-label="Main navigation">
+          <nav
+            className={`relative flex items-center justify-self-center gap-8 rounded-full border border-rule bg-paper px-6 py-3 shadow-[0_1px_2px_rgba(0,0,0,0.02)] ${
+              mobileOpen
+                ? 'max-[1080px]:col-[1/-1] max-[1080px]:mt-2 max-[1080px]:w-full max-[1080px]:flex-col max-[1080px]:items-stretch max-[1080px]:gap-3 max-[1080px]:rounded-[18px] max-[1080px]:p-[18px]'
+                : 'max-[1080px]:hidden'
+            }`}
+            aria-label="Main navigation"
+          >
             {nav.links
               .filter((item) => item.slug === 'home')
               .map((item) => (
-                <Link key={item.href} className={active === item.slug ? 'active' : ''} href={item.href}>
+                <Link key={item.href} className={active === item.slug ? `${navLink} ${navLinkActive}` : `${navLink} !text-ink-2`} href={item.href}>
                   {item.label}
                 </Link>
               ))}
             <div
-              className={productsActive ? 'rz-products-nav active' : 'rz-products-nav'}
+              className="relative data-[open=true]:after:pointer-events-auto data-[open=true]:after:absolute data-[open=true]:after:top-full data-[open=true]:after:-inset-x-6 data-[open=true]:after:h-[18px] data-[open=true]:after:content-['']"
               data-open={productsOpen}
               ref={wrapRef}
               onMouseEnter={openProducts}
               onMouseLeave={scheduleCloseProducts}
             >
-              <button type="button" onClick={() => setProductsOpen((v) => !v)} aria-expanded={productsOpen}>
+              <button
+                type="button"
+                onClick={() => setProductsOpen((v) => !v)}
+                aria-expanded={productsOpen}
+                className={`relative inline-flex cursor-pointer items-center gap-1 whitespace-nowrap border-0 bg-transparent py-1.5 text-sm font-medium text-ink-2 hover:text-ink ${
+                  productsActive
+                    ? "text-ink font-semibold after:absolute after:left-0 after:right-[14px] after:-bottom-0.5 after:h-0.5 after:rounded-[1px] after:bg-blue after:content-['']"
+                    : ''
+                }`}
+              >
                 Our Products
-                <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                <svg
+                  width="10"
+                  height="6"
+                  viewBox="0 0 10 6"
+                  aria-hidden="true"
+                  className={`mt-px transition-transform duration-[160ms] ${productsOpen ? 'rotate-180' : ''}`}
+                >
                   <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
                 </svg>
               </button>
               {productsOpen && (
-                <div className="rz-products-menu" role="menu">
+                <div
+                  className="absolute left-[-16px] top-[calc(100%+14px)] z-[60] w-[380px] rounded-2xl border border-rule bg-paper p-2 shadow-[0_24px_56px_rgba(13,14,18,0.10)] max-[1080px]:static max-[1080px]:mt-2 max-[1080px]:w-full max-[1080px]:shadow-none"
+                  role="menu"
+                >
                   {nav.products.map((p) => (
-                    <Link key={p.href} href={p.href} role="menuitem">
-                      <span className="rz-pm-icon">
+                    <Link
+                      key={p.href}
+                      href={p.href}
+                      role="menuitem"
+                      className="flex items-start gap-3.5 rounded-[10px] p-3.5 transition-[background] duration-[120ms] hover:bg-bg"
+                    >
+                      <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[10px] bg-blue-soft text-blue-deep">
                         <ProductIcon kind={serviceToIcon(p.slug)} size={18} />
                       </span>
-                      <div>
-                        <strong>{p.label}</strong>
-                        <span>{p.short}</span>
+                      <div className="min-w-0">
+                        <strong className="block text-sm font-semibold tracking-[-0.2px] text-ink">{p.label}</strong>
+                        <span className="mt-0.5 block text-xs leading-[1.45] text-muted">{p.short}</span>
                       </div>
                     </Link>
                   ))}
-                  <hr />
-                  <Link href="/#products" className="rz-menu-see-all">See all products →</Link>
+                  <hr className="my-1.5 border-t border-rule" />
+                  <Link href="/#products" className="block px-3.5 py-2.5 text-[13px] font-medium !text-blue">See all products →</Link>
                 </div>
               )}
             </div>
             {nav.links
               .filter((item) => item.slug !== 'home')
               .map((item) => (
-                <Link key={item.href} className={active === item.slug ? 'active' : ''} href={item.href}>
+                <Link key={item.href} className={active === item.slug ? `${navLink} ${navLinkActive}` : `${navLink} !text-ink-2`} href={item.href}>
                   {item.label}
                 </Link>
               ))}
           </nav>
 
-          <div className="rz-header-actions">
-            <a href={`${trainingUrl}/auth/login`}>Training login</a>
-            <a href={company.providerLoginUrl} className="rz-pill-cta">
+          <div
+            className={`flex items-center gap-2 justify-self-end ${
+              mobileOpen
+                ? 'max-[1080px]:col-[1/-1] max-[1080px]:mt-2 max-[1080px]:w-full max-[1080px]:flex-col max-[1080px]:items-stretch max-[1080px]:gap-3 max-[1080px]:rounded-[18px] max-[1080px]:border max-[1080px]:border-rule max-[1080px]:bg-paper max-[1080px]:p-[18px]'
+                : 'max-[1080px]:hidden'
+            }`}
+          >
+            <a href={`${trainingUrl}/auth/login`} className="whitespace-nowrap rounded-full px-3.5 py-2.5 text-sm font-medium !text-ink">Training login</a>
+            <a href={company.providerLoginUrl} className="inline-flex items-center gap-1.5 rounded-full bg-blue px-5 py-[11px] text-sm font-medium !text-white">
               Login
               <span aria-hidden="true">→</span>
             </a>
