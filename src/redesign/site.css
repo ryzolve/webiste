@@ -4,6 +4,17 @@
 @tailwind base;
 @tailwind components;
 
+/* Border foundation that Tailwind's Preflight normally provides (Preflight is
+   disabled here). Width 0 keeps non-bordered elements borderless; style solid
+   makes `border-b`/`border` etc. actually render. Specificity 0,0,0 so every
+   explicit site.css border rule still wins. */
+*,
+::before,
+::after {
+  border-width: 0;
+  border-style: solid;
+}
+
 /* ============================================================
    Ryzolve redesign — design tokens + global styles
    Faithful to the Figma/JSX handoff (RZ_T tokens).
@@ -1951,110 +1962,8 @@ button.rz-btn-ghost {
 }
 
 /* ─── Footer ──────────────────────────────────────────────── */
-.rz-footer {
-  background: var(--rz-ink);
-  padding: 80px 56px 32px;
-  color: #fff;
-}
-.rz-footer-grid {
-  max-width: 1328px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
-  gap: 56px;
-  padding-bottom: 56px;
-  border-bottom: 1px solid rgba(255,255,255,0.10);
-}
-.rz-footer-grid h4 {
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  font-weight: 600;
-  margin: 0 0 14px;
-}
-.rz-footer-grid a {
-  display: block;
-  color: #fff;
-  font-size: 14px;
-  padding: 6px 0;
-  text-decoration: none;
-  opacity: 0.85;
-}
-.rz-footer-grid a:hover { opacity: 1; }
-.rz-footer-brand { display: flex; align-items: center; gap: 12px; }
-.rz-footer-logo-chip {
-  width: 44px;
-  height: 34px;
-  border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  color: var(--rz-blue);
-  background: #fff;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
-}
-.rz-footer-logo-chip .rz-mark {
-  width: 32px;
-  height: 23px;
-  display: block;
-}
-.rz-footer-brand span { font-size: 19px; font-weight: 600; letter-spacing: -0.3px; color: #fff; }
-.rz-footer-intro {
-  font-size: 16px;
-  line-height: 1.55;
-  color: rgba(255,255,255,0.72);
-  margin: 18px 0 0;
-  max-width: 360px;
-  letter-spacing: -0.1px;
-}
-.rz-footer-cta-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 24px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.rz-footer-cta-row > .rz-btn { padding: 12px 20px; font-size: 14px; }
-.rz-footer-contact {
-  font-size: 14px;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.7;
-}
-.rz-footer-contact a { display: inline; padding: 0; opacity: 1; }
-.rz-social-row { display: flex; gap: 10px; margin-top: 18px; }
-.rz-social-row a {
-  width: 32px; height: 32px;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  padding: 0;
-  opacity: 1;
-}
-.rz-social-row a:hover { background: rgba(255,255,255,0.12); }
-.rz-footer-bottom {
-  max-width: 1328px;
-  margin: 28px auto 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: rgba(255,255,255,0.5);
-}
-.rz-footer-bottom-links {
-  display: flex;
-  gap: 24px;
-  font-family: var(--rz-mono);
-  font-size: 11px;
-}
-.rz-footer-bottom-links a { color: inherit; text-decoration: none; }
+/* .rz-footer* → Tailwind utilities (see Footer in site.tsx). RyzolveMark + CTA
+   stay as shared atoms and receive utility overrides per use. */
 
 /* ─── Page hero (inner) ───────────────────────────────────── */
 .rz-page-hero {
@@ -4639,7 +4548,6 @@ button.rz-btn-blue {
   .rz-training-band-inner,
   .rz-training-cta-grid,
   .rz-about-cta-card,
-  .rz-footer-grid,
   .rz-training-paths,
   .rz-tr-detail-hero-grid,
   .rz-tr-detail-body-grid {
@@ -4714,7 +4622,6 @@ button.rz-btn-blue {
   .rz-about-cta,
   .rz-training-final,
   .rz-proof-band,
-  .rz-footer,
   .rz-notfound {
     padding-left: 18px;
     padding-right: 18px;

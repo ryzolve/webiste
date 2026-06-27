@@ -407,38 +407,43 @@ function Header({ active }: { active: ActiveKey }) {
 
 function Footer() {
   return (
-    <footer className="rz-footer">
-      <div className="rz-footer-grid">
+    <footer className="bg-ink px-14 pt-20 pb-8 text-white max-[640px]:px-[18px]">
+      <div className="mx-auto grid max-w-[1328px] grid-cols-[1.6fr_1fr_1fr_1.2fr] gap-14 border-b border-white/10 pb-14 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
         <section>
-          <div className="rz-footer-brand">
-            <span className="rz-footer-logo-chip" aria-hidden="true">
-              <RyzolveMark />
+          <div className="flex items-center gap-3">
+            <span
+              className="inline-flex h-[34px] w-11 flex-none items-center justify-center rounded-lg bg-white text-blue shadow-[0_10px_28px_rgba(0,0,0,0.22)]"
+              aria-hidden="true"
+            >
+              <RyzolveMark className="h-[23px] w-8" />
             </span>
-            <span>Ryzolve</span>
+            <span className="text-[19px] font-semibold tracking-[-0.3px] text-white">Ryzolve</span>
           </div>
-          <p className="rz-footer-intro">{footer.intro}</p>
-          <div className="rz-footer-cta-row">
-            <CTA href="/calendly" variant="coral">Book a demo</CTA>
-            <CTA href={company.providerLoginUrl} variant="ghost" icon={false}>Login</CTA>
+          <p className="mt-[18px] max-w-[360px] text-base leading-[1.55] tracking-[-0.1px] text-white/72">
+            {footer.intro}
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-2.5">
+            <CTA href="/calendly" variant="coral" className="px-5 py-3 text-sm">Book a demo</CTA>
+            <CTA href={company.providerLoginUrl} variant="ghost" icon={false} className="px-5 py-3 text-sm">Login</CTA>
           </div>
         </section>
         <section>
-          <h4>Products</h4>
+          <h4 className="mb-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Products</h4>
           {nav.products.map((p) => (
-            <Link key={p.href} href={p.href}>{p.label}</Link>
+            <Link key={p.href} href={p.href} className="block py-1.5 text-sm opacity-[0.85] hover:opacity-100">{p.label}</Link>
           ))}
-          <Link href="/training">Training</Link>
+          <Link href="/training" className="block py-1.5 text-sm opacity-[0.85] hover:opacity-100">Training</Link>
         </section>
         <section>
-          <h4>Company</h4>
-          <Link href="/about-us">About</Link>
-          <Link href="/contact">Contact</Link>
-          <Link href="/training">Training</Link>
-          <Link href="/calendly">Book a demo</Link>
+          <h4 className="mb-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Company</h4>
+          <Link href="/about-us" className="block py-1.5 text-sm opacity-[0.85] hover:opacity-100">About</Link>
+          <Link href="/contact" className="block py-1.5 text-sm opacity-[0.85] hover:opacity-100">Contact</Link>
+          <Link href="/training" className="block py-1.5 text-sm opacity-[0.85] hover:opacity-100">Training</Link>
+          <Link href="/calendly" className="block py-1.5 text-sm opacity-[0.85] hover:opacity-100">Book a demo</Link>
         </section>
         <section>
-          <h4>Get in touch</h4>
-          <div className="rz-footer-contact">
+          <h4 className="mb-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Get in touch</h4>
+          <div className="text-sm leading-[1.7] text-white/85">
             {company.address}
             <br />
             <br />
@@ -457,9 +462,9 @@ function Footer() {
           */}
         </section>
       </div>
-      <div className="rz-footer-bottom">
+      <div className="mx-auto mt-7 flex max-w-[1328px] items-center justify-between text-xs text-white/50">
         <div>© {new Date().getFullYear()} {company.name}. All rights reserved.</div>
-        <div className="rz-footer-bottom-links">
+        <div className="flex gap-6 font-mono text-[11px]">
           <a href="#">Privacy</a>
           <a href="#">Terms</a>
           <a href="#">Cookies</a>
