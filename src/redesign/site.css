@@ -2473,12 +2473,7 @@ button.rz-btn-ghost {
 }
 
 /* ─── Contact page ───────────────────────────────────────── */
-.rz-contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 0.85fr;
-  gap: 36px;
-  align-items: start;
-}
+/* .rz-contact-grid → Tailwind utilities (ContactPage). Form/side stay bespoke. */
 .rz-contact-side {
   display: flex;
   flex-direction: column;

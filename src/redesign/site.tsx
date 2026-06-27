@@ -1867,7 +1867,7 @@ export function ContactPage() {
         </section>
 
         <section className="rz-section">
-          <div className="rz-wrap rz-contact-grid">
+          <div className="rz-wrap grid grid-cols-[1fr_0.85fr] items-start gap-9 max-[1080px]:grid-cols-1">
             <form className="rz-form-card" onSubmit={submit}>
               {/* Honeypot — hidden from real users, catches bots */}
               <input
