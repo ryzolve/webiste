@@ -1452,12 +1452,12 @@ function DocEvidence() {
 
 function DocFeature() {
   return (
-    <section className="rz-section rz-doc-feature">
-      <div className="rz-wrap rz-doc-feature-grid">
+    <section className="rz-section border-y border-rule bg-paper">
+      <div className="rz-wrap grid grid-cols-2 items-center gap-20 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
         <DocTemplatesMock />
         <div>
           <p className="rz-eyebrow">Made to fit your agency</p>
-          <h2>Every form your agency uses — already in the system.</h2>
+          <h2 className="m-0 text-[clamp(32px,4vw,44px)] font-semibold leading-[1.1] tracking-[-1.2px] text-ink">Every form your agency uses — already in the system.</h2>
           <ul className="rz-num-list">
             {[
               ['Tailored document suites', 'Document libraries shaped around your service lines — PAS, Home Health, Hospice — not a generic template pack.'],
@@ -1493,14 +1493,14 @@ function ProductSolutions({ slug }: { slug: ProductSlug }) {
   const bullets = product.solutionBullets;
 
   return (
-    <section id="solutions" className="rz-section rz-prod-solutions">
-      <div className="rz-wrap rz-prod-solutions-grid">
+    <section id="solutions" className="rz-section bg-bg">
+      <div className="rz-wrap grid grid-cols-2 items-center gap-20 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
         <div>
           <p className="rz-eyebrow">Our Solutions</p>
-          <h2>{product.solutionTitle}</h2>
-          <p>{product.solutionDescription}</p>
+          <h2 className="m-0 text-[clamp(36px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-1.5px] text-ink">{product.solutionTitle}</h2>
+          <p className="mt-5 text-[17px] leading-[1.6] text-ink-2">{product.solutionDescription}</p>
           {product.solutionLead && (
-            <p style={{ marginTop: 16 }}>{product.solutionLead}</p>
+            <p className="text-[17px] leading-[1.6] text-ink-2" style={{ marginTop: 16 }}>{product.solutionLead}</p>
           )}
           {bullets && bullets.length > 0 && (
             <ul className="rz-prod-bullet-list">
@@ -1523,11 +1523,11 @@ function ProductAbout({ slug }: { slug: ProductSlug }) {
   const product = products[slug];
   if (!product.aboutTitle && !product.aboutDescription && !product.aboutBullets) return null;
   return (
-    <section className="rz-section rz-doc-feature">
-      <div className="rz-wrap rz-doc-feature-grid">
+    <section className="rz-section border-y border-rule bg-paper">
+      <div className="rz-wrap grid grid-cols-2 items-center gap-20 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
         <div>
           <p className="rz-eyebrow">Why agencies pick this</p>
-          <h2>{product.aboutTitle || product.label}</h2>
+          <h2 className="m-0 text-[clamp(32px,4vw,44px)] font-semibold leading-[1.1] tracking-[-1.2px] text-ink">{product.aboutTitle || product.label}</h2>
           {product.aboutDescription && <p style={{ fontSize: 16, color: 'var(--rz-ink-2)', lineHeight: 1.6, marginTop: 20 }}>{product.aboutDescription}</p>}
           {product.aboutBullets && product.aboutBullets.length > 0 && (
             <ul className="rz-prod-bullet-list">
@@ -1552,12 +1552,12 @@ function ProductExtras({ slug }: { slug: ProductSlug }) {
   return (
     <>
       {product.extraSections.map((section) => (
-        <section className="rz-section rz-prod-solutions" key={section.title}>
-          <div className="rz-wrap rz-prod-solutions-grid">
+        <section className="rz-section bg-bg" key={section.title}>
+          <div className="rz-wrap grid grid-cols-2 items-center gap-20 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
             <div>
               <p className="rz-eyebrow">{section.eyebrow}</p>
-              <h2>{section.title}</h2>
-              <p>{section.description}</p>
+              <h2 className="m-0 text-[clamp(36px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-1.5px] text-ink">{section.title}</h2>
+              <p className="mt-5 text-[17px] leading-[1.6] text-ink-2">{section.description}</p>
               <div className="rz-prod-cta">
                 <CTA href="/calendly">Book a demo</CTA>
               </div>

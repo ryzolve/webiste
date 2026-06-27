@@ -1874,27 +1874,7 @@ button.rz-btn-ghost {
 }
 
 /* ─── Product solutions ──────────────────────────────────── */
-.rz-prod-solutions { background: var(--rz-bg); }
-.rz-prod-solutions-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-.rz-prod-solutions-grid h2 {
-  font-size: clamp(36px, 4.5vw, 52px);
-  margin: 0;
-  font-weight: 600;
-  letter-spacing: -1.5px;
-  line-height: 1.05;
-  color: var(--rz-ink);
-}
-.rz-prod-solutions-grid > div > p {
-  font-size: 17px;
-  line-height: 1.6;
-  color: var(--rz-ink-2);
-  margin: 20px 0 0;
-}
+/* .rz-prod-solutions / -grid / h2 / p → Tailwind utilities (ProductSolutions) */
 .rz-prod-bullet-list {
   padding: 0;
   margin: 32px 0 0;
@@ -2148,25 +2128,7 @@ button.rz-btn-ghost {
 }
 
 /* ─── Doc feature (templates mock) ────────────────────────── */
-.rz-doc-feature {
-  background: var(--rz-paper);
-  border-top: 1px solid var(--rz-rule);
-  border-bottom: 1px solid var(--rz-rule);
-}
-.rz-doc-feature-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-.rz-doc-feature-grid h2 {
-  font-size: clamp(32px, 4vw, 44px);
-  margin: 0;
-  font-weight: 600;
-  letter-spacing: -1.2px;
-  line-height: 1.1;
-  color: var(--rz-ink);
-}
+/* .rz-doc-feature / -grid / -grid h2 → Tailwind utilities (DocFeature in site.tsx) */
 .rz-num-list {
   padding: 0;
   margin: 28px 0 0;
