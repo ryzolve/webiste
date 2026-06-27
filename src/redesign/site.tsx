@@ -970,7 +970,7 @@ function TestimonialsSection() {
           title={testimonials.title}
           center
         />
-        <div className="rz-tm-layout">
+        <div className="grid grid-cols-[minmax(320px,0.9fr)_minmax(0,1.1fr)] items-stretch gap-6 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
           <div className="rz-tm-video">
             <span className="rz-tm-tag">Watch · 2 min</span>
             <h3>{video.cardTitle ?? 'How Ryzolve streamlines a Texas PAS agency.'}</h3>

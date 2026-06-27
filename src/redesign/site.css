@@ -1408,12 +1408,7 @@ button.rz-btn-ghost {
 
 /* ─── Testimonials ────────────────────────────────────────── */
 .rz-tm { background: var(--rz-paper); border-top: 1px solid var(--rz-rule); border-bottom: 1px solid var(--rz-rule); }
-.rz-tm-layout {
-  display: grid;
-  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
-  gap: 24px;
-  align-items: stretch;
-}
+/* .rz-tm-layout → Tailwind utilities (TestimonialsSection in site.tsx) */
 .rz-tm-video {
   background:
     radial-gradient(circle at 85% 86%, rgba(13, 89, 146, 0.72), transparent 46%),
@@ -4386,7 +4381,6 @@ button.rz-btn-blue {
   .rz-benefits-grid,
   .rz-wwd-grid,
   .rz-how-grid,
-  .rz-tm-layout,
   .rz-training-courses-grid,
   .rz-topic-grid,
   .rz-tr-paths-grid,
@@ -4438,7 +4432,6 @@ button.rz-btn-blue {
   .rz-benefits-grid,
   .rz-wwd-grid,
   .rz-how-grid,
-  .rz-tm-layout,
   .rz-training-courses-grid,
   .rz-topic-grid,
   .rz-doc-mock-grid,
