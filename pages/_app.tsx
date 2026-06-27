@@ -2,21 +2,15 @@ import Head from "next/head";
 import Script from "next/script";
 import type { AppProps } from "next/app";
 import { Fragment, useEffect } from "react";
-import ThemeProvider from "theme/ThemeProvider";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 
-// The redesign ships its own self-contained stylesheet. The legacy template
-// CSS (bootstrap SCSS, swiper/plyr/glightbox/scrollcue, animate.css) and the
-// bootstrap dropdown init are intentionally not loaded — the live pages use
-// none of them. Those files still exist in the repo for now.
+// The redesign ships its own self-contained stylesheet and is the only thing
+// the live pages render. No legacy template CSS/providers are loaded.
 import "redesign/site.css";
 
 // Optional, env-driven SEO/analytics wiring. Leave the env vars unset to disable.
 const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-
-const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   // GA4 SPA page_view on client-side route changes.
@@ -63,12 +57,8 @@ gtag('config', '${GA_ID}', { send_page_view: true });`}
         </>
       )}
 
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <Component {...pageProps} />
-          <Toaster richColors closeButton position="bottom-right" />
-        </ThemeProvider>
-      </QueryClientProvider>
+      <Component {...pageProps} />
+      <Toaster richColors closeButton position="bottom-right" />
     </Fragment>
   );
 }
