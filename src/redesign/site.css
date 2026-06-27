@@ -818,42 +818,7 @@ button.rz-btn-ghost {
 .rz-benefits {
   background: var(--rz-bg);
 }
-.rz-benefits-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(340px, 1fr);
-  gap: 56px;
-  align-items: start;
-  margin-bottom: 42px;
-}
-.rz-benefits-intro > div {
-  padding-right: 48px;
-  border-right: 1px solid var(--rz-rule);
-}
-.rz-benefits-intro h2 {
-  max-width: 760px;
-  font-size: clamp(36px, 4.5vw, 52px);
-  color: var(--rz-ink);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -1.5px;
-  margin: 0;
-}
-.rz-benefits-intro p {
-  color: var(--rz-ink-2);
-  font-size: 17px;
-  line-height: 1.58;
-  margin: 18px 0 0;
-}
-.rz-benefits-intro > p {
-  margin: 26px 0 0;
-  font-size: 17px;
-  line-height: 1.68;
-}
-.rz-benefits-platform-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-}
+/* .rz-benefits-intro / -platform-grid → Tailwind utilities (BenefitsSection) */
 .rz-platform-card {
   min-height: 232px;
   background: var(--rz-paper);
@@ -4480,7 +4445,6 @@ button.rz-btn-blue {
   .rz-hero-ops { min-height: auto; }
   .rz-stats-grid,
   .rz-benefits-grid,
-  .rz-benefits-platform-grid,
   .rz-wwd-grid,
   .rz-strategy-grid,
   .rz-how-grid,
@@ -4505,18 +4469,7 @@ button.rz-btn-blue {
   }
   .rz-solutions-copy { max-width: 760px; }
   .rz-solutions-ledger { max-width: 760px; }
-  .rz-benefits-intro {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .rz-benefits-intro > div {
-    padding-right: 0;
-    border-right: 0;
-  }
-  .rz-benefits-intro > p {
-    max-width: 820px;
-    margin-top: 0;
-  }
+  /* .rz-benefits-intro @1080 → inlined max-[1080px]: utilities (BenefitsSection) */
   .rz-before-after {
     padding-top: 92px;
     padding-bottom: 96px;
@@ -4547,7 +4500,6 @@ button.rz-btn-blue {
   }
   .rz-stats-grid,
   .rz-benefits-grid,
-  .rz-benefits-platform-grid,
   .rz-wwd-grid,
   .rz-strategy-grid,
   .rz-how-grid,
@@ -4664,18 +4616,7 @@ button.rz-btn-blue {
     font-size: clamp(34px, 10vw, 42px);
     letter-spacing: -1.2px;
   }
-  .rz-benefits-intro {
-    margin-bottom: 30px;
-  }
-  .rz-benefits-intro h2 {
-    font-size: clamp(34px, 10vw, 42px);
-    letter-spacing: -1.2px;
-  }
-  .rz-benefits-intro p,
-  .rz-benefits-intro > p {
-    font-size: 16px;
-    line-height: 1.58;
-  }
+  /* .rz-benefits-intro @640 → inlined max-[640px]: utilities (BenefitsSection) */
   .rz-platform-card {
     gap: 16px;
     padding: 24px;

@@ -731,17 +731,17 @@ function BenefitsSection() {
   return (
     <section id="products" className="rz-section rz-benefits">
       <div className="rz-wrap">
-        <div className="rz-benefits-intro">
-          <div>
+        <div className="mb-[42px] grid grid-cols-[minmax(0,0.92fr)_minmax(340px,1fr)] items-start gap-14 max-[1080px]:grid-cols-1 max-[1080px]:gap-6 max-[640px]:mb-[30px]">
+          <div className="border-r border-rule pr-12 max-[1080px]:border-r-0 max-[1080px]:pr-0">
             <p className="rz-eyebrow">{home.benefits.eyebrow}</p>
-            <h2>
+            <h2 className="m-0 max-w-[760px] text-[clamp(36px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-1.5px] text-ink max-[640px]:text-[clamp(34px,10vw,42px)] max-[640px]:tracking-[-1.2px]">
               Run your Texas PAS agency on <span className="rz-text-blue">one platform.</span>
             </h2>
-            <p>{home.benefits.description}</p>
+            <p className="mt-[18px] text-[17px] leading-[1.58] text-ink-2 max-[640px]:text-[16px]">{home.benefits.description}</p>
           </div>
-          <p>{home.benefits.lead}</p>
+          <p className="mt-[26px] text-[17px] leading-[1.68] text-ink-2 max-[1080px]:mt-0 max-[1080px]:max-w-[820px] max-[640px]:text-[16px] max-[640px]:leading-[1.58]">{home.benefits.lead}</p>
         </div>
-        <div className="rz-benefits-platform-grid">
+        <div className="grid grid-cols-3 gap-6 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
           {home.benefits.cards.map((card, index) => (
             <article key={card.title} className="rz-platform-card">
               <div className="rz-platform-card-head">
