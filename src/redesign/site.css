@@ -1217,12 +1217,7 @@ button.rz-btn-ghost {
 }
 
 /* ─── Strategy (3 cards) ──────────────────────────────────── */
-.rz-strategy { background: var(--rz-bg); }
-.rz-strategy-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
+/* .rz-strategy / -grid → Tailwind utilities (HomeStrategy in site.tsx) */
 .rz-strategy-card {
   background: var(--rz-paper);
   border: 1px solid var(--rz-rule);
@@ -1299,12 +1294,7 @@ button.rz-btn-ghost {
 }
 
 /* ─── How it works ────────────────────────────────────────── */
-.rz-how { background: var(--rz-paper); border-top: 1px solid var(--rz-rule); border-bottom: 1px solid var(--rz-rule); }
-.rz-how-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
+/* .rz-how / -grid → Tailwind utilities (HomeHowItWorks in site.tsx) */
 .rz-how-card {
   background: var(--rz-bg);
   border-radius: 20px;
@@ -1346,7 +1336,7 @@ button.rz-btn-ghost {
   color: var(--rz-ink-2);
   margin: 12px 0 0;
 }
-.rz-how-cta { text-align: center; margin-top: 48px; }
+/* .rz-how-cta → mt-12 text-center inline (HomeHowItWorks) */
 
 /* ─── Home training CTA ───────────────────────────────────── */
 .rz-training-cta {
@@ -4434,7 +4424,6 @@ button.rz-btn-blue {
   .rz-stats-grid,
   .rz-benefits-grid,
   .rz-wwd-grid,
-  .rz-strategy-grid,
   .rz-how-grid,
   .rz-tm-layout,
   .rz-training-courses-grid,
@@ -4487,7 +4476,6 @@ button.rz-btn-blue {
   .rz-stats-grid,
   .rz-benefits-grid,
   .rz-wwd-grid,
-  .rz-strategy-grid,
   .rz-how-grid,
   .rz-tm-layout,
   .rz-training-courses-grid,

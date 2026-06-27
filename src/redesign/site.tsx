@@ -857,14 +857,14 @@ function HomeSolutions() {
 
 function HomeStrategy() {
   return (
-    <section className="rz-section rz-strategy">
+    <section className="rz-section bg-bg">
       <div className="rz-wrap">
         <SectionHeader
           eyebrow={home.strategy.eyebrow}
           title={<>Each module <span className="rz-text-blue">earns its keep.</span> Together, they remove a category of work from your week.</>}
           description={home.strategy.description}
         />
-        <div className="rz-strategy-grid">
+        <div className="grid grid-cols-3 gap-6 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
           {home.strategy.steps.map((step, i) => (
             <Link key={step.title} href={step.href} className="rz-strategy-card">
               <div className="rz-strategy-card-head">
@@ -892,13 +892,13 @@ function HomeStrategy() {
 
 function HomeHowItWorks() {
   return (
-    <section className="rz-section rz-how">
+    <section className="rz-section border-y border-rule bg-paper">
       <div className="rz-wrap">
         <SectionHeader
           eyebrow={home.howItWorks.eyebrow}
           title={<>Managing claims and paperwork should be <span className="rz-text-blue">easier.</span></>}
         />
-        <div className="rz-how-grid">
+        <div className="grid grid-cols-3 gap-6 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
           {home.howItWorks.steps.map((step, i) => (
             <article className="rz-how-card" key={step.title}>
               <div className="rz-how-head">
@@ -910,7 +910,7 @@ function HomeHowItWorks() {
             </article>
           ))}
         </div>
-        <div className="rz-how-cta">
+        <div className="mt-12 text-center">
           <CTA href="/calendly">Book a demo</CTA>
         </div>
       </div>
