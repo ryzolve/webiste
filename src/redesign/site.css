@@ -3,6 +3,24 @@
    Faithful to the Figma/JSX handoff (RZ_T tokens).
    ============================================================ */
 
+/* ── Global reset ──────────────────────────────────────────────
+   Replaces the base body reset that used to come from the legacy
+   assets/scss/style.scss (no longer imported in _app.tsx). Keeps the
+   page flush to the edges and on the brand background/font. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #FAFAF7;
+  color: #0B0E12;
+  font-family: "Inter", "Geist", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
 .rz-site {
   --rz-bg:         #FAFAF7;
   --rz-paper:      #FFFFFF;
