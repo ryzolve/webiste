@@ -622,13 +622,13 @@ function HomeHero() {
 
 function ProofBand() {
   return (
-    <section className="rz-proof-band">
-      <div className="rz-wrap">
+    <section className="border-y border-rule bg-paper px-14 py-10 max-[640px]:px-[18px]">
+      <div className="rz-wrap grid grid-cols-4 gap-8 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
         {proofPoints.map((p) => (
-          <div className="rz-proof-cell" key={p.label}>
-            <strong>{p.stat}</strong>
-            <b>{p.label}</b>
-            <span>{p.sub}</span>
+          <div key={p.label}>
+            <strong className="block text-[34px] font-bold leading-none tracking-[-1.2px] text-ink">{p.stat}</strong>
+            <b className="mt-2 block text-sm font-semibold text-ink">{p.label}</b>
+            <span className="mt-0.5 block text-xs text-muted">{p.sub}</span>
           </div>
         ))}
       </div>
