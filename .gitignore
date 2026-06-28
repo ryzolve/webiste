@@ -10,3 +10,5 @@ tsconfig.tsbuildinfo
 bun.lock
 .DS_Store
 **/.DS_Store
+/dist/
+.vinext/

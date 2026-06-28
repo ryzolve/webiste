@@ -6,30 +6,36 @@
     "dev": "next dev",
     "lint": "next lint",
     "build": "next build",
-    "build:cloudflare": "opennextjs-cloudflare build && node scripts/prepare-cloudflare-assets.mjs",
-    "preview:cloudflare": "npm run build:cloudflare && opennextjs-cloudflare preview",
-    "deploy:cloudflare": "npm run build:cloudflare && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "start": "next start"
+    "start": "next start",
+    "dev:vinext": "vinext dev --port 3001",
+    "build:vinext": "vinext build",
+    "start:vinext": "vinext start"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.5.3",
-    "@opennextjs/cloudflare": "^1.14.10",
     "next": "^14.2.35",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-server-dom-webpack": "^19.2.7",
     "sonner": "^2.0.7"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.42.3",
     "@types/node": "18.14.6",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
     "autoprefixer": "^10.5.2",
     "eslint": "8.35.0",
     "eslint-config-next": "^14.2.35",
     "postcss": "^8.5.15",
     "tailwindcss": "^3.4.19",
     "typescript": "4.9.5",
+    "vinext": "^0.1.8",
+    "vite": "^8.1.0",
+    "vite-tsconfig-paths": "^6.1.1",
     "wrangler": "^4.97.0"
-  }
+  },
+  "type": "module"
 }

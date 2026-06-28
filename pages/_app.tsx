@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Script from "next/script";
+import Router from "next/router";
 import type { AppProps } from "next/app";
 import { Fragment, useEffect } from "react";
 import { Toaster } from "sonner";
@@ -15,13 +16,11 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 function MyApp({ Component, pageProps }: AppProps) {
   // GA4 SPA page_view on client-side route changes.
   useEffect(() => {
-    if (!GA_ID) return;
+    if (!GA_ID || !Router?.events) return;
     const onRouteChange = (url: string) => {
       const w = window as unknown as { gtag?: (...args: unknown[]) => void };
       w.gtag?.("config", GA_ID, { page_path: url });
     };
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const Router = require("next/router").default;
     Router.events.on("routeChangeComplete", onRouteChange);
     return () => Router.events.off("routeChangeComplete", onRouteChange);
   }, []);
