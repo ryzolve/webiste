@@ -23,6 +23,7 @@ module.exports = {
       fontFamily: {
         sans: [
           'Inter',
+          'Inter Fallback',
           'Geist',
           'system-ui',
           '-apple-system',

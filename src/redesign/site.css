@@ -27,6 +27,19 @@
   font-display: swap;
   src: url("/fonts/redesign/inter-var.woff2") format("woff2");
 }
+/* Metric-matched fallback so the H1 (the LCP element) paints at Inter's exact
+   size with a system font BEFORE inter-var.woff2 loads — Inter then swaps in with
+   zero layout change. This stops Lighthouse from counting the late web-font
+   repaint as the LCP (it was the bulk of the 7.6s mobile LCP), while keeping CLS
+   at 0. Overrides are Inter's standard Arial-fallback metrics (per next/font). */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  ascent-override: 90.49%;
+  descent-override: 22.56%;
+  line-gap-override: 0%;
+  size-adjust: 107.06%;
+}
 @font-face {
   font-family: "JetBrains Mono";
   font-style: normal;
@@ -59,7 +72,7 @@ body {
 body {
   background: #FAFAF7;
   color: #0B0E12;
-  font-family: "Inter", "Geist", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: "Inter", "Inter Fallback", "Geist", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
@@ -81,7 +94,7 @@ body {
   --rz-warn:       #F2B544;
   --rz-ok:         #1F8A5B;
 
-  --rz-sans: "Inter", "Geist", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --rz-sans: "Inter", "Inter Fallback", "Geist", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   --rz-mono: "JetBrains Mono", "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --rz-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
 
