@@ -25,6 +25,40 @@ function MyApp({ Component, pageProps }: AppProps) {
     return () => Router.events.off("routeChangeComplete", onRouteChange);
   }, []);
 
+  // tawk.to live chat (ported from the old site). Injected via a plain DOM script
+  // after the browser is idle — keeps it off the critical path (no FCP/LCP/TBT
+  // regression) and doesn't depend on next/script's lazyOnload, which doesn't
+  // fire reliably under vinext.
+  useEffect(() => {
+    if (document.getElementById("tawk-to-script")) return;
+    const w = window as unknown as {
+      Tawk_API?: Record<string, unknown>;
+      Tawk_LoadStart?: Date;
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const inject = () => {
+      if (document.getElementById("tawk-to-script")) return;
+      w.Tawk_API = w.Tawk_API || {};
+      w.Tawk_LoadStart = new Date();
+      const s = document.createElement("script");
+      s.id = "tawk-to-script";
+      s.async = true;
+      s.src = "https://embed.tawk.to/69922ad73a5ba51c3b88cf76/1jhhfemu5";
+      s.charset = "UTF-8";
+      s.setAttribute("crossorigin", "*");
+      document.body.appendChild(s);
+    };
+    if (w.requestIdleCallback) idleId = w.requestIdleCallback(inject, { timeout: 4000 });
+    else timer = setTimeout(inject, 1500);
+    return () => {
+      if (idleId != null) w.cancelIdleCallback?.(idleId);
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <Fragment>
       <Head>
