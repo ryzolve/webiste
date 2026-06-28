@@ -398,10 +398,14 @@ function Header({ active }: { active: ActiveKey }) {
                   <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
                 </svg>
               </button>
-              {productsOpen && (
                 <div
-                  className="absolute left-[-16px] top-[calc(100%+14px)] z-[60] w-[380px] rounded-2xl border border-rule bg-paper p-2 shadow-[0_24px_56px_rgba(13,14,18,0.10)] max-[1080px]:static max-[1080px]:mt-2 max-[1080px]:w-full max-[1080px]:shadow-none"
+                  className={`absolute left-[-16px] top-[calc(100%+14px)] z-[60] w-[380px] origin-top rounded-2xl border border-rule bg-paper p-2 shadow-[0_24px_56px_rgba(13,14,18,0.10)] transition-[opacity,transform] duration-150 ease-out max-[1080px]:static max-[1080px]:mt-2 max-[1080px]:w-full max-[1080px]:shadow-none ${
+                    productsOpen
+                      ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
+                      : 'pointer-events-none -translate-y-1 scale-95 opacity-0 max-[1080px]:hidden'
+                  }`}
                   role="menu"
+                  aria-hidden={!productsOpen}
                 >
                   {nav.products.map((p) => (
                     <Link
@@ -422,7 +426,6 @@ function Header({ active }: { active: ActiveKey }) {
                   <hr className="my-1.5 border-t border-rule" />
                   <Link href="/#products" className="block px-3.5 py-2.5 text-[13px] font-medium !text-blue">See all products →</Link>
                 </div>
-              )}
             </div>
             {nav.links
               .filter((item) => item.slug !== 'home')
