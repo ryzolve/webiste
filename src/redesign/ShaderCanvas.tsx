@@ -199,8 +199,19 @@ export default function ShaderCanvas({ shader, palette, opacity = 1, className }
     const c3 = hexToVec(palette[2]);
     const c4 = hexToVec(palette[3]);
 
-    // Respect reduced motion
+    // Render a single static frame (no animation loop) when motion is unwanted or
+    // the device can't afford it. A continuous WebGL rAF dominates the main thread
+    // on phone-class / CPU-throttled devices — it was ~38s of main-thread "Other"
+    // and a 31s TBT on Lighthouse mobile, even with the DPR + fps caps. The
+    // gradient still renders everywhere; it just doesn't animate on phones or when
+    // the user asked to save data. Desktop keeps the full animation. (Deliberately
+    // NOT gating on deviceMemory/hardwareConcurrency — capable laptops routinely
+    // report 4, which would wrongly freeze them.)
+    const saveData =
+      (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData ?? false;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const smallScreen = window.matchMedia('(max-width: 900px)').matches;
+    const staticFrame = reducedMotion || smallScreen || saveData;
 
     let raf = 0;
     let running = true;
@@ -226,11 +237,11 @@ export default function ShaderCanvas({ shader, palette, opacity = 1, className }
 
     const render = (now = performance.now()) => {
       if (!running) return;
-      if (!reducedMotion) raf = requestAnimationFrame(render);
+      if (!staticFrame) raf = requestAnimationFrame(render);
       if (now - lastDraw < minFrameMs) return; // throttle draws to the fps cap
       lastDraw = now;
       resize();
-      const t = reducedMotion ? frozenT : (now - t0) / 1000;
+      const t = staticFrame ? frozenT : (now - t0) / 1000;
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, t);
       if (uC1) gl.uniform3fv(uC1, c1);
