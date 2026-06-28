@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
 const VS = `attribute vec2 p; void main(){ gl_Position = vec4(p,0.,1.); }`;
 
 // Shader 1 — flowing simplex-noise gradient (hero / stats backgrounds)
-export const SHADER_FLOW = `
+const SHADER_FLOW = `
 precision highp float;
 uniform vec2 u_res;
 uniform float u_time;
@@ -65,7 +65,7 @@ void main(){
 `;
 
 // Shader 2 — liquid metaballs (rich, for dedicated shader sections)
-export const SHADER_LIQUID = `
+const SHADER_LIQUID = `
 precision highp float;
 uniform vec2 u_res;
 uniform float u_time;
@@ -101,7 +101,7 @@ void main(){
 `;
 
 // Shader 3 — subtle aurora
-export const SHADER_AURORA = `
+const SHADER_AURORA = `
 precision highp float;
 uniform vec2 u_res;
 uniform float u_time;
@@ -118,6 +118,15 @@ void main(){
   gl_FragColor = vec4(col, 1.0);
 }
 `;
+
+// Map a preset id → fragment source. site.tsx passes the id ("flow"/"liquid")
+// rather than the GLSL string so it never has to statically import this module —
+// that keeps the heavy WebGL component in its own lazily-loaded chunk.
+const SHADERS: Record<string, string> = {
+  flow: SHADER_FLOW,
+  liquid: SHADER_LIQUID,
+  aurora: SHADER_AURORA,
+};
 
 function hexToVec(h: string): [number, number, number] {
   const n = parseInt(h.replace('#', ''), 16);
@@ -156,7 +165,7 @@ export default function ShaderCanvas({ shader, palette, opacity = 1, className }
     };
 
     const vsh = compile(gl.VERTEX_SHADER, VS);
-    const fsh = compile(gl.FRAGMENT_SHADER, shader);
+    const fsh = compile(gl.FRAGMENT_SHADER, SHADERS[shader] ?? shader);
     if (!vsh || !fsh) return;
 
     const prog = gl.createProgram();
@@ -197,9 +206,13 @@ export default function ShaderCanvas({ shader, palette, opacity = 1, className }
     let running = true;
     const t0 = performance.now();
     let frozenT = 0;
+    let lastDraw = 0;
+    const minFrameMs = 1000 / 30; // ~30fps cap — fewer frames = less main-thread time / TBT
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Cap DPR low — a soft background gradient doesn't need retina, and fewer
+      // pixels keeps each frame short (under the 50ms long-task threshold).
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
       const cw = Math.max(1, Math.floor(w * dpr));
@@ -211,10 +224,13 @@ export default function ShaderCanvas({ shader, palette, opacity = 1, className }
       }
     };
 
-    const render = () => {
+    const render = (now = performance.now()) => {
       if (!running) return;
+      if (!reducedMotion) raf = requestAnimationFrame(render);
+      if (now - lastDraw < minFrameMs) return; // throttle draws to the fps cap
+      lastDraw = now;
       resize();
-      const t = reducedMotion ? frozenT : (performance.now() - t0) / 1000;
+      const t = reducedMotion ? frozenT : (now - t0) / 1000;
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, t);
       if (uC1) gl.uniform3fv(uC1, c1);
@@ -222,7 +238,6 @@ export default function ShaderCanvas({ shader, palette, opacity = 1, className }
       if (uC3) gl.uniform3fv(uC3, c3);
       if (uC4) gl.uniform3fv(uC4, c4);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      if (!reducedMotion) raf = requestAnimationFrame(render);
     };
 
     // Pause when off-screen for perf

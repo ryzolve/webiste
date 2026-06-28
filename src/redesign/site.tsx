@@ -14,10 +14,43 @@ import {
   ServiceJsonLd,
   WebSiteJsonLd,
 } from './structured-data';
-import { SHADER_FLOW, SHADER_LIQUID } from './ShaderCanvas';
 
-// Client-only — WebGL needs window
-const ShaderCanvas = dynamic(() => import('./ShaderCanvas'), { ssr: false });
+// Client-only — WebGL needs window. No static import of ./ShaderCanvas (we pass a
+// preset id, not the GLSL source) so the heavy component stays in its own chunk.
+const LazyShaderCanvas = dynamic(() => import('./ShaderCanvas'), { ssr: false });
+
+type ShaderProps = {
+  shader: string;
+  palette: [string, string, string, string];
+  opacity?: number;
+  className?: string;
+};
+
+// Defer the shader chunk load + WebGL init until the browser is idle, so none of
+// it competes with the critical render / hydration (the shaders were the main
+// driver of the page's huge TBT). Kept on every device — the section's CSS
+// gradient shows underneath until the canvas fades in a beat later.
+function ShaderCanvas(props: ShaderProps) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const w = window as typeof window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    if (w.requestIdleCallback) {
+      idleId = w.requestIdleCallback(() => setReady(true), { timeout: 2500 });
+    } else {
+      timer = setTimeout(() => setReady(true), 400);
+    }
+    return () => {
+      if (idleId != null) w.cancelIdleCallback?.(idleId);
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
+  return ready ? <LazyShaderCanvas {...props} /> : null;
+}
 
 import {
   agencyInServiceSignupHref,
@@ -635,7 +668,7 @@ function HomeHero() {
       <div className="rz-shader-bg z-0" aria-hidden="true">
         {/* SHADER_FLOW @ 0.45 — matches RZ_Hero in main-sections.jsx */}
         <ShaderCanvas
-          shader={SHADER_FLOW}
+          shader="flow"
           palette={['#0D5992', '#FF774C', '#083E69', '#FAFAF7']}
           opacity={0.45}
         />
@@ -729,7 +762,7 @@ function StatsBand() {
           canonical palette [accentDeep, accent, coral, white] from main-fx.jsx. */}
       <div className="rz-shader-bg" aria-hidden="true">
         <ShaderCanvas
-          shader={SHADER_LIQUID}
+          shader="liquid"
           palette={['#083E69', '#0D5992', '#FF774C', '#FFFFFF']}
           opacity={1}
         />
@@ -815,7 +848,7 @@ function BeforeAfterSection() {
     <section className="rz-section rz-before-after">
       <div className="rz-shader-bg" aria-hidden="true">
         <ShaderCanvas
-          shader={SHADER_LIQUID}
+          shader="liquid"
           palette={['#083E69', '#0D5992', '#FF774C', '#FFFFFF']}
           opacity={1}
         />
@@ -2616,7 +2649,7 @@ function TrainingClosingCTA() {
       <div className="rz-shader-bg" aria-hidden="true">
         {/* LIQUID metaball — matches RZ_TrainingCTA in the bundle */}
         <ShaderCanvas
-          shader={SHADER_LIQUID}
+          shader="liquid"
           palette={['#083E69', '#0D5992', '#FF774C', '#FFFFFF']}
           opacity={1}
         />
