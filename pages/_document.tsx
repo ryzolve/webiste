@@ -29,9 +29,6 @@ export default class ryzolve extends Document {
             type="font/woff2"
             crossOrigin="anonymous"
           />
-
-          {/* Analytics */}
-          <script src="https://t.contentsquare.net/uxa/eb7f21fdbf12f.js" async />
         </Head>
 
         <body>
