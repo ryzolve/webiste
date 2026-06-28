@@ -9,8 +9,8 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start",
     "dev:vinext": "vinext dev --port 3001",
-    "build:vinext": "vinext build",
-    "build:cloudflare": "vinext build",
+    "build:vinext": "vinext build && node scripts/cf-postbuild.mjs",
+    "build:cloudflare": "vinext build && node scripts/cf-postbuild.mjs",
     "start:vinext": "vinext start",
     "deploy:cloudflare": "wrangler deploy"
   },
