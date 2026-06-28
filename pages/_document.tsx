@@ -19,12 +19,15 @@ export default class ryzolve extends Document {
           <link rel="mask-icon" href="/img/favicon.svg" color="#0D5992" />
           <link rel="manifest" href="/site.webmanifest" />
 
-          {/* Typography */}
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          {/* Typography — self-hosted (see @font-face in site.css). Preload the
+              variable Inter file: it's the body + hero font, so it's on the
+              critical render path and worth fetching at high priority. */}
           <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif&display=swap"
-            rel="stylesheet"
+            rel="preload"
+            href="/fonts/redesign/inter-var.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
           />
 
           {/* Analytics */}

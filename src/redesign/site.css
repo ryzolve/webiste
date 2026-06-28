@@ -15,6 +15,33 @@
   border-style: solid;
 }
 
+/* ── Self-hosted fonts ─────────────────────────────────────────
+   Served from our own origin (was an external Google Fonts CSS +
+   gstatic round-trip — the #1 critical-path bottleneck on slow 4G).
+   Inter & JetBrains Mono are variable (one file spans the weights);
+   latin subset only. font-display:swap so text paints immediately. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/redesign/inter-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("/fonts/redesign/jetbrains-mono-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/redesign/instrument-serif-400.woff2") format("woff2");
+}
+
 /* ============================================================
    Ryzolve redesign — design tokens + global styles
    Faithful to the Figma/JSX handoff (RZ_T tokens).
