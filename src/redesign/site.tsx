@@ -73,6 +73,7 @@ import {
   homeTrainingCta,
   leadMagnet,
   nav,
+  platformPricing,
   products,
   proofPoints,
   sharedServices,
@@ -1042,6 +1043,234 @@ function HomeTrainingCta() {
   );
 }
 
+/* ── PAS platform plans — ported from the old website's home pricing table.
+   Same behavior as the old site: feature comparison with prices hidden
+   (enablePricing off), and "Choose Plan" opens a lead-capture modal that
+   posts to the website contact endpoint with the plan as the subject. */
+
+function PlanLeadModal({ plan, onClose }: { plan: string; onClose: () => void }) {
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  const canSubmit = turnstileToken !== '' && !submitting;
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!canSubmit) return;
+    setSubmitting(true);
+    try {
+      await postJson('/website/contact', {
+        name: form.name,
+        email: form.email,
+        subject: `Plan inquiry — ${plan}`,
+        message: form.message,
+        turnstileToken,
+        website: honeypot,
+      });
+      toast.success('Thank you! We will be in touch shortly.');
+      onClose();
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[300] flex items-center justify-center bg-ink/45 p-4"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rz-plan-modal-title"
+        className="relative w-full max-w-[440px] max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <form className="rz-form-card" onSubmit={submit}>
+          <button
+            type="button"
+            aria-label="Close"
+            onClick={onClose}
+            className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full text-[20px] leading-none !text-muted hover:bg-rule-soft hover:!text-ink"
+          >
+            ×
+          </button>
+          <h3 id="rz-plan-modal-title" style={{ marginTop: 0 }}>
+            Get started with {plan}
+          </h3>
+          <p className="rz-form-helper" style={{ marginTop: -6, marginBottom: 14 }}>
+            Tell us a little about your agency and we&apos;ll reach out to set you up.
+          </p>
+          {/* Honeypot — hidden from real users, catches bots */}
+          <input
+            name="website"
+            type="text"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+          <label className="rz-field">
+            <span className="rz-field-label">Your name</span>
+            <input className="rz-input" required placeholder="Jane Doe" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          </label>
+          <label className="rz-field">
+            <span className="rz-field-label">Work email</span>
+            <input className="rz-input" required type="email" placeholder="jane@agency.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          </label>
+          <label className="rz-field">
+            <span className="rz-field-label">Message</span>
+            <textarea
+              className="rz-input"
+              required
+              rows={4}
+              placeholder="Tell us about your agency — clients served, current tools, timeline…"
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+            />
+          </label>
+          <div style={{ margin: '4px 0 12px' }}>
+            <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+              onSuccess={setTurnstileToken}
+              onExpire={() => setTurnstileToken('')}
+              onError={() => setTurnstileToken('')}
+            />
+          </div>
+          <div className="rz-submit-row">
+            <ButtonBtn type="submit" block disabled={!canSubmit} icon={false}>
+              {submitting ? 'Sending…' : 'Request plan details'}
+            </ButtonBtn>
+          </div>
+          {!turnstileToken && !submitting && (
+            <p className="rz-form-helper rz-form-helper-center" style={{ color: 'var(--rz-muted)' }}>
+              Please complete the verification above.
+            </p>
+          )}
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function PlanFeatureMark({ included }: { included: boolean }) {
+  return included ? (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" className="mx-auto text-blue">
+      <circle cx="10" cy="10" r="9" fill="currentColor" />
+      <path d="m6.5 10 2.2 2.2L13.5 7.5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ) : (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" className="mx-auto text-coral">
+      <circle cx="10" cy="10" r="9" fill="currentColor" />
+      <path d="m7 7 6 6M13 7l-6 6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PlatformPricingSection() {
+  const [leadPlan, setLeadPlan] = useState<string | null>(null);
+  const p = platformPricing;
+  return (
+    <section id="pricing" className="rz-section">
+      <div className="rz-wrap">
+        <div className="mx-auto mb-10 max-w-[760px] text-center">
+          <p className="rz-eyebrow">{p.eyebrow}</p>
+          <h2>{p.title}</h2>
+          <p className="mt-3 text-[17px] font-medium text-ink-2">{p.subtitle}</p>
+          <p className="mt-2 text-muted">{p.lead}</p>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-rule bg-paper shadow-[0_1px_2px_rgba(11,14,18,0.04)]">
+          <table className="w-full min-w-[720px] border-collapse text-left text-[15px]">
+            <thead>
+              <tr className="border-b border-rule">
+                <th className="px-5 py-4 font-semibold text-ink">Features</th>
+                {p.plans.map((plan) => (
+                  <th key={plan.name} className="px-5 py-4 text-center font-semibold text-ink">
+                    {plan.name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {p.enablePricing && (
+                <tr className="border-b border-rule-soft">
+                  <td className="px-5 py-4 text-ink-2">Monthly</td>
+                  {p.plans.map((plan) => (
+                    <td key={plan.name} className="px-5 py-4 text-center text-ink-2">
+                      {plan.customPricing ? 'Custom' : `$${plan.monthly}`}
+                    </td>
+                  ))}
+                </tr>
+              )}
+              <tr className="border-b border-rule-soft">
+                <td className="px-5 py-4 text-ink-2">Suggested For</td>
+                {p.plans.map((plan) => (
+                  <td key={plan.name} className="px-5 py-4 text-center text-ink-2">
+                    {plan.suggestedFor}
+                  </td>
+                ))}
+              </tr>
+              {p.featureRows.map((feature) => (
+                <tr key={feature} className="border-b border-rule-soft">
+                  <td className="px-5 py-4 text-ink-2">{feature}</td>
+                  {p.plans.map((plan) => (
+                    <td key={plan.name} className="px-5 py-4 text-center">
+                      <PlanFeatureMark included={plan.features.includes(feature)} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+              <tr className="border-b border-rule-soft">
+                <td className="px-5 py-4 text-ink-2">Support</td>
+                {p.plans.map((plan) => (
+                  <td key={plan.name} className="px-5 py-4 text-center text-ink-2">
+                    {plan.support}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <td className="px-5 py-5" />
+                {p.plans.map((plan) => (
+                  <td key={plan.name} className="px-4 py-5 text-center">
+                    <ButtonBtn variant="coral" icon={false} onClick={() => setLeadPlan(plan.name)}>
+                      Choose Plan
+                    </ButtonBtn>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p className="mx-auto mt-6 max-w-[820px] text-center text-[14px] text-muted">
+          <strong className="text-ink-2">Note</strong>: {p.note}
+        </p>
+      </div>
+      {leadPlan && <PlanLeadModal plan={leadPlan} onClose={() => setLeadPlan(null)} />}
+    </section>
+  );
+}
+
 function TestimonialsSection() {
   const video = testimonials.items.find((t) => t.media) ?? testimonials.items[0];
   const quotes = testimonials.items.filter((t) => !t.media).slice(0, 2);
@@ -1271,6 +1500,7 @@ export function HomePage() {
         <HomeStrategy />
         <HomeHowItWorks />
         <HomeTrainingCta />
+        <PlatformPricingSection />
         <TestimonialsSection />
         <LeadMagnetSection />
       </main>

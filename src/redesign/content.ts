@@ -347,6 +347,78 @@ export const blank = {
   title: 'This is blank page',
 };
 
+// PAS platform plans — ported from the old website's home pricing table (CMS
+// data snapshot). This is the SOFTWARE SKU (per-client pricing), distinct from
+// the Training page's In-Service plans (per-learner). Prices exist in the data
+// but stay hidden, mirroring the old site's `enable_pricing` flag being off.
+export const platformPricing = {
+  eyebrow: 'Plans that grow with you',
+  title: 'Ryzolve — Built for Care. Designed for Agencies.',
+  subtitle: 'All-In-One Software for PAS & Private Care Providers',
+  lead: 'Flexible pricing that grows with you. No overage fees. No surprises. Just simple pricing based on your average monthly client count.',
+  enablePricing: false,
+  featureRows: [
+    'Time Tracking',
+    'Digital Approvals',
+    'Payroll Reports & Claims Prep',
+    'Private Care Module',
+  ],
+  plans: [
+    {
+      name: 'Starter',
+      suggestedFor: 'Up to 10 Clients',
+      monthly: 99,
+      yearly: 1188,
+      support: 'Email',
+      customPricing: false,
+      features: ['Time Tracking', 'Digital Approvals'],
+    },
+    {
+      name: 'Growth',
+      suggestedFor: 'Up to 50 Clients',
+      monthly: 249,
+      yearly: 2988,
+      support: 'Priority Emails',
+      customPricing: false,
+      features: [
+        'Time Tracking',
+        'Digital Approvals',
+        'Payroll Reports & Claims Prep',
+        'Private Care Module',
+      ],
+    },
+    {
+      name: 'Professional',
+      suggestedFor: 'Up to 100 Clients',
+      monthly: 499,
+      yearly: 5988,
+      support: 'Email + Phone',
+      customPricing: false,
+      features: [
+        'Time Tracking',
+        'Digital Approvals',
+        'Payroll Reports & Claims Prep',
+        'Private Care Module',
+      ],
+    },
+    {
+      name: 'Enterprise',
+      suggestedFor: '100+ Clients',
+      monthly: 0,
+      yearly: 0,
+      support: 'Dedicated CSM',
+      customPricing: true,
+      features: [
+        'Time Tracking',
+        'Digital Approvals',
+        'Payroll Reports & Claims Prep',
+        'Private Care Module',
+      ],
+    },
+  ],
+  note: "We monitor your monthly average to help you stay on the right plan. Temporary spikes won't affect your billing, and we'll only recommend upgrades when consistent growth is seen.",
+};
+
 export const leadMagnet = {
   title: '7 Common Reasons Agencies Fail State Audits.',
   description:
