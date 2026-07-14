@@ -1043,7 +1043,7 @@ function HomeTrainingCta() {
   );
 }
 
-/* ── PAS platform plans — ported from the old website's home pricing table.
+/* ── PAS platform plans, ported from the old website's home pricing table.
    Same behavior as the old site: feature comparison with prices hidden
    (enablePricing off), and "Choose Plan" opens a lead-capture modal that
    posts to the website contact endpoint with the plan as the subject. */
@@ -1077,7 +1077,7 @@ function PlanLeadModal({ plan, onClose }: { plan: string; onClose: () => void })
       await postJson('/website/contact', {
         name: form.name,
         email: form.email,
-        subject: `Plan inquiry — ${plan}`,
+        subject: `Plan inquiry: ${plan}`,
         message: form.message,
         turnstileToken,
         website: honeypot,
@@ -1118,7 +1118,7 @@ function PlanLeadModal({ plan, onClose }: { plan: string; onClose: () => void })
           <p className="rz-form-helper" style={{ marginTop: -6, marginBottom: 14 }}>
             Tell us a little about your agency and we&apos;ll reach out to set you up.
           </p>
-          {/* Honeypot — hidden from real users, catches bots */}
+          {/* Honeypot: hidden from real users, catches bots */}
           <input
             name="website"
             type="text"
@@ -1143,7 +1143,7 @@ function PlanLeadModal({ plan, onClose }: { plan: string; onClose: () => void })
               className="rz-input"
               required
               rows={4}
-              placeholder="Tell us about your agency — clients served, current tools, timeline…"
+              placeholder="Tell us about your agency: clients served, current tools, timeline…"
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
             />

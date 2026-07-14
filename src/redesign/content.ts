@@ -347,13 +347,13 @@ export const blank = {
   title: 'This is blank page',
 };
 
-// PAS platform plans — ported from the old website's home pricing table (CMS
+// PAS platform plans, ported from the old website's home pricing table (CMS
 // data snapshot). This is the SOFTWARE SKU (per-client pricing), distinct from
 // the Training page's In-Service plans (per-learner). Prices exist in the data
 // but stay hidden, mirroring the old site's `enable_pricing` flag being off.
 export const platformPricing = {
   eyebrow: 'Plans that grow with you',
-  title: 'Ryzolve — Built for Care. Designed for Agencies.',
+  title: 'Ryzolve - Built for Care. Designed for Agencies.',
   subtitle: 'All-In-One Software for PAS & Private Care Providers',
   lead: 'Flexible pricing that grows with you. No overage fees. No surprises. Just simple pricing based on your average monthly client count.',
   enablePricing: false,
