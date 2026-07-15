@@ -25,10 +25,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     return () => Router.events.off("routeChangeComplete", onRouteChange);
   }, []);
 
-  // tawk.to live chat (ported from the old site). Injected via a plain DOM script
-  // after the browser is idle — keeps it off the critical path (no FCP/LCP/TBT
-  // regression) and doesn't depend on next/script's lazyOnload, which doesn't
-  // fire reliably under vinext.
+  // tawk.to live chat (ported from the old site). Its widget requests several
+  // large chunks, so wait until after the first meaningful paint window; a real
+  // visitor interaction still loads chat immediately. This doesn't depend on
+  // next/script's lazyOnload, which doesn't fire reliably under vinext.
   useEffect(() => {
     if (document.getElementById("tawk-to-script")) return;
     const w = window as unknown as {
@@ -39,6 +39,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
     let idleId: number | undefined;
     let timer: ReturnType<typeof setTimeout> | undefined;
+    let delayTimer: ReturnType<typeof setTimeout> | undefined;
+    let scheduled = false;
     const inject = () => {
       if (document.getElementById("tawk-to-script")) return;
       w.Tawk_API = w.Tawk_API || {};
@@ -51,11 +53,28 @@ function MyApp({ Component, pageProps }: AppProps) {
       s.setAttribute("crossorigin", "*");
       document.body.appendChild(s);
     };
-    if (w.requestIdleCallback) idleId = w.requestIdleCallback(inject, { timeout: 4000 });
-    else timer = setTimeout(inject, 1500);
+    const schedule = () => {
+      if (scheduled) return;
+      scheduled = true;
+      if (w.requestIdleCallback) idleId = w.requestIdleCallback(inject, { timeout: 2000 });
+      else timer = setTimeout(inject, 0);
+    };
+    const loadOnInteraction = () => schedule();
+    const loadAfterPaintWindow = () => {
+      delayTimer = setTimeout(schedule, 8000);
+    };
+
+    if (document.readyState === "complete") loadAfterPaintWindow();
+    else window.addEventListener("load", loadAfterPaintWindow, { once: true });
+    window.addEventListener("pointerdown", loadOnInteraction, { once: true, passive: true });
+    window.addEventListener("keydown", loadOnInteraction, { once: true });
     return () => {
       if (idleId != null) w.cancelIdleCallback?.(idleId);
       if (timer) clearTimeout(timer);
+      if (delayTimer) clearTimeout(delayTimer);
+      window.removeEventListener("load", loadAfterPaintWindow);
+      window.removeEventListener("pointerdown", loadOnInteraction);
+      window.removeEventListener("keydown", loadOnInteraction);
     };
   }, []);
 

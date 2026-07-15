@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
-import { Turnstile } from '@marsidev/react-turnstile';
 import { toast } from 'sonner';
 
 import SEO from './SEO';
@@ -18,6 +17,10 @@ import {
 // Client-only — WebGL needs window. No static import of ./ShaderCanvas (we pass a
 // preset id, not the GLSL source) so the heavy component stays in its own chunk.
 const LazyShaderCanvas = dynamic(() => import('./ShaderCanvas'), { ssr: false });
+const LazyTurnstile = dynamic(
+  () => import('@marsidev/react-turnstile').then((module) => module.Turnstile),
+  { ssr: false },
+);
 
 type ShaderProps = {
   shader: string;
@@ -50,6 +53,64 @@ function ShaderCanvas(props: ShaderProps) {
     };
   }, []);
   return ready ? <LazyShaderCanvas {...props} /> : null;
+}
+
+// Turnstile creates a third-party challenge frame as soon as it mounts. Home
+// forms are well below the fold, so loading it there competes with the hero's
+// first paint even though a visitor cannot use either form yet. Keep a stable
+// placeholder and load the real widget shortly before the form is visible (or
+// immediately when the visitor starts interacting with it).
+function DeferredTurnstile({
+  onSuccess,
+  onExpire,
+  onError,
+}: {
+  onSuccess: (token: string) => void;
+  onExpire: () => void;
+  onError: () => void;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || ready) return undefined;
+
+    if (!('IntersectionObserver' in window)) {
+      setReady(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '320px 0px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ready]);
+
+  return (
+    <div
+      ref={ref}
+      style={{ minHeight: ready ? undefined : 65 }}
+      onFocusCapture={() => setReady(true)}
+      onPointerDown={() => setReady(true)}
+    >
+      {ready && (
+        <LazyTurnstile
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+          onSuccess={onSuccess}
+          onExpire={onExpire}
+          onError={onError}
+        />
+      )}
+    </div>
+  );
 }
 
 import {
@@ -1149,8 +1210,7 @@ function PlanLeadModal({ plan, onClose }: { plan: string; onClose: () => void })
             />
           </label>
           <div style={{ margin: '4px 0 12px' }}>
-            <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+            <DeferredTurnstile
               onSuccess={setTurnstileToken}
               onExpire={() => setTurnstileToken('')}
               onError={() => setTurnstileToken('')}
@@ -1443,8 +1503,7 @@ function LeadMagnetSection() {
                 </span>
               </label>
               <div style={{ margin: '4px 0 12px' }}>
-                <Turnstile
-                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+                <DeferredTurnstile
                   onSuccess={setTurnstileToken}
                   onExpire={() => setTurnstileToken('')}
                   onError={() => setTurnstileToken('')}
@@ -2223,8 +2282,7 @@ export function ContactPage() {
                   </label>
                   <p className="rz-form-helper">{contact.required}</p>
                   <div style={{ margin: '12px 0 4px' }}>
-                    <Turnstile
-                      siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+                    <DeferredTurnstile
                       onSuccess={setTurnstileToken}
                       onExpire={() => setTurnstileToken('')}
                       onError={() => setTurnstileToken('')}
