@@ -15,6 +15,9 @@ const STATIC_ENTRIES: SitemapEntry[] = [
   { path: '/about-us', changefreq: 'monthly', priority: '0.7' },
   { path: '/contact', changefreq: 'monthly', priority: '0.7' },
   { path: '/calendly', changefreq: 'monthly', priority: '0.6' },
+  { path: '/privacy', changefreq: 'monthly', priority: '0.3' },
+  { path: '/terms', changefreq: 'monthly', priority: '0.3' },
+  { path: '/cookies', changefreq: 'monthly', priority: '0.3' },
 ];
 
 function xmlEscape(value: string) {
