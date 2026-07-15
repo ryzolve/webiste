@@ -6,9 +6,9 @@ import { toast } from 'sonner';
 import SEO from './SEO';
 import {
   BreadcrumbJsonLd,
+  CourseListJsonLd,
   CourseJsonLd,
   FaqJsonLd,
-  LocalBusinessJsonLd,
   OrganizationJsonLd,
   ServiceJsonLd,
   WebSiteJsonLd,
@@ -152,6 +152,7 @@ type ActiveKey =
   | 'about-us'
   | 'contact'
   | 'calendly'
+  | 'legal'
   | 'blank';
 
 function apiBaseUrl() {
@@ -610,9 +611,9 @@ function Footer() {
       <div className="mx-auto mt-7 flex max-w-[1328px] items-center justify-between text-xs text-white/50">
         <div>© {new Date().getFullYear()} {company.name}. All rights reserved.</div>
         <div className="flex gap-6 font-mono text-[11px]">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Cookies</a>
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">Terms</Link>
+          <Link href="/cookies">Cookies</Link>
         </div>
       </div>
     </footer>
@@ -628,6 +629,7 @@ export function SiteLayout({
 }) {
   return (
     <div className="rz-site">
+      <OrganizationJsonLd />
       <Header active={active} />
       {children}
       <Footer />
@@ -1548,9 +1550,7 @@ export function HomePage() {
           'document management',
         ]}
       />
-      <OrganizationJsonLd />
       <WebSiteJsonLd />
-      <LocalBusinessJsonLd />
       <main>
         <HomeHero />
         <ProofBand />
@@ -2048,7 +2048,6 @@ export function AboutPage() {
           'Ryzolve LLC',
         ]}
       />
-      <LocalBusinessJsonLd />
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', path: '/' },
@@ -2210,7 +2209,6 @@ export function ContactPage() {
           'demo request',
         ]}
       />
-      <LocalBusinessJsonLd />
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', path: '/' },
@@ -3169,6 +3167,7 @@ export function TrainingPage({
           'caregiver certification',
         ]}
       />
+      <CourseListJsonLd courses={courses} />
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', path: '/' },

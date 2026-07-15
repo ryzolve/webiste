@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Ryzolve logo</title>
+  <rect width="512" height="512" rx="64" fill="#ffffff"/>
+  <g transform="translate(48 106) scale(1.916)" fill="none">
+    <path d="M216.457 46.4253H55.909L0 0H160.548L216.457 46.4253Z" fill="#0D5992"/>
+    <path d="M0 99.0439H160.548L216.456 46.4253H55.9098L0 99.0439Z" fill="#FF774C"/>
+    <path d="M216.443 155.821H55.8947L0 99.044H160.548L216.443 155.821Z" fill="#0D5992"/>
+  </g>
+</svg>

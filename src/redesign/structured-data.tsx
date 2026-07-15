@@ -1,11 +1,11 @@
 import { company } from './content';
-import type { TrainingCourseCard } from './training-courses';
+import { trainingCoursePurchaseHref, type TrainingCourseCard } from './training-courses';
 
 /* ════════════════════════════════════════════════════════════════
    schema.org JSON-LD helpers.
    Rendered inside each page (after <SEO>) so Google can surface
-   rich results: Organization / LocalBusiness, WebSite, BreadcrumbList,
-   Course, FAQPage, Service.
+   rich results: Organization, WebSite, BreadcrumbList, Course, FAQPage,
+   Service, and course ItemList.
    ════════════════════════════════════════════════════════════════ */
 
 export function siteUrl() {
@@ -15,7 +15,7 @@ export function siteUrl() {
 function abs(path: string) {
   if (/^https?:\/\//.test(path)) return path;
   const base = siteUrl();
-  return `${base}${path === '/' ? '' : path}`;
+  return `${base}${path === '/' ? '/' : path}`;
 }
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -29,7 +29,15 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
 }
 
 function orgId() {
-  return `${siteUrl()}#organization`;
+  return `${siteUrl()}/#organization`;
+}
+
+function websiteId() {
+  return `${siteUrl()}/#website`;
+}
+
+function schemaId(path: string, type: string) {
+  return `${abs(path)}#${type}`;
 }
 
 const POSTAL_ADDRESS = {
@@ -41,7 +49,7 @@ const POSTAL_ADDRESS = {
   addressCountry: 'US',
 };
 
-/* ─── Organization (use on every page once, e.g. home) ─────────── */
+/* ─── Organization (use once on each public page) ───────────────── */
 export function OrganizationJsonLd() {
   const url = siteUrl();
   return (
@@ -52,12 +60,21 @@ export function OrganizationJsonLd() {
         '@id': orgId(),
         name: company.name,
         legalName: company.name,
-        url,
-        logo: `${url}/img/favicon.png`,
+        url: abs('/'),
+        logo: {
+          '@type': 'ImageObject',
+          '@id': `${orgId()}#logo`,
+          url: `${url}/img/ryzolve-logo-512.svg`,
+          contentUrl: `${url}/img/ryzolve-logo-512.svg`,
+          width: 512,
+          height: 512,
+        },
         description:
           'Provider management software for PAS, Home Health, and Hospice agencies. Less paperwork. Fewer denials. Audit-ready by default.',
         foundingLocation: 'New Waverly, Texas',
         address: POSTAL_ADDRESS,
+        telephone: '+1-936-355-0920',
+        email: company.email,
         contactPoint: [
           {
             '@type': 'ContactPoint',
@@ -68,7 +85,6 @@ export function OrganizationJsonLd() {
             areaServed: 'US',
           },
         ],
-        sameAs: ['https://facebook.com/ryzolve', 'https://www.youtube.com/@Ryzolve'],
       }}
     />
   );
@@ -76,15 +92,14 @@ export function OrganizationJsonLd() {
 
 /* ─── WebSite (home only) ──────────────────────────────────────── */
 export function WebSiteJsonLd() {
-  const url = siteUrl();
   return (
     <JsonLd
       data={{
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        '@id': `${url}#website`,
+        '@id': websiteId(),
         name: 'Ryzolve',
-        url,
+        url: abs('/'),
         publisher: { '@id': orgId() },
         inLanguage: 'en-US',
       }}
@@ -92,47 +107,15 @@ export function WebSiteJsonLd() {
   );
 }
 
-/* ─── LocalBusiness (home / about / contact) ───────────────────── */
-export function LocalBusinessJsonLd() {
-  const url = siteUrl();
-  return (
-    <JsonLd
-      data={{
-        '@context': 'https://schema.org',
-        '@type': 'ProfessionalService',
-        '@id': `${url}#localbusiness`,
-        name: company.name,
-        image: `${url}/img/favicon.png`,
-        url,
-        telephone: '+1-936-355-0920',
-        email: company.email,
-        priceRange: '$$',
-        address: POSTAL_ADDRESS,
-        areaServed: [
-          { '@type': 'State', name: 'Texas' },
-          { '@type': 'Country', name: 'United States' },
-        ],
-        openingHoursSpecification: [
-          {
-            '@type': 'OpeningHoursSpecification',
-            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-            opens: '08:00',
-            closes: '18:00',
-          },
-        ],
-        parentOrganization: { '@id': orgId() },
-      }}
-    />
-  );
-}
-
 /* ─── BreadcrumbList (inner pages) ─────────────────────────────── */
 export function BreadcrumbJsonLd({ items }: { items: Array<{ name: string; path: string }> }) {
+  const current = items[items.length - 1];
   return (
     <JsonLd
       data={{
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
+        '@id': schemaId(current.path, 'breadcrumb'),
         itemListElement: items.map((item, i) => ({
           '@type': 'ListItem',
           position: i + 1,
@@ -161,6 +144,7 @@ export function ServiceJsonLd({
       data={{
         '@context': 'https://schema.org',
         '@type': 'Service',
+        '@id': schemaId(path, 'service'),
         name,
         description,
         serviceType,
@@ -185,20 +169,18 @@ export function CourseJsonLd({ course, path }: { course: TrainingCourseCard; pat
     typeof course.priceNum === 'number' && course.priceNum > 0
       ? course.priceNum
       : Number(String(course.price).replace(/[^0-9.]/g, '')) || undefined;
+  const purchaseUrl = course.href || trainingCoursePurchaseHref(course.slug);
 
   return (
     <JsonLd
       data={{
         '@context': 'https://schema.org',
         '@type': 'Course',
+        '@id': schemaId(path, 'course'),
         name: course.title,
         description: course.short || course.description,
         url: abs(path),
-        provider: {
-          '@type': 'Organization',
-          name: 'Ryzolve',
-          sameAs: siteUrl(),
-        },
+        provider: { '@id': orgId() },
         educationalCredentialAwarded: 'Certificate of completion',
         ...(priceNum
           ? {
@@ -208,7 +190,7 @@ export function CourseJsonLd({ course, path }: { course: TrainingCourseCard; pat
                 price: priceNum,
                 priceCurrency: 'USD',
                 availability: 'https://schema.org/InStock',
-                url: abs(path),
+                url: purchaseUrl,
               },
             }
           : {}),
@@ -223,6 +205,31 @@ export function CourseJsonLd({ course, path }: { course: TrainingCourseCard; pat
   );
 }
 
+/* ─── Course ItemList (training summary) ───────────────────────── */
+export function CourseListJsonLd({ courses }: { courses: TrainingCourseCard[] }) {
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        '@id': schemaId('/training', 'course-list'),
+        name: 'Ryzolve Administrator Training Courses',
+        itemListOrder: 'https://schema.org/ItemListOrderAscending',
+        itemListElement: courses.map((course, index) => {
+          const path = `/training/${encodeURIComponent(course.slug)}`;
+          return {
+            '@type': 'ListItem',
+            position: index + 1,
+            name: course.title,
+            url: abs(path),
+            item: { '@id': schemaId(path, 'course') },
+          };
+        }),
+      }}
+    />
+  );
+}
+
 /* ─── FAQPage (training) ───────────────────────────────────────── */
 export function FaqJsonLd({ items }: { items: Array<{ q: string; a: string }> }) {
   return (
@@ -230,6 +237,7 @@ export function FaqJsonLd({ items }: { items: Array<{ q: string; a: string }> })
       data={{
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
+        '@id': schemaId('/training', 'faq'),
         mainEntity: items.map((item) => ({
           '@type': 'Question',
           name: item.q,

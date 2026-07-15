@@ -36,7 +36,7 @@ export default function SEO({
   noindex,
   type = 'website',
 }: Props) {
-  const canonical = `${SITE_URL}${path === '/' ? '' : path}`;
+  const canonical = `${SITE_URL}${path === '/' ? '/' : path}`;
   const og = image ? (image.startsWith('http') ? image : `${SITE_URL}${image}`) : DEFAULT_OG_IMAGE;
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} · ${SITE_NAME}`;
 
