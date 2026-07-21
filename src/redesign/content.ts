@@ -28,7 +28,7 @@ export const nav = {
   products: [
     { label: 'Document Management', href: '/document-management', slug: 'document-management', short: 'Document Management that suites to fit your healthcare structure to increase Efficiency' },
     { label: 'Compliance Regulation', href: '/compliance-regulation', slug: 'compliance-regulation', short: 'Compliance that meets all government requirements, providing automation and peace of mind.' },
-    { label: 'Claims & Bills', href: '/claims-and-bills', slug: 'claims-and-bills', short: 'Receive payments directly from your chosen medical insurance partner, without the need to chase.' },
+    { label: 'Claims & Bills', href: '/claims-and-bills', slug: 'claims-and-bills', short: 'Compare billed and approved hours before claim submission.' },
   ],
   links: [
     { label: 'Home', href: '/', slug: 'home' },
@@ -52,9 +52,9 @@ export const sharedServices = [
     icon: 'shield',
   },
   {
-    title: 'Increase Profits',
+    title: 'Claims & Reconciliation',
     description:
-      'Receive payments directly from your chosen medical insurance partner, without the need to chase.',
+      'Compare billed hours with approved EVV/TMHP hours before claim submission and support reconciliation.',
     href: '/claims-and-bills',
     icon: 'card',
   },
@@ -92,7 +92,7 @@ export const home = {
       {
         title: 'TMHP Claims & Payments',
         description:
-          'Submit claims faster, monitor 277 and 835 responses, and reduce denials with better visibility into billing status.',
+          'Compare billed hours with approved EVV/TMHP hours before submission and review claim status with more context.',
         icon: 'claim',
       },
       {
@@ -143,17 +143,17 @@ export const home = {
     eyebrow: 'Our Solutions',
     title: 'Transform your PAS agency: No more time wasted on outdated processes',
     description:
-      "Bid farewell to manual processes causing staff overwhelm, paperwork delays, and financial losses. Crafted from our own challenges, Ryzolve guarantees efficiency, slashing time wasted on hiring, minimizing financial losses from claim denials, and ensuring compliance with government regulations. Don't let paperwork and denials impact your bottom line - embrace a seamless, cost-saving solution with Ryzolve",
+      'Connect the agency workflows around billing, payroll data, documents, compliance checks, communications, faxing, and notifications so your team can review work with more context.',
     subheading: 'Personal Agency',
     bullets: [
-      'Over four Years of no penalties',
-      'Saved hundreds of hours hiring staff',
-      'Increased revenue while reducing or eliminating denials!',
+      'Compare billed hours with approved EVV/TMHP hours before claim submission',
+      'Identify mismatches before they become submission rework',
+      'Support claim reconciliation across billing and payroll workflows',
     ],
     bulletStats: [
-      { value: '04+', unit: 'YRS' },
-      { value: '300+', unit: 'HRS' },
-      { value: '99.2%', unit: 'PASS' },
+      { value: 'EVV', unit: 'CHECK' },
+      { value: 'CLAIMS', unit: 'READY' },
+      { value: 'PAYROLL', unit: 'DATA' },
     ],
   },
   strategy: {
@@ -202,10 +202,10 @@ export const home = {
 };
 
 export const proofPoints = [
-  { stat: '4+ yrs', label: 'No penalties', sub: 'Across founding-customer agencies' },
-  { stat: '< 1 wk', label: 'Average implementation', sub: 'From contract to first live client' },
-  { stat: '99.2%', label: 'Claim acceptance', sub: 'First-pass approval rate' },
-  { stat: '$1.4M', label: 'Recovered revenue', sub: 'In year-one denials, agency average' },
+  { stat: 'EVV', label: 'Hours check', sub: 'Compare billed and approved hours' },
+  { stat: 'TMHP', label: 'Claim context', sub: 'Review before submission' },
+  { stat: 'PAYROLL', label: 'Data in context', sub: 'Support reconciliation workflows' },
+  { stat: 'READY', label: 'Next step', sub: 'Identify mismatches before sending' },
 ];
 
 export const statsBand = {
@@ -213,12 +213,12 @@ export const statsBand = {
   titleAccent: 'Distilled',
   titleSuffix: 'into one platform.',
   description:
-    'Built and re-built around what HHSC actually surveys for — not a generic EHR bolted onto a state form. Numbers across our founding-customer cohort.',
+    'Built around the workflows Texas care agencies review every day — from hours and claims to documents, payroll data, compliance, and training.',
   stats: [
-    { value: '4+', unit: 'yrs', label: 'Zero penalties · founding customers' },
-    { value: '99.2', unit: '%', label: 'First-pass claim acceptance' },
-    { value: '86', unit: '%', label: 'Drop in denials, year one' },
-    { value: '$1.4M', unit: '+', label: 'Recovered revenue, agency avg' },
+    { value: 'EVV', unit: 'CHECK', label: 'Compare billed and approved hours' },
+    { value: 'TMHP', unit: 'CLAIMS', label: 'Review claim readiness' },
+    { value: 'PAYROLL', unit: 'DATA', label: 'Support reconciliation' },
+    { value: 'HHSC', unit: 'READY', label: 'Keep records in context' },
   ],
 };
 
@@ -299,26 +299,50 @@ export const products: Record<ProductSlug, ProductPageContent> = {
   'claims-and-bills': {
     active: 'claims-and-bills',
     label: 'Claims & Bills',
-    eyebrow: 'Claims & Bills',
-    title: 'Claims & billing with fewer denials.',
+    eyebrow: 'Texas PAS claims management',
+    title: 'Claims reconciliation for Texas PAS agencies.',
     subtitle:
-      'Ryzolve helps Texas PAS agencies aggregate visit data, validate authorizations and eligibility, and submit TMHP or Managed Care claims with better visibility from submission to payment.',
-    solutionTitle: 'Claims aggregation and cost-report readiness',
+      'Compare billed hours with approved EVV/TMHP hours before claim submission, identify mismatches, and support claim reconciliation.',
+    solutionTitle: 'Catch mismatches before claim submission.',
     solutionDescription:
-      'We help reduce claim rejections and denials while making yearly cost reporting preparation easier.',
+      'Ryzolve gives Texas PAS agencies a clear review step before claim submission so teams can compare billed hours with approved EVV/TMHP hours.',
     solutionLead:
-      'Review payer totals, submission status, and reimbursement visibility in one place—and add the right checks before submitting claims to improve first-pass acceptance and payment speed.',
-    aboutTitle: 'Built to simplify claims operations for your agency.',
+      'For teams dealing with denied claims, EVV/billed-hour mismatches, manual reconciliation, and submission errors, use the workflow to review differences before sending and support reconciliation across the claim and payroll process.',
+    solutionBullets: [
+      'Compare billed hours with approved EVV/TMHP hours',
+      'Identify mismatches before claim submission',
+      'Support reconciliation across billing and payroll data',
+    ],
+    aboutTitle: 'Keep claims, payroll, and agency records in context.',
     aboutDescription:
-      'From claims aggregation and cost-report readiness to authorization checks and payment visibility, Ryzolve gives your team the tools to file more accurately, reduce rework, and get paid faster.',
+      'Ryzolve covers broader agency workflows including billing, invoicing, claims, payroll data, documents, communications, faxing, compliance checks, and notifications.',
   },
 };
+
+export const claimsFaqs = [
+  {
+    q: 'How does Ryzolve help Texas PAS agencies prepare claims when denials are a concern?',
+    a: 'Ryzolve adds a review step before claim submission so your team can compare billed hours with approved EVV/TMHP hours, identify mismatches, and support claim reconciliation.',
+  },
+  {
+    q: 'What happens when billed hours do not match approved hours?',
+    a: 'The mismatch becomes visible for review before submission. Your team can investigate the source of the difference and follow the reconciliation workflow before sending the claim.',
+  },
+  {
+    q: 'Can Ryzolve help with manual reconciliation and submission errors?',
+    a: 'Ryzolve helps organize the comparison and review work around billing, claims, and payroll data so teams have a clearer submission-readiness step instead of reconciling in separate places.',
+  },
+  {
+    q: 'What other agency workflows connect to claims work?',
+    a: 'Ryzolve covers billing, invoicing, claims, payroll data, documents, communications, faxing, compliance checks, and notifications. Book a demo to discuss your agency workflow.',
+  },
+];
 
 export const whatWeDo = {
   eyebrow: 'What We Do?',
   title: "The service we offer is designed to meet your agency's needs.",
   description:
-    'Our solutions are carefully crafted to cater to your unique needs, emphasizing enhanced efficiency, streamlined hiring processes, strict government compliance standards, and increased profitability. We are committed to delivering a solution that not only meets but exceeds your expectations, creating an environment marked by operational efficiency, regulatory adherence, and financial growth.',
+    'Our solutions are carefully crafted to cater to your unique needs, bringing billing, claims, documents, compliance, and training workflows into one organized operating context.',
 };
 
 export const about = {
@@ -446,16 +470,6 @@ export const testimonials: { eyebrow: string; title: string; items: TestimonialI
       media: 'https://youtu.be/KeVOcQhl2S4',
       cardTitle: 'How Ryzolve streamlines a Texas PAS agency.',
       cardSub: 'A short walkthrough of where Ryzolve fits — from intake to claim paid.',
-    },
-    {
-      name: 'Lola',
-      role: 'CFO, TRM Hospice Care',
-      quote: 'Four years with Ryzolve and we have not received a single penalty. The compliance side runs itself — that alone paid for it.',
-    },
-    {
-      name: 'Marcus',
-      role: 'Administrator, Lone Star Home Health',
-      quote: 'Onboarding a new aide used to take half a day. Now it is twenty minutes, and nothing slips. The team actually likes the software.',
     },
   ],
 };
@@ -716,7 +730,7 @@ export const training = {
 
 export const footer = {
   heading: 'Join the Community',
-  intro: 'Provider management software for PAS, Home Health, and Hospice agencies. Less paperwork. Fewer denials. Audit-ready by default.',
+  intro: 'Provider management software for PAS, Home Health, and Hospice agencies. Bring claims, records, and compliance workflows into one organized context.',
   needHelp:
     'Reach out to us by clicking here to book a session with one of our specialists',
   learnMore: [

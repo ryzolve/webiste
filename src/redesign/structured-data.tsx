@@ -70,7 +70,7 @@ export function OrganizationJsonLd() {
           height: 512,
         },
         description:
-          'Provider management software for PAS, Home Health, and Hospice agencies. Less paperwork. Fewer denials. Audit-ready by default.',
+          'Provider management software for PAS, Home Health, and Hospice agencies. Bring claims, records, and compliance workflows into one organized context.',
         foundingLocation: 'New Waverly, Texas',
         address: POSTAL_ADDRESS,
         telephone: '+1-936-355-0920',

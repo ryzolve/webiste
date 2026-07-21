@@ -127,6 +127,7 @@ import {
 import {
   about,
   blank,
+  claimsFaqs,
   company,
   contact,
   footer,
@@ -845,28 +846,27 @@ function StatsBand() {
         <div className="rz-stats-grid">
           <div className="rz-stat-card">
             <strong>
-              <CountUp to={4} duration={1400} /><span className="rz-stat-suffix">+ yrs</span>
+              <span>EVV</span>
             </strong>
-            <span className="rz-stat-label">Zero penalties · founding customers</span>
+            <span className="rz-stat-label">Hours comparison</span>
           </div>
           <div className="rz-stat-card">
             <strong>
-              <CountUp to={99.2} duration={1800} decimals={1} /><span className="rz-stat-suffix">%</span>
+              <span>TMHP</span>
             </strong>
-            <span className="rz-stat-label">First-pass claim acceptance</span>
+            <span className="rz-stat-label">Claim readiness</span>
           </div>
           <div className="rz-stat-card">
             <strong>
-              <CountUp to={86} duration={1600} /><span className="rz-stat-suffix">%</span>
+              <span>PAYROLL</span>
             </strong>
-            <span className="rz-stat-label">Drop in denials, year one</span>
+            <span className="rz-stat-label">Reconciliation context</span>
           </div>
           <div className="rz-stat-card">
             <strong>
-              <span className="rz-stat-coral">$</span>
-              <CountUp to={1.4} duration={1600} decimals={1} /><span className="rz-stat-suffix">M+</span>
+              <span>READY</span>
             </strong>
-            <span className="rz-stat-label">Recovered revenue, agency avg</span>
+            <span className="rz-stat-label">Review before submission</span>
           </div>
         </div>
       </div>
@@ -1537,7 +1537,7 @@ export function HomePage() {
     <SiteLayout active="home">
       <SEO
         title="Provider Management Software for PAS, Home Health & Hospice"
-        description="Ryzolve is provider management software for Texas PAS, Home Health, and Hospice agencies. Cut paperwork, reduce denials, stay HHSC audit-ready — in one platform."
+        description="Ryzolve is provider management software for Texas PAS, Home Health, and Hospice agencies. Bring claims, records, and compliance workflows into one organized context."
         path="/"
         keywords={[
           'provider management software',
@@ -1726,35 +1726,34 @@ function ShieldMock() {
   );
 }
 
-function ClaimsMock() {
+function ClaimsWorkflowPanel() {
+  const steps = [
+    ['01', 'Compare hours', 'Billed hours against approved EVV/TMHP hours.'],
+    ['02', 'Identify mismatches', 'Review differences before sending the claim.'],
+    ['03', 'Support reconciliation', 'Keep billing and payroll review in context.'],
+  ];
+
   return (
-    <div className="rz-doc-mock">
-      <div className="rz-doc-mock-head">
+    <div className="rz-claims-workflow" aria-label="Claims reconciliation workflow">
+      <div className="rz-claims-workflow-head">
+        <span className="rz-icon-square rz-icon-square-deep"><ProductIcon kind="claim" size={18} /></span>
         <div>
-          <ProductIcon kind="card" size={18} />
-          Claims · this week
+          <span className="rz-panel-eyebrow">Before submission</span>
+          <strong>Claims readiness check</strong>
         </div>
-        <span className="rz-filed">99.2% FIRST PASS</span>
       </div>
-      <div className="rz-doc-mock-grid">
-        {[
-          ['Amerigroup · $4,820', 'Paid', 'ok'],
-          ['Superior · $2,150', 'Paid', 'ok'],
-          ['Molina · $3,640', 'Paid', 'ok'],
-          ['Texas STAR · $1,980', 'Paid', 'ok'],
-          ['United HC · $5,210', 'In review', 'warn'],
-          ['Anthem · $890', 'Scheduled', 'muted'],
-        ].map(([label, status, tone]) => (
-          <div key={label as string}>
-            <b>{label}</b>
-            <span className={`rz-doc-status-${tone}`}>{status}</span>
-          </div>
+      <ol className="rz-claims-workflow-list">
+        {steps.map(([number, title, description]) => (
+          <li key={number}>
+            <span className="rz-claims-workflow-number">{number}</span>
+            <div>
+              <strong>{title}</strong>
+              <p>{description}</p>
+            </div>
+          </li>
         ))}
-      </div>
-      <div className="rz-doc-mock-footer">
-        <i>i</i>
-        Auth + eligibility validated automatically before submit.
-      </div>
+      </ol>
+      <p className="rz-claims-workflow-note">A review step for Texas PAS billing teams.</p>
     </div>
   );
 }
@@ -1861,7 +1860,7 @@ function ProductSolutions({ slug }: { slug: ProductSlug }) {
       ? DocFilingMock
       : slug === 'compliance-regulation'
         ? ShieldMock
-        : ClaimsMock;
+        : ClaimsWorkflowPanel;
   const bullets = product.solutionBullets;
 
   return (
@@ -1911,7 +1910,7 @@ function ProductAbout({ slug }: { slug: ProductSlug }) {
           </div>
         </div>
         <div>
-          {slug === 'document-management' ? <DocTemplatesMock /> : slug === 'compliance-regulation' ? <ShieldMock /> : <ClaimsMock />}
+          {slug === 'document-management' ? <DocTemplatesMock /> : slug === 'compliance-regulation' ? <ShieldMock /> : <ClaimsWorkflowPanel />}
         </div>
       </div>
     </section>
@@ -1935,7 +1934,7 @@ function ProductExtras({ slug }: { slug: ProductSlug }) {
               </div>
             </div>
             <div>
-              {slug === 'compliance-regulation' ? <ShieldMock /> : slug === 'claims-and-bills' ? <ClaimsMock /> : <DocFilingMock />}
+              {slug === 'compliance-regulation' ? <ShieldMock /> : slug === 'claims-and-bills' ? <ClaimsWorkflowPanel /> : <DocFilingMock />}
             </div>
           </div>
         </section>
@@ -1972,19 +1971,89 @@ const PRODUCT_SEO: Record<ProductSlug, { title: string; description: string; key
     ],
   },
   'claims-and-bills': {
-    title: 'Claims & Billing — Faster Reimbursement, Fewer Denials',
+    title: 'Texas PAS Claims Management & EVV Reconciliation',
     description:
-      'Visit-data aggregation, eligibility validation, simplified claim entry, and cost-reporting readiness — get paid faster by Managed Care Organizations and State Insurance.',
+      'Compare billed hours with approved EVV/TMHP hours before claim submission. Ryzolve helps Texas PAS agencies identify mismatches and support claim reconciliation.',
     keywords: [
-      'claims management',
-      'home health billing',
-      'PAS claims',
-      'MCO reimbursement',
-      'cost reporting',
-      'denial management',
+      'Texas PAS claims management',
+      'EVV claims reconciliation',
+      'TMHP claims',
+      'PAS billing software',
+      'claims reconciliation',
+      'EVV billed hours',
     ],
   },
 };
+
+function ClaimsFaqSection() {
+  return (
+    <section className="rz-section border-y border-rule bg-paper" aria-labelledby="claims-faq-title">
+      <div className="rz-wrap">
+        <div className="rz-shead">
+          <p className="rz-eyebrow">Claims questions</p>
+          <h2 id="claims-faq-title">Questions Texas PAS billing teams ask.</h2>
+        </div>
+        <div className="rz-claims-faq-list">
+          {claimsFaqs.map((item, index) => (
+            <details className="rz-claims-faq" key={item.q} open={index === 0}>
+              <summary>
+                <span>{item.q}</span>
+                <span aria-hidden="true">+</span>
+              </summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ClaimsRelatedLinks() {
+  const links = [
+    {
+      href: '/#products',
+      title: 'Payroll and agency workflows',
+      description: 'See how claims work fits alongside payroll data and broader agency operations.',
+    },
+    {
+      href: '/document-management',
+      title: 'Onboarding and documents',
+      description: 'Keep intake, authorization, and caregiver records organized in one place.',
+    },
+    {
+      href: '/compliance-regulation',
+      title: 'Compliance checks',
+      description: 'Connect claims readiness with the compliance work your agency already manages.',
+    },
+    {
+      href: '/training',
+      title: 'Training and records',
+      description: 'Explore administrator and in-service training workflows for your team.',
+    },
+  ];
+
+  return (
+    <section className="rz-section bg-bg" aria-labelledby="claims-related-title">
+      <div className="rz-wrap">
+        <div className="rz-shead">
+          <p className="rz-eyebrow">Connected workflows</p>
+          <h2 id="claims-related-title">Claims work does not happen in isolation.</h2>
+          <p>Explore the Ryzolve workflows that support the rest of your agency operations.</p>
+        </div>
+        <div className="grid grid-cols-4 gap-5 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
+          {links.map((link) => (
+            <Link className="rz-claims-related-card" href={link.href} key={link.href}>
+              <strong>{link.title}</strong>
+              <span>{link.description}</span>
+              <span aria-hidden="true">→</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function ProductPage({ slug }: { slug: ProductSlug }) {
   const seo = PRODUCT_SEO[slug];
@@ -2002,6 +2071,7 @@ export function ProductPage({ slug }: { slug: ProductSlug }) {
         path={`/${slug}`}
         serviceType={products[slug].label}
       />
+      {slug === 'claims-and-bills' && <FaqJsonLd items={claimsFaqs} />}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', path: '/' },
@@ -2022,7 +2092,9 @@ export function ProductPage({ slug }: { slug: ProductSlug }) {
           <ProductAbout slug={slug} />
         )}
         <ProductExtras slug={slug} />
-        <TestimonialsSection />
+        {slug === 'claims-and-bills' && <ClaimsFaqSection />}
+        {slug === 'claims-and-bills' && <ClaimsRelatedLinks />}
+        {slug !== 'claims-and-bills' && <TestimonialsSection />}
         <LeadMagnetSection />
       </main>
     </SiteLayout>
@@ -2092,9 +2164,9 @@ export function AboutPage() {
               <div className="rz-panel-title">TRM Hospice Care</div>
               <div className="rz-stat-rows">
                 {[
-                  { big: '04+', unit: 'YRS', t: 'Over four years with zero penalties' },
-                  { big: '300+', unit: 'HRS', t: 'Hundreds of hours saved on hiring' },
-                  { big: '99.2%', unit: 'PASS', t: 'First-pass claim acceptance' },
+                  { big: 'EVV', unit: 'CHECK', t: 'Compare approved and billed hours' },
+                  { big: 'PAYROLL', unit: 'DATA', t: 'Keep reconciliation in context' },
+                  { big: 'CLAIMS', unit: 'READY', t: 'Review mismatches before submission' },
                 ].map((row) => (
                   <div className="rz-stat-row" key={row.t}>
                     <div className="rz-stat-big">
