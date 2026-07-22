@@ -61,3 +61,14 @@ test('preserves existing product routes and keeps unsupported claims out of new 
     assert.doesNotMatch(source, /\$\d|integration|certification|customer result/i);
   }
 });
+
+test('keeps the blog hero contained and its secondary CTA visible on light backgrounds', async () => {
+  const css = await read('src/redesign/site.css');
+
+  assert.match(css, /\.rz-blog-hero\s*\{\s*padding:\s*72px 56px 80px;/);
+  assert.match(
+    css,
+    /@media \(max-width: 1080px\)\s*\{[\s\S]*?\.rz-blog-hero-grid\s*\{\s*grid-template-columns:\s*1fr;/
+  );
+  assert.match(css, /\.rz-blog-hero \.rz-btn-ghost\s*\{[\s\S]*?color:\s*var\(--rz-blue\);/);
+});

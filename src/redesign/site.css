@@ -4788,7 +4788,7 @@ button.rz-btn-blue {
 
 /* ─── Blog capability pages ───────────────────────────────── */
 .rz-blog-hero {
-  padding: 72px 0 80px;
+  padding: 72px 56px 80px;
   background: var(--rz-bg);
 }
 .rz-blog-hero-grid {
@@ -4823,6 +4823,16 @@ button.rz-btn-blue {
   font-size: 19px;
   line-height: 1.6;
 }
+.rz-blog-hero .rz-btn-ghost {
+  background: var(--rz-paper);
+  color: var(--rz-blue);
+  border-color: rgba(13, 89, 146, 0.28);
+}
+.rz-blog-hero .rz-btn-ghost:hover {
+  background: var(--rz-blue-soft);
+  border-color: var(--rz-blue);
+}
+.rz-blog-hero .rz-btn-ghost:hover .rz-btn-arrow { transform: translateY(3px); }
 .rz-blog-hero-panel {
   padding: 30px;
   border: 1px solid var(--rz-rule);
@@ -5025,11 +5035,14 @@ button.rz-btn-blue {
 .rz-blog-final-cta .rz-eyebrow { color: rgb(255 255 255 / 58%); }
 
 @media (max-width: 1080px) {
+  .rz-blog-hero { padding: 64px 56px 72px; }
+  .rz-blog-hero-grid { grid-template-columns: 1fr; gap: 44px; }
+  .rz-blog-hero-panel { max-width: 640px; }
   .rz-blog-related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 760px) {
-  .rz-blog-hero { padding: 48px 0 56px; }
+  .rz-blog-hero { padding: 48px 24px 56px; }
   .rz-blog-hero-grid,
   .rz-blog-two-column { grid-template-columns: 1fr; gap: 36px; }
   .rz-blog-hero h1 { font-size: clamp(40px, 12vw, 58px); }
