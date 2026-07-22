@@ -153,6 +153,7 @@ type ActiveKey =
   | 'about-us'
   | 'contact'
   | 'calendly'
+  | 'blogs'
   | 'legal'
   | 'blank';
 

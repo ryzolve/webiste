@@ -231,13 +231,19 @@ export function CourseListJsonLd({ courses }: { courses: TrainingCourseCard[] })
 }
 
 /* ─── FAQPage (training) ───────────────────────────────────────── */
-export function FaqJsonLd({ items }: { items: Array<{ q: string; a: string }> }) {
+export function FaqJsonLd({
+  items,
+  path = '/training',
+}: {
+  items: Array<{ q: string; a: string }>;
+  path?: string;
+}) {
   return (
     <JsonLd
       data={{
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        '@id': schemaId('/training', 'faq'),
+        '@id': schemaId(path, 'faq'),
         mainEntity: items.map((item) => ({
           '@type': 'Question',
           name: item.q,

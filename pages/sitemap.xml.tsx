@@ -11,6 +11,8 @@ const STATIC_ENTRIES: SitemapEntry[] = [
   { path: '/document-management', changefreq: 'weekly', priority: '0.9' },
   { path: '/compliance-regulation', changefreq: 'weekly', priority: '0.9' },
   { path: '/claims-and-bills', changefreq: 'weekly', priority: '0.9' },
+  { path: '/blogs', changefreq: 'weekly', priority: '0.8' },
+  { path: '/blogs/payroll-ready-evv-data', changefreq: 'weekly', priority: '0.8' },
   { path: '/training', changefreq: 'weekly', priority: '0.8' },
   { path: '/about-us', changefreq: 'monthly', priority: '0.7' },
   { path: '/contact', changefreq: 'monthly', priority: '0.7' },
