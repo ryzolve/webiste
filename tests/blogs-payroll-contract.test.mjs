@@ -52,6 +52,15 @@ test('models the hub as a collection and hides pagination for one article', asyn
   assert.doesNotMatch(indexRoute, /aria-disabled="true">Previous/);
 });
 
+test('places Blogs in the shared navigation before Contact', async () => {
+  const content = await read('src/redesign/content.ts');
+
+  assert.match(
+    content,
+    /\{ label: 'About', href: '\/about-us', slug: 'about-us' \},\s*\{ label: 'Blogs', href: '\/blogs', slug: 'blogs' \},\s*\{ label: 'Contact', href: '\/contact', slug: 'contact' \}/
+  );
+});
+
 test('preserves existing product routes and keeps unsupported claims out of new blog files', async () => {
   const claimsRoute = await read('pages/claims-and-bills/index.tsx');
   const docsRoute = await read('pages/document-management/index.tsx');
