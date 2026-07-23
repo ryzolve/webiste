@@ -22,24 +22,34 @@ test('defines the nested blogs listing and payroll reference route', async () =>
   assert.match(content, /payroll-ready-evv-data/);
 });
 
-test('renders approved payroll copy with metadata, schema, FAQ, CTA, and internal links', async () => {
+test('renders payroll as an educational article with article, breadcrumb, and FAQ schema', async () => {
   const page = await read('src/redesign/BlogCapabilityPage.tsx');
   const content = await read('src/redesign/blog-content.ts');
-  const indexRoute = await read('pages/blogs/index.tsx');
 
   assert.match(page, /<SEO/);
   assert.match(page, /<BreadcrumbJsonLd/);
-  assert.match(page, /<ServiceJsonLd/);
+  assert.match(page, /<ArticleJsonLd/);
+  assert.doesNotMatch(page, /<ServiceJsonLd/);
   assert.match(page, /<FaqJsonLd/);
-  assert.match(page, /details/);
+  assert.match(page, /<FaqAccordion/);
   assert.match(content, /\/calendly/);
   assert.match(content, /clock-in\/clock-out/i);
   assert.match(content, /regardless of (?:your )?payroll schedule/i);
+  assert.match(content, /How Texas PAS Agencies Can Keep EVV Data Ready for Payroll Processing/);
+  assert.match(content, /pre-payroll review/i);
+  assert.match(content, /caregiver records/i);
   assert.match(content, /\/claims-and-bills/);
   assert.match(content, /\/document-management/);
   assert.match(content, /\/compliance-regulation/);
   assert.match(content, /\/training/);
-  assert.match(indexRoute, /Pagination|page=/i);
+});
+
+test('models the hub as a collection and hides pagination for one article', async () => {
+  const indexRoute = await read('pages/blogs/index.tsx');
+
+  assert.match(indexRoute, /<CollectionPageJsonLd/);
+  assert.match(indexRoute, /totalPages > 1/);
+  assert.doesNotMatch(indexRoute, /aria-disabled="true">Previous/);
 });
 
 test('preserves existing product routes and keeps unsupported claims out of new blog files', async () => {

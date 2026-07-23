@@ -26,7 +26,7 @@ export const company = {
 
 export const nav = {
   products: [
-    { label: 'Document Management', href: '/document-management', slug: 'document-management', short: 'Document Management that suites to fit your healthcare structure to increase Efficiency' },
+    { label: 'Document Management', href: '/document-management', slug: 'document-management', short: 'Document management that fits your healthcare organization.' },
     { label: 'Compliance Regulation', href: '/compliance-regulation', slug: 'compliance-regulation', short: 'Compliance that meets all government requirements, providing automation and peace of mind.' },
     { label: 'Claims & Bills', href: '/claims-and-bills', slug: 'claims-and-bills', short: 'Compare billed and approved hours before claim submission.' },
   ],
@@ -41,7 +41,7 @@ export const nav = {
 export const sharedServices = [
   {
     title: 'Improve Efficiency',
-    description: 'Document Management that suites to fit your healthcare structure to increase Efficiency',
+    description: 'Document management that fits your healthcare organization.',
     href: '/document-management',
     icon: 'document',
   },
@@ -343,6 +343,12 @@ export const whatWeDo = {
   title: "The service we offer is designed to meet your agency's needs.",
   description:
     'Our solutions are carefully crafted to cater to your unique needs, bringing billing, claims, documents, compliance, and training workflows into one organized operating context.',
+};
+
+export const claimsIntro = {
+  title: 'Review claims data before submission.',
+  description:
+    'For Texas PAS agencies, Ryzolve brings billed hours and approved EVV/TMHP hours into a practical review step so billing teams can identify mismatches and support reconciliation before a claim is sent.',
 };
 
 export const about = {

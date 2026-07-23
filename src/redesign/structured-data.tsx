@@ -230,13 +230,83 @@ export function CourseListJsonLd({ courses }: { courses: TrainingCourseCard[] })
   );
 }
 
-/* ─── FAQPage (training) ───────────────────────────────────────── */
+/* ─── Article and collection pages ─────────────────────────────── */
+export function ArticleJsonLd({
+  title,
+  description,
+  path,
+}: {
+  title: string;
+  description: string;
+  path: string;
+}) {
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': schemaId(path, 'article'),
+        headline: title,
+        description,
+        url: abs(path),
+        mainEntityOfPage: { '@type': 'WebPage', '@id': abs(path) },
+        author: { '@id': orgId() },
+        publisher: { '@id': orgId() },
+        inLanguage: 'en-US',
+      }}
+    />
+  );
+}
+
+export function CollectionPageJsonLd({
+  name,
+  description,
+  path,
+  items,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  items: Array<{ name: string; path: string }>;
+}) {
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'CollectionPage',
+            '@id': schemaId(path, 'collection'),
+            name,
+            description,
+            url: abs(path),
+            mainEntity: { '@id': schemaId(path, 'item-list') },
+          },
+          {
+            '@type': 'ItemList',
+            '@id': schemaId(path, 'item-list'),
+            itemListOrder: 'https://schema.org/ItemListOrderAscending',
+            numberOfItems: items.length,
+            itemListElement: items.map((item, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: item.name,
+              url: abs(item.path),
+            })),
+          },
+        ],
+      }}
+    />
+  );
+}
+
+/* ─── FAQPage ──────────────────────────────────────────────────── */
 export function FaqJsonLd({
   items,
-  path = '/training',
+  path,
 }: {
   items: Array<{ q: string; a: string }>;
-  path?: string;
+  path: string;
 }) {
   return (
     <JsonLd

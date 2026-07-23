@@ -12,6 +12,11 @@ export type BlogWorkflowStep = {
   description: string;
 };
 
+export type BlogArticleSection = {
+  title: string;
+  paragraphs: string[];
+};
+
 export type BlogCapabilityEntry = {
   slug: string;
   label: string;
@@ -22,6 +27,7 @@ export type BlogCapabilityEntry = {
   solutionTitle: string;
   solutionDescription: string;
   workflowSteps: BlogWorkflowStep[];
+  articleSections: BlogArticleSection[];
   capabilities: string[];
   faqs: BlogFaq[];
   relatedLinks: BlogRelatedLink[];
@@ -36,9 +42,9 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     slug: 'payroll-ready-evv-data',
     label: 'Payroll-ready EVV data',
     eyebrow: 'Texas PAS payroll reporting',
-    title: 'Keep EVV data ready for payroll processing.',
+    title: 'How Texas PAS Agencies Can Keep EVV Data Ready for Payroll Processing',
     description:
-      'Ryzolve keeps clock-in/clock-out data current and ready for payroll processing regardless of your payroll schedule.',
+      'A practical guide to reviewing current clock-in/clock-out data before payroll processing at a Texas PAS agency.',
     keywords: [
       'Texas PAS payroll reporting',
       'payroll-ready EVV data',
@@ -46,29 +52,59 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       'clock-in clock-out reporting',
       'PAS payroll workflow',
     ],
-    solutionTitle: 'A clearer path from EVV data to payroll review.',
+    solutionTitle: 'What payroll-ready EVV data means in daily agency operations.',
     solutionDescription:
-      'Keep clock-in/clock-out data current, review payroll-ready information, and keep related agency workflows in context.',
+      'Payroll-ready EVV data means your team can review current clock-in/clock-out information before a payroll run, rather than gathering it across separate places at the last minute.',
     workflowSteps: [
       {
         number: '01',
-        title: 'Keep visit data current',
-        description: 'Maintain current clock-in and clock-out data for payroll review.',
+        title: 'Keep clock-in and clock-out data current',
+        description: 'Review the visit-time information your team will need before payroll processing begins.',
       },
       {
         number: '02',
-        title: 'Review payroll-ready data',
-        description: 'Bring EVV-related time data into the payroll reporting workflow.',
+        title: 'Review data before the payroll run',
+        description: 'Use a pre-payroll review to look for information that needs attention before processing.',
       },
       {
         number: '03',
-        title: 'Work on your schedule',
-        description: 'Keep the data ready regardless of your payroll schedule.',
+        title: 'Keep the workflow consistent',
+        description: 'Keep clock-in/clock-out data ready for payroll processing regardless of your payroll schedule.',
+      },
+    ],
+    articleSections: [
+      {
+        title: 'Why clock-in and clock-out data can slow payroll down',
+        paragraphs: [
+          'A payroll run depends on the agency having current time information available for review. When clock-in or clock-out data needs follow-up close to payroll processing, teams can lose time switching among records, communications, and reports to understand what needs attention.',
+          'A regular review gives payroll staff a predictable place to look at current EVV-related time data before processing. It does not replace agency judgment; it gives the team a clearer starting point for the review work that already has to happen.',
+        ],
+      },
+      {
+        title: 'A plain-language pre-payroll review workflow',
+        paragraphs: [
+          'Start by reviewing current clock-in and clock-out data for the payroll period. Next, identify records that need the team’s attention and follow the agency’s established process for resolving them. Then use the reviewed information as part of payroll reporting and processing.',
+          'The goal is not to promise that every record is complete automatically. It is to keep the information your agency reviews current and in context, whether your payroll schedule is weekly, biweekly, or another cadence.',
+        ],
+      },
+      {
+        title: 'What teams should review before processing payroll',
+        paragraphs: [
+          'Payroll staff can review whether clock-in/clock-out data is current for the period and whether related records need follow-up. The right review details depend on the agency’s own policies and payroll process.',
+          'It also helps to keep the payroll conversation connected to the work around it. Billing, claims, caregiver records, documents, communications, faxing, compliance checks, and notifications can all affect how an agency team understands a record and decides what to review next.',
+        ],
+      },
+      {
+        title: 'How payroll data relates to claims, caregiver records, and compliance',
+        paragraphs: [
+          'Payroll data is one part of a broader operating workflow. For claims, Texas PAS agencies can compare billed hours with approved EVV/TMHP hours before claim submission, identify mismatches, and support reconciliation. Keeping related payroll data in context can make that review easier to coordinate.',
+          'Caregiver records, onboarding documents, HR paperwork, and compliance checks also sit alongside the day-to-day agency work. Ryzolve supports those workflows together so teams can follow their processes without treating payroll information as an isolated task.',
+        ],
       },
     ],
     capabilities: [
       'Current clock-in/clock-out data ready for payroll processing',
-      'Payroll reporting that supports the agency review workflow',
+      'A practical pre-payroll review workflow for current time data',
       'EVV and payroll data kept in context with billing, claims, and notifications',
     ],
     faqs: [

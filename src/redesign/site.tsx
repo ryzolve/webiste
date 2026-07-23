@@ -4,6 +4,7 @@ import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import SEO from './SEO';
+import { FaqAccordion } from './FaqAccordion';
 import {
   BreadcrumbJsonLd,
   CourseListJsonLd,
@@ -130,6 +131,7 @@ import {
   claimsFaqs,
   company,
   contact,
+  claimsIntro,
   footer,
   home,
   homeTrainingCta,
@@ -1600,16 +1602,19 @@ function ProductHero({ slug }: { slug: ProductSlug }) {
   );
 }
 
-function WhatWeDoSection() {
+function WhatWeDoSection({ title = whatWeDo.title, description = whatWeDo.description }: {
+  title?: string;
+  description?: string;
+}) {
   return (
     <section className="border-y border-rule bg-paper px-14 py-24 max-[1080px]:px-7 max-[640px]:px-[18px]">
       <div className="rz-wrap">
         <div className="mb-12 grid grid-cols-[1fr_1.4fr] items-start gap-20 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
           <div>
             <p className="rz-eyebrow">{whatWeDo.eyebrow.replace(/\?$/, '')}</p>
-            <h2 className="m-0 text-[clamp(32px,4vw,44px)] font-semibold leading-[1.1] tracking-[-1.2px] text-ink">{whatWeDo.title}</h2>
+            <h2 className="m-0 text-[clamp(32px,4vw,44px)] font-semibold leading-[1.1] tracking-[-1.2px] text-ink">{title}</h2>
           </div>
-          <p className="m-0 pt-1 text-[16px] leading-[1.6] text-ink-2">{whatWeDo.description}</p>
+          <p className="m-0 pt-1 text-[16px] leading-[1.6] text-ink-2">{description}</p>
         </div>
         <div className="grid grid-cols-4 gap-5 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
           {sharedServices.map((service, i) => (
@@ -1910,9 +1915,17 @@ function ProductAbout({ slug }: { slug: ProductSlug }) {
             <CTA href="/calendly">Book a demo</CTA>
           </div>
         </div>
-        <div>
-          {slug === 'document-management' ? <DocTemplatesMock /> : slug === 'compliance-regulation' ? <ShieldMock /> : <ClaimsWorkflowPanel />}
-        </div>
+        {slug === 'claims-and-bills' ? (
+          <div className="rz-claims-workflow rz-claims-context-card">
+            <span className="rz-panel-eyebrow">Connected workflows</span>
+            <strong>Claims review in context</strong>
+            <p>Keep claims review alongside billing, payroll data, documents, communications, faxing, compliance checks, and notifications.</p>
+          </div>
+        ) : (
+          <div>
+            {slug === 'document-management' ? <DocTemplatesMock /> : <ShieldMock />}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -1935,7 +1948,7 @@ function ProductExtras({ slug }: { slug: ProductSlug }) {
               </div>
             </div>
             <div>
-              {slug === 'compliance-regulation' ? <ShieldMock /> : slug === 'claims-and-bills' ? <ClaimsWorkflowPanel /> : <DocFilingMock />}
+              {slug === 'compliance-regulation' ? <ShieldMock /> : <DocFilingMock />}
             </div>
           </div>
         </section>
@@ -1994,17 +2007,14 @@ function ClaimsFaqSection() {
           <p className="rz-eyebrow">Claims questions</p>
           <h2 id="claims-faq-title">Questions Texas PAS billing teams ask.</h2>
         </div>
-        <div className="rz-claims-faq-list">
-          {claimsFaqs.map((item, index) => (
-            <details className="rz-claims-faq" key={item.q} open={index === 0}>
-              <summary>
-                <span>{item.q}</span>
-                <span aria-hidden="true">+</span>
-              </summary>
-              <p>{item.a}</p>
-            </details>
-          ))}
-        </div>
+        <FaqAccordion
+          answerClassName="rz-claims-faq-answer"
+          buttonClassName="rz-claims-faq-button"
+          idPrefix="claims-faq"
+          itemClassName="rz-claims-faq"
+          items={claimsFaqs}
+          listClassName="rz-claims-faq-list"
+        />
       </div>
     </section>
   );
@@ -2072,7 +2082,7 @@ export function ProductPage({ slug }: { slug: ProductSlug }) {
         path={`/${slug}`}
         serviceType={products[slug].label}
       />
-      {slug === 'claims-and-bills' && <FaqJsonLd items={claimsFaqs} />}
+      {slug === 'claims-and-bills' && <FaqJsonLd items={claimsFaqs} path="/claims-and-bills" />}
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', path: '/' },
@@ -2082,7 +2092,10 @@ export function ProductPage({ slug }: { slug: ProductSlug }) {
       />
       <main>
         <ProductHero slug={slug} />
-        <WhatWeDoSection />
+        <WhatWeDoSection
+          title={slug === 'claims-and-bills' ? claimsIntro.title : undefined}
+          description={slug === 'claims-and-bills' ? claimsIntro.description : undefined}
+        />
         <ProductSolutions slug={slug} />
         {slug === 'document-management' ? (
           <>
@@ -3063,17 +3076,15 @@ function TrainingFAQs() {
           <p className="rz-eyebrow">{training.faqs.eyebrow}</p>
           <h2>{training.faqs.title}</h2>
         </div>
-        <div className="rz-tr-faqs-list">
-          {training.faqs.items.map((f, i) => (
-            <details className="rz-tr-faq" key={f.q} open={i === 0}>
-              <summary>
-                <span>{f.q}</span>
-                <span className="rz-tr-faq-plus" aria-hidden="true">+</span>
-              </summary>
-              <p>{f.a}</p>
-            </details>
-          ))}
-        </div>
+        <FaqAccordion
+          answerClassName="rz-tr-faq-answer"
+          buttonClassName="rz-tr-faq-button"
+          iconClassName="rz-tr-faq-plus"
+          idPrefix="training-faq"
+          itemClassName="rz-tr-faq"
+          items={training.faqs.items}
+          listClassName="rz-tr-faqs-list"
+        />
       </div>
     </section>
   );
@@ -3247,7 +3258,7 @@ export function TrainingPage({
           { name: 'Training', path: '/training' },
         ]}
       />
-      <FaqJsonLd items={training.faqs.items} />
+      <FaqJsonLd items={training.faqs.items} path="/training" />
       <main>
         <TrainingHero />
         <TrainingMarquee />

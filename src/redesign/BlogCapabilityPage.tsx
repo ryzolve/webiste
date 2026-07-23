@@ -1,10 +1,11 @@
 import Link from 'next/link';
 
 import SEO from './SEO';
+import { FaqAccordion } from './FaqAccordion';
 import {
+  ArticleJsonLd,
   BreadcrumbJsonLd,
   FaqJsonLd,
-  ServiceJsonLd,
 } from './structured-data';
 import type { BlogCapabilityEntry } from './blog-content';
 import { SiteLayout } from './site';
@@ -21,12 +22,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         keywords={entry.keywords}
         type="article"
       />
-      <ServiceJsonLd
-        name={entry.title}
-        description={entry.description}
-        path={path}
-        serviceType={entry.label}
-      />
+      <ArticleJsonLd title={entry.title} description={entry.description} path={path} />
       <FaqJsonLd items={entry.faqs} path={path} />
       <BreadcrumbJsonLd
         items={[
@@ -52,8 +48,8 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
                   <span>{entry.ctaLabel}</span>
                   <span className="rz-btn-arrow" aria-hidden="true">→</span>
                 </Link>
-                <Link className="rz-btn rz-btn-ghost" href="#workflow">
-                  <span>See the workflow</span>
+                <Link className="rz-btn rz-btn-ghost" href="#article">
+                  <span>Read the guide</span>
                   <span className="rz-btn-arrow" aria-hidden="true">↓</span>
                 </Link>
               </div>
@@ -68,6 +64,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
           </div>
         </section>
 
+        <article id="article">
         <section id="workflow" className="rz-section bg-bg" aria-labelledby="blog-workflow-title">
           <div className="rz-wrap">
             <div className="rz-shead rz-blog-section-head">
@@ -86,6 +83,15 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
             </ol>
           </div>
         </section>
+
+        {entry.articleSections.map((section) => (
+          <section className="rz-section border-y border-rule bg-paper" key={section.title}>
+            <div className="rz-wrap rz-blog-article-section">
+              <h2>{section.title}</h2>
+              {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+          </section>
+        ))}
 
         <section className="rz-section border-y border-rule bg-paper" aria-labelledby="blog-capabilities-title">
           <div className="rz-wrap rz-blog-two-column">
@@ -110,17 +116,14 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
               <p className="rz-eyebrow">Questions Texas PAS teams ask</p>
               <h2 id="blog-faq-title">Payroll-ready EVV data, in plain language.</h2>
             </div>
-            <div className="rz-blog-faq-list">
-              {entry.faqs.map((faq, index) => (
-                <details className="rz-blog-faq" key={faq.q} open={index === 0}>
-                  <summary>
-                    <span>{faq.q}</span>
-                    <span aria-hidden="true">+</span>
-                  </summary>
-                  <p>{faq.a}</p>
-                </details>
-              ))}
-            </div>
+            <FaqAccordion
+              answerClassName="rz-blog-faq-answer"
+              buttonClassName="rz-blog-faq-button"
+              idPrefix="payroll-evv-faq"
+              itemClassName="rz-blog-faq"
+              items={entry.faqs}
+              listClassName="rz-blog-faq-list"
+            />
           </div>
         </section>
 
@@ -154,6 +157,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
             </Link>
           </div>
         </section>
+        </article>
       </main>
     </SiteLayout>
   );

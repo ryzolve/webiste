@@ -26,11 +26,34 @@ test('keeps claims management on the existing route with approved SEO copy', asy
 test('renders visible FAQ and matching FAQ JSON-LD for claims buyers', async () => {
   const site = await read('src/redesign/site.tsx');
   const content = await read('src/redesign/content.ts');
+  const structuredData = await read('src/redesign/structured-data.tsx');
 
   assert.match(content, /export const claimsFaqs/);
-  assert.match(site, /<FaqJsonLd items=\{claimsFaqs\} \/>/);
+  assert.match(site, /<FaqJsonLd items=\{claimsFaqs\} path="\/claims-and-bills" \/>/);
   assert.match(site, /function ClaimsFaqSection/);
-  assert.match(site, /claimsFaqs\.map/);
+  assert.match(site, /items=\{claimsFaqs\}/);
+  assert.match(structuredData, /path: string;/);
+  assert.doesNotMatch(structuredData, /path = '\/training'/);
+});
+
+test('uses one claims-readiness panel and real FAQ buttons', async () => {
+  const site = await read('src/redesign/site.tsx');
+  const faq = await read('src/redesign/FaqAccordion.tsx');
+
+  assert.equal((site.match(/ClaimsWorkflowPanel/g) || []).length, 2);
+  assert.match(faq, /<button/);
+  assert.match(faq, /aria-expanded=/);
+  assert.match(faq, /aria-controls=/);
+  assert.doesNotMatch(faq, /<summary/);
+});
+
+test('replaces generic claims opening copy and corrects inherited document copy', async () => {
+  const content = await read('src/redesign/content.ts');
+  const site = await read('src/redesign/site.tsx');
+
+  assert.match(content, /Review claims data before submission\./);
+  assert.match(site, /title=\{slug === 'claims-and-bills' \? claimsIntro\.title : undefined\}/);
+  assert.doesNotMatch(content, /suites to fit/i);
 });
 
 test('keeps approved internal links and removes unsupported outcome claims', async () => {

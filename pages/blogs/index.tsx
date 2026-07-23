@@ -2,7 +2,7 @@ import type { GetServerSideProps } from 'next';
 import Link from 'next/link';
 
 import SEO from 'redesign/SEO';
-import { BreadcrumbJsonLd } from 'redesign/structured-data';
+import { BreadcrumbJsonLd, CollectionPageJsonLd } from 'redesign/structured-data';
 import {
   BLOG_PAGE_SIZE,
   publishedBlogCapabilities,
@@ -32,6 +32,12 @@ export default function BlogsIndexPage({ entries, page, totalPages }: BlogIndexP
         keywords={['Texas PAS capability guides', 'EVV payroll reporting', 'PAS agency workflows']}
       />
       <BreadcrumbJsonLd items={[{ name: 'Home', path: '/' }, { name: 'Blogs', path: '/blogs' }]} />
+      <CollectionPageJsonLd
+        description="Educational Ryzolve articles for Texas PAS agencies."
+        items={entries.map((entry) => ({ name: entry.title, path: `/blogs/${entry.slug}` }))}
+        name="Ryzolve Workflow Guides for Texas PAS Agencies"
+        path="/blogs"
+      />
       <main>
         <section className="rz-blog-hero">
           <div className="rz-wrap">
@@ -58,11 +64,13 @@ export default function BlogsIndexPage({ entries, page, totalPages }: BlogIndexP
                 </Link>
               ))}
             </div>
-            <nav className="rz-blog-pagination" aria-label="Blog pages">
-              {page > 1 ? <Link href={`/blogs?page=${page - 1}`}>Previous</Link> : <span aria-disabled="true">Previous</span>}
-              <span aria-current="page">Page {page} of {totalPages}</span>
-              {page < totalPages ? <Link href={`/blogs?page=${page + 1}`}>Next</Link> : <span aria-disabled="true">Next</span>}
-            </nav>
+            {totalPages > 1 && (
+              <nav className="rz-blog-pagination" aria-label="Blog pages">
+                {page > 1 && <Link href={`/blogs?page=${page - 1}`}>Previous</Link>}
+                <span aria-current="page">Page {page} of {totalPages}</span>
+                {page < totalPages && <Link href={`/blogs?page=${page + 1}`}>Next</Link>}
+              </nav>
+            )}
           </div>
         </section>
       </main>
