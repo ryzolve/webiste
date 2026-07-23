@@ -81,3 +81,16 @@ test('aligns blog hero CTAs with the left edge of the hero copy', async () => {
     /\.rz-blog-hero \.rz-page-hero-actions\s*\{\s*justify-content:\s*flex-start;/
   );
 });
+
+test('gives the CTA row breathing room and aligns the FAQ list with its section copy', async () => {
+  const css = await read('src/redesign/site.css');
+
+  assert.match(
+    css,
+    /\.rz-blog-hero \.rz-page-hero-actions\s*\{[\s\S]*?margin-top:\s*28px;/
+  );
+  assert.match(
+    css,
+    /\.rz-blog-faq-list\s*\{\s*max-width:\s*1120px;\s*margin:\s*42px 0 0;/
+  );
+});

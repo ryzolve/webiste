@@ -4823,7 +4823,10 @@ button.rz-btn-blue {
   font-size: 19px;
   line-height: 1.6;
 }
-.rz-blog-hero .rz-page-hero-actions { justify-content: flex-start; }
+.rz-blog-hero .rz-page-hero-actions {
+  justify-content: flex-start;
+  margin-top: 28px;
+}
 .rz-blog-hero .rz-btn-ghost {
   background: var(--rz-paper);
   color: var(--rz-blue);
@@ -4935,8 +4938,8 @@ button.rz-btn-blue {
   font-weight: 700;
 }
 .rz-blog-faq-list {
-  max-width: 920px;
-  margin: 42px auto 0;
+  max-width: 1120px;
+  margin: 42px 0 0;
   border-top: 1px solid var(--rz-rule);
 }
 .rz-blog-faq { border-bottom: 1px solid var(--rz-rule); }
