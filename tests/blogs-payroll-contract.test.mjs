@@ -72,3 +72,12 @@ test('keeps the blog hero contained and its secondary CTA visible on light backg
   );
   assert.match(css, /\.rz-blog-hero \.rz-btn-ghost\s*\{[\s\S]*?color:\s*var\(--rz-blue\);/);
 });
+
+test('aligns blog hero CTAs with the left edge of the hero copy', async () => {
+  const css = await read('src/redesign/site.css');
+
+  assert.match(
+    css,
+    /\.rz-blog-hero \.rz-page-hero-actions\s*\{\s*justify-content:\s*flex-start;/
+  );
+});

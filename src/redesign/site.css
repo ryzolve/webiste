@@ -4823,6 +4823,7 @@ button.rz-btn-blue {
   font-size: 19px;
   line-height: 1.6;
 }
+.rz-blog-hero .rz-page-hero-actions { justify-content: flex-start; }
 .rz-blog-hero .rz-btn-ghost {
   background: var(--rz-paper);
   color: var(--rz-blue);
