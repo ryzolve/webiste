@@ -9,9 +9,10 @@ import { Toaster } from "sonner";
 // the live pages render. No legacy template CSS/providers are loaded.
 import "redesign/site.css";
 
-// Optional, env-driven SEO/analytics wiring. Leave the env vars unset to disable.
+// Optional, env-driven SEO/analytics wiring. The public GA4 ID is a safe fallback
+// so production tracking cannot be accidentally omitted from a deployment build.
 const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-52HDP4VLQG';
 
 function MyApp({ Component, pageProps }: AppProps) {
   // GA4 SPA page_view on client-side route changes.
