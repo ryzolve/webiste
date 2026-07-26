@@ -23,6 +23,8 @@ export type BlogCapabilityEntry = {
   eyebrow: string;
   title: string;
   description: string;
+  publishedAt: string;
+  readingMinutes: number;
   keywords: string[];
   solutionTitle: string;
   solutionDescription: string;
@@ -45,6 +47,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'How Texas PAS Agencies Can Keep EVV Data Ready for Payroll Processing',
     description:
       'A practical guide to reviewing current clock-in/clock-out data before payroll processing at a Texas PAS agency.',
+    publishedAt: '2026-07-22',
+    readingMinutes: 7,
     keywords: [
       'Texas PAS payroll reporting',
       'payroll-ready EVV data',

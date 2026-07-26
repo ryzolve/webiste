@@ -22,7 +22,12 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         keywords={entry.keywords}
         type="article"
       />
-      <ArticleJsonLd title={entry.title} description={entry.description} path={path} />
+      <ArticleJsonLd
+        title={entry.title}
+        description={entry.description}
+        path={path}
+        datePublished={entry.publishedAt}
+      />
       <FaqJsonLd items={entry.faqs} path={path} />
       <BreadcrumbJsonLd
         items={[

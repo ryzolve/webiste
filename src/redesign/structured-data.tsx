@@ -235,10 +235,12 @@ export function ArticleJsonLd({
   title,
   description,
   path,
+  datePublished,
 }: {
   title: string;
   description: string;
   path: string;
+  datePublished: string;
 }) {
   return (
     <JsonLd
@@ -248,6 +250,7 @@ export function ArticleJsonLd({
         '@id': schemaId(path, 'article'),
         headline: title,
         description,
+        datePublished,
         url: abs(path),
         mainEntityOfPage: { '@type': 'WebPage', '@id': abs(path) },
         author: { '@id': orgId() },

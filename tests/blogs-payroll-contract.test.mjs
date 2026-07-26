@@ -101,6 +101,20 @@ test('aligns blog hero CTAs with the left edge of the hero copy', async () => {
   );
 });
 
+test('defines publication metadata and exposes it through article schema', async () => {
+  const content = await read('src/redesign/blog-content.ts');
+  const page = await read('src/redesign/BlogCapabilityPage.tsx');
+  const schema = await read('src/redesign/structured-data.tsx');
+
+  assert.match(content, /publishedAt: string;/);
+  assert.match(content, /readingMinutes: number;/);
+  assert.match(content, /publishedAt: '2026-07-22'/);
+  assert.match(content, /readingMinutes: 7/);
+  assert.match(page, /datePublished=\{entry\.publishedAt\}/);
+  assert.match(schema, /datePublished: string;/);
+  assert.match(schema, /datePublished,/);
+});
+
 test('gives the CTA row breathing room and aligns the FAQ list with its section copy', async () => {
   const css = await read('src/redesign/site.css');
 
