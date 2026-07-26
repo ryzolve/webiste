@@ -4794,6 +4794,112 @@ button.rz-btn-blue {
 }
 .rz-legal-article p:last-child { margin-bottom: 0; }
 
+/* ─── Blog listing ────────────────────────────────────────── */
+.rz-blog-index-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 52px 56px 64px;
+  border-bottom: 1px solid var(--rz-rule);
+  background:
+    radial-gradient(circle at 22% 34%, rgb(215 237 248 / 72%), transparent 34%),
+    radial-gradient(circle at 80% 52%, rgb(255 226 211 / 72%), transparent 35%),
+    var(--rz-bg);
+}
+.rz-blog-index-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 960px);
+  margin: 0 auto;
+  text-align: center;
+}
+.rz-blog-index-hero h1 {
+  margin: 18px 0 0;
+  color: var(--rz-ink);
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+.rz-blog-index-hero-description {
+  max-width: 720px;
+  margin: 24px auto 0;
+  color: var(--rz-ink-2);
+  font-size: 19px;
+  line-height: 1.6;
+}
+.rz-blog-index-section { padding-top: 56px; }
+.rz-blog-index-section .rz-shead { margin-bottom: 32px; }
+.rz-blog-index-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1120px;
+}
+.rz-blog-index-grid > :only-child { max-width: 760px; }
+.rz-blog-index-card {
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  padding: 30px;
+  border: 1px solid var(--rz-rule);
+  border-radius: 18px;
+  background: var(--rz-paper);
+  box-shadow: 0 16px 44px rgb(17 35 52 / 6%);
+  color: var(--rz-ink);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+.rz-blog-index-card:hover,
+.rz-blog-index-card:focus-visible {
+  border-color: rgb(13 89 146 / 48%);
+  box-shadow: 0 20px 52px rgb(17 35 52 / 10%);
+  transform: translateY(-3px);
+}
+.rz-blog-index-card:focus-visible {
+  outline: 3px solid rgb(13 89 146 / 24%);
+  outline-offset: 4px;
+}
+.rz-blog-index-category {
+  color: var(--rz-blue);
+  font-family: var(--rz-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.rz-blog-index-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+  color: var(--rz-muted);
+  font-size: 13px;
+}
+.rz-blog-index-card > strong {
+  max-width: 680px;
+  margin-top: 28px;
+  font-size: clamp(24px, 3vw, 34px);
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+.rz-blog-index-description {
+  max-width: 650px;
+  margin-top: 16px;
+  color: var(--rz-ink-2);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.rz-blog-index-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 30px;
+  color: var(--rz-blue);
+  font-weight: 650;
+}
+.rz-blog-index-card:hover .rz-blog-index-action span { transform: translateX(3px); }
+.rz-blog-index-action span { transition: transform 180ms ease; }
+
 /* ─── Blog capability pages ───────────────────────────────── */
 .rz-blog-hero {
   padding: 72px 56px 80px;
@@ -5071,6 +5177,13 @@ button.rz-btn-blue {
 }
 
 @media (max-width: 760px) {
+  .rz-blog-index-hero { padding: 38px 24px 48px; }
+  .rz-blog-index-hero h1 { font-size: clamp(38px, 11vw, 54px); }
+  .rz-blog-index-hero-description { font-size: 17px; }
+  .rz-blog-index-section { padding-top: 42px; }
+  .rz-blog-index-grid { grid-template-columns: 1fr; }
+  .rz-blog-index-card { min-height: 0; padding: 24px; }
+  .rz-blog-index-card > strong { font-size: 25px; }
   .rz-blog-hero { padding: 48px 24px 56px; }
   .rz-blog-hero-grid,
   .rz-blog-two-column { grid-template-columns: 1fr; gap: 36px; }
@@ -5080,6 +5193,16 @@ button.rz-btn-blue {
   .rz-blog-workflow-card { min-height: 0; }
   .rz-blog-related-grid { grid-template-columns: 1fr; margin-top: 30px; }
   .rz-blog-final-cta-inner { align-items: flex-start; flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rz-tr-accent-underline,
+  .rz-blog-index-card,
+  .rz-blog-index-action span {
+    animation: none;
+    transition: none;
+  }
+  .rz-tr-accent-underline { transform: scaleX(1); }
 }
 
 @media (max-width: 760px) {

@@ -81,15 +81,15 @@ test('preserves existing product routes and keeps unsupported claims out of new 
   }
 });
 
-test('keeps the blog hero contained and its secondary CTA visible on light backgrounds', async () => {
+test('styles the blog hub with the shared gradient hero and compact section rhythm', async () => {
   const css = await read('src/redesign/site.css');
 
-  assert.match(css, /\.rz-blog-hero\s*\{\s*padding:\s*72px 56px 80px;/);
-  assert.match(
-    css,
-    /@media \(max-width: 1080px\)\s*\{[\s\S]*?\.rz-blog-hero-grid\s*\{\s*grid-template-columns:\s*1fr;/
-  );
-  assert.match(css, /\.rz-blog-hero \.rz-btn-ghost\s*\{[\s\S]*?color:\s*var\(--rz-blue\);/);
+  assert.match(css, /\.rz-blog-index-hero\s*\{[\s\S]*?background:[\s\S]*?radial-gradient/);
+  assert.match(css, /\.rz-blog-index-hero-inner\s*\{[\s\S]*?text-align:\s*center;/);
+  assert.match(css, /\.rz-blog-index-section\s*\{[\s\S]*?padding-top:\s*56px;/);
+  assert.match(css, /\.rz-blog-index-grid\s*\{[\s\S]*?grid-template-columns:/);
+  assert.match(css, /\.rz-blog-index-card:focus-visible/);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.rz-blog-index-grid\s*\{[\s\S]*?grid-template-columns:\s*1fr;/);
 });
 
 test('aligns blog hero CTAs with the left edge of the hero copy', async () => {
