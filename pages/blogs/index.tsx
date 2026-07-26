@@ -22,6 +22,17 @@ function parsePage(value: string | string[] | undefined) {
   return Number.isInteger(parsed) && parsed > 0 ? parsed : 1;
 }
 
+const blogDateFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
+function formatPublishedDate(value: string) {
+  return blogDateFormatter.format(new Date(`${value}T00:00:00Z`));
+}
+
 export default function BlogsIndexPage({ entries, page, totalPages }: BlogIndexProps) {
   return (
     <SiteLayout active="blogs">
@@ -39,28 +50,47 @@ export default function BlogsIndexPage({ entries, page, totalPages }: BlogIndexP
         path="/blogs"
       />
       <main>
-        <section className="rz-blog-hero">
-          <div className="rz-wrap">
+        <section className="rz-blog-index-hero">
+          <div className="rz-blog-index-hero-inner">
+            <p className="rz-breadcrumb rz-about-breadcrumb">
+              <Link href="/">Home</Link>
+              <span aria-hidden="true">/</span>
+              <span>Blogs</span>
+            </p>
             <p className="rz-eyebrow">Ryzolve blogs</p>
-            <h1>Workflow guides for Texas PAS agencies.</h1>
-            <p className="rz-blog-hero-description">
+            <h1>
+              Workflow guides for{' '}
+              <span className="rz-tr-accent">
+                Texas PAS agencies
+                <span className="rz-tr-accent-underline" aria-hidden="true" />
+              </span>
+              .
+            </h1>
+            <p className="rz-blog-index-hero-description">
               Practical pages about the workflows that keep agency data, records, and teams ready for the next step.
             </p>
           </div>
         </section>
-        <section className="rz-section bg-bg" aria-labelledby="blog-list-title">
+        <section className="rz-blog-index-section" aria-labelledby="blog-list-title">
           <div className="rz-wrap">
             <div className="rz-shead">
-              <p className="rz-eyebrow">Explore the workflows</p>
-              <h2 id="blog-list-title">Start with a workflow guide.</h2>
+              <p className="rz-eyebrow">Latest guides</p>
+              <h2 id="blog-list-title">Practical guidance for connected agency workflows.</h2>
             </div>
-            <div className="rz-blog-related-grid">
+            <div className="rz-blog-index-grid">
               {entries.map((entry) => (
-                <Link className="rz-blog-related-card" href={`/blogs/${entry.slug}`} key={entry.slug}>
-                  <span className="rz-panel-eyebrow">{entry.eyebrow}</span>
+                <Link className="rz-blog-index-card" href={`/blogs/${entry.slug}`} key={entry.slug}>
+                  <span className="rz-blog-index-category">{entry.eyebrow}</span>
+                  <span className="rz-blog-index-meta">
+                    <time dateTime={entry.publishedAt}>{formatPublishedDate(entry.publishedAt)}</time>
+                    <span aria-hidden="true">·</span>
+                    <span>{entry.readingMinutes} min read</span>
+                  </span>
                   <strong>{entry.title}</strong>
-                  <span>{entry.description}</span>
-                  <span aria-hidden="true">→</span>
+                  <span className="rz-blog-index-description">{entry.description}</span>
+                  <span className="rz-blog-index-action">
+                    Read guide <span aria-hidden="true">→</span>
+                  </span>
                 </Link>
               ))}
             </div>

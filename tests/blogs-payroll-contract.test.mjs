@@ -115,6 +115,21 @@ test('defines publication metadata and exposes it through article schema', async
   assert.match(schema, /datePublished,/);
 });
 
+test('renders a branded blog hub with semantic editorial cards', async () => {
+  const indexRoute = await read('pages/blogs/index.tsx');
+
+  assert.match(indexRoute, /className="rz-blog-index-hero"/);
+  assert.match(indexRoute, /className="rz-tr-accent"/);
+  assert.match(indexRoute, /className="rz-tr-accent-underline"/);
+  assert.match(indexRoute, /className="rz-blog-index-grid"/);
+  assert.match(indexRoute, /className="rz-blog-index-card"/);
+  assert.match(indexRoute, /<time dateTime=\{entry\.publishedAt\}>/);
+  assert.match(indexRoute, /\{entry\.readingMinutes\} min read/);
+  assert.match(indexRoute, /Read guide/);
+  assert.doesNotMatch(indexRoute, /className="rz-blog-related-grid"/);
+  assert.doesNotMatch(indexRoute, /className="rz-blog-related-card"/);
+});
+
 test('gives the CTA row breathing room and aligns the FAQ list with its section copy', async () => {
   const css = await read('src/redesign/site.css');
 
