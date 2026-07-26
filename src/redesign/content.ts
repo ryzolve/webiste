@@ -478,6 +478,18 @@ export const testimonials: { eyebrow: string; title: string; items: TestimonialI
       cardTitle: 'How Ryzolve streamlines a Texas PAS agency.',
       cardSub: 'A short walkthrough of where Ryzolve fits — from intake to claim paid.',
     },
+    {
+      name: 'Lola',
+      role: 'CFO, TRM Hospice Care',
+      quote:
+        'Four years with Ryzolve and we have not received a single penalty. The compliance side runs itself — that alone paid for it.',
+    },
+    {
+      name: 'Marcus',
+      role: 'Administrator, Lone Star Home Health',
+      quote:
+        'Onboarding a new aide used to take half a day. Now it is twenty minutes, and nothing slips. The team actually likes the software.',
+    },
   ],
 };
 

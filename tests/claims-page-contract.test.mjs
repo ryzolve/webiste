@@ -70,3 +70,12 @@ test('keeps approved internal links and removes unsupported outcome claims', asy
     assert.doesNotMatch(source, /99\.2%|86%|zero penalties|no penalties|recovered revenue|first-pass claim acceptance/i);
   }
 });
+
+test('keeps the approved customer testimonials beside the homepage video', async () => {
+  const content = await read('src/redesign/content.ts');
+  const site = await read('src/redesign/site.tsx');
+
+  assert.match(content, /name: 'Lola'/);
+  assert.match(content, /name: 'Marcus'/);
+  assert.match(site, /const quotes = testimonials\.items\.filter\(\(t\) => !t\.media\)\.slice\(0, 2\);/);
+});
