@@ -92,6 +92,16 @@ test('styles the blog hub with the shared gradient hero and compact section rhyt
   assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.rz-blog-index-grid\s*\{[\s\S]*?grid-template-columns:\s*1fr;/);
 });
 
+test('keeps blog cards and their focus rings inside responsive page gutters', async () => {
+  const css = await read('src/redesign/site.css');
+
+  assert.match(css, /\.rz-blog-index-section\s*\{[\s\S]*?padding-inline:\s*56px;/);
+  assert.match(
+    css,
+    /@media \(max-width: 760px\)[\s\S]*?\.rz-blog-index-section\s*\{[\s\S]*?padding-inline:\s*24px;/
+  );
+});
+
 test('aligns blog hero CTAs with the left edge of the hero copy', async () => {
   const css = await read('src/redesign/site.css');
 

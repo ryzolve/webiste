@@ -4827,7 +4827,10 @@ button.rz-btn-blue {
   font-size: 19px;
   line-height: 1.6;
 }
-.rz-blog-index-section { padding-top: 56px; }
+.rz-blog-index-section {
+  padding-top: 56px;
+  padding-inline: 56px;
+}
 .rz-blog-index-section .rz-shead { margin-bottom: 32px; }
 .rz-blog-index-grid {
   display: grid;
@@ -5180,7 +5183,10 @@ button.rz-btn-blue {
   .rz-blog-index-hero { padding: 38px 24px 48px; }
   .rz-blog-index-hero h1 { font-size: clamp(38px, 11vw, 54px); }
   .rz-blog-index-hero-description { font-size: 17px; }
-  .rz-blog-index-section { padding-top: 42px; }
+  .rz-blog-index-section {
+    padding-top: 42px;
+    padding-inline: 24px;
+  }
   .rz-blog-index-grid { grid-template-columns: 1fr; }
   .rz-blog-index-card { min-height: 0; padding: 24px; }
   .rz-blog-index-card > strong { font-size: 25px; }
