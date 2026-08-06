@@ -382,71 +382,126 @@ export const blank = {
 // data snapshot). This is the SOFTWARE SKU (per-client pricing), distinct from
 // the Training page's In-Service plans (per-learner). Prices exist in the data
 // but stay hidden, mirroring the old site's `enable_pricing` flag being off.
+interface PlatformPlan {
+  name: string;
+  suggestedFor: string;
+  monthly: number;
+  support: string;
+  customPricing: boolean;
+  features: string[];
+  /** Small pill under the plan name (e.g. "Standalone Plan"). */
+  badge?: string;
+  /** Draws the accent rule down the column. */
+  highlight?: boolean;
+  /** Overrides the default "Choose Plan" button label. */
+  cta?: string;
+}
+
 export const platformPricing = {
   eyebrow: 'Plans that grow with you',
-  title: 'Ryzolve - Built for Care. Designed for Agencies.',
+  title: 'Ryzolve — Built for Care. Designed for Agencies.',
   subtitle: 'All-In-One Software for PAS & Private Care Providers',
   lead: 'Flexible pricing that grows with you. No overage fees. No surprises. Just simple pricing based on your average monthly client count.',
-  enablePricing: false,
+  // Pill under the lead — clarifies that Private Care is both a standalone
+  // plan (its own column) and an add-on to Growth and above.
+  noteLine:
+    'All plans cover core PAS operations. Private Care is also available as its own standalone plan, or as an add-on to any Growth plan or above.',
+  // Prices are shown on this table (the client's pricing sheet lists them).
+  enablePricing: true,
   featureRows: [
     'Time Tracking',
     'Digital Approvals',
     'Payroll Reports & Claims Prep',
-    'Private Care Module',
+    'Claims & Billing Tools',
+    'Electronic Messaging',
   ],
   plans: [
     {
       name: 'Starter',
-      suggestedFor: 'Up to 10 Clients',
-      monthly: 99,
-      yearly: 1188,
+      suggestedFor: 'Up to 10 clients',
+      monthly: 199,
       support: 'Email',
-      customPricing: false,
-      features: ['Time Tracking', 'Digital Approvals'],
-    },
-    {
-      name: 'Growth',
-      suggestedFor: 'Up to 50 Clients',
-      monthly: 249,
-      yearly: 2988,
-      support: 'Priority Emails',
       customPricing: false,
       features: [
         'Time Tracking',
         'Digital Approvals',
         'Payroll Reports & Claims Prep',
-        'Private Care Module',
+        'Claims & Billing Tools',
+        'Electronic Messaging',
+      ],
+    },
+    {
+      name: 'Growth',
+      suggestedFor: 'Up to 50 clients',
+      monthly: 349,
+      support: 'Priority Email',
+      customPricing: false,
+      features: [
+        'Time Tracking',
+        'Digital Approvals',
+        'Payroll Reports & Claims Prep',
+        'Claims & Billing Tools',
+        'Electronic Messaging',
       ],
     },
     {
       name: 'Professional',
-      suggestedFor: 'Up to 100 Clients',
+      suggestedFor: 'Up to 100 clients',
       monthly: 499,
-      yearly: 5988,
       support: 'Email + Phone',
       customPricing: false,
       features: [
         'Time Tracking',
         'Digital Approvals',
         'Payroll Reports & Claims Prep',
-        'Private Care Module',
+        'Claims & Billing Tools',
+        'Electronic Messaging',
       ],
     },
     {
       name: 'Enterprise',
-      suggestedFor: '100+ Clients',
+      suggestedFor: '100+ clients',
       monthly: 0,
-      yearly: 0,
       support: 'Dedicated CSM',
       customPricing: true,
+      cta: 'Contact Us',
       features: [
         'Time Tracking',
         'Digital Approvals',
         'Payroll Reports & Claims Prep',
-        'Private Care Module',
+        'Claims & Billing Tools',
+        'Electronic Messaging',
       ],
     },
-  ],
+    {
+      // Standalone private-pay plan — highlighted column with an accent rule,
+      // and deliberately WITHOUT claims/billing + electronic messaging.
+      name: 'Private Care Only',
+      badge: 'Standalone Plan',
+      highlight: true,
+      suggestedFor: 'Private-pay clients only',
+      monthly: 79,
+      support: 'Email',
+      customPricing: false,
+      features: ['Time Tracking', 'Digital Approvals', 'Payroll Reports & Claims Prep'],
+    },
+  ] as PlatformPlan[],
+  addOns: {
+    title: 'Add-Ons — Extend Your Plan',
+    lead: 'Already on Starter, Growth, Professional, or Enterprise? Layer Private Care onto your existing plan instead of switching.',
+    items: [
+      {
+        name: 'Private Care Module',
+        description:
+          'Manage private-pay clients: caregiver clock-in/out, client-approved timesheets, and payroll/margin reporting — added directly onto your current plan.',
+        meta: [
+          'Starting at $79/mo',
+          'Scales with private-pay client count',
+          'Available on Growth plans and above',
+        ],
+      },
+    ],
+  },
   note: "We monitor your monthly average to help you stay on the right plan. Temporary spikes won't affect your billing, and we'll only recommend upgrades when consistent growth is seen.",
 };
 

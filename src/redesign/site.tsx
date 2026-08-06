@@ -1251,6 +1251,12 @@ function PlanFeatureMark({ included }: { included: boolean }) {
   );
 }
 
+/* Left accent rule down a highlighted column (the standalone Private Care plan),
+   mirroring the pricing sheet's orange column marker. */
+function accent(plan: { highlight?: boolean }) {
+  return plan.highlight ? ' border-l-2 border-l-coral' : '';
+}
+
 function PlatformPricingSection() {
   const [leadPlan, setLeadPlan] = useState<string | null>(null);
   const p = platformPricing;
@@ -1262,35 +1268,41 @@ function PlatformPricingSection() {
           <h2>{p.title}</h2>
           <p className="mt-3 text-[17px] font-medium text-ink-2">{p.subtitle}</p>
           <p className="mt-2 text-muted">{p.lead}</p>
+          {p.noteLine && (
+            <p className="mt-5 inline-block rounded-full bg-blue/[0.07] px-4 py-2 text-[13.5px] text-blue">
+              {p.noteLine}
+            </p>
+          )}
         </div>
 
         <div className="overflow-x-auto rounded-2xl border border-rule bg-paper shadow-[0_1px_2px_rgba(11,14,18,0.04)]">
-          <table className="w-full min-w-[720px] border-collapse text-left text-[15px]">
+          <table className="w-full min-w-[860px] border-collapse text-left text-[15px]">
             <thead>
               <tr className="border-b border-rule">
                 <th className="px-5 py-4 font-semibold text-ink">Features</th>
                 {p.plans.map((plan) => (
-                  <th key={plan.name} className="px-5 py-4 text-center font-semibold text-ink">
+                  <th
+                    key={plan.name}
+                    className={`px-5 py-4 text-center font-semibold text-ink${accent(plan)}`}
+                  >
                     {plan.name}
+                    {plan.badge && (
+                      <span className="mt-1.5 block text-[10px] font-bold uppercase tracking-wide text-coral">
+                        {plan.badge}
+                      </span>
+                    )}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {p.enablePricing && (
-                <tr className="border-b border-rule-soft">
-                  <td className="px-5 py-4 text-ink-2">Monthly</td>
-                  {p.plans.map((plan) => (
-                    <td key={plan.name} className="px-5 py-4 text-center text-ink-2">
-                      {plan.customPricing ? 'Custom' : `$${plan.monthly}`}
-                    </td>
-                  ))}
-                </tr>
-              )}
               <tr className="border-b border-rule-soft">
                 <td className="px-5 py-4 text-ink-2">Suggested For</td>
                 {p.plans.map((plan) => (
-                  <td key={plan.name} className="px-5 py-4 text-center text-ink-2">
+                  <td
+                    key={plan.name}
+                    className={`px-5 py-4 text-center text-muted${accent(plan)}`}
+                  >
                     {plan.suggestedFor}
                   </td>
                 ))}
@@ -1299,7 +1311,7 @@ function PlatformPricingSection() {
                 <tr key={feature} className="border-b border-rule-soft">
                   <td className="px-5 py-4 text-ink-2">{feature}</td>
                   {p.plans.map((plan) => (
-                    <td key={plan.name} className="px-5 py-4 text-center">
+                    <td key={plan.name} className={`px-5 py-4 text-center${accent(plan)}`}>
                       <PlanFeatureMark included={plan.features.includes(feature)} />
                     </td>
                   ))}
@@ -1308,17 +1320,37 @@ function PlatformPricingSection() {
               <tr className="border-b border-rule-soft">
                 <td className="px-5 py-4 text-ink-2">Support</td>
                 {p.plans.map((plan) => (
-                  <td key={plan.name} className="px-5 py-4 text-center text-ink-2">
+                  <td
+                    key={plan.name}
+                    className={`px-5 py-4 text-center text-ink-2${accent(plan)}`}
+                  >
                     {plan.support}
                   </td>
                 ))}
               </tr>
+              {p.enablePricing && (
+                <tr>
+                  <td className="px-5 pt-5" />
+                  {p.plans.map((plan) => (
+                    <td
+                      key={plan.name}
+                      className={`px-5 pt-5 text-center font-bold text-ink${accent(plan)}`}
+                    >
+                      {plan.customPricing ? 'Custom' : `Starting at $${plan.monthly}/mo`}
+                    </td>
+                  ))}
+                </tr>
+              )}
               <tr>
                 <td className="px-5 py-5" />
                 {p.plans.map((plan) => (
-                  <td key={plan.name} className="px-4 py-5 text-center">
-                    <ButtonBtn variant="coral" icon={false} onClick={() => setLeadPlan(plan.name)}>
-                      Choose Plan
+                  <td key={plan.name} className={`px-4 py-5 text-center${accent(plan)}`}>
+                    <ButtonBtn
+                      variant={plan.customPricing ? 'primary' : 'coral'}
+                      icon={false}
+                      onClick={() => setLeadPlan(plan.name)}
+                    >
+                      {plan.cta ?? 'Choose Plan'}
                     </ButtonBtn>
                   </td>
                 ))}
@@ -1327,7 +1359,42 @@ function PlatformPricingSection() {
           </table>
         </div>
 
-        <p className="mx-auto mt-6 max-w-[820px] text-center text-[14px] text-muted">
+        {p.addOns && (
+          <div className="mt-14">
+            <h3 className="text-center text-[22px] font-extrabold tracking-[-0.01em]">
+              {p.addOns.title}
+            </h3>
+            <p className="mx-auto mt-2 max-w-[640px] text-center text-muted">{p.addOns.lead}</p>
+            {p.addOns.items.map((item) => (
+              <div
+                key={item.name}
+                className="mx-auto mt-7 flex max-w-[760px] items-start gap-6 rounded-2xl border border-blue/20 bg-blue/[0.05] p-7 max-[640px]:flex-col max-[640px]:gap-4"
+              >
+                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue text-[18px] font-extrabold text-white">
+                  +
+                </div>
+                <div>
+                  <h4 className="text-[16px] font-extrabold">{item.name}</h4>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-ink-2">
+                    {item.description}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2.5">
+                    {item.meta.map((m) => (
+                      <span
+                        key={m}
+                        className="rounded-full border border-blue/20 bg-paper px-3 py-1.5 text-[13px] font-semibold text-blue"
+                      >
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <p className="mx-auto mt-10 max-w-[820px] text-center text-[14px] text-muted">
           <strong className="text-ink-2">Note</strong>: {p.note}
         </p>
       </div>
