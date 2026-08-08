@@ -15,7 +15,7 @@ export const routes = [
 
 export const company = {
   name: 'Ryzolve LLC',
-  address: '9309 Highway 75 S Ste 102, New Waverly, TX 77358',
+  address: '9309 Highway 75 S, New Waverly, TX 77358',
   email: 'pas@ryzolve.com',
   phone: '9363550920',
   phoneDisplay: '(936) 355-0920',

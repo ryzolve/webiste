@@ -42,7 +42,7 @@ function schemaId(path: string, type: string) {
 
 const POSTAL_ADDRESS = {
   '@type': 'PostalAddress',
-  streetAddress: '9309 Highway 75 S Ste 102',
+  streetAddress: '9309 Highway 75 S',
   addressLocality: 'New Waverly',
   addressRegion: 'TX',
   postalCode: '77358',

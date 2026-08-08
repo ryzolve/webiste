@@ -133,7 +133,7 @@ export const privacyPolicy: LegalPolicy = {
       heading: 'Changes and Contact',
       body: [
         'We may update this policy as our website, services, or legal obligations change. We will post the updated version on this page and update the last-updated date.',
-        'For privacy questions or requests, contact Ryzolve LLC at pas@ryzolve.com or 9309 Highway 75 S Ste 102, New Waverly, TX 77358.',
+        'For privacy questions or requests, contact Ryzolve LLC at pas@ryzolve.com or 9309 Highway 75 S, New Waverly, TX 77358.',
       ],
     },
   ],
@@ -269,7 +269,7 @@ export const termsPolicy: LegalPolicy = {
       heading: 'Changes and Contact',
       body: [
         'We may update these Terms from time to time. Updated Terms will be posted on this page with a revised last-updated date. Your continued use after an update means you accept the updated Terms.',
-        'For questions about these Terms, contact Ryzolve LLC at pas@ryzolve.com or 9309 Highway 75 S Ste 102, New Waverly, TX 77358.',
+        'For questions about these Terms, contact Ryzolve LLC at pas@ryzolve.com or 9309 Highway 75 S, New Waverly, TX 77358.',
       ],
     },
   ],
@@ -367,7 +367,7 @@ export const cookiesPolicy: LegalPolicy = {
       heading: 'Changes and Contact',
       body: [
         'We may update this Cookie Policy as our technologies or practices change. We will post the updated version on this page and revise the last-updated date.',
-        'For questions about cookies or this policy, contact Ryzolve LLC at pas@ryzolve.com or 9309 Highway 75 S Ste 102, New Waverly, TX 77358.',
+        'For questions about cookies or this policy, contact Ryzolve LLC at pas@ryzolve.com or 9309 Highway 75 S, New Waverly, TX 77358.',
       ],
     },
   ],
