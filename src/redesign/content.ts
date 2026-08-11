@@ -411,7 +411,7 @@ export const platformPricing = {
   // Pill under the lead — clarifies that Private Care is both a standalone
   // plan (its own column) and an add-on to Growth and above.
   noteLine:
-    'All plans cover core PAS operations. Private Care is also available as its own standalone plan, or as an add-on to any Growth plan or above.',
+    'All plans cover core PAS operations. Private Care is also available as its own standalone plan, or as an add-on to any plan.',
   // Prices are shown on this table (the client's pricing sheet lists them).
   enablePricing: true,
   featureRows: [
@@ -436,7 +436,7 @@ export const platformPricing = {
         'Claims & Billing Tools',
         'Electronic Messaging',
       ],
-      featureValues: { 'Client Invoicing & Payments': 'N/A' },
+      featureValues: { 'Client Invoicing & Payments': 'Add-On' },
     },
     {
       name: 'Growth',
@@ -515,7 +515,7 @@ export const platformPricing = {
         meta: [
           'Starting at $79/mo',
           'Scales with private-pay client count',
-          'Available on Growth plans and above',
+          'Available on any plan',
         ],
       },
     ],
