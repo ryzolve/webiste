@@ -1295,7 +1295,8 @@ function PlatformPricingSection() {
           )}
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-rule bg-paper shadow-[0_1px_2px_rgba(11,14,18,0.04)]">
+        <div className="overflow-hidden rounded-2xl border border-rule bg-paper shadow-[0_1px_2px_rgba(11,14,18,0.04)]">
+          <div className="overflow-x-auto">
           <table className="w-full min-w-[860px] border-collapse text-left text-[15px]">
             <thead>
               <tr className="border-b border-rule">
@@ -1377,42 +1378,42 @@ function PlatformPricingSection() {
               </tr>
             </tbody>
           </table>
-        </div>
-
-        {p.addOns && (
-          <div className="mt-14">
-            <h3 className="text-center text-[22px] font-extrabold tracking-[-0.01em]">
-              {p.addOns.title}
-            </h3>
-            <p className="mx-auto mt-2 max-w-[640px] text-center text-muted">{p.addOns.lead}</p>
-            {p.addOns.items.map((item) => (
-              <div
-                key={item.name}
-                className="mx-auto mt-7 flex max-w-[760px] items-start gap-6 rounded-2xl border border-blue/20 bg-blue/[0.05] p-7 max-[640px]:flex-col max-[640px]:gap-4"
-              >
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue text-[18px] font-extrabold text-white">
-                  +
-                </div>
-                <div>
-                  <h4 className="text-[16px] font-extrabold">{item.name}</h4>
-                  <p className="mt-1.5 text-[14px] leading-relaxed text-ink-2">
-                    {item.description}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2.5">
-                    {item.meta.map((m) => (
-                      <span
-                        key={m}
-                        className="rounded-full border border-blue/20 bg-paper px-3 py-1.5 text-[13px] font-semibold text-blue"
-                      >
-                        {m}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
-        )}
+
+          {/* Add-ons ride along as a footer band on the pricing card rather than
+              a separate section — one add-on didn't justify its own heading,
+              lead paragraph, and card. */}
+          {p.addOns?.items.map((item) => (
+            <div
+              key={item.name}
+              className="flex items-start gap-4 border-t border-rule bg-blue/[0.04] px-6 py-5 max-[720px]:flex-col max-[720px]:gap-3"
+            >
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-blue text-[16px] font-extrabold leading-none text-white">
+                +
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[15px] font-extrabold text-ink">
+                  {item.name}
+                  <span className="ml-2 align-middle text-[12px] font-semibold uppercase tracking-wide text-blue">
+                    Add-on
+                  </span>
+                </p>
+                <p className="mt-1 text-[14px] leading-relaxed text-ink-2">{item.description}</p>
+                <p className="mt-1 text-[13px] text-muted">{p.addOns?.lead}</p>
+              </div>
+              <div className="flex shrink-0 flex-wrap gap-2 max-[720px]:ml-0">
+                {item.meta.map((m) => (
+                  <span
+                    key={m}
+                    className="rounded-full border border-blue/20 bg-paper px-3 py-1.5 text-[13px] font-semibold text-blue"
+                  >
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
 
         <p className="mx-auto mt-10 max-w-[820px] text-center text-[14px] text-muted">
           <strong className="text-ink-2">Note</strong>: {p.note}
