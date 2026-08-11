@@ -4828,7 +4828,11 @@ button.rz-btn-blue {
   line-height: 1.6;
 }
 .rz-blog-index-section {
+  /* padding-bottom was missing: with one post there was no pagination, so
+     nothing ever sat on the section's bottom edge. With 20 posts the pager
+     renders and collided with the footer. */
   padding-top: 56px;
+  padding-bottom: 96px;
   padding-inline: 56px;
 }
 .rz-blog-index-section .rz-shead { margin-bottom: 32px; }
@@ -5155,6 +5159,7 @@ button.rz-btn-blue {
   color: var(--rz-muted);
   font-size: 13px;
 }
+.rz-blog-pagination + * { margin-top: 0; }
 .rz-blog-pagination a { color: var(--rz-blue); font-weight: 600; }
 .rz-blog-pagination a:hover,
 .rz-blog-pagination a:focus-visible { text-decoration: underline; }
@@ -5189,11 +5194,14 @@ button.rz-btn-blue {
   .rz-blog-index-hero-description { font-size: 17px; }
   .rz-blog-index-section {
     padding-top: 42px;
+    padding-bottom: 64px;
     padding-inline: 24px;
   }
   .rz-blog-index-grid { grid-template-columns: 1fr; }
-  .rz-blog-index-card { min-height: 0; padding: 24px; }
-  .rz-blog-index-card > strong { font-size: 25px; }
+  /* padding stays 0 — the image is full-bleed and the copy is inset by the
+     margin-inline rule above; re-adding padding here would double the inset. */
+  .rz-blog-index-card { min-height: 0; padding: 0; }
+  .rz-blog-index-card > strong { font-size: 20px; }
   .rz-blog-hero { padding: 48px 24px 56px; }
   .rz-blog-hero-grid,
   .rz-blog-two-column { grid-template-columns: 1fr; gap: 36px; }
