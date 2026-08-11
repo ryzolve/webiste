@@ -59,10 +59,10 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
                 </Link>
               </div>
             </div>
-            <div className="rz-blog-hero-panel" aria-label="Payroll-ready EVV workflow overview">
+            <div className="rz-blog-hero-panel" aria-label={`${entry.label} overview`}>
               <span className="rz-panel-eyebrow">{entry.label}</span>
-              <strong>Ready for payroll review</strong>
-              <p>Keep current time data in view as your agency prepares each payroll run.</p>
+              <strong>{entry.heroPanelTitle ?? entry.label}</strong>
+              <p>{entry.heroPanelDescription ?? entry.description}</p>
               <div className="rz-blog-hero-rule" />
               <span className="rz-blog-hero-note">Built for Texas PAS agencies.</span>
             </div>
@@ -102,7 +102,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
           <div className="rz-wrap rz-blog-two-column">
             <div className="rz-shead">
               <p className="rz-eyebrow">What your team can review</p>
-              <h2 id="blog-capabilities-title">Payroll data that stays ready for the next step.</h2>
+              <h2 id="blog-capabilities-title">{entry.capabilitiesTitle ?? 'What your team can review at a glance.'}</h2>
             </div>
             <ul className="rz-blog-capability-list">
               {entry.capabilities.map((capability) => (
@@ -119,12 +119,12 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
           <div className="rz-wrap">
             <div className="rz-shead rz-blog-section-head">
               <p className="rz-eyebrow">Questions Texas PAS teams ask</p>
-              <h2 id="blog-faq-title">Payroll-ready EVV data, in plain language.</h2>
+              <h2 id="blog-faq-title">{entry.faqTitle ?? `${entry.label}, in plain language.`}</h2>
             </div>
             <FaqAccordion
               answerClassName="rz-blog-faq-answer"
               buttonClassName="rz-blog-faq-button"
-              idPrefix="payroll-evv-faq"
+              idPrefix={`${entry.slug}-faq`}
               itemClassName="rz-blog-faq"
               items={entry.faqs}
               listClassName="rz-blog-faq-list"
@@ -136,7 +136,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
           <div className="rz-wrap">
             <div className="rz-shead rz-blog-section-head">
               <p className="rz-eyebrow">Connected Ryzolve workflows</p>
-              <h2 id="blog-related-title">Payroll work connects to the rest of your agency.</h2>
+              <h2 id="blog-related-title">{entry.relatedTitle ?? 'How this connects to the rest of your agency.'}</h2>
             </div>
             <div className="rz-blog-related-grid">
               {entry.relatedLinks.map((link) => (
@@ -154,7 +154,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
           <div className="rz-wrap rz-blog-final-cta-inner">
             <div>
               <p className="rz-eyebrow">Ready to review your workflow?</p>
-              <h2 id="blog-cta-title">See where payroll-ready data fits at your agency.</h2>
+              <h2 id="blog-cta-title">{entry.ctaTitle ?? 'See where this fits at your agency.'}</h2>
             </div>
             <Link className="rz-btn rz-btn-coral" href={entry.ctaHref}>
               <span>{entry.ctaLabel}</span>
