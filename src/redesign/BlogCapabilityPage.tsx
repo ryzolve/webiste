@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import Link from 'next/link';
 
 import SEO from './SEO';
@@ -38,7 +39,14 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
       />
 
       <main>
-        <section className="rz-blog-hero">
+        <section
+          className={`rz-blog-hero${entry.image ? ' rz-blog-hero--image' : ''}`}
+          style={entry.image ? ({ ['--rz-hero-image']: `url(${entry.image})` } as CSSProperties) : undefined}
+          // A CSS background isn't announced, so carry the alt text on the section.
+          {...(entry.image && entry.imageAlt
+            ? { 'aria-label': entry.imageAlt, role: 'img' as const }
+            : {})}
+        >
           <div className="rz-wrap rz-blog-hero-grid">
             <div className="rz-blog-hero-copy">
               <Link className="rz-blog-back" href="/blogs">
@@ -59,16 +67,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
                 </Link>
               </div>
             </div>
-            {entry.image ? (
-              <figure className="rz-blog-hero-figure">
-                <img
-                  alt={entry.imageAlt ?? ''}
-                  height={669}
-                  src={entry.image}
-                  width={1200}
-                />
-              </figure>
-            ) : (
+            {entry.image ? null : (
             <div className="rz-blog-hero-panel" aria-label={`${entry.label} overview`}>
               <span className="rz-panel-eyebrow">{entry.label}</span>
               <strong>{entry.heroPanelTitle ?? entry.label}</strong>

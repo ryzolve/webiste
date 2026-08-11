@@ -5268,3 +5268,46 @@ button.rz-btn-blue {
   .rz-blog-index-image { height: 160px; }
   .rz-blog-index-card > :not(.rz-blog-index-image) { margin-inline: 24px; }
 }
+
+/* ── Full-bleed hero: the post image becomes the background, copy sits on top.
+   A left-weighted scrim keeps the text at accessible contrast over any photo. */
+.rz-blog-hero--image {
+  position: relative;
+  isolation: isolate;
+  background-image: var(--rz-hero-image);
+  background-position: center 32%;
+  background-size: cover;
+}
+.rz-blog-hero--image::before {
+  position: absolute;
+  z-index: -1;
+  background: linear-gradient(
+    100deg,
+    rgb(9 13 20 / 92%) 0%,
+    rgb(9 13 20 / 82%) 38%,
+    rgb(9 13 20 / 52%) 68%,
+    rgb(9 13 20 / 28%) 100%
+  );
+  content: '';
+  inset: 0;
+}
+.rz-blog-hero--image .rz-blog-hero-grid { grid-template-columns: minmax(0, 1fr); }
+.rz-blog-hero--image .rz-blog-hero-copy { max-width: 720px; padding: 26px 0 30px; }
+.rz-blog-hero--image h1,
+.rz-blog-hero--image .rz-blog-back { color: #fff; }
+.rz-blog-hero--image .rz-eyebrow { color: var(--rz-coral-soft); }
+.rz-blog-hero--image .rz-blog-hero-description { color: rgb(255 255 255 / 82%); }
+.rz-blog-hero--image .rz-blog-back:hover,
+.rz-blog-hero--image .rz-blog-back:focus-visible { color: var(--rz-coral-soft); }
+.rz-blog-hero--image .rz-btn-ghost {
+  background: rgb(255 255 255 / 10%);
+  color: #fff;
+  border-color: rgb(255 255 255 / 45%);
+}
+.rz-blog-hero--image .rz-btn-ghost:hover { background: rgb(255 255 255 / 18%); }
+@media (max-width: 720px) {
+  .rz-blog-hero--image { background-position: center 28%; }
+  .rz-blog-hero--image::before {
+    background: linear-gradient(180deg, rgb(9 13 20 / 78%) 0%, rgb(9 13 20 / 90%) 100%);
+  }
+}
