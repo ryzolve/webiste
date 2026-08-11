@@ -38,6 +38,11 @@ export default function SEO({
 }: Props) {
   const canonical = `${SITE_URL}${path === '/' ? '/' : path}`;
   const og = image ? (image.startsWith('http') ? image : `${SITE_URL}${image}`) : DEFAULT_OG_IMAGE;
+  // The default OG asset is a 1200x630 PNG; post heroes are 1376x768 JPEGs, so
+  // the declared type/dimensions have to follow the image actually used.
+  const ogIsJpeg = /\.jpe?g$/i.test(og);
+  const ogWidth = image ? '1376' : '1200';
+  const ogHeight = image ? '768' : '630';
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} · ${SITE_NAME}`;
 
   return (
@@ -60,9 +65,9 @@ export default function SEO({
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={og} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content={ogWidth} />
+      <meta property="og:image:height" content={ogHeight} />
+      <meta property="og:image:type" content={ogIsJpeg ? 'image/jpeg' : 'image/png'} />
       <meta property="og:image:alt" content={`${SITE_NAME} — ${title}`} />
       <meta property="og:locale" content="en_US" />
 

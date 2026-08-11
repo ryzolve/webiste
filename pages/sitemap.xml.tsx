@@ -2,6 +2,7 @@ import type { GetServerSideProps } from 'next';
 
 import { siteUrl } from 'redesign/structured-data';
 import { fetchAdministratorCourses } from 'redesign/training-courses';
+import { publishedBlogCapabilities } from 'redesign/blog-content';
 
 type SitemapEntry = { path: string; changefreq: string; priority: string };
 
@@ -12,7 +13,6 @@ const STATIC_ENTRIES: SitemapEntry[] = [
   { path: '/compliance-regulation', changefreq: 'weekly', priority: '0.9' },
   { path: '/claims-and-bills', changefreq: 'weekly', priority: '0.9' },
   { path: '/blogs', changefreq: 'weekly', priority: '0.8' },
-  { path: '/blogs/payroll-ready-evv-data', changefreq: 'weekly', priority: '0.8' },
   { path: '/training', changefreq: 'weekly', priority: '0.8' },
   { path: '/about-us', changefreq: 'monthly', priority: '0.7' },
   { path: '/contact', changefreq: 'monthly', priority: '0.7' },
@@ -21,6 +21,14 @@ const STATIC_ENTRIES: SitemapEntry[] = [
   { path: '/terms', changefreq: 'monthly', priority: '0.3' },
   { path: '/cookies', changefreq: 'monthly', priority: '0.3' },
 ];
+
+// Every published guide, generated from the content module so new posts are
+// never missed (only the first post used to be listed, by hand).
+const BLOG_ENTRIES: SitemapEntry[] = publishedBlogCapabilities.map((entry) => ({
+  path: `/blogs/${entry.slug}`,
+  changefreq: 'monthly',
+  priority: '0.7',
+}));
 
 function xmlEscape(value: string) {
   return value
@@ -60,7 +68,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     courseEntries = [];
   }
 
-  const xml = buildSitemap(base, [...STATIC_ENTRIES, ...courseEntries]);
+  const xml = buildSitemap(base, [...STATIC_ENTRIES, ...BLOG_ENTRIES, ...courseEntries]);
 
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
   res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');

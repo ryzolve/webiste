@@ -79,6 +79,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         description={entry.description}
         path={path}
         keywords={entry.keywords}
+        image={entry.image}
         type="article"
       />
       <ArticleJsonLd
@@ -86,6 +87,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         description={entry.description}
         path={path}
         datePublished={entry.publishedAt}
+        image={entry.image}
       />
       <FaqJsonLd items={entry.faqs} path={path} />
       <BreadcrumbJsonLd
