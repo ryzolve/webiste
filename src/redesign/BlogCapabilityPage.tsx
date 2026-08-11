@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import Link from 'next/link';
 
 import SEO from './SEO';
@@ -9,7 +9,65 @@ import {
   FaqJsonLd,
 } from './structured-data';
 import type { BlogCapabilityEntry } from './blog-content';
+import { getBlogCapability } from './blog-content';
 import { SiteLayout } from './site';
+
+/* Article paragraphs come from markdown, so a few carry inline links, bold, and
+   italics. Without this they printed as raw syntax ("[label](url)"). Bold/italic
+   recurse so a link nested inside emphasis still renders. */
+const INLINE_MD = /(\[[^\]]+\]\([^)]+\))|(\*\*[^*]+\*\*)|(\*[^*]+\*)/g;
+
+function renderInlineMarkdown(text: string, keyPrefix = ''): ReactNode[] {
+  const out: ReactNode[] = [];
+  let last = 0;
+  let match: RegExpExecArray | null;
+  const re = new RegExp(INLINE_MD.source, 'g');
+
+  while ((match = re.exec(text)) !== null) {
+    if (match.index > last) out.push(text.slice(last, match.index));
+    const token = match[0];
+    const key = `${keyPrefix}${match.index}`;
+
+    if (token.startsWith('[')) {
+      const parts = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (parts) {
+        const label = parts[1].replace(/\s*→\s*$/, '');
+        const href = parts[2].replace(/^https?:\/\/ryzolve\.com/, '') || '/';
+        out.push(
+          href.startsWith('/') ? (
+            <Link href={href} key={key}>{label}</Link>
+          ) : (
+            <a href={href} key={key} rel="noopener noreferrer" target="_blank">{label}</a>
+          )
+        );
+      }
+    } else if (token.startsWith('**')) {
+      out.push(<strong key={key}>{renderInlineMarkdown(token.slice(2, -2), `${key}-`)}</strong>);
+    } else {
+      out.push(<em key={key}>{renderInlineMarkdown(token.slice(1, -1), `${key}-`)}</em>);
+    }
+    last = match.index + token.length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
+}
+
+/* "Connected workflows" mixes sibling guides with product pages, so a card's
+   thumbnail comes either from the linked post's hero or a per-page image. */
+const RELATED_IMAGES: Record<string, string> = {
+  '/compliance-regulation': '/img/related/compliance-regulation.jpg',
+  '/document-management': '/img/related/document-management.jpg',
+  '/claims-and-bills': '/img/related/claims-and-bills.jpg',
+  '/training': '/img/related/training.jpg',
+};
+
+function relatedImage(href: string): string | undefined {
+  const blog = href.match(/^\/blogs\/([a-z0-9-]+)$/);
+  if (blog) return getBlogCapability(blog[1])?.image;
+  if (RELATED_IMAGES[href]) return RELATED_IMAGES[href];
+  if (href.startsWith('/training')) return RELATED_IMAGES['/training'];
+  return undefined;
+}
 
 export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
   const path = `/blogs/${entry.slug}`;
@@ -103,7 +161,9 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
           <section className="rz-section border-y border-rule bg-paper" key={section.title}>
             <div className="rz-wrap rz-blog-article-section">
               <h2>{section.title}</h2>
-              {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{renderInlineMarkdown(paragraph)}</p>
+              ))}
             </div>
           </section>
         ))}
@@ -151,6 +211,14 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
             <div className="rz-blog-related-grid">
               {entry.relatedLinks.map((link) => (
                 <Link className="rz-blog-related-card" href={link.href} key={link.href}>
+                  {relatedImage(link.href) && (
+                    <img
+                      alt=""
+                      className="rz-blog-related-image"
+                      loading="lazy"
+                      src={relatedImage(link.href)}
+                    />
+                  )}
                   <strong>{link.title}</strong>
                   <span>{link.description}</span>
                   <span aria-hidden="true">→</span>

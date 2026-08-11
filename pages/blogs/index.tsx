@@ -5,6 +5,7 @@ import SEO from 'redesign/SEO';
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from 'redesign/structured-data';
 import {
   BLOG_PAGE_SIZE,
+  blogCapabilitiesByDate,
   publishedBlogCapabilities,
   type BlogCapabilityEntry,
 } from 'redesign/blog-content';
@@ -126,7 +127,7 @@ export const getServerSideProps: GetServerSideProps<BlogIndexProps> = async ({ q
 
   return {
     props: {
-      entries: publishedBlogCapabilities.slice(start, start + BLOG_PAGE_SIZE),
+      entries: blogCapabilitiesByDate.slice(start, start + BLOG_PAGE_SIZE),
       page,
       totalPages,
     },

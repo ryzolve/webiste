@@ -110,7 +110,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to survey readiness',
         paragraphs: [
           'Administrator training doesn\'t sit in isolation — it\'s one part of the record an agency needs to produce on demand during a survey. Keeping training certificates alongside caregiver records, compliance checks, and other documentation means your agency can answer "where\'s the proof" quickly, instead of searching for it under pressure.',
-          'Questions Texas administrators ask',
         ],
       },
     ],
@@ -169,7 +168,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Keeping Abuse, Neglect & Exploitation Reporting Training Current on Your Care Team',
     description:
       'A practical look at keeping abuse, neglect, and exploitation reporting training current for Texas home care caregivers and staff, and why it matters for survey readiness.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-08-06',
     readingMinutes: 6,
     keywords: [
       'caregiver abuse neglect exploitation reporting training',
@@ -215,7 +214,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to survey readiness',
         paragraphs: [
           'This is exactly the kind of record a survey or complaint investigation can ask for on short notice: proof that a specific staff member completed reporting training, and when. Keeping it alongside other compliance documentation, rather than in a separate system, is what makes "produce the record" a quick lookup instead of a scramble.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -274,7 +272,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Why Documentation & Charting Deserves Its Own Training Month',
     description:
       'Why consistent documentation and charting training matters for Texas home care agencies, and how to keep caregiver records audit-ready between surveys.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-08-04',
     readingMinutes: 6,
     keywords: [
       'home care documentation training',
@@ -321,7 +319,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to claims and compliance',
         paragraphs: [
           'Documentation doesn\'t stay in its own lane. It\'s what supports a claim when billed hours are compared against approved hours, and it\'s often the first thing reviewed in a compliance check or complaint investigation. Keeping charting training current, and keeping the resulting records organized alongside claims and compliance data, is what makes those reviews faster instead of a document hunt.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -380,7 +377,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'The 8-Hour Training Every First-Time Texas Administrator Needs Before Designation',
     description:
       'What the 8-hour pre-designation training covers for first-time Texas Administrators and Alternate Administrators, and how to time it correctly before stepping into the role.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-07-30',
     readingMinutes: 5,
     keywords: [
       '8 hour texas administrator training',
@@ -427,7 +424,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this fits into onboarding as a whole',
         paragraphs: [
           'Administrator training is one piece of a broader onboarding record — alongside hire forms, background checks, and the documents an agency needs to produce during a survey. Keeping the training certificate in the same place as the rest of that onboarding paperwork means there\'s one place to look, not several.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -486,7 +482,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Infection Control Training Isn\'t a One-Time Topic — Here\'s How Agencies Keep It Current',
     description:
       'Why infection control stays a year-round training priority for Texas home care agencies, and how to keep completion records current across your care team.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-07-28',
     readingMinutes: 5,
     keywords: [
       'infection control training home care',
@@ -532,7 +528,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to survey readiness',
         paragraphs: [
           'Infection control is a routine focus area in surveys and audits. Being able to show, quickly, which caregivers are current on this training — and when they completed it — is the difference between a quick answer and a longer follow-up. Keeping the record alongside other compliance documentation is what makes that answer fast.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -591,7 +586,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Client Rights, HIPAA & Elder Abuse: One Training Topic, Two Kinds of Protection',
     description:
       'How Texas home care agencies keep Client Rights, HIPAA, and Elder Abuse training current across caregivers and staff, and why it matters for both clients and compliance.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-07-23',
     readingMinutes: 6,
     keywords: [
       'HIPAA training home care',
@@ -638,7 +633,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to survey readiness',
         paragraphs: [
           'This is a topic surveyors and case managers may ask about directly, given its overlap with privacy and client protection standards. Being able to show current completion records for every active caregiver, without a delay, keeps a routine inquiry routine. Keeping it alongside other compliance and caregiver documentation is what makes that possible.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -697,7 +691,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Communication Skills & Cultural Competency: Training for the Part of the Job That\'s Hardest to Standardize',
     description:
       'Why communication and cultural competency training helps Texas home care caregivers build trust with clients from different backgrounds, and how agencies keep it current.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-07-21',
     readingMinutes: 5,
     keywords: [
       'caregiver communication skills training',
@@ -743,7 +737,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to client satisfaction and retention',
         paragraphs: [
           'Communication issues are a common root cause behind client complaints and caregiver turnover on a case. Keeping this training current is one of the more direct ways an agency can support both client satisfaction and caregiver confidence — and having the record on file supports that story if a case manager or surveyor asks about it.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -802,7 +795,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Dementia & Alzheimer\'s Care: Training That Changes How a Caregiver Sees the Whole Visit',
     description:
       'How Texas home care agencies keep Dementia & Alzheimer\'s Care training current across caregivers, and why it matters for client safety and family trust.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-07-16',
     readingMinutes: 5,
     keywords: [
       'dementia care training caregivers',
@@ -848,7 +841,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to client and family trust',
         paragraphs: [
           'Families of clients with dementia often ask directly about caregiver training on this topic. Being able to answer clearly, with a record to back it up, supports both the immediate conversation and the agency\'s broader compliance documentation.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -907,7 +899,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Emergency & Disaster Preparedness: A Training Topic Texas Agencies Can\'t Treat as Optional',
     description:
       'Why emergency and disaster preparedness training carries extra weight for Texas home care agencies, and how to keep caregiver readiness current year-round.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-07-14',
     readingMinutes: 5,
     keywords: [
       'emergency preparedness training home care',
@@ -953,7 +945,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to survey readiness',
         paragraphs: [
           'Emergency preparedness is a standard area of review in surveys and audits. Being able to show which caregivers are current on this training, and that the agency\'s own plan is up to date, keeps that part of a survey straightforward.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -1012,7 +1003,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Assisting with ADLs & Safe Transfer: The Training That Protects Two People at Once',
     description:
       'Why safe transfer technique and ADL assistance training protects both clients and caregivers, and how Texas home care agencies keep it current.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-07-09',
     readingMinutes: 5,
     keywords: [
       'ADL training caregivers',
@@ -1058,7 +1049,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to caregiver retention and client safety',
         paragraphs: [
           'Injuries from improper transfer technique are a real driver of caregiver turnover, alongside the direct safety risk to clients. Keeping this training current is one of the more concrete ways an agency can reduce both — and having the record on file supports that if it\'s ever reviewed.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -1117,7 +1107,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'TB & Airborne Pathogen Precautions: A Training Topic That Doesn\'t Get to Skip a Year',
     description:
       'How Texas home care agencies keep TB and airborne pathogen precaution training current across caregivers, and why it stays a recurring priority.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-07-07',
     readingMinutes: 5,
     keywords: [
       'TB training home care',
@@ -1163,7 +1153,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to survey readiness',
         paragraphs: [
           'Safety and infection-related precautions are a routine area of review during surveys. Being able to show current, complete training records for every active caregiver keeps that part of a review straightforward rather than a follow-up item.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -1222,7 +1211,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Caregiver Self-Care: The Training Topic That Protects Your Retention Numbers',
     description:
       'Why caregiver self-care training helps Texas home care agencies reduce burnout and turnover, and how to keep it part of a regular training cycle.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-07-02',
     readingMinutes: 5,
     keywords: [
       'caregiver self-care training',
@@ -1268,7 +1257,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to retention',
         paragraphs: [
           'Turnover is costly to recruit and onboard around, and burnout is one of its most preventable causes. A recurring self-care training cycle, paired with a real support pathway, is a low-cost step toward keeping experienced caregivers on staff longer.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -1327,7 +1315,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Ethics & Professional Conduct: Setting the Standard Before a Situation Tests It',
     description:
       'How ethics and professional conduct training helps Texas home care agencies set clear behavioral standards, and how to keep it current across a care team.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-06-30',
     readingMinutes: 5,
     keywords: [
       'caregiver ethics training',
@@ -1373,7 +1361,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to complaint prevention',
         paragraphs: [
           'Many client and family complaints trace back to a boundary or conduct issue rather than a clinical one. A clear, consistently trained standard is one of the more direct ways an agency can reduce those complaints before they happen — and having the training record on file supports the agency\'s position if a concern is ever raised.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -1432,7 +1419,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'Vital Signs & Health Monitoring: Training That Turns a Routine Visit Into an Early Warning System',
     description:
       'Why accurate vital signs and health monitoring training matters for Texas home care caregivers, and how agencies keep completion records current.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-06-25',
     readingMinutes: 5,
     keywords: [
       'vital signs training caregivers',
@@ -1478,7 +1465,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to documentation and claims',
         paragraphs: [
           'Accurate vital signs monitoring feeds directly into visit documentation, and consistent documentation is what supports both compliance review and claims reconciliation. Keeping this training current is part of what keeps that downstream record reliable.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -1537,7 +1523,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'The 12-Hour Renewal Cycle Existing Administrators Can\'t Let Slip',
     description:
       'What the 12-hour continuing education requirement covers for existing Texas Administrators and Alternate Administrators, and how to keep renewal cycles on schedule.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-06-23',
     readingMinutes: 5,
     keywords: [
       '12 hour texas administrator renewal training',
@@ -1583,7 +1569,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this fits into ongoing compliance',
         paragraphs: [
           'Administrator training records, like other compliance documentation, need to be producible on demand. Keeping renewal certificates filed alongside the rest of an agency\'s compliance and personnel records means a renewal-cycle question has a fast answer instead of a search.',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -1642,7 +1627,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'SEMARC Has Replaced the Standalone EMR Search — Here\'s What Changed',
     description:
       'Effective August 3, 2026, Texas HCSSA and ALF providers use SEMARC instead of a standalone EMR search. Here\'s exactly what changed, what didn\'t, and what to do now.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-06-18',
     readingMinutes: 7,
     keywords: [
       'SEMARC texas hcssa',
@@ -1688,7 +1673,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to survey readiness',
         paragraphs: [
           'Employability checks are exactly the kind of record a surveyor can ask to see on short notice. Whether the underlying process changes — as it just did with SEMARC — the expectation stays the same: a clear, current record for every employee, contractor, and volunteer, ready to produce on demand.',
-          'Questions Texas agencies ask',
         ],
       },
       {
@@ -1763,7 +1747,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'LEIE, NAR, EMR, SEMARC: Which Registries Does a Texas Home Care Agency Actually Need to Check?',
     description:
       'Four registries, four different purposes. A plain-language guide to which employability checks Texas home care agencies actually need, and how they relate to each other.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-06-16',
     readingMinutes: 6,
     keywords: [
       'LEIE NAR EMR SEMARC texas',
@@ -1811,7 +1795,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this connects to survey readiness',
         paragraphs: [
           'When a surveyor asks to see employability check documentation, "we checked something" isn\'t a complete answer. Being able to show which registries were checked for a given employee, and when, is what turns that conversation into a quick confirmation instead of a longer review.',
-          'Questions Texas agencies ask',
         ],
       },
       {
@@ -1876,7 +1859,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'What to Have Ready for a Texas HCSSA License Survey',
     description:
       'How often HHSC surveys a Texas HCSSA, what gets requested, and a downloadable checklist to prepare your agency before the survey team arrives.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-06-11',
     readingMinutes: 6,
     keywords: [
       'texas hcssa license survey checklist',
@@ -1928,7 +1911,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this differs from a contract monitoring',
         paragraphs: [
           'A license survey and an HHSC contract and fiscal compliance monitoring are two different reviews, run by two different parts of HHSC, looking at different things — a survey checks licensing and care standards, while monitoring checks contract and billing compliance for agencies with an HHSC Community Care Services contract. Many agencies deal with both. [See how contract monitoring differs, with its own checklist →](https://ryzolve.com/blogs/texas-hhsc-contract-monitoring-readiness)',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -1988,7 +1970,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     title: 'What to Have Ready for an HHSC Contract & Fiscal Compliance Monitoring',
     description:
       'What an HHSC contract and fiscal compliance monitoring actually reviews, how often it happens, and a downloadable checklist to prepare before the notice letter arrives.',
-    publishedAt: '2026-08-11',
+    publishedAt: '2026-06-09',
     readingMinutes: 6,
     keywords: [
       'hhsc contract monitoring checklist',
@@ -2046,7 +2028,6 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'How this differs from a license survey',
         paragraphs: [
           'If your agency also holds an HCSSA license, you\'re dealing with two separate reviews on two separate timelines. [See what a license survey covers instead, with its own checklist →](https://ryzolve.com/blogs/texas-hcssa-license-survey-readiness)',
-          'Questions Texas agencies ask',
         ],
       },
     ],
@@ -2220,6 +2201,12 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ctaTitle: 'See where payroll-ready data fits at your agency.',
   },
 ];
+
+/** Newest first. The array is authored in topic order, so ordering by date here
+    keeps the listing chronological no matter how entries are added. */
+export const blogCapabilitiesByDate: BlogCapabilityEntry[] = [...publishedBlogCapabilities].sort(
+  (a, b) => b.publishedAt.localeCompare(a.publishedAt)
+);
 
 export function getBlogCapability(slug: string) {
   return publishedBlogCapabilities.find((entry) => entry.slug === slug) || null;
