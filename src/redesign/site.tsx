@@ -138,6 +138,7 @@ import {
   leadMagnet,
   nav,
   platformPricing,
+  type PlatformPlan,
   products,
   proofPoints,
   sharedServices,
@@ -1251,6 +1252,25 @@ function PlanFeatureMark({ included }: { included: boolean }) {
   );
 }
 
+/* A matrix cell. Most rows are a plain yes/no mark, but some carry per-plan text
+   ("Add-On", "N/A", "Included") — when the plan also lists the feature, the check
+   is drawn alongside the label. See platformPricing.featureValues. */
+function PlanFeatureCell({ plan, feature }: { plan: PlatformPlan; feature: string }) {
+  const included = plan.features.includes(feature);
+  const label = plan.featureValues?.[feature];
+  if (!label) return <PlanFeatureMark included={included} />;
+  return (
+    <span
+      className={`inline-flex items-center justify-center gap-1.5 ${
+        included ? 'font-medium text-ink-2' : 'text-muted'
+      }`}
+    >
+      {included && <PlanFeatureMark included />}
+      {label}
+    </span>
+  );
+}
+
 /* Left accent rule down a highlighted column (the standalone Private Care plan),
    mirroring the pricing sheet's orange column marker. */
 function accent(plan: { highlight?: boolean }) {
@@ -1312,7 +1332,7 @@ function PlatformPricingSection() {
                   <td className="px-5 py-4 text-ink-2">{feature}</td>
                   {p.plans.map((plan) => (
                     <td key={plan.name} className={`px-5 py-4 text-center${accent(plan)}`}>
-                      <PlanFeatureMark included={plan.features.includes(feature)} />
+                      <PlanFeatureCell plan={plan} feature={feature} />
                     </td>
                   ))}
                 </tr>

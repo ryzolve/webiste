@@ -382,13 +382,19 @@ export const blank = {
 // data snapshot). This is the SOFTWARE SKU (per-client pricing), distinct from
 // the Training page's In-Service plans (per-learner). Prices exist in the data
 // but stay hidden, mirroring the old site's `enable_pricing` flag being off.
-interface PlatformPlan {
+export interface PlatformPlan {
   name: string;
   suggestedFor: string;
   monthly: number;
   support: string;
   customPricing: boolean;
   features: string[];
+  /**
+   * Per-feature text for rows that aren't a plain yes/no (e.g. "Add-On",
+   * "N/A"). When the plan ALSO lists the feature in `features`, the check mark
+   * is drawn next to the label (e.g. "✓ Included").
+   */
+  featureValues?: Record<string, string>;
   /** Small pill under the plan name (e.g. "Standalone Plan"). */
   badge?: string;
   /** Draws the accent rule down the column. */
@@ -413,6 +419,7 @@ export const platformPricing = {
     'Digital Approvals',
     'Payroll Reports & Claims Prep',
     'Claims & Billing Tools',
+    'Client Invoicing & Payments',
     'Electronic Messaging',
   ],
   plans: [
@@ -429,6 +436,7 @@ export const platformPricing = {
         'Claims & Billing Tools',
         'Electronic Messaging',
       ],
+      featureValues: { 'Client Invoicing & Payments': 'N/A' },
     },
     {
       name: 'Growth',
@@ -443,6 +451,7 @@ export const platformPricing = {
         'Claims & Billing Tools',
         'Electronic Messaging',
       ],
+      featureValues: { 'Client Invoicing & Payments': 'Add-On' },
     },
     {
       name: 'Professional',
@@ -457,6 +466,7 @@ export const platformPricing = {
         'Claims & Billing Tools',
         'Electronic Messaging',
       ],
+      featureValues: { 'Client Invoicing & Payments': 'Add-On' },
     },
     {
       name: 'Enterprise',
@@ -472,6 +482,7 @@ export const platformPricing = {
         'Claims & Billing Tools',
         'Electronic Messaging',
       ],
+      featureValues: { 'Client Invoicing & Payments': 'Add-On' },
     },
     {
       // Standalone private-pay plan — highlighted column with an accent rule,
@@ -483,7 +494,14 @@ export const platformPricing = {
       monthly: 79,
       support: 'Email',
       customPricing: false,
-      features: ['Time Tracking', 'Digital Approvals', 'Payroll Reports & Claims Prep'],
+      features: [
+        'Time Tracking',
+        'Digital Approvals',
+        'Payroll Reports & Claims Prep',
+        'Client Invoicing & Payments',
+        'Electronic Messaging',
+      ],
+      featureValues: { 'Client Invoicing & Payments': 'Included' },
     },
   ] as PlatformPlan[],
   addOns: {
