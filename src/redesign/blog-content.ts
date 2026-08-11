@@ -40,6 +40,9 @@ export type BlogCapabilityEntry = {
    * article, which meant every other post inherited its wording — so they are
    * optional here and fall back to neutral copy in BlogCapabilityPage.
    */
+  /** Hero/card image under /public/img/blog. */
+  image?: string;
+  imageAlt?: string;
   heroPanelTitle?: string;
   heroPanelDescription?: string;
   capabilitiesTitle?: string;
@@ -53,6 +56,8 @@ export const BLOG_PAGE_SIZE = 6;
 export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   {
     slug: '16-hour-new-administrator-training-texas',
+    image: '/img/blog/16-hour-new-administrator-training-texas.jpg',
+    imageAlt: 'An agency administrator taking notes at her desk beside an open laptop',
     label: '16-hour new administrator training',
     eyebrow: 'Texas administrator training',
     title: 'What the 16-Hour New Administrator Training Actually Covers in Texas',
@@ -157,6 +162,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'abuse-neglect-exploitation-reporting-training',
+    image: '/img/blog/abuse-neglect-exploitation-reporting-training.jpg',
+    imageAlt: 'Two care staff talking quietly across a break-room table',
     label: 'Abuse & neglect reporting',
     eyebrow: 'In-service training',
     title: 'Keeping Abuse, Neglect & Exploitation Reporting Training Current on Your Care Team',
@@ -260,6 +267,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'documentation-and-charting-training',
+    image: '/img/blog/documentation-and-charting-training.jpg',
+    imageAlt: 'A caregiver writing visit notes on a tablet in a client’s living room',
     label: 'Documentation & charting',
     eyebrow: 'In-service training',
     title: 'Why Documentation & Charting Deserves Its Own Training Month',
@@ -364,6 +373,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: '8-hour-initial-administrator-training-texas',
+    image: '/img/blog/8-hour-initial-administrator-training-texas.jpg',
+    imageAlt: 'A new administrator working through training on a laptop at a kitchen table',
     label: '8-hour initial administrator training',
     eyebrow: 'Texas administrator training',
     title: 'The 8-Hour Training Every First-Time Texas Administrator Needs Before Designation',
@@ -468,6 +479,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'infection-control-training-home-care',
+    image: '/img/blog/infection-control-training-home-care.jpg',
+    imageAlt: 'A caregiver washing her hands at a home bathroom sink',
     label: 'Infection control training',
     eyebrow: 'In-service training',
     title: 'Infection Control Training Isn\'t a One-Time Topic — Here\'s How Agencies Keep It Current',
@@ -571,6 +584,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'client-rights-hipaa-elder-abuse-training',
+    image: '/img/blog/client-rights-hipaa-elder-abuse-training.jpg',
+    imageAlt: 'A caregiver closing a folder of client records at a home office desk',
     label: 'Client rights & HIPAA',
     eyebrow: 'In-service training',
     title: 'Client Rights, HIPAA & Elder Abuse: One Training Topic, Two Kinds of Protection',
@@ -675,6 +690,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'communication-skills-cultural-competency-training',
+    image: '/img/blog/communication-skills-cultural-competency-training.jpg',
+    imageAlt: 'A caregiver and an older adult in conversation on a sofa',
     label: 'Communication & cultural competency',
     eyebrow: 'In-service training',
     title: 'Communication Skills & Cultural Competency: Training for the Part of the Job That\'s Hardest to Standardize',
@@ -778,6 +795,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'dementia-alzheimers-care-training',
+    image: '/img/blog/dementia-alzheimers-care-training.jpg',
+    imageAlt: 'A caregiver gently guiding an older woman’s hand across a photo album',
     label: 'Dementia & Alzheimer\'s care',
     eyebrow: 'In-service training',
     title: 'Dementia & Alzheimer\'s Care: Training That Changes How a Caregiver Sees the Whole Visit',
@@ -881,6 +900,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'emergency-disaster-preparedness-training',
+    image: '/img/blog/emergency-disaster-preparedness-training.jpg',
+    imageAlt: 'A caregiver checking a home emergency kit and flashlight by the door',
     label: 'Emergency & disaster preparedness',
     eyebrow: 'In-service training',
     title: 'Emergency & Disaster Preparedness: A Training Topic Texas Agencies Can\'t Treat as Optional',
@@ -984,6 +1005,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'adls-safe-transfer-training',
+    image: '/img/blog/adls-safe-transfer-training.jpg',
+    imageAlt: 'A caregiver safely assisting an older man up from a chair',
     label: 'ADLs & safe transfer',
     eyebrow: 'In-service training',
     title: 'Assisting with ADLs & Safe Transfer: The Training That Protects Two People at Once',
@@ -1087,6 +1110,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'tb-airborne-pathogen-safety-training',
+    image: '/img/blog/tb-airborne-pathogen-safety-training.jpg',
+    imageAlt: 'A caregiver fitting a respirator mask before entering a home',
     label: 'TB & airborne pathogen safety',
     eyebrow: 'In-service training',
     title: 'TB & Airborne Pathogen Precautions: A Training Topic That Doesn\'t Get to Skip a Year',
@@ -1190,6 +1215,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'caregiver-self-care-training',
+    image: '/img/blog/caregiver-self-care-training.jpg',
+    imageAlt: 'A caregiver resting in a parked car between client visits',
     label: 'Caregiver self-care',
     eyebrow: 'In-service training',
     title: 'Caregiver Self-Care: The Training Topic That Protects Your Retention Numbers',
@@ -1293,6 +1320,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'ethics-professional-conduct-training',
+    image: '/img/blog/ethics-professional-conduct-training.jpg',
+    imageAlt: 'Two colleagues in a thoughtful hallway conversation',
     label: 'Ethics & professional conduct',
     eyebrow: 'In-service training',
     title: 'Ethics & Professional Conduct: Setting the Standard Before a Situation Tests It',
@@ -1396,6 +1425,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'vital-signs-health-monitoring-training',
+    image: '/img/blog/vital-signs-health-monitoring-training.jpg',
+    imageAlt: 'A caregiver placing a blood-pressure cuff on an older adult’s arm',
     label: 'Vital signs & health monitoring',
     eyebrow: 'In-service training',
     title: 'Vital Signs & Health Monitoring: Training That Turns a Routine Visit Into an Early Warning System',
@@ -1499,6 +1530,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: '12-hour-administrator-renewal-training-texas',
+    image: '/img/blog/12-hour-administrator-renewal-training-texas.jpg',
+    imageAlt: 'An administrator reviewing training dates marked on a wall calendar',
     label: '12-hour administrator renewal',
     eyebrow: 'Texas administrator training',
     title: 'The 12-Hour Renewal Cycle Existing Administrators Can\'t Let Slip',
@@ -1602,6 +1635,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'semarc-replaces-emr-search-texas-hcssa',
+    image: '/img/blog/semarc-replaces-emr-search-texas-hcssa.jpg',
+    imageAlt: 'An administrator running a registry search at a two-monitor desk',
     label: 'SEMARC replaces EMR search',
     eyebrow: 'Compliance checks',
     title: 'SEMARC Has Replaced the Standalone EMR Search — Here\'s What Changed',
@@ -1721,6 +1756,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'leie-nar-emr-semarc-texas-employability-checks',
+    image: '/img/blog/leie-nar-emr-semarc-texas-employability-checks.jpg',
+    imageAlt: 'Hands sorting labelled folders in a filing drawer',
     label: 'LEIE, NAR, EMR & SEMARC checks',
     eyebrow: 'Compliance checks',
     title: 'LEIE, NAR, EMR, SEMARC: Which Registries Does a Texas Home Care Agency Actually Need to Check?',
@@ -1832,6 +1869,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'texas-hcssa-license-survey-readiness',
+    image: '/img/blog/texas-hcssa-license-survey-readiness.jpg',
+    imageAlt: 'An agency owner greeting a visiting surveyor at the office door',
     label: 'HCSSA license survey readiness',
     eyebrow: 'Compliance checks',
     title: 'What to Have Ready for a Texas HCSSA License Survey',
@@ -1942,6 +1981,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'texas-hhsc-contract-monitoring-readiness',
+    image: '/img/blog/texas-hhsc-contract-monitoring-readiness.jpg',
+    imageAlt: 'Two staff reviewing binders together across a conference table',
     label: 'HHSC contract monitoring readiness',
     eyebrow: 'Compliance checks',
     title: 'What to Have Ready for an HHSC Contract & Fiscal Compliance Monitoring',

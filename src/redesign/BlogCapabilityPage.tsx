@@ -59,6 +59,16 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
                 </Link>
               </div>
             </div>
+            {entry.image ? (
+              <figure className="rz-blog-hero-figure">
+                <img
+                  alt={entry.imageAlt ?? ''}
+                  height={669}
+                  src={entry.image}
+                  width={1200}
+                />
+              </figure>
+            ) : (
             <div className="rz-blog-hero-panel" aria-label={`${entry.label} overview`}>
               <span className="rz-panel-eyebrow">{entry.label}</span>
               <strong>{entry.heroPanelTitle ?? entry.label}</strong>
@@ -66,6 +76,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
               <div className="rz-blog-hero-rule" />
               <span className="rz-blog-hero-note">Built for Texas PAS agencies.</span>
             </div>
+            )}
           </div>
         </section>
 

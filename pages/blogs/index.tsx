@@ -80,6 +80,16 @@ export default function BlogsIndexPage({ entries, page, totalPages }: BlogIndexP
             <div className="rz-blog-index-grid">
               {entries.map((entry) => (
                 <Link className="rz-blog-index-card" href={`/blogs/${entry.slug}`} key={entry.slug}>
+                  {entry.image && (
+                    <img
+                      alt={entry.imageAlt ?? ''}
+                      className="rz-blog-index-image"
+                      height={669}
+                      loading="lazy"
+                      src={entry.image}
+                      width={1200}
+                    />
+                  )}
                   <span className="rz-blog-index-category">{entry.eyebrow}</span>
                   <span className="rz-blog-index-meta">
                     <time dateTime={entry.publishedAt}>{formatPublishedDate(entry.publishedAt)}</time>
