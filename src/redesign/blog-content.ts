@@ -74,7 +74,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'A plain-language guide to the additional training first-time Administrators and Alternate Administrators must complete in their first year — and how to keep it from becoming a deadline scramble.',
+      'A plain-language guide to the additional training first-time Administrators and Alternate Administrators must complete in their first year, with a practical way to stay ahead of the deadline.',
     workflowSteps: [
       {
         number: '01',
@@ -84,7 +84,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         number: '02',
         title: 'Complete it in Ryzolve, on your schedule',
-        description: 'Self-paced modules mean the 16 hours can be finished in one sitting or spread across several weeks, in your browser, on any device.',
+        description: 'Self-paced modules let you finish the 16 hours in one sitting or spread them across several weeks. The course works in your browser on any device.',
       },
       {
         number: '03',
@@ -96,20 +96,20 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this training gets missed',
         paragraphs: [
-          'The 16-hour requirement sits on top of the 8-hour training a new Administrator or Alternate Administrator completes before stepping into the role. Because it\'s due later — by the end of the first 12 months — it\'s easy for it to slip behind the day-to-day work of actually running the agency. By the time a survey or license renewal comes up, tracking down whether the hours were completed, and finding the certificate, becomes its own project.',
-          'A predictable place to start the 16 hours, and a predictable place to find the certificate afterward, removes that scramble. It doesn\'t change what the training covers — it just keeps the record where your team expects it to be.',
+          'The 16-hour requirement comes after the 8-hour training a new Administrator or Alternate Administrator completes before stepping into the role. Because it is due by the end of the first 12 months, the deadline can slip behind the day-to-day work of running the agency. When a survey or license renewal comes up, confirming that the hours were completed and finding the certificate can become a project of its own.',
+          'Giving staff a predictable place to start the 16 hours and find the certificate afterward reduces the last-minute search. The training stays the same; the record simply remains where your team expects it to be.',
         ],
       },
       {
         title: 'What the 16 hours are meant to prepare you for',
         paragraphs: [
-          'This training builds on the foundational 8-hour course with the practical, day-to-day responsibilities of running a licensed agency — the kind of subjects that come up in a survey, a complaint investigation, or a routine audit rather than in a classroom. It\'s designed to be completed either before or during the first year in the role, whichever fits your onboarding timeline.',
+          'This training builds on the foundational 8-hour course with the practical, day-to-day responsibilities of running a licensed agency. These subjects tend to come up in a survey, complaint investigation, or routine audit. The course can be completed before or during the first year in the role, depending on your onboarding timeline.',
         ],
       },
       {
         title: 'How this connects to survey readiness',
         paragraphs: [
-          'Administrator training doesn\'t sit in isolation — it\'s one part of the record an agency needs to produce on demand during a survey. Keeping training certificates alongside caregiver records, compliance checks, and other documentation means your agency can answer "where\'s the proof" quickly, instead of searching for it under pressure.',
+          'Administrator training is one part of the record an agency may need to produce during a survey. Keeping training certificates alongside caregiver records, compliance checks, and other documentation lets your agency answer "where\'s the proof" without searching under pressure.',
         ],
       },
     ],
@@ -125,7 +125,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Can I complete it before I\'m officially designated?',
-        a: 'No — the 16 hours are designed to be completed after designation, within your first 12 months in the role. The 8-hour course is the one completed beforehand; the two aren\'t interchangeable in timing.',
+        a: 'No. The 16 hours are designed to be completed after designation, within your first 12 months in the role. The 8-hour course is completed beforehand, so the two are not interchangeable in timing.',
       },
       {
         q: 'Is the certificate accepted for HHSC licensing purposes?',
@@ -200,20 +200,20 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this topic carries extra weight',
         paragraphs: [
-          'Caregivers and attendants are often the first, and sometimes the only, people positioned to notice signs of abuse, neglect, or exploitation in a client\'s home. Reporting training isn\'t just a compliance checkbox — it\'s what equips staff to recognize warning signs and know exactly what to do next, and it\'s a topic surveyors pay close attention to.',
-          'Because of that, agencies need more than a one-time training moment early in a caregiver\'s tenure. Keeping it current across the whole team, with a clear completion record, is what turns "we trained on this once" into "we can show you exactly who\'s current, right now."',
+          'Caregivers and attendants are often the first, and sometimes the only, people positioned to notice signs of abuse, neglect, or exploitation in a client\'s home. Reporting training equips staff to recognize warning signs and know what to do next. Surveyors also pay close attention to this topic.',
+          'A single training session early in a caregiver\'s tenure is not enough. Agencies need to keep the topic current across the team and maintain a clear completion record. That record shows exactly who is current when someone asks.',
         ],
       },
       {
         title: 'What consistent training on this topic looks like',
         paragraphs: [
-          'Reporting training covers recognizing signs of abuse, neglect, and exploitation, understanding an agency\'s reporting obligations, and knowing the steps to take once something is identified. Refreshing it on a recurring basis, rather than only at hire, keeps it front of mind rather than becoming something staff remember only from orientation.',
+          'Reporting training covers recognizing signs of abuse, neglect, and exploitation, understanding an agency\'s reporting obligations, and knowing the steps to take once something is identified. Recurring refreshers keep the subject current after the initial orientation.',
         ],
       },
       {
         title: 'How this connects to survey readiness',
         paragraphs: [
-          'This is exactly the kind of record a survey or complaint investigation can ask for on short notice: proof that a specific staff member completed reporting training, and when. Keeping it alongside other compliance documentation, rather than in a separate system, is what makes "produce the record" a quick lookup instead of a scramble.',
+          'A survey or complaint investigation can request proof on short notice that a specific staff member completed reporting training, along with the completion date. Keeping it with other compliance documentation makes the record easier to retrieve.',
         ],
       },
     ],
@@ -225,19 +225,19 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — Abuse, Neglect & Exploitation Reporting is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. Abuse, Neglect & Exploitation Reporting is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'How do I see who on my team still needs to complete it?',
-        a: 'Ryzolve\'s In-Service dashboard shows completion status by learner, so you can see at a glance who\'s finished this topic and who still needs to, rather than checking individual records one at a time.',
+        a: 'Ryzolve\'s In-Service dashboard shows completion status by learner, so you can quickly see who has finished this topic and who still needs to without checking individual records one at a time.',
       },
       {
         q: 'Does the certificate reset each year, or is it a one-time record?',
-        a: 'It\'s an annual record — the topic repeats every year as part of the ongoing In-Service cycle, and each year\'s completion is tracked separately in Ryzolve.',
+        a: 'It\'s an annual record. The topic repeats every year as part of the ongoing In-Service cycle, and Ryzolve tracks each year\'s completion separately.',
       },
       {
         q: 'Can I assign this topic outside of its scheduled month?',
-        a: 'Yes. New hires can complete the topic when it fits their onboarding timeline rather than waiting for its scheduled month to come around again.',
+        a: 'Yes. New hires can complete the topic when it fits their onboarding timeline; they do not have to wait for its scheduled month to come around again.',
       },
     ],
     relatedLinks: [
@@ -283,7 +283,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Good care that isn\'t documented is invisible to a surveyor. Here\'s how agencies keep charting habits consistent across a whole care team.',
+      'Good care that isn\'t documented is invisible to a surveyor. Consistent charting habits across the care team help close that gap.',
     workflowSteps: [
       {
         number: '01',
@@ -298,43 +298,43 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         number: '03',
         title: 'Keep records audit-ready',
-        description: 'Completion certificates and caregiver documentation live in the same place, ready to produce on demand.',
+        description: 'Completion certificates and caregiver documentation live in the same place, ready when someone asks for them.',
       },
     ],
     articleSections: [
       {
         title: 'Why documentation gaps are so costly',
         paragraphs: [
-          'A caregiver can deliver excellent care and still leave an agency exposed if the visit isn\'t documented clearly and on time. Missing details, inconsistent formatting, or notes that don\'t match what was actually authorized are some of the most common findings in a survey or audit — not because care wasn\'t delivered, but because the record doesn\'t show it was.',
-          'Training on documentation and charting isn\'t about teaching caregivers to write more. It\'s about building a consistent habit: what to note, when to note it, and how to keep the record aligned with what was authorized and delivered.',
+          'A caregiver can deliver excellent care and still leave an agency exposed if the visit isn\'t documented clearly and on time. Missing details, inconsistent formatting, or notes that don\'t match what was authorized are common findings in a survey or audit. The problem may be the record, even when the care itself was delivered.',
+          'Documentation and charting training focuses on consistent habits, including what to note, when to note it, and how to align the record with the services that were authorized and delivered.',
         ],
       },
       {
         title: 'What this training reinforces',
         paragraphs: [
-          'The topic covers the basics of clear, timely charting — what belongs in a visit note, how to keep documentation consistent from caregiver to caregiver, and why the record needs to match the authorized services. Refreshing it annually keeps documentation habits consistent even as new caregivers join the team.',
+          'The topic covers the basics of clear, timely charting: what belongs in a visit note, how to keep documentation consistent from caregiver to caregiver, and why the record needs to match the authorized services. An annual refresher helps new and existing caregivers follow the same practices.',
         ],
       },
       {
         title: 'How this connects to claims and compliance',
         paragraphs: [
-          'Documentation doesn\'t stay in its own lane. It\'s what supports a claim when billed hours are compared against approved hours, and it\'s often the first thing reviewed in a compliance check or complaint investigation. Keeping charting training current, and keeping the resulting records organized alongside claims and compliance data, is what makes those reviews faster instead of a document hunt.',
+          'Documentation supports a claim when billed hours are compared against approved hours, and it is often the first thing reviewed in a compliance check or complaint investigation. Current charting training and organized records can make those reviews faster and avoid a document hunt.',
         ],
       },
     ],
     capabilities: [
-      'Whether documentation habits are consistent across caregivers, not just individually strong',
+      'Whether all caregivers follow consistent documentation habits',
       'Which staff have completed this topic and when it\'s due for a refresh',
       'Whether visit notes are easy to produce quickly if a surveyor asks for them',
     ],
     faqs: [
       {
         q: 'Is Documentation & Charting included in every In-Service plan?',
-        a: 'Yes — it\'s one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. It\'s one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Does this training replace an agency\'s own documentation policy?',
-        a: 'No. It reinforces good documentation habits, but it doesn\'t replace an agency\'s own charting policy or the specific format an agency requires — think of it as the baseline every caregiver should already understand.',
+        a: 'No. It reinforces good documentation habits, but it doesn\'t replace an agency\'s own charting policy or required format. It provides a baseline every caregiver should understand.',
       },
       {
         q: 'How often should caregivers refresh this topic?',
@@ -388,7 +388,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'A plain-language guide to the initial training required before someone steps into the Administrator or Alternate Administrator role — and why timing matters as much as completion.',
+      'A plain-language guide to the initial training required before someone steps into the Administrator or Alternate Administrator role, including why the timing matters as much as completion.',
     workflowSteps: [
       {
         number: '01',
@@ -408,22 +408,22 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     articleSections: [
       {
-        title: 'Why timing trips agencies up more than content',
+        title: 'Why the timing trips agencies up',
         paragraphs: [
-          'The 8-hour course itself isn\'t the hard part — most agencies know it\'s required. What catches people off guard is the timing: it has to be completed in the 12 months immediately preceding designation, not just "at some point" before or after. An agency promoting from within, or bringing on a new Administrator quickly, can lose track of exactly when that window opened.',
+          'Most agencies know the 8-hour course is required. The timing is what catches people off guard: it has to be completed in the 12 months immediately preceding designation. An agency promoting from within or bringing on a new Administrator quickly can lose track of exactly when that window opened.',
           'Having a clear record of when the course was completed, and confirming it falls inside that 12-month window, turns a potential compliance question into a quick lookup.',
         ],
       },
       {
         title: 'What the 8-hour training covers',
         paragraphs: [
-          'The course introduces the licensing standards an agency operates under and the state and federal laws that apply to running one — including the Texas Health and Safety Code provisions on home and community support services and criminal history checks, and the Texas Human Resources Code chapter on the rights of the elderly. It\'s designed as the foundation a new Administrator or Alternate Administrator needs before taking on the role, ahead of the additional 16-hour training required within the first year.',
+          'The course introduces the licensing standards an agency operates under and the state and federal laws that apply to running one. These include Texas Health and Safety Code provisions on home and community support services and criminal history checks, plus the Texas Human Resources Code chapter on the rights of the elderly. It provides the foundation a new Administrator or Alternate Administrator needs before taking on the role and completing the additional 16-hour training required within the first year.',
         ],
       },
       {
         title: 'How this fits into onboarding as a whole',
         paragraphs: [
-          'Administrator training is one piece of a broader onboarding record — alongside hire forms, background checks, and the documents an agency needs to produce during a survey. Keeping the training certificate in the same place as the rest of that onboarding paperwork means there\'s one place to look, not several.',
+          'Administrator training is one piece of a broader onboarding record, along with hire forms, background checks, and documents an agency may need during a survey. Keeping the training certificate with the rest of that paperwork gives the team one place to look.',
         ],
       },
     ],
@@ -443,7 +443,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Can the same person take this course for multiple agencies?',
-        a: 'Each person needs to complete the course individually for their own designation — it\'s tied to the individual being designated, not transferable between agencies.',
+        a: 'Each person needs to complete the course individually for their own designation. The course is tied to the person being designated and is not transferable between agencies.',
       },
       {
         q: 'How is the certificate delivered?',
@@ -479,7 +479,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'A caregiver washing her hands at a home bathroom sink',
     label: 'Infection control training',
     eyebrow: 'In-service training',
-    title: 'Infection Control Training Isn\'t a One-Time Topic — Here\'s How Agencies Keep It Current',
+    title: 'How Agencies Keep Infection Control Training Current',
     description:
       'Why infection control stays a year-round training priority for Texas home care agencies, and how to keep completion records current across your care team.',
     publishedAt: '2026-07-28',
@@ -492,7 +492,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Infection control habits are easy to teach once and hard to keep consistent. Here\'s how a recurring training cadence helps.',
+      'Infection control habits are easy to teach once and hard to keep consistent. A recurring training schedule helps reinforce them.',
     workflowSteps: [
       {
         number: '01',
@@ -514,20 +514,20 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why infection control training needs a recurring cadence',
         paragraphs: [
-          'Hand hygiene, standard precautions, and safe handling of supplies in a client\'s home are habits, not facts to memorize once. Without a recurring refresh, good practices can quietly drift, especially across a care team where caregivers work independently in different homes rather than under direct daily supervision.',
+          'Hand hygiene, standard precautions, and safe handling of supplies in a client\'s home depend on habit and repetition. Without a recurring refresher, good practices can quietly drift, especially when caregivers work independently in different homes without direct daily supervision.',
           'A consistent, agency-wide training cycle keeps the standard the same for every caregiver, regardless of when they were hired, and gives the agency a clear record that the training happened and who completed it.',
         ],
       },
       {
         title: 'What this training reinforces',
         paragraphs: [
-          'The topic covers the core practices caregivers rely on day to day — hand hygiene, standard precautions, and safe handling of care-related materials in a home setting, rather than a clinical or facility environment. Refreshing it annually keeps the standard consistent even as new caregivers join partway through the year.',
+          'The topic covers the core practices caregivers rely on day to day: hand hygiene, standard precautions, and safe handling of care-related materials in a home setting. That setting calls for different routines than a clinic or facility. An annual refresher helps new and existing caregivers follow the same standard.',
         ],
       },
       {
         title: 'How this connects to survey readiness',
         paragraphs: [
-          'Infection control is a routine focus area in surveys and audits. Being able to show, quickly, which caregivers are current on this training — and when they completed it — is the difference between a quick answer and a longer follow-up. Keeping the record alongside other compliance documentation is what makes that answer fast.',
+          'Infection control is a routine focus area in surveys and audits. A clear record shows which caregivers are current and when they completed the training. Keeping it alongside other compliance documentation helps the agency answer quickly and avoid a longer follow-up.',
         ],
       },
     ],
@@ -539,7 +539,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is Infection Control included in every In-Service plan?',
-        a: 'Yes — it\'s one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. It\'s one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'How often should caregivers refresh this topic?',
@@ -547,7 +547,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Can new hires complete it outside of its scheduled month?',
-        a: 'Yes. New hires can complete Infection Control as part of onboarding in Ryzolve rather than waiting for its scheduled month.',
+        a: 'Yes. New hires can complete Infection Control during onboarding in Ryzolve without waiting for its scheduled month.',
       },
       {
         q: 'Does this replace agency-specific infection control policies?',
@@ -597,7 +597,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'This topic protects clients directly and protects the agency\'s compliance standing at the same time. Here\'s how to keep it current across a full care team.',
+      'This topic protects clients directly while supporting the agency\'s compliance standing. The same training needs to stay current across the full care team.',
     workflowSteps: [
       {
         number: '01',
@@ -619,8 +619,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this topic covers more ground than most',
         paragraphs: [
-          'Client rights, privacy under HIPAA, and recognizing elder abuse are three distinct subjects that intersect constantly in home care — a caregiver who understands a client\'s right to privacy is also better equipped to notice when something about a client\'s situation doesn\'t look right. Training on all three together, rather than as separate one-off sessions, reflects how they actually show up in day-to-day caregiving.',
-          'Because this topic touches both client protection and agency compliance, it tends to draw close attention during surveys — which makes a clear, current completion record especially valuable.',
+          'Client rights, privacy under HIPAA, and recognizing elder abuse are distinct subjects that regularly intersect in home care. A caregiver who understands a client\'s right to privacy is also better equipped to notice when something about the client\'s situation looks wrong. Covering the subjects together reflects how they show up in day-to-day caregiving.',
+          'Because this topic involves client protection and agency compliance, it tends to draw close attention during surveys. A clear, current completion record is especially valuable here.',
         ],
       },
       {
@@ -632,7 +632,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'How this connects to survey readiness',
         paragraphs: [
-          'This is a topic surveyors and case managers may ask about directly, given its overlap with privacy and client protection standards. Being able to show current completion records for every active caregiver, without a delay, keeps a routine inquiry routine. Keeping it alongside other compliance and caregiver documentation is what makes that possible.',
+          'Surveyors and case managers may ask about this topic directly because it overlaps with privacy and client protection standards. Current completion records for every active caregiver keep a routine inquiry from becoming a longer search, especially when they are filed with the rest of the agency\'s compliance and caregiver documentation.',
         ],
       },
     ],
@@ -644,7 +644,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — Client Rights, HIPAA & Elder Abuse is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. Client Rights, HIPAA & Elder Abuse is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Does this cover an agency\'s full HIPAA policy?',
@@ -656,7 +656,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Can this topic be assigned outside its scheduled month for new hires?',
-        a: 'Yes. New hires can complete it during onboarding, given how directly it touches client protection, rather than waiting for the scheduled month.',
+        a: 'Yes. Because the topic directly concerns client protection, new hires can complete it during onboarding without waiting for the scheduled month.',
       },
     ],
     relatedLinks: [
@@ -701,7 +701,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Clinical tasks have checklists. Building trust with a client from a different background doesn\'t — but training still helps. Here\'s how agencies keep this topic current.',
+      'Clinical tasks have checklists. Building trust with a client from a different background does not, though training can give caregivers a useful foundation.',
     workflowSteps: [
       {
         number: '01',
@@ -723,20 +723,20 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this topic is harder to standardize than it looks',
         paragraphs: [
-          'A caregiver walks into a different home, and often a different culture, every day. Clear communication and respect for a client\'s background aren\'t optional soft skills — they shape whether a client trusts the caregiver enough to accept help in the first place. Unlike a clinical procedure, there\'s no single script for this, which makes ongoing training more valuable, not less.',
-          'A consistent annual refresh keeps the whole team working from the same baseline expectations, rather than leaving it to individual caregiver experience alone.',
+          'A caregiver walks into a different home, and often a different culture, every day. Clear communication and respect for a client\'s background shape whether a client trusts the caregiver enough to accept help. There is no single script as there is for a clinical procedure, so ongoing training remains useful.',
+          'A consistent annual refresher gives the whole team the same baseline expectations instead of relying on each caregiver\'s prior experience.',
         ],
       },
       {
         title: 'What this training reinforces',
         paragraphs: [
-          'The topic covers practical communication techniques for home visits and an introduction to cultural competency — recognizing and respecting differences in background, language, and expectations across the client population an agency serves. It\'s meant to build habits, not memorize a script.',
+          'The topic covers practical communication techniques for home visits and an introduction to cultural competency. Caregivers learn to recognize and respect differences in background, language, and expectations across the clients an agency serves. The aim is to build useful habits, not memorize a script.',
         ],
       },
       {
         title: 'How this connects to client satisfaction and retention',
         paragraphs: [
-          'Communication issues are a common root cause behind client complaints and caregiver turnover on a case. Keeping this training current is one of the more direct ways an agency can support both client satisfaction and caregiver confidence — and having the record on file supports that story if a case manager or surveyor asks about it.',
+          'Communication issues are a common cause of client complaints and caregiver turnover on a case. Current training can support client satisfaction and caregiver confidence. A completion record also helps if a case manager or surveyor asks about the agency\'s approach.',
         ],
       },
     ],
@@ -748,7 +748,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — Communication Skills & Cultural Competency is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. Communication Skills & Cultural Competency is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Does this replace language-specific training for bilingual caregivers?',
@@ -760,7 +760,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Can it be assigned outside its scheduled month for new hires?',
-        a: 'Yes. New hires can complete it in Ryzolve during onboarding rather than waiting for its scheduled month.',
+        a: 'Yes. New hires can complete it in Ryzolve during onboarding without waiting for its scheduled month.',
       },
     ],
     relatedLinks: [
@@ -805,7 +805,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Caring for a client with dementia calls for a different set of instincts than a typical visit. Here\'s how agencies keep that training consistent across the team.',
+      'Caring for a client with dementia calls for a different set of instincts than a typical visit. Agencies can use recurring training to build those instincts across the team.',
     workflowSteps: [
       {
         number: '01',
@@ -827,7 +827,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this training matters beyond the checklist',
         paragraphs: [
-          'A caregiver who understands how dementia affects memory, communication, and behavior responds differently to a difficult moment than one who doesn\'t — with more patience, fewer escalations, and a safer visit overall. It\'s also one of the topics families notice directly: how a caregiver handles confusion or agitation shapes whether a family trusts the agency to keep showing up.',
+          'A caregiver who understands how dementia affects memory, communication, and behavior can respond to a difficult moment with more patience and fewer escalations, making the visit safer. Families notice this directly. How a caregiver handles confusion or agitation affects whether a family trusts the agency to keep showing up.',
           'An annual refresh keeps this understanding consistent across the whole team, not dependent on which caregivers happen to have prior experience with dementia care.',
         ],
       },
@@ -852,7 +852,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — Dementia & Alzheimer\'s Care is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. Dementia & Alzheimer\'s Care is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Should only caregivers assigned to memory-care clients take this training?',
@@ -909,7 +909,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Between hurricanes, winter storms, and power outages, Texas agencies deal with emergencies more often than most. Here\'s how to keep the whole team ready.',
+      'Between hurricanes, winter storms, and power outages, Texas agencies face a wide range of emergencies. Regular preparation keeps the whole team ready.',
     workflowSteps: [
       {
         number: '01',
@@ -931,7 +931,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this training can\'t wait until the emergency happens',
         paragraphs: [
-          'An emergency plan only works if the people executing it were trained on it before the emergency started. For a home care agency, that means caregivers who know what to do when a scheduled visit coincides with severe weather, a power outage, or another disruption — not figuring it out in the moment.',
+          'An emergency plan only works if the people carrying it out were trained before the emergency started. For a home care agency, caregivers need to know what to do when a scheduled visit coincides with severe weather, a power outage, or another disruption. The middle of an emergency is too late to work it out.',
           'Texas agencies in particular deal with a real range of seasonal risk, from hurricanes along the coast to winter storms further north. A recurring annual refresh keeps the plan current in caregivers\' minds instead of something reviewed once at hire and forgotten.',
         ],
       },
@@ -956,7 +956,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — Emergency & Disaster Preparedness is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. Emergency & Disaster Preparedness is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Does this replace an agency\'s own written emergency plan?',
@@ -964,11 +964,11 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Should this training be timed around hurricane or winter storm season?',
-        a: 'It can help to complete it ahead of a relevant season, but the training is scheduled annually regardless — the goal is having it current before an emergency happens, not perfectly timed to one type of event.',
+        a: 'It can help to complete it ahead of a relevant season, but the training is scheduled annually regardless. The important point is to have it current before an emergency happens, even if it is not timed to one type of event.',
       },
       {
         q: 'Can new hires complete it outside its scheduled month?',
-        a: 'Yes. New hires can complete it in Ryzolve during onboarding rather than waiting for its scheduled month.',
+        a: 'Yes. New hires can complete it in Ryzolve during onboarding without waiting for its scheduled month.',
       },
     ],
     relatedLinks: [
@@ -1013,7 +1013,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Poor transfer technique doesn\'t just risk the client — it\'s one of the leading causes of caregiver injury. Here\'s how agencies keep this training consistent.',
+      'Poor transfer technique puts the client at risk and is also a leading cause of caregiver injury. Regular training helps keep safe technique consistent.',
     workflowSteps: [
       {
         number: '01',
@@ -1035,8 +1035,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why proper technique matters for two people, not one',
         paragraphs: [
-          'Assisting with activities of daily living — bathing, dressing, mobility, transfers — is some of the most physically hands-on work a caregiver does. Done with proper technique, it protects the client from falls and injury. Done without it, it also puts the caregiver at risk of back and shoulder injuries that are among the most common reasons caregiving staff miss work.',
-          'That\'s part of why this topic gets a dedicated training month rather than being folded into general onboarding — the stakes run in both directions.',
+          'Assisting with activities of daily living includes bathing, dressing, mobility, and transfers. It is some of the most physically demanding work a caregiver does. Proper technique protects the client from falls and injury, while poor technique puts the caregiver at risk of the back and shoulder injuries that commonly lead to missed work.',
+          'Because both the client and caregiver can be injured, this topic gets a dedicated training month instead of being folded into general onboarding.',
         ],
       },
       {
@@ -1048,7 +1048,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'How this connects to caregiver retention and client safety',
         paragraphs: [
-          'Injuries from improper transfer technique are a real driver of caregiver turnover, alongside the direct safety risk to clients. Keeping this training current is one of the more concrete ways an agency can reduce both — and having the record on file supports that if it\'s ever reviewed.',
+          'Injuries from improper transfer technique contribute to caregiver turnover and create a direct safety risk for clients. Keeping this training current can reduce both risks. A completion record also documents the agency\'s work if the training is ever reviewed.',
         ],
       },
     ],
@@ -1060,7 +1060,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — Assisting with ADLs & Safe Transfer is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. Assisting with ADLs & Safe Transfer is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Does this cover use of mechanical lifts or assistive equipment?',
@@ -1117,7 +1117,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Recognizing symptoms early and following safety precautions consistently is what keeps one exposure from becoming a bigger problem. Here\'s how agencies keep this training current.',
+      'Recognizing symptoms early and following safety precautions can keep one exposure from becoming a bigger problem. Agencies reinforce those practices through recurring training.',
     workflowSteps: [
       {
         number: '01',
@@ -1139,8 +1139,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this training doesn\'t get to lapse',
         paragraphs: [
-          'Caregivers move between homes and, in some cases, healthcare settings, which makes consistent understanding of airborne pathogen precautions genuinely important — not a formality. Recognizing early symptoms and knowing the correct safety precautions is what allows a caregiver to protect themselves, their client, and the next home they walk into.',
-          'Because the risk doesn\'t go away between training cycles, this topic gets a recurring annual refresh rather than a one-time orientation session.',
+          'Caregivers move between homes and, in some cases, healthcare settings. A consistent understanding of airborne pathogen precautions is important for that work. Recognizing early symptoms and following the correct safety precautions helps a caregiver protect themselves, their client, and the next home they enter.',
+          'The risk continues between training cycles, so this topic receives an annual refresher after the initial orientation.',
         ],
       },
       {
@@ -1152,7 +1152,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'How this connects to survey readiness',
         paragraphs: [
-          'Safety and infection-related precautions are a routine area of review during surveys. Being able to show current, complete training records for every active caregiver keeps that part of a review straightforward rather than a follow-up item.',
+          'Safety and infection-related precautions are routinely reviewed during surveys. Current, complete training records for every active caregiver can keep that part of the review from becoming a follow-up item.',
         ],
       },
     ],
@@ -1164,7 +1164,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — TB / Airborne Pathogen + Safety Precautions is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. TB / Airborne Pathogen + Safety Precautions is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Does this replace agency-specific exposure control procedures?',
@@ -1176,7 +1176,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Can new hires complete it outside its scheduled month?',
-        a: 'Yes. New hires can complete it in Ryzolve during onboarding rather than waiting for its scheduled month.',
+        a: 'Yes. New hires can complete it in Ryzolve during onboarding without waiting for its scheduled month.',
       },
     ],
     relatedLinks: [
@@ -1221,7 +1221,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Burnout is one of the biggest drivers of caregiver turnover in home care. This is the one In-Service topic aimed directly at the caregiver, not the client.',
+      'Burnout is one of the biggest drivers of caregiver turnover in home care. This In-Service topic focuses directly on the caregiver\'s needs.',
     workflowSteps: [
       {
         number: '01',
@@ -1243,8 +1243,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this topic exists in a compliance-driven curriculum',
         paragraphs: [
-          'Most In-Service topics protect the client. This one protects the caregiver — and by extension, the agency\'s ability to keep experienced staff on the schedule. Caregiving is emotionally and physically demanding work, often done alone in a client\'s home, and burnout is a well-documented driver of turnover across the home care industry.',
-          'Including self-care as a formal training topic signals to caregivers that the agency takes their wellbeing seriously, not just their productivity — which matters for retention in a field where turnover is expensive to replace.',
+          'Most In-Service topics focus on the client. This one focuses on the caregiver and, in turn, the agency\'s ability to keep experienced staff on the schedule. Caregiving is emotionally and physically demanding work, often done alone in a client\'s home. Burnout is a well-documented driver of turnover across the home care industry.',
+          'Including self-care as a formal training topic shows caregivers that the agency takes their wellbeing seriously. That attention can matter for retention in a field where replacing staff is expensive.',
         ],
       },
       {
@@ -1268,11 +1268,11 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — Caregiver Self-Care is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. Caregiver Self-Care is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Is this training counted toward any state requirement?',
-        a: 'No — it\'s not tied to a specific state licensing requirement the way some other topics are. It\'s included because burnout directly affects care quality and retention, which matters just as much operationally.',
+        a: 'No. It\'s not tied to a specific state licensing requirement the way some other topics are. It\'s included because burnout directly affects care quality and retention, both of which matter operationally.',
       },
       {
         q: 'How often should this topic be refreshed?',
@@ -1280,7 +1280,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Can it be assigned outside its scheduled month for new hires?',
-        a: 'Yes. New hires can complete it in Ryzolve during onboarding rather than waiting for its scheduled month.',
+        a: 'Yes. New hires can complete it in Ryzolve during onboarding without waiting for its scheduled month.',
       },
     ],
     relatedLinks: [
@@ -1347,7 +1347,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this training matters before, not after, a situation comes up',
         paragraphs: [
-          'A caregiver working alone in a client\'s home regularly faces small judgment calls — appropriate boundaries, handling a client\'s belongings, what to do when a family member asks something outside the caregiver\'s role. Without a clear standard, caregivers are left to guess. With one, they have a consistent reference point to fall back on.',
+          'A caregiver working alone in a client\'s home regularly faces small judgment calls about boundaries, a client\'s belongings, or a family member asking for something outside the caregiver\'s role. A clear standard gives caregivers a consistent reference point instead of leaving them to guess.',
           'Refreshing this training annually keeps the standard consistent across the team, regardless of how long a caregiver has been with the agency.',
         ],
       },
@@ -1360,7 +1360,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'How this connects to complaint prevention',
         paragraphs: [
-          'Many client and family complaints trace back to a boundary or conduct issue rather than a clinical one. A clear, consistently trained standard is one of the more direct ways an agency can reduce those complaints before they happen — and having the training record on file supports the agency\'s position if a concern is ever raised.',
+          'Many client and family complaints trace back to a boundary or conduct issue instead of a clinical one. A clear, consistently trained standard can reduce those complaints before they happen. If a concern is raised, the training record also helps document the agency\'s position.',
         ],
       },
     ],
@@ -1372,7 +1372,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — Ethics & Professional Conduct is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. Ethics & Professional Conduct is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Does this replace an agency\'s own code of conduct policy?',
@@ -1429,7 +1429,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'A caregiver who knows what a normal reading looks like is often the first person to catch that something\'s changed. Here\'s how agencies keep this training current.',
+      'A caregiver who knows what a normal reading looks like may be the first person to catch a change. Recurring training helps keep that knowledge current.',
     workflowSteps: [
       {
         number: '01',
@@ -1452,13 +1452,13 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         title: 'Why accurate monitoring matters beyond the reading itself',
         paragraphs: [
           'Taking a blood pressure or temperature reading is a simple task. Knowing what\'s normal for a specific client, noticing a meaningful change, and knowing when to escalate it is what actually protects that client. Caregivers are often the only person checking in regularly enough to catch a gradual change before it becomes an emergency.',
-          'An annual refresh keeps technique and judgment consistent across the team, rather than relying on whatever training a caregiver happened to receive elsewhere.',
+          'An annual refresher keeps technique and judgment consistent across the team, regardless of what training a caregiver received elsewhere.',
         ],
       },
       {
         title: 'What this training reinforces',
         paragraphs: [
-          'The topic covers proper technique for taking vital signs, understanding typical ranges, and knowing when a reading warrants escalating to the agency or a client\'s care team rather than simply documenting it and moving on.',
+          'The topic covers proper technique for taking vital signs, understanding typical ranges, and knowing when a reading needs to be escalated to the agency or a client\'s care team instead of simply documented.',
         ],
       },
       {
@@ -1476,7 +1476,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes — Vital Signs & Health Monitoring is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        a: 'Yes. Vital Signs & Health Monitoring is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
       },
       {
         q: 'Does every caregiver need this training, or only those monitoring vitals?',
@@ -1533,7 +1533,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Unlike the initial training, this one repeats every year — which makes it easy to lose track of exactly when the clock resets. Here\'s how to keep renewal on schedule.',
+      'Unlike the initial training, this one repeats every year. Tracking when the clock resets helps keep renewal on schedule.',
     workflowSteps: [
       {
         number: '01',
@@ -1555,20 +1555,20 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why renewal cycles are easier to lose track of than initial training',
         paragraphs: [
-          'The 8-hour and 16-hour courses each happen once, tied to a clear starting point — designation into the role. The 12-hour renewal is different: it repeats every 12-month period from that same designation date, year after year, for as long as someone holds the role. Multiply that across every Administrator and Alternate Administrator an agency has had over time, and it\'s easy to lose track of exactly when each person\'s current cycle closes.',
+          'The 8-hour and 16-hour courses each happen once, with designation into the role as a clear starting point. The 12-hour renewal repeats every 12-month period from that same designation date for as long as someone holds the role. Across several Administrators and Alternate Administrators, it can be easy to lose track of when each person\'s current cycle closes.',
           'A clear record of each administrator\'s designation date, and where they stand in the current 12-month cycle, turns renewal from a recurring guessing game into a routine check.',
         ],
       },
       {
         title: 'What the 12-hour renewal covers',
         paragraphs: [
-          'The course must include at least two required topics related to administering an agency, alongside other subjects relevant to the role. It\'s designed to keep an Administrator or Alternate Administrator current on the responsibilities of the position on an ongoing basis, rather than treating initial training as a one-time credential.',
+          'The course must include at least two required topics related to administering an agency, along with other subjects relevant to the role. It keeps an Administrator or Alternate Administrator current on the responsibilities of the position after the initial training is complete.',
         ],
       },
       {
         title: 'How this fits into ongoing compliance',
         paragraphs: [
-          'Administrator training records, like other compliance documentation, need to be producible on demand. Keeping renewal certificates filed alongside the rest of an agency\'s compliance and personnel records means a renewal-cycle question has a fast answer instead of a search.',
+          'An agency may need to produce administrator training records along with other compliance documentation. Filing renewal certificates with its compliance and personnel records makes a renewal-cycle question easier to answer.',
         ],
       },
     ],
@@ -1584,11 +1584,11 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Does the 12-hour course need to be completed all at once?',
-        a: 'No. The 12 hours can be completed across multiple sessions throughout the 12-month cycle in Ryzolve — it doesn\'t need to be finished in one sitting.',
+        a: 'No. The 12 hours can be completed across multiple sessions throughout the 12-month cycle in Ryzolve. It does not need to be finished in one sitting.',
       },
       {
         q: 'What happens if an administrator\'s renewal cycle lapses?',
-        a: 'This can affect the agency\'s compliance standing, so it\'s worth confirming current consequences with HHSC or your compliance lead directly rather than assuming a default outcome.',
+        a: 'This can affect the agency\'s compliance standing, so confirm the current consequences directly with HHSC or your compliance lead.',
       },
       {
         q: 'How is the certificate delivered after completion?',
@@ -1624,7 +1624,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'An administrator running a registry search at a two-monitor desk',
     label: 'SEMARC replaces EMR search',
     eyebrow: 'Compliance checks',
-    title: 'SEMARC Has Replaced the Standalone EMR Search — Here\'s What Changed',
+    title: 'SEMARC Has Replaced the Standalone EMR Search: What Changed',
     description:
       'Effective August 3, 2026, Texas HCSSA and ALF providers use SEMARC instead of a standalone EMR search. Here\'s exactly what changed, what didn\'t, and what to do now.',
     publishedAt: '2026-06-18',
@@ -1653,66 +1653,66 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         number: '03',
         title: 'NAR stays separate',
-        description: 'The Nurse Aide Registry is still its own required search in TULIP, alongside SEMARC — not merged into it.',
+        description: 'The Nurse Aide Registry remains a separate required search in TULIP alongside SEMARC.',
       },
     ],
     articleSections: [
       {
         title: 'What SEMARC actually is',
         paragraphs: [
-          'SEMARC (Search Engine for Multi-Agency Reportable Conduct) is a statewide database created under Senate Bill 1849 that pools reportable-conduct findings — abuse, neglect, exploitation, and other misconduct — from HHSC, DFPS, TJJD, and TEA into one searchable platform. Before SEMARC, an individual barred from working in, say, a childcare setting under one agency\'s registry could still get hired at a long-term care agency checking a different one. SEMARC closes that gap by giving authorized employers one place to check across all four agencies at once.',
+          'SEMARC (Search Engine for Multi-Agency Reportable Conduct) is a statewide database created under Senate Bill 1849. It brings findings of abuse, neglect, exploitation, and other reportable conduct from HHSC, DFPS, TJJD, and TEA into one searchable platform. Before SEMARC, an individual barred from working in a childcare setting under one agency\'s registry could still get hired at a long-term care agency checking a different one. SEMARC closes that gap by giving authorized employers one place to check all four agencies.',
         ],
       },
       {
         title: 'One exception worth knowing',
         paragraphs: [
-          'HCS and TxHmL providers don\'t currently have TULIP access and are exempt from the SEMARC requirement until that access becomes available, expected around March 2027 — they continue their current process until then. State Supported Living Center hiring managers access SEMARC through IAMOnline instead of TULIP.',
+          'HCS and TxHmL providers don\'t currently have TULIP access and are exempt from the SEMARC requirement until that access becomes available, expected around March 2027. They continue their current process until then. State Supported Living Center hiring managers access SEMARC through IAMOnline instead of TULIP.',
         ],
       },
       {
         title: 'How this connects to survey readiness',
         paragraphs: [
-          'Employability checks are exactly the kind of record a surveyor can ask to see on short notice. Whether the underlying process changes — as it just did with SEMARC — the expectation stays the same: a clear, current record for every employee, contractor, and volunteer, ready to produce on demand.',
+          'A surveyor can ask to see employability checks on short notice. Although SEMARC changed the underlying process, the expectation remains the same: keep a clear, current record for every employee, contractor, and volunteer.',
         ],
       },
       {
         title: 'Compliance checks connect to the rest of your agency.',
         paragraphs: [
-          '*This post reflects Texas HHSC\'s NAR & SEMARC Joint Training FAQ (updated July 16, 2026) and Provider Letter 2026-10. Regulatory guidance can continue to evolve — confirm current requirements at [semarc.texas.gov](https://semarc.texas.gov/faq/) before relying on this for a compliance decision.*',
+          '*This post reflects Texas HHSC\'s NAR & SEMARC Joint Training FAQ (updated July 16, 2026) and Provider Letter 2026-10. Regulatory guidance can change. Confirm current requirements at [semarc.texas.gov](https://semarc.texas.gov/faq/) before relying on this for a compliance decision.*',
         ],
       },
     ],
     capabilities: [
-      'The EMR is no longer searched as its own standalone item — its results now appear inside SEMARC',
+      'The EMR is no longer searched as a standalone item; its results now appear inside SEMARC',
       'SEMARC access must be requested separately in TULIP, even for agencies that already had TULIP access for other purposes',
       'Each Business Entity is limited to 10 TULIP user accounts total, across every location',
       'The Nurse Aide Registry (NAR) is still required and still searched separately',
-      'LEIE checks — both the federal OIG exclusion list and HHSC\'s own — are still required; SEMARC does not replace them',
+      'Both the federal OIG exclusion list and HHSC\'s own LEIE checks are still required; SEMARC does not replace them',
       'Criminal history background checks through DPS/DFPS are unchanged',
       'CANRS is not replaced',
-      'The required check cadence — at hire, and at least every 12 months after — has not changed',
-      'Job titles still don\'t matter: every employee, contractor, and volunteer needs to be checked, not just direct-care staff',
+      'The required check schedule has not changed: checks happen at hire and at least every 12 months after that',
+      'Job titles still don\'t matter: every employee, contractor, and volunteer needs to be checked, including staff who do not provide direct care',
       'Whether your agency has requested and received SEMARC access in TULIP',
       'Who holds your agency\'s TULIP Security Authority role, since they approve SEMARC access requests',
-      'Whether your hiring process still waits for NAR, SEMARC, and any other required results to come back clear before a new hire starts — provisional hiring while results are pending isn\'t allowed',
+      'Whether your hiring process waits for NAR, SEMARC, and any other required results to come back clear before a new hire starts, since provisional hiring while results are pending isn\'t allowed',
       'Whether staff who currently run EMR/NAR checks know the standalone EMR link on the TULIP home page is gone',
     ],
     faqs: [
       {
         q: 'Does SEMARC replace LEIE or OIG checks?',
-        a: 'No. Both the federal OIG exclusion list and HHSC\'s own LEIE checks are still required. SEMARC only compiles reportable-conduct findings from HHSC, DFPS, TJJD, and TEA — it doesn\'t cover the same ground as exclusion-list checks.',
+        a: 'No. Both the federal OIG exclusion list and HHSC\'s own LEIE checks are still required. SEMARC compiles reportable-conduct findings from HHSC, DFPS, TJJD, and TEA, which do not cover the same ground as exclusion-list checks.',
       },
       {
         q: 'Do we need to re-check every current employee right away?',
-        a: 'No. Regulation on when to conduct employability checks hasn\'t changed — staff must be checked at hire and annually after that. You\'re not required to immediately re-check everyone hired before August 2026; that check simply happens through SEMARC when their next annual check comes due.',
+        a: 'No. Regulation on when to conduct employability checks hasn\'t changed. Staff must be checked at hire and annually after that. You do not need to re-check everyone hired before August 2026 immediately; use SEMARC when their next annual check comes due.',
       },
       {
         q: 'What if results are still pending when we need to hire someone quickly?',
-        a: 'No one can be hired while results are pending. All required checks — NAR, SEMARC, and any others that apply — need to come back clear before someone starts, even if that means a delayed start date.',
+        a: 'No one can be hired while results are pending. NAR, SEMARC, and any other required checks need to come back clear before someone starts, even if that delays the start date.',
       },
       {
         q: 'Where do we find the official implementation details?',
-        a: 'Provider Letter 2026-10 and the official SEMARC site at semarc.texas.gov are the authoritative sources — both are linked in this post.',
+        a: 'Provider Letter 2026-10 and the official SEMARC site at semarc.texas.gov are the authoritative sources. Both are linked in this post.',
       },
     ],
     relatedLinks: [
@@ -1779,22 +1779,22 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why one search doesn\'t cover everything',
         paragraphs: [
-          'It\'s a reasonable assumption that if a name comes back clear on one registry, it\'s clear everywhere — but each of these systems was built by a different agency to track a different kind of risk, and they don\'t share results with each other except where a law specifically connects them.',
+          'It\'s reasonable to assume that a name cleared by one registry is clear everywhere. In practice, different agencies built these systems to track different kinds of risk, and the systems share results only where a law connects them.',
         ],
       },
       {
         title: 'The four registries, in plain language',
         paragraphs: [
-          '**LEIE (List of Excluded Individuals and Entities)** — Tracks individuals and entities excluded from participating in federally funded healthcare programs due to fraud, patient abuse, licensing revocation, or similar findings. Maintained federally by the HHS Office of Inspector General, with a parallel list maintained by Texas HHSC\'s own Office of Inspector General. Neither is affected by SEMARC.',
-          '**NAR (Nurse Aide Registry)** — Texas\'s registry of individuals found to have abused, neglected, or exploited a resident or misappropriated resident property while working in a nurse aide role. Searched separately in TULIP, required for every employee regardless of job title.',
-          '**EMR (Employee Misconduct Registry)** — HHSC\'s registry barring individuals from long-term care employment due to substantiated misconduct findings. Still maintained by HHSC, but as of August 2026, its results are surfaced through SEMARC rather than a standalone search.',
-          '**SEMARC (Search Engine for Multi-Agency Reportable Conduct)** — A newer, broader system that pools reportable-conduct findings from HHSC, DFPS, TJJD, and TEA into a single search, closing the gap where someone barred in one sector could get hired in another. It houses EMR results but doesn\'t replace LEIE or NAR.',
+          '**LEIE (List of Excluded Individuals and Entities):** Tracks individuals and entities excluded from participating in federally funded healthcare programs due to fraud, patient abuse, licensing revocation, or similar findings. The HHS Office of Inspector General maintains the federal list, while Texas HHSC\'s Office of Inspector General maintains a parallel list. SEMARC does not affect either one.',
+          '**NAR (Nurse Aide Registry):** Texas\'s registry of individuals found to have abused, neglected, or exploited a resident or misappropriated resident property while working in a nurse aide role. It is searched separately in TULIP and is required for every employee regardless of job title.',
+          '**EMR (Employee Misconduct Registry):** HHSC\'s registry barring individuals from long-term care employment due to substantiated misconduct findings. HHSC still maintains it, but as of August 2026, the results appear through SEMARC instead of a standalone search.',
+          '**SEMARC (Search Engine for Multi-Agency Reportable Conduct):** A newer, broader system that combines reportable-conduct findings from HHSC, DFPS, TJJD, and TEA in one search. This closes a gap that could allow someone barred in one sector to be hired in another. SEMARC includes EMR results but does not replace LEIE or NAR.',
         ],
       },
       {
         title: 'How this connects to survey readiness',
         paragraphs: [
-          'When a surveyor asks to see employability check documentation, "we checked something" isn\'t a complete answer. Being able to show which registries were checked for a given employee, and when, is what turns that conversation into a quick confirmation instead of a longer review.',
+          'When a surveyor asks to see employability check documentation, "we checked something" isn\'t a complete answer. Records showing which registries were checked for a given employee, and when, can resolve the question quickly and avoid a longer review.',
         ],
       },
       {
@@ -1805,9 +1805,9 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
     ],
     capabilities: [
-      'Whether your pre-hire checklist includes LEIE, NAR, and SEMARC — not just the one your team remembers most easily',
-      'Whether checks are re-run at least every 12 months for every existing employee, not only new hires',
-      'Whether your documentation shows which registry was checked, when, and by whom — a surveyor may ask about any one of them specifically',
+      'Whether your pre-hire checklist includes LEIE, NAR, and SEMARC instead of only the registry your team remembers most easily',
+      'Whether checks are re-run at least every 12 months for every existing employee as well as new hires',
+      'Whether your documentation shows which registry was checked, when, and by whom, since a surveyor may ask about any one of them specifically',
     ],
     faqs: [
       {
@@ -1816,7 +1816,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Does job title affect which registries apply?',
-        a: 'No. Job titles don\'t matter for NAR and SEMARC — every employee, contractor, and volunteer needs to be checked, regardless of role. LEIE checks apply to anyone involved in providing or billing for services.',
+        a: 'No. Job titles don\'t matter for NAR and SEMARC. Every employee, contractor, and volunteer needs to be checked, regardless of role. LEIE checks apply to anyone involved in providing or billing for services.',
       },
       {
         q: 'How often do these checks need to be repeated?',
@@ -1824,7 +1824,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
       {
         q: 'Do contractors need the same checks as employees?',
-        a: 'Yes. Contractors and subcontractors need the same LEIE and SEMARC screening as employees — job classification doesn\'t exempt anyone from the requirement.',
+        a: 'Yes. Contractors and subcontractors need the same LEIE and SEMARC screening as employees. Job classification does not exempt anyone from the requirement.',
       },
     ],
     relatedLinks: [
@@ -1870,7 +1870,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'Survey teams don\'t call ahead the way a scheduled monitoring does. Here\'s how often a survey happens, what typically gets requested, and a checklist to keep on hand before one does.',
+      'Survey teams don\'t call ahead the way a scheduled monitoring does. This guide covers survey timing, typical record requests, and a checklist to keep on hand.',
     workflowSteps: [
       {
         number: '01',
@@ -1885,32 +1885,32 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         number: '03',
         title: 'Then every 36 months',
-        description: 'After that, surveys recur at least every 36 months, matching the 3-year HCSSA license period — unless a complaint or reported incident triggers one sooner.',
+        description: 'After that, surveys recur at least every 36 months, matching the 3-year HCSSA license period. A complaint or reported incident can trigger one sooner.',
       },
     ],
     articleSections: [
       {
         title: 'Why survey readiness can\'t be a once-a-cycle project',
         paragraphs: [
-          'A license survey is looking at whether your agency\'s day-to-day operation matches its licensing standards — client records, staff records, policies, and quality documentation. Because the standard survey cycle runs every 36 months, it\'s tempting to treat readiness as something to assemble right before that window opens. But a complaint or reported incident can trigger a survey at any time, outside the normal cycle, which means the records a surveyor might ask for need to already be current, not reconstructed under a deadline.',
+          'A license survey looks at whether your agency\'s day-to-day operation matches its licensing standards. That includes client records, staff records, policies, and quality documentation. Because the standard survey cycle runs every 36 months, it can be tempting to assemble everything right before that window opens. A complaint or reported incident can trigger a survey at any time, so the records need to stay current between scheduled surveys.',
         ],
       },
       {
         title: 'What a survey typically covers',
         paragraphs: [
-          'Surveyors generally look across three areas: **client and care records** (visit schedules, the client roster, admission and discharge documentation), **staff and training records** (the employee roster, competency evaluations, in-service training), and **policy and quality documentation** (your policy manual, complaint log, QAPI, infection control, and emergency preparedness plan). The exact list can vary by license category, and HHSC may request documentation beyond what\'s typical — but these three categories cover most of what comes up. This is exactly where Ryzolve fits: client records, staff records, and policy documentation live in one system year-round, so "survey-ready" is the normal state of your records rather than a project you start when a survey is announced.',
+          'Surveyors generally look across three areas: **client and care records** (visit schedules, the client roster, admission and discharge documentation), **staff and training records** (the employee roster, competency evaluations, in-service training), and **policy and quality documentation** (your policy manual, complaint log, QAPI, infection control, and emergency preparedness plan). The exact list varies by license category, and HHSC may request other documentation, but these categories cover most reviews. Ryzolve keeps client records, staff records, and policy documentation in one system throughout the year. That makes survey readiness part of routine recordkeeping instead of a project that begins when a survey is announced.',
         ],
       },
       {
         title: 'The full checklist',
         paragraphs: [
-          'It\'s organized into the same three categories, with space to check off each item as it\'s confirmed current — worth keeping printed and updated rather than assembled from scratch when a survey is announced.',
+          'It\'s organized into the same three categories, with space to check off each item as it is confirmed current. Keep it printed and updated so it does not have to be assembled from scratch when a survey is announced.',
         ],
       },
       {
         title: 'How this differs from a contract monitoring',
         paragraphs: [
-          'A license survey and an HHSC contract and fiscal compliance monitoring are two different reviews, run by two different parts of HHSC, looking at different things — a survey checks licensing and care standards, while monitoring checks contract and billing compliance for agencies with an HHSC Community Care Services contract. Many agencies deal with both. [See how contract monitoring differs, with its own checklist →](https://ryzolve.com/blogs/texas-hhsc-contract-monitoring-readiness)',
+          'A license survey and an HHSC contract and fiscal compliance monitoring are separate reviews run by different parts of HHSC. A survey checks licensing and care standards. Monitoring checks contract and billing compliance for agencies with an HHSC Community Care Services contract. Many agencies deal with both. [See how contract monitoring differs, with its own checklist →](https://ryzolve.com/blogs/texas-hhsc-contract-monitoring-readiness)',
         ],
       },
     ],
@@ -1923,11 +1923,11 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     faqs: [
       {
         q: 'How much advance notice do we get before a survey?',
-        a: 'Unlike a scheduled contract monitoring, which comes with at least 14 days\' written notice, a licensure survey can arrive with little to no advance notice — which is exactly why records need to stay current between cycles rather than being prepared right before one.',
+        a: 'A scheduled contract monitoring comes with at least 14 days\' written notice, but a licensure survey can arrive with little to no advance notice. Records therefore need to stay current between cycles.',
       },
       {
         q: 'Does every license category get surveyed the same way?',
-        a: 'The core survey cycle — initial, then within 18 months, then every 36 months — applies across HCSSA license categories, though the specific standards reviewed depend on which category of service (home health, hospice, PAS) an agency provides.',
+        a: 'The core survey cycle starts with an initial survey, followed by another within 18 months and then every 36 months. This applies across HCSSA license categories, though the specific standards depend on whether the agency provides home health, hospice, or PAS services.',
       },
       {
         q: 'What happens if a survey finds a violation?',
@@ -1957,7 +1957,7 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     ctaLabel: 'Download the Survey Checklist (PDF)',
     ctaHref: '/resources/texas-hcssa-license-survey-checklist.pdf',
-    capabilitiesTitle: 'What to review between surveys, not just before one',
+    capabilitiesTitle: 'What to review between surveys',
     relatedTitle: 'Survey readiness connects to the rest of your agency.',
     ctaTitle: 'Ready to keep survey documentation current year-round?',
   },
@@ -1981,12 +1981,12 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     ],
     solutionTitle: 'How it works at your agency.',
     solutionDescription:
-      'If your agency holds an HHSC Community Care Services contract, this is a separate review from your license survey — and it\'s mostly interested in billing, staffing, and payroll records. Here\'s what it covers and a checklist to prepare with.',
+      'If your agency holds an HHSC Community Care Services contract, this review is separate from your license survey. It focuses mainly on billing, staffing, and payroll records. Here\'s what it covers and a checklist to prepare with.',
     workflowSteps: [
       {
         number: '01',
         title: 'Applies to contracted programs',
-        description: 'This monitoring is for agencies with an HHSC Community Care Services contract — PAS, CDS, CLASS, CMPAS, DAHS, DBMD, and related programs — not every licensed HCSSA has one.',
+        description: 'This monitoring applies to agencies with an HHSC Community Care Services contract, including PAS, CDS, CLASS, CMPAS, DAHS, DBMD, and related programs. It does not apply to every licensed HCSSA.',
       },
       {
         number: '02',
@@ -2003,19 +2003,19 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       {
         title: 'Why this isn\'t the same review as your license survey',
         paragraphs: [
-          'It\'s easy to assume a license survey and a contract monitoring are the same visit with a different name, but they\'re run by different parts of HHSC for different reasons. A license survey checks whether your agency meets HCSSA licensing and care standards. A contract and fiscal compliance monitoring checks whether your agency is meeting the terms of a specific HHSC contract — which mostly comes down to billing accuracy, screening processes, and payroll documentation. An agency can pass one and still have gaps in the other, because they\'re measuring different things.',
+          'A license survey and a contract monitoring may sound like two names for the same visit, but different parts of HHSC run them for different reasons. A license survey checks HCSSA licensing and care standards. Contract and fiscal compliance monitoring checks the terms of a specific HHSC contract, focusing mainly on billing accuracy, screening processes, and payroll documentation. Because the reviews measure different things, an agency can pass one and still have gaps in the other.',
         ],
       },
       {
         title: 'How often this happens',
         paragraphs: [
-          'Contract and fiscal compliance monitoring doesn\'t run on a fixed annual or multi-year cycle the way a license survey does. Under state rule, HHSC monitors a contractor at least once during a provisional contract, then periodically after that on a schedule HHSC sets — which means the interval isn\'t predictable the way survey timing is. What is predictable is the notice: at least 14 days\' written notice before the monitoring date, naming the contract being reviewed and what to have ready.',
+          'Contract and fiscal compliance monitoring does not follow the fixed annual or multi-year cycle used for license surveys. Under state rule, HHSC monitors a contractor at least once during a provisional contract and periodically after that on a schedule HHSC sets. The interval is not predictable, but the notice is: HHSC provides at least 14 days\' written notice, naming the contract under review and the records to have ready.',
         ],
       },
       {
         title: 'What a monitoring typically covers',
         paragraphs: [
-          'The review centers on four areas: **screening and background checks** (LEIE screening process and evidence — including the monthly screening cadence, which is stricter than the annual employability checks required elsewhere), **staff and payroll records** (employee roster, wage notification process, payroll documentation), **client and service records** (client charts, complaint logs, documentation that clients were informed how to report abuse or neglect), and **program-specific documents** that only apply to certain contract types, like vendor justifications for CLASS DSA or a facility floor plan for RC. Ryzolve is built around this exact overlap — LEIE screening, payroll records, and client documentation stay connected in one system, so a 14-day notice becomes a confirmation pass instead of a records-assembly project.',
+          'The review centers on four areas: **screening and background checks** (including evidence of monthly LEIE screening, a stricter schedule than the annual employability checks required elsewhere), **staff and payroll records** (employee roster, wage notification process, payroll documentation), **client and service records** (client charts, complaint logs, and proof that clients were told how to report abuse or neglect), and **program-specific documents** for certain contract types, such as vendor justifications for CLASS DSA or a facility floor plan for RC. Ryzolve keeps LEIE screening, payroll records, and client documentation connected in one system. With those records in place, the 14-day notice can be used to confirm the files instead of assembling them.',
         ],
       },
       {
@@ -2032,10 +2032,10 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
     ],
     capabilities: [
-      'Whether LEIE screening is actually happening monthly, not just at hire — this monitoring checks for evidence of the ongoing cadence, not a one-time record',
+      'Whether LEIE screening happens monthly, since this monitoring checks the ongoing schedule as well as the record from hiring',
       'Whether payroll records for attendants tie back cleanly to the hours billed for the individuals they served',
       'Whether your complaint log is current and whether clients or their representatives have documented proof they were told how to file one',
-      'Whether program-specific items for your contract type are already on file, rather than something you\'d need to assemble under a 14-day deadline',
+      'Whether program-specific items for your contract type are already on file before the 14-day deadline begins',
     ],
     faqs: [
       {
