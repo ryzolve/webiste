@@ -10,7 +10,7 @@ export type LegalPolicy = {
   description: string;
   h1: string;
   intro: string;
-  lastUpdated: 'July 15, 2026';
+  lastUpdated: string;
   sections: LegalSection[];
 };
 
@@ -32,8 +32,8 @@ export const privacyPolicy: LegalPolicy = {
     'Learn how Ryzolve collects, uses, shares, and protects information when you visit our website, request a demo, or use our training services.',
   h1: 'Privacy Policy',
   intro:
-    'This Privacy Policy explains how Ryzolve LLC handles information collected through ryzolve.com and related marketing communications.',
-  lastUpdated: 'July 15, 2026',
+    'This Privacy Policy explains how Ryzolve LLC handles information collected through ryzolve.com, our training platform at learn.ryzolve.app, and related communications.',
+  lastUpdated: 'August 18, 2026',
   sections: [
     {
       id: 'information-you-provide',
@@ -97,6 +97,27 @@ export const privacyPolicy: LegalPolicy = {
       heading: 'Marketing Choices',
       body: [
         'You can opt out of promotional emails by using the unsubscribe link in the message or by contacting us. Opting out of marketing communications does not prevent us from sending service, security, purchase, or other non-promotional communications when applicable.',
+      ],
+    },
+    {
+      /*
+       * Required by A2P 10DLC review, not merely good practice.
+       *
+       * Carrier reviewers open the privacy policy linked on the campaign
+       * registration and look for mobile-opt-in language. Its absence is a
+       * documented rejection cause, and this policy previously contained no
+       * mention of SMS, text messages, mobile numbers or STOP at all.
+       *
+       * The second paragraph is close to mandatory and should not be
+       * paraphrased: reviewers look for the explicit statement that mobile
+       * opt-in data is excluded from any sharing, in close to these words.
+       */
+      id: 'text-messaging',
+      heading: 'Text Messaging',
+      body: [
+        'If you opt in to receive text messages from Ryzolve, we collect the mobile number you provide and a record of your consent, including the date and the wording you agreed to. We use this only to send transactional training reminders about your course deadlines and certificate expiry. We do not send marketing text messages.',
+        'Mobile information will not be shared with third parties or affiliates for marketing or promotional purposes. All of the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.',
+        'Message frequency varies. Message and data rates may apply. You can opt out at any time by replying STOP to any message, or by turning off text reminders in your account settings. Reply HELP for help, or contact us at ryzolve.com/contact.',
       ],
     },
     {
