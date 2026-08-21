@@ -33,7 +33,7 @@ export const privacyPolicy: LegalPolicy = {
   h1: 'Privacy Policy',
   intro:
     'This Privacy Policy explains how Ryzolve LLC handles information collected through ryzolve.com, our training platform at learn.ryzolve.app, and related communications.',
-  lastUpdated: 'August 18, 2026',
+  lastUpdated: 'August 19, 2026',
   sections: [
     {
       id: 'information-you-provide',
@@ -90,6 +90,21 @@ export const privacyPolicy: LegalPolicy = {
         'We use service providers that help us host and secure the site, protect forms, schedule meetings, provide chat, deliver our application and learning experiences, and measure website activity. These providers may process information on our behalf to perform their services.',
         'Current marketing-site providers include Cloudflare for hosting and security-related services, Cloudflare Turnstile for form-abuse protection, Calendly for demo scheduling, and Tawk.to for live chat. Google Analytics 4 may be used when enabled in our site configuration. Stripe may process payments for supported course purchases through the applicable checkout flow.',
         'We may also disclose information when required by law, to protect the rights, safety, or security of Ryzolve or others, or in connection with a corporate transaction such as a merger, financing, or sale of assets.',
+        /*
+         * This carve-out lives HERE, immediately after the sharing categories,
+         * because the sentence says "all of the above categories" and needs
+         * something above it to refer to.
+         *
+         * It was previously only in the Text Messaging section, two sections
+         * further down, where the phrase pointed at nothing — leaving this
+         * section's general sharing language reading as a direct contradiction
+         * of it. The campaign was rejected with error 30908, whose stated
+         * causes include a policy that "contained conflicting information".
+         *
+         * Carrier reviewers look for close to this exact wording. Do not
+         * paraphrase it, and do not move it away from the sharing categories.
+         */
+        'Mobile information will not be shared with third parties or affiliates for marketing or promotional purposes. All of the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.',
       ],
     },
     {
@@ -116,7 +131,7 @@ export const privacyPolicy: LegalPolicy = {
       heading: 'Text Messaging',
       body: [
         'If you opt in to receive text messages from Ryzolve, we collect the mobile number you provide and a record of your consent, including the date and the wording you agreed to. We use this only to send transactional training reminders about your course deadlines and certificate expiry. We do not send marketing text messages.',
-        'Mobile information will not be shared with third parties or affiliates for marketing or promotional purposes. All of the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.',
+        'Your mobile number, your text messaging opt-in data, and your consent are never shared with third parties or affiliates for marketing or promotional purposes, and are not sold. They are used only to deliver the training reminders described above. This applies without exception, including to the service providers and disclosures described in Service Providers and Sharing.',
         'Message frequency varies. Message and data rates may apply. You can opt out at any time by replying STOP to any message, or by turning off text reminders in your account settings. Reply HELP for help, or contact us at ryzolve.com/contact.',
       ],
     },
