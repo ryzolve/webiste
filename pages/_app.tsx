@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 // The redesign ships its own self-contained stylesheet and is the only thing
 // the live pages render. No legacy template CSS/providers are loaded.
 import "redesign/site.css";
+import { loadAnalytics } from "redesign/analytics";
 
 // Optional, env-driven SEO/analytics wiring. The public GA4 ID is a safe fallback
 // so production tracking cannot be accidentally omitted from a deployment build.
@@ -23,6 +24,38 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
     Router.events.on("routeChangeComplete", onRouteChange);
     return () => Router.events.off("routeChangeComplete", onRouteChange);
+  }, []);
+
+  // PostHog. After the load event once the browser is idle (capped at 3s), or
+  // on the first tap/keypress — whichever comes first — so its parse cost stays
+  // out of the window PageSpeed measures. Its own pageview fires at init, with
+  // the current URL, so the landing page is still counted.
+  useEffect(() => {
+    const w = window as unknown as {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number | undefined;
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      void loadAnalytics();
+    };
+    const afterLoad = () => {
+      if (w.requestIdleCallback) idleId = w.requestIdleCallback(start, { timeout: 3000 });
+      else setTimeout(start, 1500);
+    };
+    if (document.readyState === "complete") afterLoad();
+    else window.addEventListener("load", afterLoad, { once: true });
+    window.addEventListener("pointerdown", start, { once: true, passive: true });
+    window.addEventListener("keydown", start, { once: true });
+    return () => {
+      if (idleId != null) w.cancelIdleCallback?.(idleId);
+      window.removeEventListener("load", afterLoad);
+      window.removeEventListener("pointerdown", start);
+      window.removeEventListener("keydown", start);
+    };
   }, []);
 
   // tawk.to live chat (ported from the old site). Its widget requests several
