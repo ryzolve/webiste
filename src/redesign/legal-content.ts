@@ -33,7 +33,7 @@ export const privacyPolicy: LegalPolicy = {
   h1: 'Privacy Policy',
   intro:
     'This Privacy Policy explains how Ryzolve LLC handles information collected through ryzolve.com, our training platform at learn.ryzolve.app, and related communications.',
-  lastUpdated: 'August 19, 2026',
+  lastUpdated: 'October 2, 2026',
   sections: [
     {
       id: 'information-you-provide',
@@ -88,7 +88,7 @@ export const privacyPolicy: LegalPolicy = {
       heading: 'Service Providers and Sharing',
       body: [
         'We use service providers that help us host and secure the site, protect forms, schedule meetings, provide chat, deliver our application and learning experiences, and measure website activity. These providers may process information on our behalf to perform their services.',
-        'Current marketing-site providers include Cloudflare for hosting and security-related services, Cloudflare Turnstile for form-abuse protection, Calendly for demo scheduling, and Tawk.to for live chat. Google Analytics 4 may be used when enabled in our site configuration. Stripe may process payments for supported course purchases through the applicable checkout flow.',
+        'Current marketing-site providers include Cloudflare for hosting and security-related services, Cloudflare Turnstile for form-abuse protection, Calendly for demo scheduling, Tawk.to for live chat, and PostHog for website analytics and session replay. Google Analytics 4 may be used when enabled in our site configuration. Stripe may process payments for supported course purchases through the applicable checkout flow.',
         'We may also disclose information when required by law, to protect the rights, safety, or security of Ryzolve or others, or in connection with a corporate transaction such as a merger, financing, or sale of assets.',
         /*
          * This carve-out lives HERE, immediately after the sharing categories,
@@ -319,7 +319,7 @@ export const cookiesPolicy: LegalPolicy = {
   h1: 'Cookie Policy',
   intro:
     'This Cookie Policy explains how Ryzolve uses cookies and similar technologies on ryzolve.com and how you can manage them.',
-  lastUpdated: 'July 15, 2026',
+  lastUpdated: 'October 2, 2026',
   sections: [
     {
       id: 'what-are-cookies',
@@ -361,6 +361,7 @@ export const cookiesPolicy: LegalPolicy = {
       heading: 'Analytics Cookies',
       body: [
         'Google Analytics 4 is optional in the current site configuration. When it is enabled, Google may use cookies or similar technologies to measure visits, pages viewed, and site interactions so we can understand and improve the website. If analytics is not configured, the site does not load the GA4 script.',
+        'We use PostHog to understand how visitors use the website. PostHog loads after the page has finished loading or when you first interact with it, and sets a first-party cookie and local storage entry to recognize a returning browser. It records pages viewed, clicks, and scrolling, and may record a session replay of your visit. Text you type into form fields is masked and is not captured in replays.',
       ],
     },
     {

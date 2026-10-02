@@ -17,6 +17,7 @@
   "dependencies": {
     "@marsidev/react-turnstile": "^1.5.3",
     "next": "^14.2.35",
+    "posthog-js": "1.435.6",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-server-dom-webpack": "^19.2.7",
