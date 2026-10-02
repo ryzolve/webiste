@@ -16,7 +16,7 @@ import type { PostHog } from "posthog-js";
  * on the first tap/keypress — whichever comes first.
  */
 
-const POSTHOG_KEY = "phc_REPLACE_WITH_PROJECT_KEY";
+const POSTHOG_KEY = "phc_B7oirbByxLkLa2tmPZzRoCCdEg4CwSumt3rgRUVcC2io";
 const POSTHOG_HOST = "https://us.i.posthog.com";
 const PRODUCTION_HOSTS = new Set(["ryzolve.com", "www.ryzolve.com"]);
 
