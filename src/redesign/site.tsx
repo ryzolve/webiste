@@ -2475,7 +2475,7 @@ export function ContactPage() {
             <div className="rz-contact-side">
               <div className="rz-demo-card">
                 <p className="rz-eyebrow rz-eyebrow-coral" style={{ margin: 0 }}>Book a demo</p>
-                <h3>30 minutes, no slides.</h3>
+                <h3>45 minutes, no slides.</h3>
                 <p>A working session — walk through your bottleneck, see where Ryzolve fits, leave with next steps.</p>
                 <CTA href="/calendly" variant="coral">Pick a time</CTA>
               </div>
@@ -2547,7 +2547,7 @@ export function CalendlyPage() {
   return (
     <SiteLayout active="calendly">
       <SEO
-        title="Book a Demo — 30 Minutes, No Slides"
+        title="Book a Demo — 45 Minutes, No Slides"
         description="Schedule a working session with the Ryzolve team. Walk through your bottleneck, see where Ryzolve fits, and leave with next steps."
         path="/calendly"
         keywords={['book a demo', 'Ryzolve demo', 'Calendly', 'PAS software demo']}
@@ -2566,7 +2566,7 @@ export function CalendlyPage() {
               <span className="sep">/</span>
               <span className="current">Book a demo</span>
             </p>
-            <span className="rz-pill">30 minutes · No slides</span>
+            <span className="rz-pill">45 minutes · No slides</span>
             <h1>Book a demo.</h1>
             <p>Pick a time that works for you. We&apos;ll walk through where Ryzolve fits — intake, compliance, claims — and answer any questions about pricing and rollout.</p>
           </div>
