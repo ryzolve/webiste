@@ -4,6 +4,7 @@ import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import SEO from './SEO';
+import { trackEvent } from './analytics';
 import { FaqAccordion } from './FaqAccordion';
 import {
   BreadcrumbJsonLd,
@@ -2505,7 +2506,44 @@ export function ContactPage() {
    Calendly page
    ════════════════════════════════════════════════════════════════ */
 
+/**
+ * Calendly's inline-embed params. embed_domain makes the iframe postMessage
+ * its events to this page, and any utm_* on /calendly (blog CTAs add them) is
+ * passed through so Calendly stores the source on the booking itself.
+ */
+function calendlyEmbedSrc(search: string, hostname: string) {
+  const url = new URL(company.calendlyUrl);
+  url.searchParams.set('embed_domain', hostname);
+  url.searchParams.set('embed_type', 'Inline');
+  new URLSearchParams(search).forEach((value, key) => {
+    if (key.startsWith('utm_')) url.searchParams.set(key, value);
+  });
+  return url.toString();
+}
+
 export function CalendlyPage() {
+  // Built after mount (needs location), so the iframe loads once with the
+  // final URL rather than reloading when the params arrive.
+  const [embedSrc, setEmbedSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utm: Record<string, string> = {};
+    params.forEach((value, key) => {
+      if (key.startsWith('utm_')) utm[key] = value;
+    });
+    setEmbedSrc(calendlyEmbedSrc(window.location.search, window.location.hostname));
+
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== 'https://calendly.com') return;
+      const name = (event.data as { event?: unknown } | null)?.event;
+      if (name === 'calendly.event_scheduled') trackEvent('demo_booked', utm);
+      else if (name === 'calendly.date_and_time_selected') trackEvent('demo_time_selected', utm);
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, []);
+
   return (
     <SiteLayout active="calendly">
       <SEO
@@ -2535,7 +2573,7 @@ export function CalendlyPage() {
         </section>
         <section className="rz-section" style={{ paddingTop: 0 }}>
           <div className="rz-calendly-wrap">
-            <iframe title="Ryzolve demo booking" src={company.calendlyUrl} loading="lazy" />
+            {embedSrc && <iframe title="Ryzolve demo booking" src={embedSrc} />}
           </div>
         </section>
       </main>
