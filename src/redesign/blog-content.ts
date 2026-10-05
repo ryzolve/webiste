@@ -1,3 +1,5 @@
+import type { BlogOfferKind } from './blog-offers';
+
 export type BlogFaq = { q: string; a: string };
 
 export type BlogRelatedLink = {
@@ -35,6 +37,8 @@ export type BlogCapabilityEntry = {
   relatedLinks: BlogRelatedLink[];
   ctaLabel: string;
   ctaHref: string;
+  /** Overrides the offer derived from ctaHref/eyebrow (see blog-offers.ts). */
+  offer?: BlogOfferKind;
   /**
    * Per-post section headings. These were hard-coded to the first (payroll)
    * article, which meant every other post inherited its wording — so they are

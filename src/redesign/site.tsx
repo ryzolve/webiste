@@ -4,6 +4,7 @@ import { FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import SEO from './SEO';
+import { trackEvent } from './analytics';
 import { FaqAccordion } from './FaqAccordion';
 import {
   BreadcrumbJsonLd,
@@ -2474,7 +2475,7 @@ export function ContactPage() {
             <div className="rz-contact-side">
               <div className="rz-demo-card">
                 <p className="rz-eyebrow rz-eyebrow-coral" style={{ margin: 0 }}>Book a demo</p>
-                <h3>30 minutes, no slides.</h3>
+                <h3>45 minutes, no slides.</h3>
                 <p>A working session — walk through your bottleneck, see where Ryzolve fits, leave with next steps.</p>
                 <CTA href="/calendly" variant="coral">Pick a time</CTA>
               </div>
@@ -2505,11 +2506,48 @@ export function ContactPage() {
    Calendly page
    ════════════════════════════════════════════════════════════════ */
 
+/**
+ * Calendly's inline-embed params. embed_domain makes the iframe postMessage
+ * its events to this page, and any utm_* on /calendly (blog CTAs add them) is
+ * passed through so Calendly stores the source on the booking itself.
+ */
+function calendlyEmbedSrc(search: string, hostname: string) {
+  const url = new URL(company.calendlyUrl);
+  url.searchParams.set('embed_domain', hostname);
+  url.searchParams.set('embed_type', 'Inline');
+  new URLSearchParams(search).forEach((value, key) => {
+    if (key.startsWith('utm_')) url.searchParams.set(key, value);
+  });
+  return url.toString();
+}
+
 export function CalendlyPage() {
+  // Built after mount (needs location), so the iframe loads once with the
+  // final URL rather than reloading when the params arrive.
+  const [embedSrc, setEmbedSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const utm: Record<string, string> = {};
+    params.forEach((value, key) => {
+      if (key.startsWith('utm_')) utm[key] = value;
+    });
+    setEmbedSrc(calendlyEmbedSrc(window.location.search, window.location.hostname));
+
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== 'https://calendly.com') return;
+      const name = (event.data as { event?: unknown } | null)?.event;
+      if (name === 'calendly.event_scheduled') trackEvent('demo_booked', utm);
+      else if (name === 'calendly.date_and_time_selected') trackEvent('demo_time_selected', utm);
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, []);
+
   return (
     <SiteLayout active="calendly">
       <SEO
-        title="Book a Demo — 30 Minutes, No Slides"
+        title="Book a Demo — 45 Minutes, No Slides"
         description="Schedule a working session with the Ryzolve team. Walk through your bottleneck, see where Ryzolve fits, and leave with next steps."
         path="/calendly"
         keywords={['book a demo', 'Ryzolve demo', 'Calendly', 'PAS software demo']}
@@ -2528,14 +2566,14 @@ export function CalendlyPage() {
               <span className="sep">/</span>
               <span className="current">Book a demo</span>
             </p>
-            <span className="rz-pill">30 minutes · No slides</span>
+            <span className="rz-pill">45 minutes · No slides</span>
             <h1>Book a demo.</h1>
             <p>Pick a time that works for you. We&apos;ll walk through where Ryzolve fits — intake, compliance, claims — and answer any questions about pricing and rollout.</p>
           </div>
         </section>
         <section className="rz-section" style={{ paddingTop: 0 }}>
           <div className="rz-calendly-wrap">
-            <iframe title="Ryzolve demo booking" src={company.calendlyUrl} loading="lazy" />
+            {embedSrc && <iframe title="Ryzolve demo booking" src={embedSrc} />}
           </div>
         </section>
       </main>

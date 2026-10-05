@@ -10,6 +10,8 @@ import {
 } from './structured-data';
 import type { BlogCapabilityEntry } from './blog-content';
 import { getBlogCapability } from './blog-content';
+import { blogOffer } from './blog-offers';
+import { BlogCtaLink, BlogEndCta, BlogInlineCta, BlogStickyCta } from './BlogCta';
 import { SiteLayout } from './site';
 
 /* Article paragraphs come from markdown, so a few carry inline links, bold, and
@@ -71,6 +73,7 @@ function relatedImage(href: string): string | undefined {
 
 export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
   const path = `/blogs/${entry.slug}`;
+  const offer = blogOffer(entry);
 
   return (
     <SiteLayout active="blogs">
@@ -117,10 +120,14 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
               <h1>{entry.title}</h1>
               <p className="rz-blog-hero-description">{entry.description}</p>
               <div className="rz-page-hero-actions">
-                <Link className="rz-btn rz-btn-blue" href={entry.ctaHref}>
-                  <span>{entry.ctaLabel}</span>
-                  <span className="rz-btn-arrow" aria-hidden="true">→</span>
-                </Link>
+                <BlogCtaLink
+                  className="rz-btn rz-btn-blue"
+                  link={offer.primary}
+                  offer={offer}
+                  placement="hero"
+                  rank="primary"
+                  slug={entry.slug}
+                />
                 <Link className="rz-btn rz-btn-ghost" href="#article">
                   <span>Read the guide</span>
                   <span className="rz-btn-arrow" aria-hidden="true">↓</span>
@@ -159,13 +166,16 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
           </div>
         </section>
 
-        {entry.articleSections.map((section) => (
+        {entry.articleSections.map((section, index) => (
           <section className="rz-section border-y border-rule bg-paper" key={section.title}>
             <div className="rz-wrap rz-blog-article-section">
               <h2>{section.title}</h2>
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{renderInlineMarkdown(paragraph)}</p>
               ))}
+              {/* After the section that sets out the problem — the first point
+                  in the read where the offer answers something. */}
+              {index === 0 && <BlogInlineCta entry={entry} offer={offer} />}
             </div>
           </section>
         ))}
@@ -186,6 +196,8 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
             </ul>
           </div>
         </section>
+
+        <BlogEndCta entry={entry} offer={offer} />
 
         <section className="rz-section bg-bg" aria-labelledby="blog-faq-title">
           <div className="rz-wrap">
@@ -229,21 +241,9 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
             </div>
           </div>
         </section>
-
-        <section className="rz-blog-final-cta" aria-labelledby="blog-cta-title">
-          <div className="rz-wrap rz-blog-final-cta-inner">
-            <div>
-              <p className="rz-eyebrow">Ready to review your workflow?</p>
-              <h2 id="blog-cta-title">{entry.ctaTitle ?? 'See where this fits at your agency.'}</h2>
-            </div>
-            <Link className="rz-btn rz-btn-coral" href={entry.ctaHref}>
-              <span>{entry.ctaLabel}</span>
-              <span className="rz-btn-arrow" aria-hidden="true">→</span>
-            </Link>
-          </div>
-        </section>
         </article>
       </main>
+      <BlogStickyCta entry={entry} offer={offer} />
     </SiteLayout>
   );
 }

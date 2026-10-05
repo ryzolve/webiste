@@ -53,3 +53,13 @@ export function loadAnalytics(): Promise<PostHog | null> {
     .catch(() => null);
   return client;
 }
+
+/**
+ * A named event to PostHog and GA4. Starts PostHog if it hasn't loaded yet —
+ * a click is an interaction, so the PageSpeed reason for waiting is gone.
+ */
+export function trackEvent(name: string, properties: Record<string, unknown> = {}) {
+  void loadAnalytics().then((posthog) => posthog?.capture(name, properties));
+  const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+  w.gtag?.("event", name, properties);
+}
