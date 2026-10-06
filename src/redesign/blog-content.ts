@@ -25,13 +25,24 @@ export type BlogArticleTable = {
   rows: string[][];
 };
 
+/** One piece of a section, for copy that mixes paragraphs, lists and tables. */
+export type BlogArticleBlock =
+  | { type: 'p'; text: string }
+  | { type: 'list'; items: string[]; ordered?: boolean; heading?: string }
+  | { type: 'table'; head: string[]; rows: string[][] }
+  /** A standalone "→" link in the copy, drawn as a tracked button. */
+  | { type: 'cta'; label: string; href: string };
+
 /**
- * Rendered in this order: paragraphs, lists, closing, table. Every string goes
- * through the inline-markdown renderer, so links and bold work everywhere.
+ * Rendered in this order: paragraphs, blocks, lists, closing, table. `blocks`
+ * keeps mixed copy in its written order; the other fields are the older,
+ * fixed-order shape. Every string goes through the inline-markdown renderer,
+ * so links and bold work everywhere.
  */
 export type BlogArticleSection = {
   title: string;
   paragraphs: string[];
+  blocks?: BlogArticleBlock[];
   lists?: BlogArticleList[];
   closing?: string[];
   table?: BlogArticleTable;
@@ -67,6 +78,8 @@ export type BlogCapabilityEntry = {
   heroDescription?: string;
   /** Workflow-section eyebrow; defaults to "How it works". */
   solutionEyebrow?: string;
+  /** FAQ eyebrow; defaults to "Questions Texas PAS teams ask". */
+  faqEyebrow?: string;
   /** End-of-article CTA copy; defaults to the offer's body. */
   ctaDescription?: string;
   /** Sources / disclaimer line printed after the last article section. */
@@ -91,109 +104,266 @@ export const BLOG_PAGE_SIZE = 6;
 
 export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   {
+    slug: 'monthly-in-service-training-texas-home-care-agencies',
+    label: 'Monthly in-service training',
+    heroPanelTitle: 'Twelve topics, one plan.',
+    heroPanelDescription:
+      'A topic a month for your whole care team, completion shown by learner, and a certificate for every person.',
+    eyebrow: 'In-service training',
+    title: 'Monthly In-Service Training for Texas Home Care Agencies: The 12 Topics',
+    seoTitle: 'Monthly In-Service Training for Texas Home Care Agencies: All 12 Topics',
+    description:
+      'A guide to the 12 monthly In-Service topics every Texas home care agency should cover, what surveyors ask for, and how Ryzolve helps you prove it.',
+    heroDescription:
+      'Nobody enjoys training logistics. But when a surveyor says, "Show me your staff in-service and training records," you want to open one place and have the answer.',
+    publishedAt: '2026-10-07',
+    readingMinutes: 6,
+    keywords: [
+      'in-service training home care texas',
+      'caregiver in-service topics',
+      'home care annual training',
+      'PAS agency in-service training',
+      'HCSSA in-service',
+    ],
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
+    articleSections: [
+      {
+        title: 'What\'s actually required',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'It depends on your license category. For Medicare-certified home health, federal rules require home health aides to get at least 12 hours of in-service training in each 12-month period. For PAS attendants, as far as we can find, Texas doesn\'t set an hour minimum. The agency decides what competent looks like and has to be able to show it.' },
+          { type: 'p', text: 'Either way, HHSC survey document requests ask for staff in-service and training records. The records are what you\'re judged on.' },
+        ],
+      },
+      {
+        title: 'The 12 topics',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: '**January: Infection Control.** Hand hygiene, protective equipment, and what to do when a client discloses an illness. [Read more →](https://ryzolve.com/blogs/infection-control-training-home-care)' },
+          { type: 'p', text: '**February: Client Rights, HIPAA & Elder Abuse.** Privacy, dignity and recognizing abuse.' },
+          { type: 'p', text: '**March: Communication Skills & Cultural Competency.** Building trust with clients from different backgrounds.' },
+          { type: 'p', text: '**April: Dementia & Alzheimer\'s Care.** Handling confusion, agitation and safety. [Read more →](https://ryzolve.com/blogs/dementia-alzheimers-care-training)' },
+          { type: 'p', text: '**May: Emergency & Disaster Preparedness.** Your plan, your role in it, and what to do before the storm. [Read more →](https://ryzolve.com/blogs/emergency-disaster-preparedness-training)' },
+          { type: 'p', text: '**June: Assisting with ADLs & Safe Transfer.** Body mechanics that protect the client and the caregiver.' },
+          { type: 'p', text: '**July: TB / Airborne Pathogen & Safety Precautions.** Recognizing symptoms and taking the right precautions.' },
+          { type: 'p', text: '**August: Caregiver Self-Care.** Burnout is a retention problem. This one helps.' },
+          { type: 'p', text: '**September: Ethics & Professional Conduct.** Boundaries, client property and conduct.' },
+          { type: 'p', text: '**October: Documentation & Charting.** What good records look like. [Read more →](https://ryzolve.com/blogs/documentation-and-charting-training)' },
+          { type: 'p', text: '**November: Abuse, Neglect & Exploitation Reporting.** The duty to report, and exactly how. [Read more →](https://ryzolve.com/blogs/abuse-neglect-exploitation-reporting-training)' },
+          { type: 'p', text: '**December: Vital Signs & Health Monitoring.** Technique, normal ranges and when to escalate.' },
+        ],
+      },
+      {
+        title: 'How Ryzolve helps',
+        paragraphs: [],
+        blocks: [
+          {
+            type: 'list',
+            items: [
+              '**A full year, ready to go.** All 12 topics are included in our monthly In-Service plan.',
+              '**Proof on demand.** Administrators see completion by learner and download a certificate for each person.',
+              '**Your own material, too.** Our training platform lets you add your own courses, in video or text, beyond the standard 12.',
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Beyond training',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Training is one piece of staying survey-ready. Ryzolve also runs employability and exclusion checks at hire and every month, stores every result, and keeps caregiver files organized, so the records a surveyor asks for are easy to pull. See how it fits together in a short demo.' },
+          { type: 'cta', label: 'Book a demo', href: '/calendly' },
+        ],
+      },
+    ],
+    inlineCtaAfter: 2,
+    capabilities: [],
+    faqs: [
+      {
+        q: 'Is In-Service training required for PAS agencies?',
+        a: 'As far as we can find, Texas doesn\'t set a minimum number of training hours for PAS attendants. Your agency has to be able to show competency, and surveyors ask for training records.',
+      },
+      {
+        q: 'What does federal law require for home health aides?',
+        a: 'At least 12 hours of in-service training in each 12-month period for home health aides in Medicare-certified agencies.',
+      },
+      {
+        q: 'Can we add our own courses?',
+        a: 'Yes. Ryzolve\'s training platform lets subscribing agencies add courses in video or text.',
+      },
+      {
+        q: 'How do I show a surveyor who\'s trained?',
+        a: 'Administrators see completion by learner and can download a certificate for each person.',
+      },
+    ],
+    relatedLinks: [
+      {
+        href: '/blogs/texas-hcssa-license-survey-readiness',
+        title: 'License survey checklist',
+        description: 'What surveyors ask for.',
+      },
+      {
+        href: '/compliance-regulation',
+        title: 'Compliance checks',
+        description: 'How Ryzolve runs and stores employability checks.',
+      },
+      {
+        href: '/calendly',
+        title: 'Book a demo',
+        description: 'See how Ryzolve helps agencies stay survey-ready beyond training.',
+      },
+    ],
+    ctaLabel: 'View In-Service Plans',
+    ctaHref: '/training',
+    faqEyebrow: 'Questions Texas agencies ask',
+    relatedTitle: 'In-service training connects to the rest of your agency.',
+    ctaTitle: 'See your team\'s training status',
+  },
+  {
     slug: '16-hour-new-administrator-training-texas',
     image: '/img/blog/16-hour-new-administrator-training-texas.jpg',
     imageAlt: 'An agency administrator taking notes at her desk beside an open laptop',
     label: '16-hour new administrator training',
     eyebrow: 'Texas administrator training',
-    title: 'What the 16-Hour New Administrator Training Actually Covers in Texas',
+    title: 'The 16-Hour Administrator Training in Texas: What It Is and When to Take It',
+    seoTitle: '16-Hour New Administrator Training for Texas HCSSAs: Deadline, Rules and Timing',
     description:
-      'A plain-language guide to the 16-hour training Texas requires for first-time HCSSA Administrators and Alternate Administrators, and how to stay on schedule.',
+      'Texas requires 16 more clock hours of training for first-time HCSSA Administrators and Alternates. When the clock starts, what you can finish before you\'re designated, and how to keep it from slipping.',
+    heroDescription:
+      'The 8-hour course gets everyone\'s attention because it comes first. The 16-hour course is the one that sneaks up on people. You\'re running an agency, the first year disappears, and suddenly the deadline is close.',
     publishedAt: '2026-08-11',
-    readingMinutes: 6,
+    updatedAt: '2026-10-07',
+    readingMinutes: 5,
     keywords: [
       '16 hour texas administrator training',
       'new HCSSA administrator training',
       'first-time administrator training texas',
-      'HCSSA onboarding training',
+      '26 TAC 558.259',
       'texas home care administrator requirements',
     ],
-    solutionTitle: 'How it works at your agency.',
+    solutionEyebrow: 'At a glance',
+    solutionTitle: 'The rule in plain English',
     solutionDescription:
-      'A plain-language guide to the additional training first-time Administrators and Alternate Administrators must complete in their first year, with a practical way to stay ahead of the deadline.',
+      'This applies to first-time Administrators and Alternate Administrators under 26 TAC §558.259.',
     workflowSteps: [
       {
         number: '01',
-        title: 'Know your window',
-        description: 'First-time Administrators and Alternate Administrators have until the end of their first 12 months in the role to complete the additional 16 clock hours.',
+        title: '8 hours before you\'re designated',
+        description: 'That\'s the initial course, done in the 12 months before designation.',
       },
       {
         number: '02',
-        title: 'Complete it in Ryzolve, on your schedule',
-        description: 'Self-paced modules let you finish the 16 hours in one sitting or spread them across several weeks. The course works in your browser on any device.',
+        title: '16 more hours by the end of your first 12 months',
+        description: 'The clock runs from the date you\'re designated.',
       },
       {
         number: '03',
-        title: 'File your certificate',
-        description: 'A state-recognized certificate generates instantly on completion, ready to download and keep with your agency\'s records.',
+        title: '24 hours total, then 12 a year',
+        description: 'After year one, continuing education takes over.',
       },
     ],
     articleSections: [
       {
-        title: 'Why this training gets missed',
-        paragraphs: [
-          'The 16-hour requirement comes after the 8-hour training a new Administrator or Alternate Administrator completes before stepping into the role. Because it is due by the end of the first 12 months, the deadline can slip behind the day-to-day work of running the agency. When a survey or license renewal comes up, confirming that the hours were completed and finding the certificate can become a project of its own.',
-          'Giving staff a predictable place to start the 16 hours and find the certificate afterward reduces the last-minute search. The training stays the same; the record simply remains where your team expects it to be.',
+        title: 'The part most people miss: you can start early',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Any of the 16 hours can be finished before you\'re designated, as long as they fall within the 12 months right before your designation date.' },
+          { type: 'p', text: 'That matters because the first year as an Administrator is chaotic. If you\'re already taking the 8-hour course, nothing stops you from finishing some or all of the 16 hours while you\'re at it. Then the deadline never becomes a problem.' },
         ],
       },
       {
-        title: 'What the 16 hours are meant to prepare you for',
-        paragraphs: [
-          'This training builds on the foundational 8-hour course with the practical, day-to-day responsibilities of running a licensed agency. These subjects tend to come up in a survey, complaint investigation, or routine audit. The course can be completed before or during the first year in the role, depending on your onboarding timeline.',
+        title: 'What the 16 hours cover',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'The rule lists required subjects, and HHSC reviews courses against it. A course can also include other topics related to an Administrator\'s duties. You\'re not memorizing statutes for fun. You\'re learning what you\'ll be held to when a surveyor walks in.' },
         ],
       },
       {
-        title: 'How this connects to survey readiness',
-        paragraphs: [
-          'Administrator training is one part of the record an agency may need to produce during a survey. Keeping training certificates alongside caregiver records, compliance checks, and other documentation lets your agency answer "where\'s the proof" without searching under pressure.',
+        title: 'Keep the proof where you can find it',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Hold on to your certificate, and make sure it shows the course, the hours and the date. For continuing education, HHSC describes proof as the name of the class, the topics covered, and the hours and dates. It\'s a good habit from day one.' },
+          { type: 'p', text: 'A certificate sitting in an email from eighteen months ago is how people end up scrambling during a survey.' },
+        ],
+      },
+      {
+        title: 'What comes after',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Once you\'ve done the 24 initial hours, you move to 12 hours of continuing education in each 12-month period. [Here\'s how the 12-hour renewal works →](https://ryzolve.com/blogs/12-hour-administrator-renewal-training-texas)' },
+        ],
+      },
+      {
+        title: 'Take it with Ryzolve',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Our 16-hour course is HHSC-recognized, self-paced and online. You can finish it in a weekend or spread it over a few weeks, and you get a certificate you can download when you\'re done.' },
+        ],
+      },
+      {
+        title: 'Beyond training',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Training is one piece of staying survey-ready. Ryzolve also runs employability and exclusion checks at hire and every month, stores every result, and keeps caregiver files organized, so the records a surveyor asks for are easy to pull. See how it fits together in a short demo.' },
+          { type: 'cta', label: 'Book a demo', href: '/calendly' },
         ],
       },
     ],
-    capabilities: [
-      'Whether your Administrator or Alternate Administrator has started the 16-hour course',
-      'Where the completion certificate will be filed once it\'s issued',
-      'Whether the timeline lines up with your agency\'s own onboarding checklist',
-    ],
+    inlineCtaAfter: 4,
+    sourceNote:
+      '*This reflects 26 TAC §558.259 and HHSC guidance. Confirm current requirements at [hhs.texas.gov](https://www.hhs.texas.gov/providers/long-term-care-providers/home-community-support-services-agencies-hcssa) before relying on this for a compliance decision.*',
+    capabilities: [],
     faqs: [
       {
         q: 'Who needs the 16-hour training?',
-        a: 'First-time Administrators and Alternate Administrators of Home Health, Hospice, and PAS agencies in Texas, within their first 12 months in the role.',
+        a: 'First-time Administrators and Alternate Administrators of Texas HCSSAs, which includes home health, hospice and personal assistance services agencies.',
       },
       {
-        q: 'Can I complete it before I\'m officially designated?',
-        a: 'No. The 16 hours are designed to be completed after designation, within your first 12 months in the role. The 8-hour course is completed beforehand, so the two are not interchangeable in timing.',
+        q: 'Can I take any of it before I\'m designated?',
+        a: 'Yes. Any of the 16 hours can be completed before designation if they fall within the 12 months immediately before the date you\'re designated.',
       },
       {
-        q: 'Is the certificate accepted for HHSC licensing purposes?',
-        a: 'Yes. The course generates a state-recognized completion certificate, which is the record an agency keeps on file to show the requirement was met.',
+        q: 'Do I have to finish the 8 hours first?',
+        a: 'The 8 hours must be completed before you\'re designated, within the 12 months before. For the 16 hours, what matters is the window: any time before designation (inside that 12-month lookback) or before the end of your first 12 months in the role.',
       },
       {
-        q: 'How long do I have access to the course material?',
-        a: 'Access stays open for the full 12 months you have to complete the requirement in Ryzolve, so you can finish it in one sitting or spread it across several sessions at your own pace.',
+        q: 'What happens after I finish the 24 hours?',
+        a: 'You complete 12 hours of continuing education in each following 12-month period.',
+      },
+      {
+        q: 'Do I get a certificate?',
+        a: 'Yes. You can download a certificate when you complete the course.',
       },
     ],
     relatedLinks: [
       {
+        href: '/blogs/8-hour-initial-administrator-training-texas',
+        title: '8-hour initial training',
+        description: 'The course that comes before designation.',
+      },
+      {
+        href: '/blogs/12-hour-administrator-renewal-training-texas',
+        title: '12-hour renewal training',
+        description: 'What continuing education looks like after year one.',
+      },
+      {
         href: '/compliance-regulation',
         title: 'Compliance checks',
-        description: 'See how training records fit into ongoing compliance tracking.',
+        description: 'How Ryzolve runs and stores employability checks.',
       },
       {
-        href: '/document-management',
-        title: 'Document management',
-        description: 'Explore where certificates and agency records live together.',
-      },
-      {
-        href: '/training',
-        title: 'In-Service training',
-        description: 'Compare Administrator courses with monthly agency training plans.',
+        href: '/calendly',
+        title: 'Book a demo',
+        description: 'See how Ryzolve helps agencies stay survey-ready beyond training.',
       },
     ],
     ctaLabel: 'View the 16-hour course',
     ctaHref: '/training/16-hours-for-new-administrators-and-alternates',
-    capabilitiesTitle: 'What to review before your first-year deadline',
+    faqEyebrow: 'Questions Texas administrators ask',
     relatedTitle: 'Administrator training connects to the rest of your agency.',
-    ctaTitle: 'Ready to get your Administrator certified?',
+    ctaTitle: 'Get your Administrator certified',
   },
   {
     slug: 'abuse-neglect-exploitation-reporting-training',
@@ -201,103 +371,144 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'Two care staff talking quietly across a break-room table',
     label: 'Abuse & neglect reporting',
     eyebrow: 'In-service training',
-    title: 'Keeping Abuse, Neglect & Exploitation Reporting Training Current on Your Care Team',
+    title: 'Abuse, Neglect and Exploitation Reporting: What Every Caregiver Needs to Know',
+    seoTitle: 'Abuse, Neglect and Exploitation Reporting for Texas Caregivers: What Staff Must Know',
     description:
-      'A practical look at keeping abuse, neglect, and exploitation reporting training current for Texas home care caregivers and staff, and why it matters for survey readiness.',
+      'In Texas, anyone who suspects abuse, neglect or exploitation of an elderly or disabled adult must report it immediately. What your caregivers need to know, and what surveyors and monitors look for.',
+    heroDescription:
+      'Your caregivers are in clients\' homes when nobody else is. If something is wrong, they\'re often the first to see it. Whether they know exactly what to do next is one of the most important things you can train.',
     publishedAt: '2026-08-06',
+    updatedAt: '2026-10-07',
     readingMinutes: 6,
     keywords: [
-      'caregiver abuse neglect exploitation reporting training',
-      'mandatory reporting training texas home care',
-      'elder abuse reporting training',
+      'caregiver abuse neglect exploitation reporting texas',
+      'mandatory reporting home care texas',
+      'DFPS hotline caregivers',
       'home care in-service training texas',
     ],
-    solutionTitle: 'How it works at your agency.',
-    solutionDescription:
-      'A practical look at why this In-Service topic carries more weight than most, and how agencies keep it documented and audit-ready year-round.',
-    workflowSteps: [
-      {
-        number: '01',
-        title: 'Assign the topic',
-        description: 'Abuse, Neglect & Exploitation Reporting is one of twelve topics included in every Ryzolve In-Service plan.',
-      },
-      {
-        number: '02',
-        title: 'Track completion by learner in Ryzolve',
-        description: 'See who has completed the topic and who still needs to, without cross-referencing separate spreadsheets.',
-      },
-      {
-        number: '03',
-        title: 'Keep the certificate on file',
-        description: 'Completion records and certificates stay attached to each caregiver\'s profile for audit readiness.',
-      },
-    ],
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
     articleSections: [
       {
-        title: 'Why this topic carries extra weight',
-        paragraphs: [
-          'Caregivers and attendants are often the first, and sometimes the only, people positioned to notice signs of abuse, neglect, or exploitation in a client\'s home. Reporting training equips staff to recognize warning signs and know what to do next. Surveyors also pay close attention to this topic.',
-          'A single training session early in a caregiver\'s tenure is not enough. Agencies need to keep the topic current across the team and maintain a clear completion record. That record shows exactly who is current when someone asks.',
+        title: 'The law, in plain English',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'In Texas, everyone is a mandated reporter. Under Human Resources Code §48.051, anyone who has cause to believe an elderly person or an adult with a disability is being abused, neglected or exploited must report it immediately to the Department of Family and Protective Services (DFPS).' },
+          {
+            type: 'list',
+            items: [
+              '**Phone:** 1-800-252-5400, 24 hours a day',
+              '**Online:** txabusehotline.org (if the person isn\'t in immediate danger)',
+              '**If someone is in immediate danger:** call 911 first, then DFPS',
+            ],
+          },
+          { type: 'p', text: 'A few things caregivers often don\'t know:' },
+          {
+            type: 'list',
+            items: [
+              'The duty is personal. Telling a supervisor is good practice, but it doesn\'t replace reporting.',
+              'People who report in good faith are protected from civil and criminal liability, and DFPS keeps the reporter\'s name confidential.',
+              'Failing to report can be charged as a crime.',
+            ],
+          },
         ],
       },
       {
-        title: 'What consistent training on this topic looks like',
-        paragraphs: [
-          'Reporting training covers recognizing signs of abuse, neglect, and exploitation, understanding an agency\'s reporting obligations, and knowing the steps to take once something is identified. Recurring refreshers keep the subject current after the initial orientation.',
+        title: 'What a caregiver should do',
+        paragraphs: [],
+        blocks: [
+          {
+            type: 'list',
+            ordered: true,
+            items: [
+              '**Make sure the person is safe.** Call 911 if there\'s immediate danger.',
+              '**Report to DFPS.** If you\'re not sure which agency handles it, call the hotline. They\'ll route it.',
+              '**Tell the agency.** The office needs to know so it can respond and protect the client.',
+              '**Write down what you saw and heard.** Date, time, facts. Not opinions or guesses.',
+              '**Don\'t investigate.** No confronting the family and no collecting evidence. Report and let the investigators work.',
+            ],
+          },
         ],
       },
       {
-        title: 'How this connects to survey readiness',
-        paragraphs: [
-          'A survey or complaint investigation can request proof on short notice that a specific staff member completed reporting training, along with the completion date. Keeping it with other compliance documentation makes the record easier to retrieve.',
+        title: 'It isn\'t only caregivers who need to know',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'HHSC\'s contract monitoring requests documentation that each client or their representative was told, orally and in writing, how to report complaints and allegations of abuse, neglect or exploitation. That needs to happen before service starts and again every 12 months. It\'s a specific item on the monitoring document list, and it\'s easy to forget because nobody\'s in training when it comes due.' },
+        ],
+      },
+      {
+        title: 'Why this ties back to hiring',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Substantiated findings of abuse, neglect or exploitation are what end up on the Employee Misconduct Registry and in SEMARC. That\'s why your pre-hire checks matter, and why a good reporting culture matters. [See which checks to run →](https://ryzolve.com/blogs/leie-nar-emr-semarc-texas-employability-checks)' },
+        ],
+      },
+      {
+        title: 'Training your team',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Ryzolve\'s monthly In-Service plan includes both Client Rights, HIPAA & Elder Abuse and a dedicated Abuse, Neglect & Exploitation Reporting topic. Administrators can see who has completed each topic and download a certificate for each person. When a surveyor asks for training records, you have them.' },
+        ],
+      },
+      {
+        title: 'Beyond training',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Training is one piece of staying survey-ready. Ryzolve also runs employability and exclusion checks at hire and every month, stores every result, and keeps caregiver files organized, so the records a surveyor asks for are easy to pull. See how it fits together in a short demo.' },
+          { type: 'cta', label: 'Book a demo', href: '/calendly' },
         ],
       },
     ],
-    capabilities: [
-      'Which caregivers and staff have completed this topic, and when',
-      'Whether new hires have it scheduled as part of onboarding',
-      'Where the completion certificates are stored if a surveyor asks',
-    ],
+    inlineCtaAfter: 4,
+    sourceNote:
+      '*This reflects Texas Human Resources Code Chapter 48 and DFPS guidance. Confirm current requirements with DFPS and HHSC before relying on this for a compliance decision.*',
+    capabilities: [],
     faqs: [
       {
-        q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes. Abuse, Neglect & Exploitation Reporting is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        q: 'Who has to report suspected abuse, neglect or exploitation?',
+        a: 'Anyone who has cause to believe an elderly person or an adult with a disability is being abused, neglected or exploited, under Texas Human Resources Code §48.051.',
       },
       {
-        q: 'How do I see who on my team still needs to complete it?',
-        a: 'Ryzolve\'s In-Service dashboard shows completion status by learner, so you can quickly see who has finished this topic and who still needs to without checking individual records one at a time.',
+        q: 'Where do caregivers report?',
+        a: 'To DFPS at 1-800-252-5400 or txabusehotline.org. If someone is in immediate danger, call 911 first.',
       },
       {
-        q: 'Does the certificate reset each year, or is it a one-time record?',
-        a: 'It\'s an annual record. The topic repeats every year as part of the ongoing In-Service cycle, and Ryzolve tracks each year\'s completion separately.',
+        q: 'Is telling my supervisor enough?',
+        a: 'No. The duty to report belongs to the person who has cause to believe it\'s happening. Telling the agency is also important, but it doesn\'t replace the report.',
       },
       {
-        q: 'Can I assign this topic outside of its scheduled month?',
-        a: 'Yes. New hires can complete the topic when it fits their onboarding timeline; they do not have to wait for its scheduled month to come around again.',
+        q: 'Are reporters protected?',
+        a: 'People who report in good faith have immunity from civil and criminal liability, and DFPS keeps the reporter\'s name confidential.',
+      },
+      {
+        q: 'How often should caregivers be trained on this?',
+        a: 'Annually works for most agencies, and new hires should be trained early. Ryzolve\'s In-Service plan covers it every year.',
       },
     ],
     relatedLinks: [
       {
+        href: '/blogs/monthly-in-service-training-texas-home-care-agencies',
+        title: 'All 12 In-Service topics',
+        description: 'The full monthly catalog.',
+      },
+      {
         href: '/compliance-regulation',
         title: 'Compliance checks',
-        description: 'See how training completion fits into ongoing compliance tracking.',
+        description: 'How Ryzolve runs and stores employability checks.',
       },
       {
-        href: '/document-management',
-        title: 'Document management',
-        description: 'Explore where caregiver records and certificates live together.',
-      },
-      {
-        href: '/training',
-        title: 'Administrator training',
-        description: 'Compare In-Service plans with one-time Administrator courses.',
+        href: '/calendly',
+        title: 'Book a demo',
+        description: 'See how Ryzolve helps agencies stay survey-ready beyond training.',
       },
     ],
     ctaLabel: 'View In-Service Plans',
     ctaHref: '/training',
-    capabilitiesTitle: 'What to review across your care team',
+    faqEyebrow: 'Questions Texas agencies ask',
     relatedTitle: 'In-service training connects to the rest of your agency.',
-    ctaTitle: 'Ready to see your team\'s training status?',
+    ctaTitle: 'See your team\'s training status',
   },
   {
     slug: 'documentation-and-charting-training',
@@ -305,104 +516,131 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'A caregiver writing visit notes on a tablet in a client’s living room',
     label: 'Documentation & charting',
     eyebrow: 'In-service training',
-    title: 'Why Documentation & Charting Deserves Its Own Training Month',
+    title: 'If It Isn\'t Documented, a Surveyor Can\'t See It',
+    seoTitle: 'Documentation and Charting for Home Care: What Surveyors and Monitors Look For',
     description:
-      'Why consistent documentation and charting training matters for Texas home care agencies, and how to keep caregiver records audit-ready between surveys.',
+      'Good care that isn\'t documented is invisible to a surveyor. What home care records get requested, the habits that keep them audit-ready, and why late records cost you.',
+    heroDescription:
+      'A caregiver can do everything right on a visit and still leave the agency exposed. If the record doesn\'t show what happened, as far as a surveyor or monitor is concerned, it didn\'t.',
     publishedAt: '2026-08-04',
+    updatedAt: '2026-10-07',
     readingMinutes: 6,
     keywords: [
       'home care documentation training',
-      'caregiver charting training texas',
+      'caregiver charting texas',
       'home care documentation requirements',
       'PAS agency documentation',
       'audit-ready caregiver records',
     ],
-    solutionTitle: 'How it works at your agency.',
-    solutionDescription:
-      'Good care that isn\'t documented is invisible to a surveyor. Consistent charting habits across the care team help close that gap.',
-    workflowSteps: [
-      {
-        number: '01',
-        title: 'Assign the topic',
-        description: 'Documentation & Charting is one of twelve topics included in every Ryzolve In-Service plan.',
-      },
-      {
-        number: '02',
-        title: 'Reinforce daily habits',
-        description: 'In Ryzolve, the training connects directly to the notes and records caregivers already produce during visits.',
-      },
-      {
-        number: '03',
-        title: 'Keep records audit-ready',
-        description: 'Completion certificates and caregiver documentation live in the same place, ready when someone asks for them.',
-      },
-    ],
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
     articleSections: [
       {
-        title: 'Why documentation gaps are so costly',
-        paragraphs: [
-          'A caregiver can deliver excellent care and still leave an agency exposed if the visit isn\'t documented clearly and on time. Missing details, inconsistent formatting, or notes that don\'t match what was authorized are common findings in a survey or audit. The problem may be the record, even when the care itself was delivered.',
-          'Documentation and charting training focuses on consistent habits, including what to note, when to note it, and how to align the record with the services that were authorized and delivered.',
+        title: 'What actually gets requested',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Look at the lists HHSC sends before a visit. A license survey asks for the week\'s visit schedule, your client roster, admission and discharge records, personnel files and clinical or client records. A contract monitoring asks for client charts, including referrals and authorizations, evaluations, service plans, attendant orientations and practitioner statements for the whole monitoring period.' },
+          { type: 'p', text: 'And here\'s the part that matters: those documents have to already exist. HHSC\'s monitoring form says they aren\'t to be created after you get the notice.' },
         ],
       },
       {
-        title: 'What this training reinforces',
-        paragraphs: [
-          'The topic covers the basics of clear, timely charting: what belongs in a visit note, how to keep documentation consistent from caregiver to caregiver, and why the record needs to match the authorized services. An annual refresher helps new and existing caregivers follow the same practices.',
+        title: 'The habits that hold up',
+        paragraphs: [],
+        blocks: [
+          {
+            type: 'list',
+            items: [
+              '**Document at the time, not later.** A note written on the day is believable. A note written three weeks later, after the notice arrived, isn\'t.',
+              '**Stick to facts.** What the caregiver saw, did and heard. Not opinions or guesses.',
+              '**Match what was authorized.** If the authorization says one thing and the visit record says another, someone will ask about it.',
+              '**Correct, don\'t erase.** Fix a mistake with a dated correction that explains it. Never wipe out the original.',
+              '**Label late entries.** If something has to be written late, say so.',
+            ],
+          },
         ],
       },
       {
-        title: 'How this connects to claims and compliance',
-        paragraphs: [
-          'Documentation supports a claim when billed hours are compared against approved hours, and it is often the first thing reviewed in a compliance check or complaint investigation. Current charting training and organized records can make those reviews faster and avoid a document hunt.',
+        title: 'Where changes create paperwork',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'For the PAS clients we see most, a change in authorized hours means the schedule changed, and that means a revised service plan and a fresh attendant orientation within 7 days of the new schedule start. It\'s required whether or not the caregiver changed. These are exactly the records that go missing when schedules shift in the middle of a busy week. Check your own program\'s rules for the details.' },
+        ],
+      },
+      {
+        title: 'A five-minute test',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Pick a client. Can you show the authorization, the current service plan, the attendant\'s orientation and the visit records for the last month, in order, without hunting? If yes, good. If not, you\'ve found where to start.' },
+        ],
+      },
+      {
+        title: 'Where Ryzolve fits',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Ryzolve\'s In-Service plan includes a Documentation & Charting topic every year, with completion shown by learner and a downloadable certificate for each person. On the platform side, we capture caregiver hours worked by visit and track the service plans and orientations that follow a schedule change, so the evidence is there when it\'s asked for.' },
+        ],
+      },
+      {
+        title: 'Beyond training',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Training is one piece of staying survey-ready. Ryzolve also runs employability and exclusion checks at hire and every month, stores every result, and keeps caregiver files organized, so the records a surveyor asks for are easy to pull. See how it fits together in a short demo.' },
+          { type: 'cta', label: 'Book a demo', href: '/calendly' },
         ],
       },
     ],
-    capabilities: [
-      'Whether all caregivers follow consistent documentation habits',
-      'Which staff have completed this topic and when it\'s due for a refresh',
-      'Whether visit notes are easy to produce quickly if a surveyor asks for them',
-    ],
+    inlineCtaAfter: 4,
+    capabilities: [],
     faqs: [
       {
-        q: 'Is Documentation & Charting included in every In-Service plan?',
-        a: 'Yes. It\'s one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        q: 'Does this training replace our own documentation policy?',
+        a: 'No. It builds good habits, but your agency\'s own policy and formats still apply.',
       },
       {
-        q: 'Does this training replace an agency\'s own documentation policy?',
-        a: 'No. It reinforces good documentation habits, but it doesn\'t replace an agency\'s own charting policy or required format. It provides a baseline every caregiver should understand.',
+        q: 'How often should caregivers refresh on documentation?',
+        a: 'Annually works for most agencies, with new hires trained early.',
       },
       {
-        q: 'How often should caregivers refresh this topic?',
-        a: 'Annually, as part of the standard In-Service cycle, so documentation habits stay consistent even as new caregivers join the team.',
+        q: 'Can records be created after a notice arrives?',
+        a: 'No. HHSC\'s monitoring form says documents must already exist and aren\'t to be created after the notice.',
       },
       {
-        q: 'Where do completed certificates get stored?',
-        a: 'In Ryzolve, certificates stay attached to each caregiver\'s profile alongside their other training records, so they\'re easy to locate without a separate filing system.',
+        q: 'How do we handle a mistake in a record?',
+        a: 'Add a dated correction that explains it. Don\'t delete or overwrite the original entry.',
+      },
+      {
+        q: 'Where do certificates go?',
+        a: 'In Ryzolve training, administrators can download a certificate for each person.',
       },
     ],
     relatedLinks: [
       {
-        href: '/document-management',
-        title: 'Document management',
-        description: 'See where caregiver notes and records are organized.',
+        href: '/blogs/texas-hhsc-contract-monitoring-readiness',
+        title: 'Contract monitoring checklist',
+        description: 'What monitors ask for.',
       },
       {
-        href: '/claims-and-bills',
-        title: 'Claims and reconciliation',
-        description: 'Explore how documentation supports billed-versus-approved hour comparisons.',
+        href: '/blogs/texas-hcssa-license-survey-readiness',
+        title: 'License survey checklist',
+        description: 'What surveyors ask for.',
       },
       {
-        href: '/compliance-regulation',
-        title: 'Compliance checks',
-        description: 'Review how training records fit into ongoing compliance tracking.',
+        href: '/blogs/monthly-in-service-training-texas-home-care-agencies',
+        title: 'All 12 In-Service topics',
+        description: 'The full monthly catalog.',
+      },
+      {
+        href: '/calendly',
+        title: 'Book a demo',
+        description: 'See how Ryzolve helps agencies stay survey-ready beyond training.',
       },
     ],
     ctaLabel: 'View In-Service Plans',
     ctaHref: '/training',
-    capabilitiesTitle: 'What to review across your care team',
-    relatedTitle: 'Documentation training connects to the rest of your agency.',
-    ctaTitle: 'Ready to see your team\'s training status?',
+    faqEyebrow: 'Questions Texas agencies ask',
+    relatedTitle: 'Documentation connects to the rest of your agency.',
+    ctaTitle: 'See your team\'s training status',
   },
   {
     slug: '8-hour-initial-administrator-training-texas',
@@ -410,104 +648,139 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'A new administrator working through training on a laptop at a kitchen table',
     label: '8-hour initial administrator training',
     eyebrow: 'Texas administrator training',
-    title: 'The 8-Hour Training Every First-Time Texas Administrator Needs Before Designation',
+    title: 'The 8-Hour Administrator Training: Timing Matters More Than You\'d Think',
+    seoTitle: '8-Hour Initial Administrator Training for Texas HCSSAs: What It Covers and When to Take It',
     description:
-      'What the 8-hour pre-designation training covers for first-time Texas Administrators and Alternate Administrators, and how to time it correctly before stepping into the role.',
+      'First-time HCSSA Administrators and Alternates in Texas must complete 8 clock hours in the 12 months before designation. What it covers, why timing matters, and how to take it online.',
+    heroDescription:
+      'Most agencies know the 8-hour course is required. What catches people off guard is the timing. It isn\'t enough to have taken it "at some point." There\'s a window.',
     publishedAt: '2026-07-30',
+    updatedAt: '2026-10-07',
     readingMinutes: 5,
     keywords: [
       '8 hour texas administrator training',
       'initial administrator training texas',
       'pre-designation administrator training',
       'HCSSA administrator requirements',
-      'texas home care administrator certification',
+      '26 TAC 558.259',
     ],
-    solutionTitle: 'How it works at your agency.',
+    solutionEyebrow: 'At a glance',
+    solutionTitle: 'The rule in plain English',
     solutionDescription:
-      'A plain-language guide to the initial training required before someone steps into the Administrator or Alternate Administrator role, including why the timing matters as much as completion.',
+      'That\'s 26 TAC §558.259(c).',
     workflowSteps: [
       {
         number: '01',
-        title: 'Complete it before designation',
-        description: 'The 8 hours must be finished during the 12 months immediately before someone is designated Administrator or Alternate Administrator.',
+        title: 'Before you\'re designated',
+        description: 'First-time Administrators and Alternate Administrators must complete 8 clock hours before designation.',
       },
       {
         number: '02',
-        title: 'Learn at your own pace in Ryzolve',
-        description: 'Self-paced, browser-based modules mean the course fits around hiring timelines instead of a fixed class schedule.',
+        title: 'Inside a 12-month window',
+        description: 'Those hours have to be done during the 12 months immediately before the date of designation.',
       },
       {
         number: '03',
-        title: 'Certify and file',
-        description: 'A state-recognized certificate generates instantly, ready to keep on file before day one in the role.',
+        title: 'Then 16 more',
+        description: 'The additional 16 hours follow in your first year (or earlier, inside the same lookback).',
       },
     ],
     articleSections: [
       {
-        title: 'Why the timing trips agencies up',
-        paragraphs: [
-          'Most agencies know the 8-hour course is required. The timing is what catches people off guard: it has to be completed in the 12 months immediately preceding designation. An agency promoting from within or bringing on a new Administrator quickly can lose track of exactly when that window opened.',
-          'Having a clear record of when the course was completed, and confirming it falls inside that 12-month window, turns a potential compliance question into a quick lookup.',
+        title: 'Where agencies slip up',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Say you promote an Alternate Administrator into the Administrator role, or you hire someone quickly. They took a course last year. When did they finish it, exactly? If it was more than 12 months before they were designated, it doesn\'t count for the initial requirement.' },
+          { type: 'p', text: 'It\'s an easy thing to miss, and it\'s the kind of detail that gets noticed when a surveyor asks to see the paperwork. So write the completion date down next to the designation date and look at the gap.' },
         ],
       },
       {
-        title: 'What the 8-hour training covers',
-        paragraphs: [
-          'The course introduces the licensing standards an agency operates under and the state and federal laws that apply to running one. These include Texas Health and Safety Code provisions on home and community support services and criminal history checks, plus the Texas Human Resources Code chapter on the rights of the elderly. It provides the foundation a new Administrator or Alternate Administrator needs before taking on the role and completing the additional 16-hour training required within the first year.',
+        title: 'What the 8 hours cover',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'The course introduces the licensing standards an agency operates under and the laws that apply to running one. That includes the Texas Health and Safety Code chapters on home and community support services agencies, the Human Resources Code chapter on the rights of the elderly, and federal laws like the Americans with Disabilities Act and the Family and Medical Leave Act. It\'s the foundation for everything the 16-hour course builds on.' },
         ],
       },
       {
-        title: 'How this fits into onboarding as a whole',
-        paragraphs: [
-          'Administrator training is one piece of a broader onboarding record, along with hire forms, background checks, and documents an agency may need during a survey. Keeping the training certificate with the rest of that paperwork gives the team one place to look.',
+        title: 'A quick check before someone steps into the role',
+        paragraphs: [],
+        blocks: [
+          {
+            type: 'list',
+            items: [
+              'What\'s the exact date the 8-hour course was completed?',
+              'What\'s the exact date of designation?',
+              'Is it within 12 months? If not, the hours need to be redone.',
+              'Is the 16-hour course already on the calendar?',
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Take it with Ryzolve',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Our 8-hour course is HHSC-recognized, self-paced and online. You finish when it suits you, and you can download your certificate the moment you complete it.' },
+        ],
+      },
+      {
+        title: 'Beyond training',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Training is one piece of staying survey-ready. Ryzolve also runs employability and exclusion checks at hire and every month, stores every result, and keeps caregiver files organized, so the records a surveyor asks for are easy to pull. See how it fits together in a short demo.' },
+          { type: 'cta', label: 'Book a demo', href: '/calendly' },
         ],
       },
     ],
-    capabilities: [
-      'The exact date the 8-hour course was completed, relative to the designation date',
-      'Whether the certificate is filed somewhere your team can retrieve quickly',
-      'Whether the additional 16-hour training is already scheduled for the first year',
-    ],
+    inlineCtaAfter: 3,
+    sourceNote:
+      '*This reflects 26 TAC §558.259 and HHSC guidance. Confirm current requirements at [hhs.texas.gov](https://www.hhs.texas.gov/providers/long-term-care-providers/home-community-support-services-agencies-hcssa) before relying on this for a compliance decision.*',
+    capabilities: [],
     faqs: [
       {
-        q: 'When exactly does someone need to complete the 8-hour course?',
-        a: 'During the 12 months immediately before they\'re designated Administrator or Alternate Administrator of a Home Health, Hospice, or PAS agency in Texas.',
+        q: 'When exactly do I need to complete the 8 hours?',
+        a: 'Before you\'re designated, and within the 12 months immediately before your designation date.',
       },
       {
-        q: 'Does this course replace the 16-hour training?',
-        a: 'No. The 8-hour course covers the foundation required before designation; the 16-hour course is additional training required within the first year after designation. Both are required, in that order.',
+        q: 'Does this replace the 16-hour training?',
+        a: 'No. The 8 hours are the initial requirement. The additional 16 hours are separate, and together they make 24.',
       },
       {
-        q: 'Can the same person take this course for multiple agencies?',
-        a: 'Each person needs to complete the course individually for their own designation. The course is tied to the person being designated and is not transferable between agencies.',
+        q: 'Can the same course count for more than one agency?',
+        a: 'The requirement attaches to the person being designated. Each person needs their own completed hours and their own certificate.',
       },
       {
-        q: 'How is the certificate delivered?',
-        a: 'A state-recognized certificate generates automatically in Ryzolve on completion, ready to download and keep on file.',
+        q: 'How do I get the certificate?',
+        a: 'You can download it as soon as you complete the course.',
       },
     ],
     relatedLinks: [
       {
-        href: '/training/16-hours-for-new-administrators-and-alternates',
+        href: '/blogs/16-hour-new-administrator-training-texas',
         title: '16-hour new administrator training',
-        description: 'See what\'s required in the first year after designation.',
+        description: 'What\'s required in the first year.',
       },
       {
-        href: '/document-management',
-        title: 'Document management',
-        description: 'Explore where training certificates and onboarding records live together.',
+        href: '/blogs/12-hour-administrator-renewal-training-texas',
+        title: '12-hour renewal training',
+        description: 'What continuing education looks like after that.',
       },
       {
         href: '/compliance-regulation',
         title: 'Compliance checks',
-        description: 'Review how administrator training fits into ongoing compliance tracking.',
+        description: 'How Ryzolve runs and stores employability checks.',
+      },
+      {
+        href: '/calendly',
+        title: 'Book a demo',
+        description: 'See how Ryzolve helps agencies stay survey-ready beyond training.',
       },
     ],
     ctaLabel: 'View the 8-Hour Course',
     ctaHref: '/training/8-hours-initial-administrator-training-program',
-    capabilitiesTitle: 'What to check before someone steps into the role',
+    faqEyebrow: 'Questions Texas administrators ask',
     relatedTitle: 'Administrator training connects to the rest of your agency.',
-    ctaTitle: 'Ready to get your new Administrator certified?',
+    ctaTitle: 'Get your new Administrator certified',
   },
   {
     slug: 'infection-control-training-home-care',
@@ -515,103 +788,128 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'A caregiver washing her hands at a home bathroom sink',
     label: 'Infection control training',
     eyebrow: 'In-service training',
-    title: 'How Agencies Keep Infection Control Training Current',
+    title: 'Infection Control in Home Care: The Rule, the Records and the Habits',
+    seoTitle: 'Infection Control for Texas Home Care Agencies: The Rule, the Records and the Training',
     description:
-      'Why infection control stays a year-round training priority for Texas home care agencies, and how to keep completion records current across your care team.',
+      'What 26 TAC §558.285 requires of Texas HCSSAs on infection control, the documentation agencies forget, and how to keep caregiver training current.',
+    heroDescription:
+      'Hand hygiene is the easy part. What agencies trip over is the paperwork around infections, and whether what a caregiver learns in a client\'s kitchen ever makes it back to the office.',
     publishedAt: '2026-07-28',
+    updatedAt: '2026-10-07',
     readingMinutes: 5,
     keywords: [
       'infection control training home care',
+      '26 TAC 558.285',
       'caregiver infection control texas',
-      'home health infection control training',
-      'PAS agency in-service training',
+      'home health infection control policy',
     ],
-    solutionTitle: 'How it works at your agency.',
-    solutionDescription:
-      'Infection control habits are easy to teach once and hard to keep consistent. A recurring training schedule helps reinforce them.',
-    workflowSteps: [
-      {
-        number: '01',
-        title: 'Assign the topic',
-        description: 'Infection Control is one of twelve topics included in every Ryzolve In-Service plan.',
-      },
-      {
-        number: '02',
-        title: 'Track it by learner in Ryzolve',
-        description: 'See who\'s completed the topic across your caregivers, attendants, and staff in one place.',
-      },
-      {
-        number: '03',
-        title: 'Keep certificates on file',
-        description: 'Completion records stay attached to each learner\'s profile, ready for review.',
-      },
-    ],
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
     articleSections: [
       {
-        title: 'Why infection control training needs a recurring cadence',
-        paragraphs: [
-          'Hand hygiene, standard precautions, and safe handling of supplies in a client\'s home depend on habit and repetition. Without a recurring refresher, good practices can quietly drift, especially when caregivers work independently in different homes without direct daily supervision.',
-          'A consistent, agency-wide training cycle keeps the standard the same for every caregiver, regardless of when they were hired, and gives the agency a clear record that the training happened and who completed it.',
+        title: 'What the rule requires',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Under 26 TAC §558.285, a Texas HCSSA must adopt and enforce written infection control policies, including prevention of the spread of infectious and communicable disease. The policies must ensure that the agency, its employees and its contractors comply with Texas Health and Safety Code Chapter 81.' },
+          { type: 'p', text: 'HHSC has also proposed an amendment that would require the written policy to address measures to prevent the spread of communicable and infectious diseases, including use of personal protective equipment. Watch for how it lands.' },
         ],
       },
       {
-        title: 'What this training reinforces',
-        paragraphs: [
-          'The topic covers the core practices caregivers rely on day to day: hand hygiene, standard precautions, and safe handling of care-related materials in a home setting. That setting calls for different routines than a clinic or facility. An annual refresher helps new and existing caregivers follow the same standard.',
+        title: 'The part agencies forget',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'The rule also requires you to document infections a client acquires while receiving services. For agencies licensed only for personal assistance services, that means recording the date the infection was disclosed to the employee, the client\'s name, and the treatment as the client described it. Other license categories record more.' },
+          { type: 'p', text: 'Think about what that means in practice. A client mentions a bad cough or a UTI to a caregiver. Does that reach the office? Does anyone write it down? Surveyors ask for infection control documentation, and this is a place where good care and good records can quietly come apart.' },
         ],
       },
       {
-        title: 'How this connects to survey readiness',
-        paragraphs: [
-          'Infection control is a routine focus area in surveys and audits. A clear record shows which caregivers are current and when they completed the training. Keeping it alongside other compliance documentation helps the agency answer quickly and avoid a longer follow-up.',
+        title: 'What training should cover',
+        paragraphs: [],
+        blocks: [
+          {
+            type: 'list',
+            items: [
+              'Hand hygiene, and when it matters most',
+              'Gloves and other protective equipment, used properly',
+              'Cleaning and handling of supplies in a home setting',
+              'What to do and who to tell when a client discloses an illness',
+              'When a caregiver should stay home',
+            ],
+          },
+        ],
+      },
+      {
+        title: 'A five-minute test',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Ask one caregiver, "If a client told you they\'d started antibiotics for an infection, what would you do?" If the answer is "I\'d keep an eye on it," your process has a gap.' },
+        ],
+      },
+      {
+        title: 'Where Ryzolve fits',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Infection Control is part of Ryzolve\'s In-Service plan every year. Administrators see completion by learner and can download a certificate for each person. Our training platform also lets your agency add your own courses, so your infection control policy can sit next to the standard module.' },
+        ],
+      },
+      {
+        title: 'Beyond training',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Training is one piece of staying survey-ready. Ryzolve also runs employability and exclusion checks at hire and every month, stores every result, and keeps caregiver files organized, so the records a surveyor asks for are easy to pull. See how it fits together in a short demo.' },
+          { type: 'cta', label: 'Book a demo', href: '/calendly' },
         ],
       },
     ],
-    capabilities: [
-      'Whether every active caregiver has completed the current year\'s Infection Control topic',
-      'Whether new hires have it scheduled as part of onboarding, not left until later',
-      'Where the completion certificates are stored if a surveyor or case manager asks',
-    ],
+    inlineCtaAfter: 4,
+    sourceNote:
+      '*This reflects 26 TAC §558.285. Confirm current requirements at [hhs.texas.gov](https://www.hhs.texas.gov/providers/long-term-care-providers/home-community-support-services-agencies-hcssa) before relying on this for a compliance decision.*',
+    capabilities: [],
     faqs: [
       {
-        q: 'Is Infection Control included in every In-Service plan?',
-        a: 'Yes. It\'s one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        q: 'Is infection control training part of every In-Service plan?',
+        a: 'Yes. It\'s one of the twelve topics in Ryzolve\'s monthly In-Service plan.',
       },
       {
-        q: 'How often should caregivers refresh this topic?',
-        a: 'Annually, as part of the standard In-Service cycle, so infection control habits stay consistent regardless of when a caregiver was hired.',
+        q: 'Does it replace our own infection control policy?',
+        a: 'No. The rule requires your agency to adopt and enforce its own written policy. Training supports it.',
       },
       {
-        q: 'Can new hires complete it outside of its scheduled month?',
-        a: 'Yes. New hires can complete Infection Control during onboarding in Ryzolve without waiting for its scheduled month.',
+        q: 'What infection documentation does the rule require?',
+        a: 'Infections a client acquires while receiving services must be documented. For PAS-only agencies, that means the date the infection was disclosed to the employee, the client\'s name and the treatment as the client disclosed it.',
       },
       {
-        q: 'Does this replace agency-specific infection control policies?',
-        a: 'No. It sets a consistent baseline, but agency-specific infection control procedures and supply protocols still apply on top of it.',
+        q: 'Can we add our own infection control material?',
+        a: 'Yes. Ryzolve\'s training platform lets subscribing agencies add their own courses, using video or text.',
+      },
+      {
+        q: 'How often should caregivers refresh?',
+        a: 'Annually is a sensible cadence, with new hires trained early.',
       },
     ],
     relatedLinks: [
       {
-        href: '/compliance-regulation',
-        title: 'Compliance checks',
-        description: 'See how training completion fits into ongoing compliance tracking.',
+        href: '/blogs/monthly-in-service-training-texas-home-care-agencies',
+        title: 'All 12 In-Service topics',
+        description: 'The full monthly catalog.',
       },
       {
-        href: '/document-management',
-        title: 'Document management',
-        description: 'Explore where caregiver records and certificates live together.',
+        href: '/blogs/texas-hcssa-license-survey-readiness',
+        title: 'License survey checklist',
+        description: 'Infection control documentation is on the list.',
       },
       {
-        href: '/training',
-        title: 'Administrator training',
-        description: 'Compare In-Service plans with one-time Administrator courses.',
+        href: '/calendly',
+        title: 'Book a demo',
+        description: 'See how Ryzolve helps agencies stay survey-ready beyond training.',
       },
     ],
     ctaLabel: 'View In-Service Plans',
     ctaHref: '/training',
-    capabilitiesTitle: 'What to review across your care team',
+    faqEyebrow: 'Questions Texas agencies ask',
     relatedTitle: 'In-service training connects to the rest of your agency.',
-    ctaTitle: 'Ready to see your team\'s training status?',
+    ctaTitle: 'See your team\'s training status',
   },
   {
     slug: 'client-rights-hipaa-elder-abuse-training',
@@ -828,10 +1126,14 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'A caregiver gently guiding an older woman’s hand across a photo album',
     label: 'Dementia & Alzheimer\'s care',
     eyebrow: 'In-service training',
-    title: 'Dementia & Alzheimer\'s Care: Training That Changes How a Caregiver Sees the Whole Visit',
+    title: 'Dementia Care: What Caregivers Need Before the Hard Day Arrives',
+    seoTitle: 'Dementia and Alzheimer\'s Care Training for Texas Home Care Caregivers',
     description:
-      'How Texas home care agencies keep Dementia & Alzheimer\'s Care training current across caregivers, and why it matters for client safety and family trust.',
+      'What caregivers need to handle dementia well, how Texas rules approach caregiver competency, and how agencies keep training current and provable.',
+    heroDescription:
+      'A caregiver who\'s never been taught about dementia will take a lot of things personally. A client who doesn\'t recognize her, accuses her of stealing, or refuses a bath she asked for yesterday. The right training changes how those moments go.',
     publishedAt: '2026-07-16',
+    updatedAt: '2026-10-07',
     readingMinutes: 5,
     keywords: [
       'dementia care training caregivers',
@@ -839,92 +1141,107 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       'dementia caregiver training',
       'PAS agency in-service training',
     ],
-    solutionTitle: 'How it works at your agency.',
-    solutionDescription:
-      'Caring for a client with dementia calls for a different set of instincts than a typical visit. Agencies can use recurring training to build those instincts across the team.',
-    workflowSteps: [
-      {
-        number: '01',
-        title: 'Assign the topic',
-        description: 'Dementia & Alzheimer\'s Care is one of twelve topics in every Ryzolve In-Service plan.',
-      },
-      {
-        number: '02',
-        title: 'Track completion by learner in Ryzolve',
-        description: 'See who\'s completed the topic across caregivers and staff in one place.',
-      },
-      {
-        number: '03',
-        title: 'Keep certificates on file',
-        description: 'Completion records stay attached to each learner\'s profile, ready for review.',
-      },
-    ],
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
     articleSections: [
       {
-        title: 'Why this training matters beyond the checklist',
-        paragraphs: [
-          'A caregiver who understands how dementia affects memory, communication, and behavior can respond to a difficult moment with more patience and fewer escalations, making the visit safer. Families notice this directly. How a caregiver handles confusion or agitation affects whether a family trusts the agency to keep showing up.',
-          'An annual refresh keeps this understanding consistent across the whole team, not dependent on which caregivers happen to have prior experience with dementia care.',
+        title: 'How Texas approaches this',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'For personal assistance services, the rule asks that unlicensed attendants have demonstrated competency to perform the tasks assigned. It doesn\'t hand you a mandatory dementia course. Your agency decides what competent looks like and has to be able to show it.' },
+          { type: 'p', text: 'That\'s why a documented, repeatable training matters. It\'s your evidence that a caregiver assigned to a client with dementia was prepared for it.' },
         ],
       },
       {
-        title: 'What this training reinforces',
-        paragraphs: [
-          'The topic covers recognizing common dementia and Alzheimer\'s-related behaviors, communication approaches that reduce confusion and agitation, and safety considerations specific to cognitive decline. It\'s built around the situations caregivers actually encounter in a client\'s home.',
+        title: 'What good training covers',
+        paragraphs: [],
+        blocks: [
+          {
+            type: 'list',
+            items: [
+              '**Don\'t argue.** Correcting a person with dementia rarely helps. Redirecting does.',
+              '**Keep it simple.** One instruction at a time. Choices between two things, not ten.',
+              '**Routine is a tool.** Predictable days reduce distress.',
+              '**Know the safety risks.** Wandering, stoves, medications, stairs.',
+              '**Notice changes.** A sudden change in behavior can signal pain, infection or something else. It\'s worth reporting, not just enduring.',
+              '**Look after families.** Relatives are often worn out, and a caregiver who communicates well becomes a partner.',
+            ],
+          },
         ],
       },
       {
-        title: 'How this connects to client and family trust',
-        paragraphs: [
-          'Families of clients with dementia often ask directly about caregiver training on this topic. Being able to answer clearly, with a record to back it up, supports both the immediate conversation and the agency\'s broader compliance documentation.',
+        title: 'Behavior notes are records too',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'When a client has a hard day, the note matters. "Client agitated" tells nobody anything. "Client refused bath, said she didn\'t know me, calmed after music" tells the next caregiver and the supervisor what works. Those notes are part of what a surveyor can ask to see.' },
+        ],
+      },
+      {
+        title: 'Matching training to assignments',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Before assigning a caregiver to a client with dementia, ask: has this person been trained, and can we show it? That\'s a one-minute question that saves a lot of trouble.' },
+        ],
+      },
+      {
+        title: 'Where Ryzolve fits',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Dementia & Alzheimer\'s Care is part of Ryzolve\'s In-Service plan every year. Administrators see completion by learner and download a certificate for each person. You can also add your own courses to our training platform, so a client-specific protocol can live right next to the standard module.' },
+        ],
+      },
+      {
+        title: 'Beyond training',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Training is one piece of staying survey-ready. Ryzolve also runs employability and exclusion checks at hire and every month, stores every result, and keeps caregiver files organized, so the records a surveyor asks for are easy to pull. See how it fits together in a short demo.' },
+          { type: 'cta', label: 'Book a demo', href: '/calendly' },
         ],
       },
     ],
-    capabilities: [
-      'Whether caregivers assigned to dementia or memory-care clients have current training on file',
-      'Whether new hires receive this training early if they\'ll be assigned to relevant cases',
-      'Where completion certificates are stored for quick reference',
-    ],
+    inlineCtaAfter: 4,
+    capabilities: [],
     faqs: [
       {
-        q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes. Dementia & Alzheimer\'s Care is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        q: 'Does Texas require a dementia course for caregivers?',
+        a: 'For PAS attendants, the rule asks for demonstrated competency in the tasks assigned rather than a specific course. Your agency sets the standard and has to be able to show it.',
       },
       {
-        q: 'Should only caregivers assigned to memory-care clients take this training?',
-        a: 'All caregivers benefit from it, since assignments can shift, but it\'s especially important to confirm before assigning someone to a dementia or memory-care case specifically.',
+        q: 'Should only caregivers on memory-care cases take it?',
+        a: 'Everyone benefits, since assignments change. It matters most before someone is assigned to a client with dementia.',
       },
       {
-        q: 'How often should this topic be refreshed?',
-        a: 'Annually, as part of the standard In-Service cycle.',
+        q: 'Can we add our own protocols?',
+        a: 'Yes. Ryzolve\'s training platform lets subscribing agencies add courses of their own, using video or text.',
       },
       {
-        q: 'Can it be assigned outside its scheduled month for new hires?',
-        a: 'Yes. New hires can complete it in Ryzolve during onboarding if they\'ll be assigned to relevant cases early on.',
+        q: 'How often should it be refreshed?',
+        a: 'Annually is a sensible cadence, with new hires trained before they start on relevant cases.',
       },
     ],
     relatedLinks: [
       {
-        href: '/compliance-regulation',
-        title: 'Compliance checks',
-        description: 'See how training completion fits into ongoing compliance tracking.',
+        href: '/blogs/monthly-in-service-training-texas-home-care-agencies',
+        title: 'All 12 In-Service topics',
+        description: 'The full monthly catalog.',
       },
       {
-        href: '/document-management',
-        title: 'Document management',
-        description: 'Explore where caregiver records and certificates live together.',
+        href: '/blogs/documentation-and-charting-training',
+        title: 'Documentation and charting',
+        description: 'Why behavior notes matter.',
       },
       {
-        href: '/training',
-        title: 'Administrator training',
-        description: 'Compare In-Service plans with one-time Administrator courses.',
+        href: '/calendly',
+        title: 'Book a demo',
+        description: 'See how Ryzolve helps agencies stay survey-ready beyond training.',
       },
     ],
     ctaLabel: 'View In-Service Plans',
     ctaHref: '/training',
-    capabilitiesTitle: 'What to review across your care team',
+    faqEyebrow: 'Questions Texas agencies ask',
     relatedTitle: 'In-service training connects to the rest of your agency.',
-    ctaTitle: 'Ready to see your team\'s training status?',
+    ctaTitle: 'See your team\'s training status',
   },
   {
     slug: 'emergency-disaster-preparedness-training',
@@ -932,103 +1249,135 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'A caregiver checking a home emergency kit and flashlight by the door',
     label: 'Emergency & disaster preparedness',
     eyebrow: 'In-service training',
-    title: 'Emergency & Disaster Preparedness: A Training Topic Texas Agencies Can\'t Treat as Optional',
+    title: 'Emergency Preparedness: A Plan Nobody\'s Trained On Isn\'t a Plan',
+    seoTitle: 'Emergency and Disaster Preparedness for Texas Home Care Agencies',
     description:
-      'Why emergency and disaster preparedness training carries extra weight for Texas home care agencies, and how to keep caregiver readiness current year-round.',
+      'What 26 TAC §558.256 requires of Texas HCSSAs: a written emergency plan, staff training, client information, and the drills surveyors ask to see.',
+    heroDescription:
+      'Anyone who lives in Houston knows how this goes. A hurricane, a flood, a hard freeze. Your clients can\'t wait for the roads to clear, and your caregivers need to know what to do before the weather arrives.',
     publishedAt: '2026-07-14',
+    updatedAt: '2026-10-07',
     readingMinutes: 5,
     keywords: [
       'emergency preparedness training home care',
+      '26 TAC 558.256',
       'disaster preparedness caregiver training texas',
-      'home health emergency plan training',
-      'PAS agency in-service training',
+      'home health emergency plan',
     ],
-    solutionTitle: 'How it works at your agency.',
-    solutionDescription:
-      'Between hurricanes, winter storms, and power outages, Texas agencies face a wide range of emergencies. Regular preparation keeps the whole team ready.',
-    workflowSteps: [
-      {
-        number: '01',
-        title: 'Assign the topic',
-        description: 'Emergency & Disaster Preparedness is one of twelve topics in every Ryzolve In-Service plan.',
-      },
-      {
-        number: '02',
-        title: 'Track completion by learner in Ryzolve',
-        description: 'See who\'s completed the topic across caregivers and staff in one place.',
-      },
-      {
-        number: '03',
-        title: 'Keep certificates on file',
-        description: 'Completion records stay attached to each learner\'s profile, ready for review.',
-      },
-    ],
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
     articleSections: [
       {
-        title: 'Why this training can\'t wait until the emergency happens',
-        paragraphs: [
-          'An emergency plan only works if the people carrying it out were trained before the emergency started. For a home care agency, caregivers need to know what to do when a scheduled visit coincides with severe weather, a power outage, or another disruption. The middle of an emergency is too late to work it out.',
-          'Texas agencies in particular deal with a real range of seasonal risk, from hurricanes along the coast to winter storms further north. A recurring annual refresh keeps the plan current in caregivers\' minds instead of something reviewed once at hire and forgotten.',
+        title: 'What the rule requires',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Under 26 TAC §558.256, an HCSSA must have a written emergency preparedness and response plan that describes its approach to a disaster that could affect the need for its services or its ability to provide them. Some specifics:' },
+          {
+            type: 'list',
+            items: [
+              'The plan has to be based on a risk assessment of the disasters likely in your service area',
+              'It describes what staff do in each phase: mitigation, preparedness, response and recovery',
+              'It includes procedures to triage clients',
+              'You must provide and discuss emergency preparedness information with each client, including the client\'s own responsibilities',
+              'You must orient and train employees, volunteers and contractors on their responsibilities in the plan',
+            ],
+          },
         ],
       },
       {
-        title: 'What this training reinforces',
-        paragraphs: [
-          'The topic covers recognizing emergency situations, understanding the agency\'s disaster response plan, and knowing what steps to take to keep both clients and caregivers safe when a visit is disrupted by an emergency.',
+        title: 'What surveyors ask to see',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Surveyors\' document lists include the emergency preparedness plan, with drills and evaluations. A plan in a binder isn\'t enough. They want evidence that people know it and that you\'ve practiced it.' },
         ],
       },
       {
-        title: 'How this connects to survey readiness',
-        paragraphs: [
-          'Emergency preparedness is a standard area of review in surveys and audits. Being able to show which caregivers are current on this training, and that the agency\'s own plan is up to date, keeps that part of a survey straightforward.',
+        title: 'Where plans fall apart',
+        paragraphs: [],
+        blocks: [
+          {
+            type: 'list',
+            items: [
+              'The plan was written once, and nobody can say when it was last reviewed',
+              'New hires never see it',
+              'Clients were never given the information the rule requires',
+              'Drills happened, but nobody wrote down when or what was learned',
+            ],
+          },
+        ],
+      },
+      {
+        title: 'A five-minute test',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Ask a caregiver, "A hurricane warning goes out tonight. What do you do for your clients tomorrow?" If you hear three different answers from three caregivers, that\'s your training gap.' },
+        ],
+      },
+      {
+        title: 'Where Ryzolve fits',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Emergency & Disaster Preparedness is part of Ryzolve\'s In-Service plan every year. Administrators see completion by learner and download a certificate for each person, so you can show who was trained and when. And since our training platform lets you add your own courses, your agency\'s specific plan can be taught right alongside the standard topic.' },
+        ],
+      },
+      {
+        title: 'Beyond training',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Training is one piece of staying survey-ready. Ryzolve also runs employability and exclusion checks at hire and every month, stores every result, and keeps caregiver files organized, so the records a surveyor asks for are easy to pull. See how it fits together in a short demo.' },
+          { type: 'cta', label: 'Book a demo', href: '/calendly' },
         ],
       },
     ],
-    capabilities: [
-      'Whether every active caregiver has completed the current year\'s topic before the season it\'s most relevant to',
-      'Whether the agency\'s emergency plan itself is current and reflected in the training',
-      'Where completion certificates are stored for quick reference',
-    ],
+    inlineCtaAfter: 4,
+    sourceNote:
+      '*This reflects 26 TAC §558.256. Confirm current requirements at [hhs.texas.gov](https://www.hhs.texas.gov/providers/long-term-care-providers/home-community-support-services-agencies-hcssa) before relying on this for a compliance decision.*',
+    capabilities: [],
     faqs: [
       {
-        q: 'Is this topic included in every In-Service plan?',
-        a: 'Yes. Emergency & Disaster Preparedness is one of the twelve monthly topics included in every Ryzolve In-Service plan, regardless of plan size.',
+        q: 'Does the training replace our written emergency plan?',
+        a: 'No. The rule requires your own written plan. Training makes sure your people know it.',
       },
       {
-        q: 'Does this replace an agency\'s own written emergency plan?',
-        a: 'No. It builds caregiver awareness of the agency\'s emergency plan and their role in it, but the written plan itself is a separate document an agency maintains and keeps current.',
+        q: 'Who has to be trained?',
+        a: 'Employees, volunteers and contractors, on their responsibilities in the plan.',
       },
       {
-        q: 'Should this training be timed around hurricane or winter storm season?',
-        a: 'It can help to complete it ahead of a relevant season, but the training is scheduled annually regardless. The important point is to have it current before an emergency happens, even if it is not timed to one type of event.',
+        q: 'Do clients need to be told anything?',
+        a: 'Yes. The agency must provide and discuss emergency preparedness information with each client, including the client\'s responsibilities in the plan.',
       },
       {
-        q: 'Can new hires complete it outside its scheduled month?',
-        a: 'Yes. New hires can complete it in Ryzolve during onboarding without waiting for its scheduled month.',
+        q: 'Should we time training around hurricane season?',
+        a: 'It helps to have it fresh before a high-risk season, but the point is being trained before an emergency, whatever the type.',
+      },
+      {
+        q: 'Can we add our own plan to the training?',
+        a: 'Yes. Ryzolve\'s training platform lets agencies add their own courses.',
       },
     ],
     relatedLinks: [
       {
-        href: '/compliance-regulation',
-        title: 'Compliance checks',
-        description: 'See how training completion fits into ongoing compliance tracking.',
+        href: '/blogs/monthly-in-service-training-texas-home-care-agencies',
+        title: 'All 12 In-Service topics',
+        description: 'The full monthly catalog.',
       },
       {
-        href: '/document-management',
-        title: 'Document management',
-        description: 'Explore where caregiver records and certificates live together.',
+        href: '/blogs/texas-hcssa-license-survey-readiness',
+        title: 'License survey checklist',
+        description: 'Emergency plans and drills are on the list.',
       },
       {
-        href: '/training',
-        title: 'Administrator training',
-        description: 'Compare In-Service plans with one-time Administrator courses.',
+        href: '/calendly',
+        title: 'Book a demo',
+        description: 'See how Ryzolve helps agencies stay survey-ready beyond training.',
       },
     ],
     ctaLabel: 'View In-Service Plans',
     ctaHref: '/training',
-    capabilitiesTitle: 'What to review across your care team',
+    faqEyebrow: 'Questions Texas agencies ask',
     relatedTitle: 'In-service training connects to the rest of your agency.',
-    ctaTitle: 'Ready to see your team\'s training status?',
+    ctaTitle: 'See your team\'s training status',
   },
   {
     slug: 'adls-safe-transfer-training',
@@ -1556,103 +1905,142 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'An administrator reviewing training dates marked on a wall calendar',
     label: '12-hour administrator renewal',
     eyebrow: 'Texas administrator training',
-    title: 'The 12-Hour Renewal Cycle Existing Administrators Can\'t Let Slip',
+    title: 'The 12-Hour Administrator Renewal: Every Year, for as Long as You Hold the Title',
+    seoTitle: '12-Hour Administrator Continuing Education for Texas HCSSAs',
     description:
-      'What the 12-hour continuing education requirement covers for existing Texas Administrators and Alternate Administrators, and how to keep renewal cycles on schedule.',
+      'Texas Administrators and Alternate Administrators need 12 clock hours of continuing education every 12 months. How the cycle works, what it must include, and how to keep it from lapsing.',
+    heroDescription:
+      'The 8-hour and 16-hour courses are one-time. The 12-hour requirement isn\'t. It repeats every 12 months for as long as you\'re an Administrator or Alternate Administrator, which makes it very easy to lose track of.',
     publishedAt: '2026-06-23',
+    updatedAt: '2026-10-07',
     readingMinutes: 5,
     keywords: [
       '12 hour texas administrator renewal training',
       'HCSSA administrator continuing education',
+      '26 TAC 558.260',
       'administrator renewal training texas',
-      'existing administrator training requirements',
     ],
-    solutionTitle: 'How it works at your agency.',
+    solutionEyebrow: 'At a glance',
+    solutionTitle: 'The rule in plain English',
     solutionDescription:
-      'Unlike the initial training, this one repeats every year. Tracking when the clock resets helps keep renewal on schedule.',
+      'If you\'re a first-time Administrator, your first year is covered by the 24 initial hours. The 12-hour cycle then continues in each following 12-month period.',
     workflowSteps: [
       {
         number: '01',
-        title: 'Know your cycle',
-        description: 'Administrators and Alternate Administrators must complete 12 clock hours of continuing education within each 12-month period, beginning with the date of designation.',
+        title: '12 clock hours, every 12 months',
+        description: 'Counted from your date of designation, under 26 TAC §558.260.',
       },
       {
         number: '02',
-        title: 'Cover the required topics in Ryzolve',
-        description: 'The 12 hours must include at least two required subject areas, alongside other topics related to the administrator role.',
+        title: 'At least two required topics',
+        description: 'The rule lists topics, and your 12 hours must include at least two of them. The rest can be other subjects related to an Administrator\'s duties.',
       },
       {
         number: '03',
-        title: 'Certify and file',
-        description: 'A state-recognized certificate generates instantly on completion, ready to keep with your renewal records.',
+        title: 'Keep proof',
+        description: 'HHSC describes proof as the name of the class or workshop, the topics, and the hours and dates.',
       },
     ],
     articleSections: [
       {
-        title: 'Why renewal cycles are easier to lose track of than initial training',
-        paragraphs: [
-          'The 8-hour and 16-hour courses each happen once, with designation into the role as a clear starting point. The 12-hour renewal repeats every 12-month period from that same designation date for as long as someone holds the role. Across several Administrators and Alternate Administrators, it can be easy to lose track of when each person\'s current cycle closes.',
-          'A clear record of each administrator\'s designation date, and where they stand in the current 12-month cycle, turns renewal from a recurring guessing game into a routine check.',
+        title: 'Why it gets missed',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Nothing about this requirement announces itself. There\'s no renewal notice, and the clock is set by your own designation date. If you have more than one Administrator or Alternate, each person has a different anniversary.' },
+          { type: 'p', text: 'The fix is boring and works: put each person\'s designation anniversary on a shared calendar, with a reminder at least 90 days before. Then keep every certificate in one place, with the course, hours and dates visible.' },
         ],
       },
       {
-        title: 'What the 12-hour renewal covers',
-        paragraphs: [
-          'The course must include at least two required topics related to administering an agency, along with other subjects relevant to the role. It keeps an Administrator or Alternate Administrator current on the responsibilities of the position after the initial training is complete.',
+        title: 'One thing that trips people up',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'HHSC\'s pre-survey training can\'t be counted toward your continuing education hours. It\'s a separate thing. If someone thinks they\'re nearly done because they\'ve done the pre-survey training, they\'re not.' },
         ],
       },
       {
-        title: 'How this fits into ongoing compliance',
-        paragraphs: [
-          'An agency may need to produce administrator training records along with other compliance documentation. Filing renewal certificates with its compliance and personnel records makes a renewal-cycle question easier to answer.',
+        title: 'Check this for each Administrator and Alternate',
+        paragraphs: [],
+        blocks: [
+          {
+            type: 'list',
+            items: [
+              'When is their designation anniversary?',
+              'How many of their 12 hours are done this cycle?',
+              'Do those hours include at least two of the required topics?',
+              'Where is each certificate, and does it show hours and dates?',
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Take it with Ryzolve',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Our 12-hour course is HHSC-recognized, self-paced and online. Finish it when it fits your calendar and download your certificate when you\'re done.' },
+        ],
+      },
+      {
+        title: 'Beyond training',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'Training is one piece of staying survey-ready. Ryzolve also runs employability and exclusion checks at hire and every month, stores every result, and keeps caregiver files organized, so the records a surveyor asks for are easy to pull. See how it fits together in a short demo.' },
+          { type: 'cta', label: 'Book a demo', href: '/calendly' },
         ],
       },
     ],
-    capabilities: [
-      'The designation date that starts their current 12-month renewal cycle',
-      'Whether the current cycle\'s 12 hours are complete, in progress, or not yet started',
-      'Where each year\'s completion certificate is filed',
-    ],
+    inlineCtaAfter: 3,
+    sourceNote:
+      '*This reflects 26 TAC §558.260 and HHSC guidance. Confirm current requirements at [hhs.texas.gov](https://www.hhs.texas.gov/providers/long-term-care-providers/home-community-support-services-agencies-hcssa) before relying on this for a compliance decision.*',
+    capabilities: [],
     faqs: [
       {
-        q: 'How often does the 12-hour renewal need to be completed?',
-        a: 'Within each 12-month period, starting from the Administrator\'s or Alternate Administrator\'s date of designation, for as long as they hold the role.',
+        q: 'How often does the 12-hour requirement repeat?',
+        a: 'Every 12-month period, counted from the date of designation, for as long as the person is an Administrator or Alternate Administrator.',
       },
       {
-        q: 'Does the 12-hour course need to be completed all at once?',
-        a: 'No. The 12 hours can be completed across multiple sessions throughout the 12-month cycle in Ryzolve. It does not need to be finished in one sitting.',
+        q: 'Does it have to be done all at once?',
+        a: 'No. You can complete the hours across the 12-month cycle, in as many sessions as you like.',
       },
       {
-        q: 'What happens if an administrator\'s renewal cycle lapses?',
-        a: 'This can affect the agency\'s compliance standing, so confirm the current consequences directly with HHSC or your compliance lead.',
+        q: 'What has to be in the 12 hours?',
+        a: 'At least two of the topics listed in 26 TAC §558.260(a). The rest can be other topics related to an Administrator\'s duties.',
       },
       {
-        q: 'How is the certificate delivered after completion?',
-        a: 'A state-recognized certificate generates automatically on completion, ready to download and keep with the agency\'s renewal records.',
+        q: 'What should I keep as proof?',
+        a: 'The name of the class or workshop, the topics covered, and the hours and dates. A certificate that shows these covers it.',
+      },
+      {
+        q: 'What if a cycle lapses?',
+        a: 'That\'s a compliance problem, and the consequences depend on the situation. Talk to HHSC or your compliance lead directly instead of assuming.',
       },
     ],
     relatedLinks: [
       {
-        href: '/training/8-hours-initial-administrator-training-program',
+        href: '/blogs/8-hour-initial-administrator-training-texas',
         title: '8-hour initial training',
-        description: 'See what\'s required before someone is designated Administrator.',
+        description: 'Required before designation.',
       },
       {
-        href: '/training/16-hours-for-new-administrators-and-alternates',
+        href: '/blogs/16-hour-new-administrator-training-texas',
         title: '16-hour new administrator training',
-        description: 'Review the first-year requirement for first-time administrators.',
+        description: 'Required in the first year.',
       },
       {
         href: '/compliance-regulation',
         title: 'Compliance checks',
-        description: 'See how renewal records fit into ongoing compliance tracking.',
+        description: 'How Ryzolve runs and stores employability checks.',
+      },
+      {
+        href: '/calendly',
+        title: 'Book a demo',
+        description: 'See how Ryzolve helps agencies stay survey-ready beyond training.',
       },
     ],
     ctaLabel: 'View the 12-Hour Course',
     ctaHref: '/training/12-hours-for-existing-administrators-and-alternates',
-    capabilitiesTitle: 'What to review for each administrator on staff',
+    faqEyebrow: 'Questions Texas administrators ask',
     relatedTitle: 'Administrator training connects to the rest of your agency.',
-    ctaTitle: 'Ready to keep your Administrators current?',
+    ctaTitle: 'Keep your Administrators current',
   },
   {
     slug: 'semarc-replaces-emr-search-texas-hcssa',
@@ -1871,111 +2259,149 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     imageAlt: 'Hands sorting labelled folders in a filing drawer',
     label: 'LEIE, NAR, EMR & SEMARC checks',
     eyebrow: 'Compliance checks',
-    title: 'LEIE, NAR, EMR, SEMARC: Which Registries Does a Texas Home Care Agency Actually Need to Check?',
+    title: 'LEIE, NAR, EMR, SEMARC: Which Checks Does a Texas Home Care Agency Actually Run?',
+    seoTitle: 'LEIE, NAR, EMR and SEMARC: Which Employability Checks Texas Agencies Need',
     description:
-      'Four registries, four different purposes. A plain-language guide to which employability checks Texas home care agencies actually need, and how they relate to each other.',
+      'Four registries, four jobs. A plain-language guide to which employability checks a Texas home care agency runs, what each one catches, and how Ryzolve runs and stores them for you.',
+    heroDescription:
+      'Four acronyms, four different agencies, one hiring decision. The most common mistake we see is assuming a clear result on one means you\'re covered on the others. You aren\'t.',
     publishedAt: '2026-06-16',
+    updatedAt: '2026-10-07',
     readingMinutes: 6,
     keywords: [
       'LEIE NAR EMR SEMARC texas',
       'texas home care employability checks',
       'OIG exclusion list home care',
       'texas hcssa background check requirements',
+      'monthly LEIE screening',
     ],
-    solutionTitle: 'How it works at your agency.',
+    solutionEyebrow: 'At a glance',
+    solutionTitle: 'The short version',
     solutionDescription:
-      'Four acronyms, four different agencies, one hiring decision. Here\'s what each registry actually covers, and why checking one doesn\'t mean you can skip another.',
+      '',
     workflowSteps: [
       {
         number: '01',
-        title: 'Know what each registry checks for',
-        description: 'LEIE, NAR, and SEMARC each screen for a different kind of risk, and none of them substitute for another.',
+        title: 'Each registry catches something different',
+        description: 'None of them substitutes for another.',
       },
       {
         number: '02',
-        title: 'Run all of them, every time',
-        description: 'Employability checks are required at hire and at least every 12 months after, across every registry that applies to your agency.',
+        title: 'Run all that apply, every time',
+        description: 'At hire, and at least every 12 months after. LEIE is also screened monthly for agencies with an HHSC contract.',
       },
       {
         number: '03',
-        title: 'Keep the results together',
-        description: 'A surveyor asking "did you check this person" isn\'t asking about just one registry.',
+        title: 'Keep the results',
+        description: 'A surveyor or monitor wants dated proof, not your recollection.',
       },
     ],
     articleSections: [
       {
-        title: 'Why one search doesn\'t cover everything',
-        paragraphs: [
-          'It\'s reasonable to assume that a name cleared by one registry is clear everywhere. In practice, different agencies built these systems to track different kinds of risk, and the systems share results only where a law connects them.',
+        title: 'The four registries',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: '**LEIE (List of Excluded Individuals and Entities).** People and organizations barred from federally funded healthcare programs, for reasons like fraud, patient abuse or a revoked license. There\'s a federal list (HHS OIG) and a Texas list (HHSC OIG). You check both.' },
+          { type: 'p', text: '**NAR (Nurse Aide Registry).** Texas\'s registry of nurse aides, including those with substantiated findings of abuse, neglect, exploitation or misappropriating a client\'s property. It\'s searched in TULIP, and everyone you hire gets checked, regardless of title.' },
+          { type: 'p', text: '**EMR (Employee Misconduct Registry).** HHSC\'s registry of people barred from long-term care work because of confirmed misconduct findings. This is the one in transition. HHSC\'s Provider Letter 2026-10 says the requirement to search the EMR is being replaced with a requirement to search SEMARC.' },
+          { type: 'p', text: '**SEMARC (Search Engine for Multi-Agency Reportable Conduct).** A newer statewide search that pulls misconduct findings from HHSC, DFPS, TJJD and TEA into one place. SEMARC doesn\'t replace LEIE or NAR.' },
         ],
       },
       {
-        title: 'The four registries, in plain language',
-        paragraphs: [
-          '**LEIE (List of Excluded Individuals and Entities):** Tracks individuals and entities excluded from participating in federally funded healthcare programs due to fraud, patient abuse, licensing revocation, or similar findings. The HHS Office of Inspector General maintains the federal list, while Texas HHSC\'s Office of Inspector General maintains a parallel list. SEMARC does not affect either one.',
-          '**NAR (Nurse Aide Registry):** Texas\'s registry of individuals found to have abused, neglected, or exploited a resident or misappropriated resident property while working in a nurse aide role. It is searched separately in TULIP and is required for every employee regardless of job title.',
-          '**EMR (Employee Misconduct Registry):** HHSC\'s registry barring individuals from long-term care employment due to substantiated misconduct findings. HHSC still maintains it, but as of August 2026, the results appear through SEMARC instead of a standalone search.',
-          '**SEMARC (Search Engine for Multi-Agency Reportable Conduct):** A newer, broader system that combines reportable-conduct findings from HHSC, DFPS, TJJD, and TEA in one search. This closes a gap that could allow someone barred in one sector to be hired in another. SEMARC includes EMR results but does not replace LEIE or NAR.',
+        title: 'Where things stand right now',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'The SEMARC rollout has been confusing. HHSC set a grace period from August 3 to October 5, 2026, and said it would not survey for SEMARC compliance until October 6. In practice, the EMR and NAR links in TULIP are still working for many agencies. [We wrote up what that means for you here →](https://ryzolve.com/blogs/semarc-replaces-emr-search-texas-hcssa)' },
         ],
       },
       {
-        title: 'How this connects to survey readiness',
-        paragraphs: [
-          'When a surveyor asks to see employability check documentation, "we checked something" isn\'t a complete answer. Records showing which registries were checked for a given employee, and when, can resolve the question quickly and avoid a longer review.',
+        title: 'A mistake worth avoiding',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'An agency runs one search, sees a clean result, and moves on. Months later a surveyor asks about a different registry and there\'s nothing in the file.' },
+          { type: 'p', text: 'Each check is separate. Every employee, contractor and volunteer gets the full set, and every result gets saved with the date.' },
         ],
       },
       {
-        title: 'Compliance checks connect to the rest of your agency.',
-        paragraphs: [
-          '*This post reflects Texas HHSC\'s NAR & SEMARC Joint Training FAQ (updated July 16, 2026). Confirm current requirements at [semarc.texas.gov](https://semarc.texas.gov/faq/) before relying on this for a compliance decision.*',
+        title: 'What we run for agencies on Ryzolve',
+        paragraphs: [],
+        blocks: [
+          { type: 'p', text: 'At hire and every month, Ryzolve runs LEIE (federal and Texas), NAR and EMR. Each result is stored on the employee\'s record with the date and the registry, so you can pull it up when someone asks.' },
+          {
+            type: 'table',
+            head: ['The question', 'Where the answer lives'],
+            rows: [
+              ['Was this person cleared before they started?', 'Their record, with the date'],
+              ['Did we screen everyone for LEIE last March?', 'The monthly results on file'],
+              ['Who\'s due for their annual re-check?', 'One place, not scattered files'],
+            ],
+          },
+          { type: 'p', text: 'Want to see it on a real employee file? Book a demo and bring your hardest question.' },
+        ],
+      },
+      {
+        title: 'Check these in your own process',
+        paragraphs: [],
+        blocks: [
+          {
+            type: 'list',
+            items: [
+              'Does your pre-hire checklist include every registry, not just the one your team remembers best?',
+              'Are checks re-run at least every 12 months for current staff, not only new hires?',
+              'Could you show which registry was checked, when, and by whom, for any employee?',
+            ],
+          },
         ],
       },
     ],
-    capabilities: [
-      'Whether your pre-hire checklist includes LEIE, NAR, and SEMARC instead of only the registry your team remembers most easily',
-      'Whether checks are re-run at least every 12 months for every existing employee as well as new hires',
-      'Whether your documentation shows which registry was checked, when, and by whom, since a surveyor may ask about any one of them specifically',
-    ],
+    inlineCtaAfter: 3,
+    sourceNote:
+      '*This reflects HHSC Provider Letter 2026-10 (revised) and HHSC\'s NAR and SEMARC Joint Training FAQ. Confirm current requirements at [semarc.texas.gov](https://semarc.texas.gov/faq/) before relying on this for a compliance decision.*',
+    capabilities: [],
     faqs: [
       {
-        q: 'If SEMARC comes back clear, do we still need to check LEIE separately?',
-        a: 'Yes. SEMARC and LEIE are maintained by different processes and cover different kinds of findings. A clear SEMARC result doesn\'t substitute for a LEIE check, and vice versa.',
+        q: 'If SEMARC comes back clear, do we still need LEIE?',
+        a: 'Yes. SEMARC and LEIE cover different things. A clear result on one tells you nothing about the other.',
       },
       {
-        q: 'Does job title affect which registries apply?',
-        a: 'No. Job titles don\'t matter for NAR and SEMARC. Every employee, contractor, and volunteer needs to be checked, regardless of role. LEIE checks apply to anyone involved in providing or billing for services.',
+        q: 'Does job title change which registries apply?',
+        a: 'No. NAR and the misconduct search apply to everyone you hire. LEIE applies to anyone involved in providing or billing for services.',
       },
       {
-        q: 'How often do these checks need to be repeated?',
-        a: 'At hire, and at least every 12 months after, for as long as someone remains employed or contracted.',
+        q: 'How often are the checks repeated?',
+        a: 'At hire and at least every 12 months after. LEIE screening is also done monthly for agencies with an HHSC contract.',
       },
       {
-        q: 'Do contractors need the same checks as employees?',
-        a: 'Yes. Contractors and subcontractors need the same LEIE and SEMARC screening as employees. Job classification does not exempt anyone from the requirement.',
+        q: 'Do contractors need the same checks?',
+        a: 'Yes. Contractors and subcontractors are screened the same way as employees.',
+      },
+      {
+        q: 'Which checks does Ryzolve run?',
+        a: 'LEIE (federal and Texas), NAR and EMR, at hire and monthly, with every result stored and retrievable.',
       },
     ],
     relatedLinks: [
       {
         href: '/blogs/semarc-replaces-emr-search-texas-hcssa',
-        title: 'SEMARC replaces the standalone EMR search',
-        description: 'See what changed in August 2026 and what to check now.',
+        title: 'SEMARC and the EMR search',
+        description: 'Where the rollout stands.',
       },
       {
         href: '/compliance-regulation',
         title: 'Compliance checks',
-        description: 'See how OIG, LEIE, and NAR tracking work inside Ryzolve.',
+        description: 'How checks run and get stored in Ryzolve.',
       },
       {
-        href: '/document-management',
-        title: 'Document management',
-        description: 'Explore where employability check records live together.',
+        href: '/blogs/texas-hhsc-contract-monitoring-readiness',
+        title: 'HHSC contract monitoring checklist',
+        description: 'What monitors ask for.',
       },
     ],
     ctaLabel: 'See how Ryzolve tracks compliance checks',
     ctaHref: '/compliance-regulation',
-    capabilitiesTitle: 'What to review across your hiring process',
-    relatedTitle: 'How this connects to the rest of your agency.',
-    ctaTitle: 'Ready to keep every registry check organized in one place?',
+    faqEyebrow: 'Questions Texas agencies ask',
+    relatedTitle: 'Compliance checks connect to the rest of your agency.',
+    ctaTitle: 'Stop chasing your own compliance records',
   },
   {
     slug: 'texas-hcssa-license-survey-readiness',

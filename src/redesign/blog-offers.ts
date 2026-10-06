@@ -12,7 +12,7 @@ import { agencyInServiceSignupHref, trainingCoursePurchaseHref } from './trainin
  */
 export type BlogOfferKind = 'in-service' | 'admin-course' | 'compliance' | 'demo';
 
-export type BlogCtaPlacement = 'hero' | 'inline' | 'end' | 'sticky';
+export type BlogCtaPlacement = 'hero' | 'inline' | 'body' | 'end' | 'sticky';
 
 export type BlogOfferLink = {
   label: string;
