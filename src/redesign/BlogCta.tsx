@@ -92,7 +92,7 @@ export function BlogEndCta({ entry, offer }: OfferProps) {
         <div>
           <p className="rz-eyebrow">{offer.eyebrow}</p>
           <h2 id="blog-cta-title">{entry.ctaTitle ?? offer.title}</h2>
-          <p className="rz-blog-final-cta-body">{offer.body}</p>
+          <p className="rz-blog-final-cta-body">{entry.ctaDescription ?? offer.body}</p>
         </div>
         <div className="rz-blog-final-cta-actions">
           <BlogCtaLink

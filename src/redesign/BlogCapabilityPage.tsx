@@ -71,14 +71,25 @@ function relatedImage(href: string): string | undefined {
   return undefined;
 }
 
+function formatDate(iso: string) {
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
 export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
   const path = `/blogs/${entry.slug}`;
   const offer = blogOffer(entry);
+  const inlineCtaAfter = entry.inlineCtaAfter ?? 0;
+  const lastSection = entry.articleSections.length - 1;
 
   return (
     <SiteLayout active="blogs">
       <SEO
-        title={entry.title}
+        title={entry.seoTitle ?? entry.title}
         description={entry.description}
         path={path}
         keywords={entry.keywords}
@@ -90,6 +101,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         description={entry.description}
         path={path}
         datePublished={entry.publishedAt}
+        dateModified={entry.updatedAt}
         image={entry.image}
       />
       <FaqJsonLd items={entry.faqs} path={path} />
@@ -118,7 +130,12 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
               </Link>
               <p className="rz-eyebrow">{entry.eyebrow}</p>
               <h1>{entry.title}</h1>
-              <p className="rz-blog-hero-description">{entry.description}</p>
+              <p className="rz-blog-hero-description">{entry.heroDescription ?? entry.description}</p>
+              {entry.updatedAt && (
+                <p className="rz-blog-hero-updated">
+                  Updated <time dateTime={entry.updatedAt}>{formatDate(entry.updatedAt)}</time>
+                </p>
+              )}
               <div className="rz-page-hero-actions">
                 <BlogCtaLink
                   className="rz-btn rz-btn-blue"
@@ -150,7 +167,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         <section id="workflow" className="rz-section bg-bg" aria-labelledby="blog-workflow-title">
           <div className="rz-wrap">
             <div className="rz-shead rz-blog-section-head">
-              <p className="rz-eyebrow">How it works</p>
+              <p className="rz-eyebrow">{entry.solutionEyebrow ?? 'How it works'}</p>
               <h2 id="blog-workflow-title">{entry.solutionTitle}</h2>
               <p>{entry.solutionDescription}</p>
             </div>
@@ -173,13 +190,59 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{renderInlineMarkdown(paragraph)}</p>
               ))}
-              {/* After the section that sets out the problem — the first point
-                  in the read where the offer answers something. */}
-              {index === 0 && <BlogInlineCta entry={entry} offer={offer} />}
+              {section.lists?.map((list) => (
+                <div className="rz-blog-article-list" key={list.heading ?? list.items[0]}>
+                  {list.heading && <p className="rz-blog-article-list-heading">{list.heading}</p>}
+                  <ul>
+                    {list.items.map((item) => (
+                      <li key={item}>{renderInlineMarkdown(item)}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              {section.closing?.map((paragraph) => (
+                <p key={paragraph}>{renderInlineMarkdown(paragraph)}</p>
+              ))}
+              {section.table && (
+                <div className="rz-blog-table-wrap">
+                  <table className="rz-blog-table">
+                    <thead>
+                      <tr>
+                        {section.table.head.map((cell) => (
+                          <th key={cell} scope="col">{renderInlineMarkdown(cell)}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {section.table.rows.map((row) => (
+                        <tr key={row[0]}>
+                          {row.map((cell, cellIndex) =>
+                            cellIndex === 0 ? (
+                              <th key={cell} scope="row">{renderInlineMarkdown(cell)}</th>
+                            ) : (
+                              // data-label names the column once rows stack on phones.
+                              <td data-label={section.table?.head[cellIndex]} key={cell}>
+                                {renderInlineMarkdown(cell)}
+                              </td>
+                            )
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              {index === lastSection && entry.sourceNote && (
+                <p className="rz-blog-source-note">{renderInlineMarkdown(entry.sourceNote)}</p>
+              )}
+              {/* By default after the section that sets out the problem — the
+                  first point in the read where the offer answers something. */}
+              {index === inlineCtaAfter && <BlogInlineCta entry={entry} offer={offer} />}
             </div>
           </section>
         ))}
 
+        {entry.capabilities.length > 0 && (
         <section className="rz-section border-y border-rule bg-paper" aria-labelledby="blog-capabilities-title">
           <div className="rz-wrap rz-blog-two-column">
             <div className="rz-shead">
@@ -196,6 +259,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
             </ul>
           </div>
         </section>
+        )}
 
         <BlogEndCta entry={entry} offer={offer} />
 

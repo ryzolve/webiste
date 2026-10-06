@@ -236,12 +236,14 @@ export function ArticleJsonLd({
   description,
   path,
   datePublished,
+  dateModified,
   image,
 }: {
   title: string;
   description: string;
   path: string;
   datePublished: string;
+  dateModified?: string;
   /** Article rich results want an image; relative paths are made absolute. */
   image?: string;
 }) {
@@ -254,6 +256,7 @@ export function ArticleJsonLd({
         headline: title,
         description,
         datePublished,
+        ...(dateModified ? { dateModified } : {}),
         ...(image ? { image: [image.startsWith('http') ? image : abs(image)] } : {}),
         url: abs(path),
         mainEntityOfPage: { '@type': 'WebPage', '@id': abs(path) },
