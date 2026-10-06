@@ -4950,6 +4950,11 @@ button.rz-btn-blue {
   font-size: 19px;
   line-height: 1.6;
 }
+.rz-blog-hero-updated {
+  margin: 14px 0 0;
+  color: var(--rz-muted);
+  font-size: 14px;
+}
 .rz-blog-hero .rz-page-hero-actions {
   justify-content: flex-start;
   margin-top: 28px;
@@ -5117,6 +5122,102 @@ button.rz-btn-blue {
   color: var(--rz-ink-2);
   font-size: 17px;
   line-height: 1.7;
+}
+.rz-blog-article-list { margin-top: 22px; }
+.rz-blog-article-list + .rz-blog-article-list { margin-top: 26px; }
+.rz-blog-article-section .rz-blog-article-list-heading {
+  margin: 0 0 8px;
+  color: var(--rz-ink);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.rz-blog-article-list ul {
+  margin: 0;
+  padding-left: 22px;
+  color: var(--rz-ink-2);
+  font-size: 17px;
+  line-height: 1.65;
+}
+.rz-blog-article-list li + li { margin-top: 8px; }
+.rz-blog-article-list li::marker { color: var(--rz-blue); }
+.rz-blog-article-list strong { color: var(--rz-ink); }
+
+.rz-blog-table-wrap {
+  margin-top: 28px;
+  overflow-x: auto;
+  border: 1px solid var(--rz-rule);
+  border-radius: 14px;
+}
+.rz-blog-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.rz-blog-table th,
+.rz-blog-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--rz-rule);
+  text-align: left;
+  vertical-align: top;
+}
+.rz-blog-table tbody tr:last-child > * { border-bottom: 0; }
+.rz-blog-table thead th {
+  background: var(--rz-bg);
+  color: var(--rz-ink);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.rz-blog-table tbody th { color: var(--rz-ink); font-weight: 600; }
+.rz-blog-table td { color: var(--rz-ink-2); }
+/* The "with Ryzolve" column is the point of the table. */
+.rz-blog-table td:last-child { background: #F3F8FC; color: var(--rz-ink); }
+/* Phones: each row becomes a card so the last column isn't scrolled away. */
+@media (max-width: 640px) {
+  .rz-blog-table-wrap { overflow: visible; border: 0; border-radius: 0; }
+  .rz-blog-table { min-width: 0; }
+  .rz-blog-table thead { display: none; }
+  .rz-blog-table tbody,
+  .rz-blog-table tr,
+  .rz-blog-table th,
+  .rz-blog-table td { display: block; }
+  .rz-blog-table tr {
+    overflow: hidden;
+    border: 1px solid var(--rz-rule);
+    border-radius: 14px;
+  }
+  .rz-blog-table tr + tr { margin-top: 12px; }
+  .rz-blog-table tbody th { background: var(--rz-bg); }
+  .rz-blog-table th,
+  .rz-blog-table td,
+  .rz-blog-table tbody tr:last-child > * { border-bottom: 1px solid var(--rz-rule); }
+  .rz-blog-table tr > :last-child,
+  .rz-blog-table tbody tr:last-child > :last-child { border-bottom: 0; }
+  .rz-blog-table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 4px;
+    color: var(--rz-muted);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+}
+
+.rz-blog-article-section .rz-blog-source-note {
+  margin-top: 32px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rz-rule);
+  color: var(--rz-muted);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.6;
 }
 .rz-blog-related-grid {
   display: grid;
@@ -5449,6 +5550,7 @@ button.rz-btn-blue {
 .rz-blog-hero--image .rz-blog-back { color: #fff; }
 .rz-blog-hero--image .rz-eyebrow { color: var(--rz-coral-soft); }
 .rz-blog-hero--image .rz-blog-hero-description { color: rgb(255 255 255 / 82%); }
+.rz-blog-hero--image .rz-blog-hero-updated { color: rgb(255 255 255 / 64%); }
 .rz-blog-hero--image .rz-blog-back:hover,
 .rz-blog-hero--image .rz-blog-back:focus-visible { color: var(--rz-coral-soft); }
 .rz-blog-hero--image .rz-btn-ghost {

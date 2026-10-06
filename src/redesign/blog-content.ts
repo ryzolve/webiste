@@ -14,9 +14,27 @@ export type BlogWorkflowStep = {
   description: string;
 };
 
+export type BlogArticleList = {
+  /** Optional lead-in above the list, e.g. "Changing:". */
+  heading?: string;
+  items: string[];
+};
+
+export type BlogArticleTable = {
+  head: string[];
+  rows: string[][];
+};
+
+/**
+ * Rendered in this order: paragraphs, lists, closing, table. Every string goes
+ * through the inline-markdown renderer, so links and bold work everywhere.
+ */
 export type BlogArticleSection = {
   title: string;
   paragraphs: string[];
+  lists?: BlogArticleList[];
+  closing?: string[];
+  table?: BlogArticleTable;
 };
 
 export type BlogCapabilityEntry = {
@@ -39,6 +57,20 @@ export type BlogCapabilityEntry = {
   ctaHref: string;
   /** Overrides the offer derived from ctaHref/eyebrow (see blog-offers.ts). */
   offer?: BlogOfferKind;
+  /** Index of the article section the mid-article CTA follows. Defaults to 0. */
+  inlineCtaAfter?: number;
+  /** Last substantive revision (YYYY-MM-DD); shown in the hero and as dateModified. */
+  updatedAt?: string;
+  /** <title> when it should differ from the H1. */
+  seoTitle?: string;
+  /** Hero lede when the meta description reads too much like a summary. */
+  heroDescription?: string;
+  /** Workflow-section eyebrow; defaults to "How it works". */
+  solutionEyebrow?: string;
+  /** End-of-article CTA copy; defaults to the offer's body. */
+  ctaDescription?: string;
+  /** Sources / disclaimer line printed after the last article section. */
+  sourceNote?: string;
   /**
    * Per-post section headings. These were hard-coded to the first (payroll)
    * article, which meant every other post inherited its wording — so they are
@@ -1626,121 +1658,212 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
     slug: 'semarc-replaces-emr-search-texas-hcssa',
     image: '/img/blog/semarc-replaces-emr-search-texas-hcssa.jpg',
     imageAlt: 'An administrator running a registry search at a two-monitor desk',
-    label: 'SEMARC replaces EMR search',
+    label: 'SEMARC and the EMR search',
     eyebrow: 'Compliance checks',
-    title: 'SEMARC Has Replaced the Standalone EMR Search: What Changed',
+    title: 'SEMARC and the EMR Search: What Texas Agencies Need to Know Right Now',
+    seoTitle: 'SEMARC and the EMR Search: What Texas Agencies Need to Know Now',
     description:
-      'Effective August 3, 2026, Texas HCSSA and ALF providers use SEMARC instead of a standalone EMR search. Here\'s exactly what changed, what didn\'t, and what to do now.',
+      'HHSC\'s SEMARC rollout has left many Texas agencies confused about which employability checks to run. Here\'s what\'s required, what isn\'t changing, and how Ryzolve runs and stores every check so you\'re never scrambling.',
+    heroDescription:
+      'HHSC\'s SEMARC announcement left a lot of agencies asking the same question: which employability checks do we actually run? Here\'s what\'s changing, what isn\'t, and how Ryzolve keeps every check on schedule and on record while the rollout settles.',
     publishedAt: '2026-06-18',
+    updatedAt: '2026-10-05',
     readingMinutes: 7,
     keywords: [
       'SEMARC texas hcssa',
       'employee misconduct registry texas',
       'SEMARC TULIP',
       'texas home care background check requirements',
-      'NAR SEMARC employability check',
+      'NAR EMR employability check',
+      'LEIE monthly screening texas',
     ],
-    solutionTitle: 'How it works at your agency.',
+    solutionEyebrow: 'At a glance',
+    solutionTitle: 'The short version.',
     solutionDescription:
-      'Effective August 3, 2026, Texas HCSSA and ALF providers run employability checks through SEMARC instead of a standalone Employee Misconduct Registry search. Here\'s what actually changed, what didn\'t, and what to check on your agency\'s process this week.',
+      'If you\'re confused, you\'re not alone. The change is real, but the rollout has been uneven, and agencies are getting different experiences depending on access and timing.',
     workflowSteps: [
       {
         number: '01',
-        title: 'SEMARC replaces the standalone EMR search',
-        description: 'The Employee Misconduct Registry itself isn\'t going away; HHSC still manages it. But its results are now folded into SEMARC results instead of being searched on their own, and the old standalone EMR search link is gone from the TULIP home page.',
+        title: 'SEMARC is replacing the EMR search requirement',
+        description: 'HHSC\'s Provider Letter 2026-10 says the requirement to search the Employee Misconduct Registry will be replaced by a requirement to search SEMARC, the Search Engine for Multi-Agency Reportable Conduct.',
       },
       {
         number: '02',
-        title: 'Access runs through TULIP',
-        description: 'Providers with existing TULIP access request SEMARC access under "Other Actions," get approved by their Business Entity\'s Security Authority, and the option appears on their dashboard.',
+        title: 'There was a hold-harmless period',
+        description: 'The revised letter gave providers a window from August 3 to October 5, 2026, and states HHSC will not survey for SEMARC compliance until October 6, 2026.',
       },
       {
         number: '03',
-        title: 'NAR stays separate',
-        description: 'The Nurse Aide Registry remains a separate required search in TULIP alongside SEMARC.',
+        title: 'Nothing else went away',
+        description: 'NAR and LEIE checks are still required, and the check cadence hasn\'t changed.',
       },
     ],
     articleSections: [
       {
+        title: 'Why it feels confusing',
+        paragraphs: [
+          'SEMARC was announced as the replacement for a standalone EMR search, yet in day-to-day practice the EMR and NAR search links in TULIP are still working for many agencies. That leaves a practical gap: the rule says one thing, the portal you can actually use says another, and the first agency to be asked about it will likely be one that already has a survey on the calendar.',
+          'The sensible response is not to guess. It\'s to keep every check you can run on schedule, keep a dated record of every result, and confirm your SEMARC access status directly with HHSC.',
+        ],
+      },
+      {
         title: 'What SEMARC actually is',
         paragraphs: [
-          'SEMARC (Search Engine for Multi-Agency Reportable Conduct) is a statewide database created under Senate Bill 1849. It brings findings of abuse, neglect, exploitation, and other reportable conduct from HHSC, DFPS, TJJD, and TEA into one searchable platform. Before SEMARC, an individual barred from working in a childcare setting under one agency\'s registry could still get hired at a long-term care agency checking a different one. SEMARC closes that gap by giving authorized employers one place to check all four agencies.',
+          'SEMARC is a statewide search created under Senate Bill 1849. It pools reportable-conduct findings from HHSC, DFPS, TJJD, and TEA into one search, so someone barred in one sector can\'t simply be hired in another by an employer checking a different registry.',
+        ],
+      },
+      {
+        title: 'What\'s changing, and what isn\'t',
+        paragraphs: [],
+        lists: [
+          {
+            heading: 'Changing',
+            items: [
+              'The requirement to search the EMR is being replaced by a requirement to search SEMARC',
+              'SEMARC is accessed through TULIP and requires its own access request',
+              'Each Business Entity is limited to 10 TULIP user accounts across all locations',
+            ],
+          },
+          {
+            heading: 'Not changing',
+            items: [
+              'The Nurse Aide Registry (NAR) is still required and searched separately',
+              'LEIE checks, both federal and Texas, are still required. SEMARC does not replace them',
+              'Criminal history checks through DPS/DFPS are unchanged',
+              'Checks happen at hire and at least every 12 months after',
+              'Job titles don\'t matter: every employee, contractor, and volunteer is checked',
+            ],
+          },
+        ],
+      },
+      {
+        title: 'The real risk isn\'t the rule change. It\'s the proof.',
+        paragraphs: [
+          'Most agencies fix the process once and move on. The exposure comes later: a check skipped in a busy week, an annual re-check that slips past its window, a monthly LEIE screening that was done but never saved. Then a surveyor or HHSC contract monitor asks to see it.',
+          'HHSC\'s contract monitoring notice asks specifically for your written process for pre-employment and monthly LEIE screening, plus evidence the screenings actually happened. A licensure survey can ask for personnel records on short notice. In both cases, "we did it" isn\'t enough. You need the record, and you need it fast.',
+        ],
+      },
+      {
+        title: 'What Ryzolve runs for your agency',
+        paragraphs: [
+          'Ryzolve runs your employability and exclusion checks for you, at hire and again every month:',
+        ],
+        lists: [
+          {
+            items: [
+              '**LEIE, federal and Texas**',
+              '**Nurse Aide Registry (NAR)**',
+              '**Employee Misconduct Registry (EMR)**, run through TULIP',
+            ],
+          },
+        ],
+        closing: [
+          'Every result is saved to the employee\'s record with the date and the registry checked. When a surveyor, monitor, or case manager asks, you pull the record by employee, by date, or by registry in moments.',
+        ],
+        table: {
+          head: ['When HHSC asks for...', 'Without Ryzolve', 'With Ryzolve'],
+          rows: [
+            ['Proof a new hire was cleared before starting', 'Search email and browser history', 'Open the employee record; the result is attached'],
+            ['Monthly LEIE evidence for the period', 'Reconstruct from memory or scattered files', 'Pull the monthly results on file'],
+            ['Annual NAR/EMR re-check status', 'Compare hire dates by hand', 'See what\'s current and what\'s coming due'],
+            ['A list of everyone checked, and when', 'Build it from scratch', 'Retrieve it from one place'],
+          ],
+        },
+      },
+      {
+        title: 'Stay ahead of the rollout without the guesswork',
+        paragraphs: [
+          'Rules like this one will keep shifting while HHSC finishes the rollout. Your agency shouldn\'t have to decode each update while also running a business. Ryzolve keeps your checks running and your records organized, so a change in the requirements becomes an update to your process, not a scramble to rebuild it.',
+          'A short demo shows how checks run at hire and monthly, how results are stored, and how fast you can retrieve them.',
+        ],
+      },
+      {
+        title: 'What to check this week',
+        paragraphs: [],
+        lists: [
+          {
+            items: [
+              'Whether your agency has requested SEMARC access in TULIP, and who holds your Security Authority role, since they approve requests',
+              'What your HHSC regional contact says you should be searching while SEMARC access is being sorted out',
+              'Whether your hiring process waits for every required result to come back clear before a new hire starts. Provisional hiring while results are pending isn\'t allowed',
+              'Whether you could produce, right now, a dated record of every check for every current employee',
+            ],
+          },
+        ],
+        closing: [
+          'If that last one gave you pause, that\'s exactly the gap Ryzolve closes.',
         ],
       },
       {
         title: 'One exception worth knowing',
         paragraphs: [
-          'HCS and TxHmL providers don\'t currently have TULIP access and are exempt from the SEMARC requirement until that access becomes available, expected around March 2027. They continue their current process until then. State Supported Living Center hiring managers access SEMARC through IAMOnline instead of TULIP.',
-        ],
-      },
-      {
-        title: 'How this connects to survey readiness',
-        paragraphs: [
-          'A surveyor can ask to see employability checks on short notice. Although SEMARC changed the underlying process, the expectation remains the same: keep a clear, current record for every employee, contractor, and volunteer.',
-        ],
-      },
-      {
-        title: 'Compliance checks connect to the rest of your agency.',
-        paragraphs: [
-          '*This post reflects Texas HHSC\'s NAR & SEMARC Joint Training FAQ (updated July 16, 2026) and Provider Letter 2026-10. Regulatory guidance can change. Confirm current requirements at [semarc.texas.gov](https://semarc.texas.gov/faq/) before relying on this for a compliance decision.*',
+          'HCS and TxHmL providers don\'t currently have TULIP access and continue their current process until SEMARC is available to them, expected in early 2027. State Supported Living Center hiring managers access SEMARC through IAMOnline instead of TULIP.',
         ],
       },
     ],
-    capabilities: [
-      'The EMR is no longer searched as a standalone item; its results now appear inside SEMARC',
-      'SEMARC access must be requested separately in TULIP, even for agencies that already had TULIP access for other purposes',
-      'Each Business Entity is limited to 10 TULIP user accounts total, across every location',
-      'The Nurse Aide Registry (NAR) is still required and still searched separately',
-      'Both the federal OIG exclusion list and HHSC\'s own LEIE checks are still required; SEMARC does not replace them',
-      'Criminal history background checks through DPS/DFPS are unchanged',
-      'CANRS is not replaced',
-      'The required check schedule has not changed: checks happen at hire and at least every 12 months after that',
-      'Job titles still don\'t matter: every employee, contractor, and volunteer needs to be checked, including staff who do not provide direct care',
-      'Whether your agency has requested and received SEMARC access in TULIP',
-      'Who holds your agency\'s TULIP Security Authority role, since they approve SEMARC access requests',
-      'Whether your hiring process waits for NAR, SEMARC, and any other required results to come back clear before a new hire starts, since provisional hiring while results are pending isn\'t allowed',
-      'Whether staff who currently run EMR/NAR checks know the standalone EMR link on the TULIP home page is gone',
-    ],
+    // The demo pitch closes "Stay ahead of the rollout", so the card follows it.
+    inlineCtaAfter: 5,
+    sourceNote:
+      '*This post reflects HHSC Provider Letter 2026-10 (revised) and HHSC\'s NAR & SEMARC Joint Training FAQ. Guidance continues to evolve, so confirm current requirements at [semarc.texas.gov](https://semarc.texas.gov/faq/) before relying on this for a compliance decision.*',
+    capabilities: [],
     faqs: [
       {
-        q: 'Does SEMARC replace LEIE or OIG checks?',
-        a: 'No. Both the federal OIG exclusion list and HHSC\'s own LEIE checks are still required. SEMARC compiles reportable-conduct findings from HHSC, DFPS, TJJD, and TEA, which do not cover the same ground as exclusion-list checks.',
+        q: 'Does SEMARC replace LEIE or NAR checks?',
+        a: 'No. LEIE (federal and Texas) and NAR are still required separately. SEMARC is replacing the requirement to search the EMR, and it pools reportable-conduct findings from HHSC, DFPS, TJJD, and TEA. It does not cover the same ground as exclusion-list checks.',
+      },
+      {
+        q: 'Which checks does Ryzolve run?',
+        a: 'Ryzolve runs LEIE (federal and Texas), the Nurse Aide Registry, and the Employee Misconduct Registry, at hire and every month. Each result is stored on the employee\'s record and retrievable anytime.',
+      },
+      {
+        q: 'What does HHSC require while SEMARC rolls out?',
+        a: 'HHSC\'s Provider Letter 2026-10 replaces the EMR search requirement with a SEMARC requirement, with a hold-harmless period that ran August 3 through October 5, 2026. HHSC states it will not survey for SEMARC compliance until October 6, 2026. Confirm your agency\'s SEMARC access and current expectations with HHSC.',
       },
       {
         q: 'Do we need to re-check every current employee right away?',
-        a: 'No. Regulation on when to conduct employability checks hasn\'t changed. Staff must be checked at hire and annually after that. You do not need to re-check everyone hired before August 2026 immediately; use SEMARC when their next annual check comes due.',
+        a: 'No. The timing rules haven\'t changed: staff are checked at hire and at least every 12 months after. Their next annual check simply runs under the current process.',
       },
       {
         q: 'What if results are still pending when we need to hire someone quickly?',
-        a: 'No one can be hired while results are pending. NAR, SEMARC, and any other required checks need to come back clear before someone starts, even if that delays the start date.',
+        a: 'No one can be hired while results are pending. Every required check needs to come back clear before someone starts, even if that delays the start date.',
       },
       {
-        q: 'Where do we find the official implementation details?',
-        a: 'Provider Letter 2026-10 and the official SEMARC site at semarc.texas.gov are the authoritative sources. Both are linked in this post.',
+        q: 'Can I pull these records during a survey or contract monitoring?',
+        a: 'Yes. Because every check is stored in Ryzolve, you can retrieve results by employee, date, or registry whenever a surveyor or HHSC monitor requests them, instead of assembling them at the last minute.',
+      },
+      {
+        q: 'Where do we find the official details?',
+        a: 'Provider Letter 2026-10 and the SEMARC site at semarc.texas.gov are the authoritative sources.',
       },
     ],
     relatedLinks: [
       {
         href: '/compliance-regulation',
         title: 'Compliance checks',
-        description: 'See how OIG, LEIE, and NAR tracking work inside Ryzolve.',
+        description: 'See how checks run and are stored inside Ryzolve.',
       },
       {
         href: '/document-management',
         title: 'Document management',
-        description: 'Explore where employability check results and hiring records live together.',
+        description: 'Explore where employability results and hiring records live together.',
       },
       {
         href: '/training',
         title: 'Caregiver onboarding',
         description: 'Review how hiring, checks, and training fit into one onboarding flow.',
       },
+      {
+        href: '/blogs/texas-hhsc-contract-monitoring-readiness',
+        title: 'HHSC contract monitoring checklist',
+        description: 'See what monitors ask for, including monthly LEIE evidence.',
+      },
     ],
     ctaLabel: 'See how Ryzolve tracks compliance checks',
     ctaHref: '/compliance-regulation',
-    capabilitiesTitle: 'What changed, and what didn\'t',
-    relatedTitle: 'How this connects to the rest of your agency.',
-    ctaTitle: 'Ready to keep employability checks organized?',
+    relatedTitle: 'Compliance checks connect to the rest of your agency.',
+    ctaTitle: 'Stop tracking compliance checks by hand.',
+    ctaDescription:
+      'Every check at hire. Every check, every month. Every result stored and ready the moment it\'s asked for. That\'s what Ryzolve does for Texas agencies.',
   },
   {
     slug: 'leie-nar-emr-semarc-texas-employability-checks',
