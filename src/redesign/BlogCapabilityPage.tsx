@@ -8,8 +8,9 @@ import {
   BreadcrumbJsonLd,
   FaqJsonLd,
 } from './structured-data';
-import type { BlogCapabilityEntry } from './blog-content';
+import type { BlogArticleBlock, BlogArticleTable, BlogCapabilityEntry } from './blog-content';
 import { getBlogCapability } from './blog-content';
+import type { BlogOffer } from './blog-offers';
 import { blogOffer } from './blog-offers';
 import { BlogCtaLink, BlogEndCta, BlogInlineCta, BlogStickyCta } from './BlogCta';
 import { SiteLayout } from './site';
@@ -69,6 +70,81 @@ function relatedImage(href: string): string | undefined {
   if (RELATED_IMAGES[href]) return RELATED_IMAGES[href];
   if (href.startsWith('/training')) return RELATED_IMAGES['/training'];
   return undefined;
+}
+
+function ArticleList({ items, ordered, heading }: { items: string[]; ordered?: boolean; heading?: string }) {
+  const ListTag = ordered ? 'ol' : 'ul';
+  return (
+    <div className="rz-blog-article-list">
+      {heading && <p className="rz-blog-article-list-heading">{heading}</p>}
+      <ListTag>
+        {items.map((item) => (
+          <li key={item}>{renderInlineMarkdown(item)}</li>
+        ))}
+      </ListTag>
+    </div>
+  );
+}
+
+function ArticleTable({ table }: { table: BlogArticleTable }) {
+  return (
+    <div className="rz-blog-table-wrap">
+      <table className="rz-blog-table">
+        <thead>
+          <tr>
+            {table.head.map((cell) => (
+              <th key={cell} scope="col">{renderInlineMarkdown(cell)}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {table.rows.map((row) => (
+            <tr key={row[0]}>
+              {row.map((cell, cellIndex) =>
+                cellIndex === 0 ? (
+                  <th key={cell} scope="row">{renderInlineMarkdown(cell)}</th>
+                ) : (
+                  // data-label names the column once rows stack on phones.
+                  <td data-label={table.head[cellIndex]} key={cell}>
+                    {renderInlineMarkdown(cell)}
+                  </td>
+                )
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function ArticleBlock({
+  block,
+  entry,
+  offer,
+}: {
+  block: BlogArticleBlock;
+  entry: BlogCapabilityEntry;
+  offer: BlogOffer;
+}) {
+  if (block.type === 'p') return <p>{renderInlineMarkdown(block.text)}</p>;
+  if (block.type === 'list') {
+    return <ArticleList heading={block.heading} items={block.items} ordered={block.ordered} />;
+  }
+  if (block.type === 'table') return <ArticleTable table={block} />;
+  const href = block.href.replace(/^https?:\/\/ryzolve\.com/, '') || '/';
+  return (
+    <p className="rz-blog-article-cta">
+      <BlogCtaLink
+        className="rz-btn rz-btn-blue"
+        link={{ label: block.label, href, external: !href.startsWith('/') }}
+        offer={offer}
+        placement="body"
+        rank={href === offer.primary.href ? 'primary' : 'secondary'}
+        slug={entry.slug}
+      />
+    </p>
+  );
 }
 
 function formatDate(iso: string) {
@@ -164,12 +240,13 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         </section>
 
         <article id="article">
+        {entry.workflowSteps.length > 0 && (
         <section id="workflow" className="rz-section bg-bg" aria-labelledby="blog-workflow-title">
           <div className="rz-wrap">
             <div className="rz-shead rz-blog-section-head">
               <p className="rz-eyebrow">{entry.solutionEyebrow ?? 'How it works'}</p>
               <h2 id="blog-workflow-title">{entry.solutionTitle}</h2>
-              <p>{entry.solutionDescription}</p>
+              {entry.solutionDescription && <p>{entry.solutionDescription}</p>}
             </div>
             <ol className="rz-blog-workflow-grid">
               {entry.workflowSteps.map((step) => (
@@ -182,6 +259,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
             </ol>
           </div>
         </section>
+        )}
 
         {entry.articleSections.map((section, index) => (
           <section className="rz-section border-y border-rule bg-paper" key={section.title}>
@@ -190,48 +268,21 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{renderInlineMarkdown(paragraph)}</p>
               ))}
+              {section.blocks?.map((block, blockIndex) => (
+                <ArticleBlock
+                  block={block}
+                  entry={entry}
+                  key={`${block.type}-${blockIndex}`}
+                  offer={offer}
+                />
+              ))}
               {section.lists?.map((list) => (
-                <div className="rz-blog-article-list" key={list.heading ?? list.items[0]}>
-                  {list.heading && <p className="rz-blog-article-list-heading">{list.heading}</p>}
-                  <ul>
-                    {list.items.map((item) => (
-                      <li key={item}>{renderInlineMarkdown(item)}</li>
-                    ))}
-                  </ul>
-                </div>
+                <ArticleList heading={list.heading} items={list.items} key={list.heading ?? list.items[0]} />
               ))}
               {section.closing?.map((paragraph) => (
                 <p key={paragraph}>{renderInlineMarkdown(paragraph)}</p>
               ))}
-              {section.table && (
-                <div className="rz-blog-table-wrap">
-                  <table className="rz-blog-table">
-                    <thead>
-                      <tr>
-                        {section.table.head.map((cell) => (
-                          <th key={cell} scope="col">{renderInlineMarkdown(cell)}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {section.table.rows.map((row) => (
-                        <tr key={row[0]}>
-                          {row.map((cell, cellIndex) =>
-                            cellIndex === 0 ? (
-                              <th key={cell} scope="row">{renderInlineMarkdown(cell)}</th>
-                            ) : (
-                              // data-label names the column once rows stack on phones.
-                              <td data-label={section.table?.head[cellIndex]} key={cell}>
-                                {renderInlineMarkdown(cell)}
-                              </td>
-                            )
-                          )}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
+              {section.table && <ArticleTable table={section.table} />}
               {index === lastSection && entry.sourceNote && (
                 <p className="rz-blog-source-note">{renderInlineMarkdown(entry.sourceNote)}</p>
               )}
@@ -266,7 +317,7 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         <section className="rz-section bg-bg" aria-labelledby="blog-faq-title">
           <div className="rz-wrap">
             <div className="rz-shead rz-blog-section-head">
-              <p className="rz-eyebrow">Questions Texas PAS teams ask</p>
+              <p className="rz-eyebrow">{entry.faqEyebrow ?? 'Questions Texas PAS teams ask'}</p>
               <h2 id="blog-faq-title">{entry.faqTitle ?? `${entry.label}, in plain language.`}</h2>
             </div>
             <FaqAccordion
