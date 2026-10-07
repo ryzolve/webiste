@@ -7,47 +7,19 @@ import { trackEvent } from './analytics';
 import { ButtonBtn, DeferredTurnstile, postJson } from './site';
 
 /**
- * A download that asks for the visitor's details first. The form posts to
- * /website/contact, which stores the lead in the admin "Website → Contacts"
- * list, notifies the team and sends the visitor an acknowledgement. The
- * download starts as soon as the API accepts it.
- *
- * A browser that has unlocked a file once skips the form next time.
+ * "Email me this file". The form posts to the API's /website/resources, which
+ * stores the request (admin → Website → Contacts), notifies the team and
+ * emails the visitor the link. The site never holds the file's URL, so a
+ * mistyped address never gets the file, and no confirm-code step is needed.
  */
 
 type GatedFile = {
   title: string;
-  href: string;
-  /** Where the download was offered, for the lead record and analytics. */
+  /** Key in the API's website.resources.ts. */
+  resource: string;
+  /** Where the form was offered, for the lead record and analytics. */
   slug: string;
 };
-
-const UNLOCKED_PREFIX = 'rz-unlocked:';
-
-function isUnlocked(href: string) {
-  try {
-    return localStorage.getItem(UNLOCKED_PREFIX + href) === '1';
-  } catch {
-    return false;
-  }
-}
-
-function rememberUnlocked(href: string) {
-  try {
-    localStorage.setItem(UNLOCKED_PREFIX + href, '1');
-  } catch {
-    // Storage blocked: they'll see the form again next visit.
-  }
-}
-
-function startDownload(href: string) {
-  const a = document.createElement('a');
-  a.href = href;
-  a.download = href.split('/').pop() ?? '';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-}
 
 export function GatedDownloadButton({
   file,
@@ -66,20 +38,16 @@ export function GatedDownloadButton({
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (autoOpenOnHash && window.location.hash === autoOpenOnHash && !isUnlocked(file.href)) {
+    if (autoOpenOnHash && window.location.hash === autoOpenOnHash) {
       setOpen(true);
-      trackEvent('gated_download_opened', { slug: file.slug, resource: file.title, via: 'link' });
+      trackEvent('resource_form_opened', { slug: file.slug, resource: file.resource, via: 'link' });
     }
-  }, [autoOpenOnHash, file.href, file.slug, file.title]);
+  }, [autoOpenOnHash, file.resource, file.slug]);
 
   const handleClick = () => {
     onClick?.();
-    if (isUnlocked(file.href)) {
-      startDownload(file.href);
-      return;
-    }
     setOpen(true);
-    trackEvent('gated_download_opened', { slug: file.slug, resource: file.title, via: 'button' });
+    trackEvent('resource_form_opened', { slug: file.slug, resource: file.resource, via: 'button' });
   };
 
   return (
@@ -97,7 +65,10 @@ function GatedDownloadModal({ file, onClose }: { file: GatedFile; onClose: () =>
   const [honeypot, setHoneypot] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [done, setDone] = useState(false);
+  const [sentTo, setSentTo] = useState<string | null>(null);
+  // Bumped to remount Turnstile: siteverify consumes a token, so a retry after
+  // a failed send needs a fresh widget, not just a cleared token.
+  const [turnstileKey, setTurnstileKey] = useState(0);
 
   const canSubmit = turnstileToken !== '' && !submitting;
 
@@ -119,25 +90,23 @@ function GatedDownloadModal({ file, onClose }: { file: GatedFile; onClose: () =>
     if (!canSubmit) return;
     setSubmitting(true);
     try {
-      // The API collapses newlines, so the details go in one line.
-      await postJson('/website/contact', {
+      await postJson('/website/resources', {
+        resource: file.resource,
         name: form.name,
         email: form.email,
-        subject: `Checklist download: ${file.title}`,
-        message: [
-          `Downloaded the ${file.title} from /blogs/${file.slug}.`,
-          `Agency: ${form.agency}.`,
-          `Phone: ${form.phone || 'not given'}.`,
-        ].join(' '),
+        agency: form.agency,
+        phone: form.phone || undefined,
+        page: `/blogs/${file.slug}`,
         turnstileToken,
         website: honeypot,
       });
-      rememberUnlocked(file.href);
-      trackEvent('gated_download_submitted', { slug: file.slug, resource: file.title });
-      setDone(true);
-      startDownload(file.href);
+      trackEvent('resource_requested', { slug: file.slug, resource: file.resource });
+      setSentTo(form.email);
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+      setTurnstileKey((k) => k + 1);
+    } finally {
+      setTurnstileToken('');
       setSubmitting(false);
     }
   }
@@ -164,27 +133,28 @@ function GatedDownloadModal({ file, onClose }: { file: GatedFile; onClose: () =>
           >
             ×
           </button>
-          {done ? (
-            <div className="rz-form-success">
+          {sentTo ? (
+            <div className="rz-form-success" aria-live="polite">
               <div className="rz-success-mark">✓</div>
-              <h3 id="rz-gated-title">Your download has started.</h3>
+              <h3 id="rz-gated-title">Check your inbox.</h3>
               <p>
-                If it didn&apos;t, use the button below. We&apos;ve also sent a note to{' '}
-                {form.email}.
+                We&apos;ve sent the {file.title} to <strong>{sentTo}</strong>. It usually arrives
+                within a few minutes; if not, check your spam folder.
               </p>
               <div className="rz-submit-row" style={{ flexDirection: 'column', gap: 12 }}>
-                <a className="rz-btn rz-btn-primary rz-btn-block" download href={file.href}>
-                  <span>Download the checklist</span>
-                  <span className="rz-btn-arrow" aria-hidden="true">↓</span>
-                </a>
                 <Link
-                  className="rz-btn rz-btn-secondary rz-btn-block"
-                  href={`/calendly?utm_source=ryzolve.com&utm_medium=blog&utm_campaign=${file.slug}&utm_content=download`}
-                  onClick={() => trackEvent('blog_cta_clicked', { slug: file.slug, placement: 'download', cta: 'demo' })}
+                  className="rz-btn rz-btn-primary rz-btn-block"
+                  href={`/calendly?utm_source=ryzolve.com&utm_medium=blog&utm_campaign=${file.slug}&utm_content=resource`}
+                  onClick={() =>
+                    trackEvent('blog_cta_clicked', { slug: file.slug, placement: 'resource', cta: 'demo' })
+                  }
                 >
                   <span>Book a demo</span>
                   <span className="rz-btn-arrow" aria-hidden="true">→</span>
                 </Link>
+                <button className="rz-gated-retry" onClick={() => setSentTo(null)} type="button">
+                  Wrong address? Send it again
+                </button>
               </div>
             </div>
           ) : (
@@ -193,7 +163,7 @@ function GatedDownloadModal({ file, onClose }: { file: GatedFile; onClose: () =>
                 Get the {file.title}
               </h3>
               <p className="rz-form-helper" style={{ marginTop: -6, marginBottom: 14 }}>
-                Tell us where to reach you and the PDF downloads right away.
+                We&apos;ll email it to you right away, so use an address you can check now.
               </p>
               {/* Honeypot: hidden from real users, catches bots */}
               <input
@@ -222,7 +192,7 @@ function GatedDownloadModal({ file, onClose }: { file: GatedFile; onClose: () =>
                 <span className="rz-field-label">Phone (optional)</span>
                 <input className="rz-input" type="tel" autoComplete="tel" placeholder="(713) 555-0100" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
               </label>
-              <div style={{ margin: '4px 0 12px' }}>
+              <div key={turnstileKey} style={{ margin: '4px 0 12px' }}>
                 <DeferredTurnstile
                   onSuccess={setTurnstileToken}
                   onExpire={() => setTurnstileToken('')}
@@ -231,7 +201,7 @@ function GatedDownloadModal({ file, onClose }: { file: GatedFile; onClose: () =>
               </div>
               <div className="rz-submit-row">
                 <ButtonBtn type="submit" block disabled={!canSubmit} icon={false}>
-                  {submitting ? 'Sending…' : 'Download the checklist'}
+                  {submitting ? 'Sending…' : 'Email me the checklist'}
                 </ButtonBtn>
               </div>
               <p className="rz-form-helper rz-form-helper-center" style={{ color: 'var(--rz-muted)' }}>

@@ -5144,6 +5144,18 @@ button.rz-btn-blue {
 .rz-blog-article-list ol li::marker { color: var(--rz-blue); font-weight: 700; }
 .rz-blog-article-list li + li { margin-top: 8px; }
 .rz-blog-article-section .rz-blog-article-cta { margin-top: 24px; }
+.rz-gated-retry {
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: var(--rz-blue);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+}
+.rz-gated-retry:hover,
+.rz-gated-retry:focus-visible { text-decoration: underline; }
 .rz-blog-article-list li::marker { color: var(--rz-blue); }
 .rz-blog-article-list strong { color: var(--rz-ink); }
 
