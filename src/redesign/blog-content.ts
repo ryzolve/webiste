@@ -111,6 +111,8 @@ export const BLOG_PAGE_SIZE = 6;
 export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   {
     slug: 'monthly-in-service-training-texas-home-care-agencies',
+    image: '/img/blog/monthly-in-service-training-texas-home-care-agencies.jpg',
+    imageAlt: 'A caregiver working through a training module on a tablet at a kitchen table',
     label: 'Monthly in-service training',
     heroPanelTitle: 'Twelve topics, one plan.',
     heroPanelDescription:
@@ -2640,6 +2642,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   },
   {
     slug: 'payroll-ready-evv-data',
+    image: '/img/blog/payroll-ready-evv-data.jpg',
+    imageAlt: 'An agency office manager reviewing caregiver hours on a laptop beside a printed schedule',
     label: 'Payroll-ready EVV data',
     eyebrow: 'Texas PAS payroll reporting',
     title: 'How Texas PAS Agencies Can Keep EVV Data Ready for Payroll Processing',
