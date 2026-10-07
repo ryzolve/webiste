@@ -141,7 +141,7 @@ function GatedDownloadModal({ file, onClose }: { file: GatedFile; onClose: () =>
                 We&apos;ve sent the {file.title} to <strong>{sentTo}</strong>. It usually arrives
                 within a few minutes; if not, check your spam folder.
               </p>
-              <div className="rz-submit-row" style={{ flexDirection: 'column', gap: 12 }}>
+              <div className="rz-gated-actions">
                 <Link
                   className="rz-btn rz-btn-primary rz-btn-block"
                   href={`/calendly?utm_source=ryzolve.com&utm_medium=blog&utm_campaign=${file.slug}&utm_content=resource`}

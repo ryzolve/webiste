@@ -5144,6 +5144,16 @@ button.rz-btn-blue {
 .rz-blog-article-list ol li::marker { color: var(--rz-blue); font-weight: 700; }
 .rz-blog-article-list li + li { margin-top: 8px; }
 .rz-blog-article-section .rz-blog-article-cta { margin-top: 24px; }
+.rz-gated-actions {
+  /* .rz-submit-row isn't flex, so a `gap` there did nothing and the
+     buttons touched. */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 20px;
+}
+.rz-gated-actions .rz-btn { justify-content: center; }
 .rz-gated-retry {
   padding: 4px;
   border: 0;
