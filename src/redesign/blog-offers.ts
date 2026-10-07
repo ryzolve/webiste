@@ -19,8 +19,8 @@ export type BlogOfferLink = {
   href: string;
   /** Opens in a new tab: the learner/agency apps and downloadable files. */
   external: boolean;
-  /** Set when the file needs the visitor's details first (see GatedDownload). */
-  gated?: { title: string };
+  /** Set when the file is emailed to the visitor instead (see GatedDownload). */
+  gated?: { title: string; resource: string };
 };
 
 export type BlogOffer = {

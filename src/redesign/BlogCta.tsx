@@ -31,7 +31,7 @@ export function BlogCtaLink({ link, offer, slug, placement, rank, className }: C
   const children = (
     <>
       <span>{link.label}</span>
-      <span className="rz-btn-arrow" aria-hidden="true">{link.gated ? '↓' : link.external ? '↗' : '→'}</span>
+      <span className="rz-btn-arrow" aria-hidden="true">{link.external ? '↗' : '→'}</span>
     </>
   );
 
@@ -42,7 +42,7 @@ export function BlogCtaLink({ link, offer, slug, placement, rank, className }: C
         // that arrive on "#download" (the old public PDF URL redirects there).
         autoOpenOnHash={placement === 'end' ? '#download' : undefined}
         className={className}
-        file={{ title: link.gated.title, href: link.href, slug }}
+        file={{ title: link.gated.title, resource: link.gated.resource, slug }}
         onClick={onClick}
       >
         {children}

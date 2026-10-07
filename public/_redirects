@@ -1,3 +1,5 @@
-# The monitoring checklist used to be a public PDF; it now sits behind a lead
-# form on its post. Old links land on the post with the form open.
+# The monitoring checklist is only sent by email now (see GatedDownload and the
+# API's POST /website/resources). Its earlier public addresses land on the post
+# with the request form open.
 /resources/texas-hhsc-contract-monitoring-checklist.pdf /blogs/texas-hhsc-contract-monitoring-readiness#download 301
+/downloads/k9w2r7/texas-hhsc-contract-monitoring-checklist.pdf /blogs/texas-hhsc-contract-monitoring-readiness#download 301

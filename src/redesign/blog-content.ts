@@ -83,11 +83,13 @@ export type BlogCapabilityEntry = {
   /** End-of-article CTA copy; defaults to the offer's body. */
   ctaDescription?: string;
   /**
-   * Puts the ctaHref file behind a short form (name, email, agency) that posts
-   * to /website/contact. The file sits under /downloads/<random>/, which is
-   * noindexed; the old /resources/ URL redirects to the post (see _redirects).
+   * Turns the post's secondary CTA into an "email me this file" form. The site
+   * never holds the file's URL: `resource` is a key in the API's
+   * website.resources.ts, and POST /website/resources emails the link, so a
+   * mistyped address never gets it. ctaHref should point back at the post's
+   * #download (it is only a fallback; the CTA renders as a button).
    */
-  gatedDownload?: { title: string };
+  gatedDownload?: { title: string; resource: string };
   /** Sources / disclaimer line printed after the last article section. */
   sourceNote?: string;
   /**
@@ -2633,9 +2635,12 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
         description: 'Review how ongoing LEIE screening supports monitoring readiness.',
       },
     ],
-    ctaLabel: 'Download the Monitoring Checklist (PDF)',
-    ctaHref: '/downloads/k9w2r7/texas-hhsc-contract-monitoring-checklist.pdf',
-    gatedDownload: { title: 'Texas HHSC Contract Monitoring Checklist' },
+    ctaLabel: 'Get the Monitoring Checklist (PDF)',
+    ctaHref: '/blogs/texas-hhsc-contract-monitoring-readiness#download',
+    gatedDownload: {
+      title: 'Texas HHSC Contract Monitoring Checklist',
+      resource: 'hhsc-contract-monitoring-checklist',
+    },
     capabilitiesTitle: 'What to review before the notice letter arrives',
     relatedTitle: 'Monitoring readiness connects to the rest of your agency.',
     ctaTitle: 'Ready to keep monitoring documentation organized year-round?',
