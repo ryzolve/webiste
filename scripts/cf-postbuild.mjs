@@ -29,6 +29,10 @@ if (headers.includes('/fonts/')) {
 # Static images
 /img/*
   Cache-Control: public, max-age=2592000
+
+# Files behind a lead form (GatedDownload) — keep them out of search results
+/downloads/*
+  X-Robots-Tag: noindex
 `;
   writeFileSync(path, headers);
   console.log('[cf-postbuild] appended /fonts (immutable) + /img cache rules to _headers');

@@ -19,6 +19,8 @@ export type BlogOfferLink = {
   href: string;
   /** Opens in a new tab: the learner/agency apps and downloadable files. */
   external: boolean;
+  /** Set when the file needs the visitor's details first (see GatedDownload). */
+  gated?: { title: string };
 };
 
 export type BlogOffer = {
@@ -48,6 +50,7 @@ function postLink(entry: BlogCapabilityEntry): BlogOfferLink {
     label: entry.ctaLabel,
     href: entry.ctaHref,
     external: /^https?:\/\//.test(entry.ctaHref) || entry.ctaHref.endsWith('.pdf'),
+    ...(entry.gatedDownload ? { gated: entry.gatedDownload } : {}),
   };
 }
 

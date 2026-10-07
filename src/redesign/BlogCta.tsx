@@ -5,6 +5,7 @@ import { trackEvent } from './analytics';
 import type { BlogCapabilityEntry } from './blog-content';
 import type { BlogCtaPlacement, BlogOffer, BlogOfferLink } from './blog-offers';
 import { withBlogUtm } from './blog-offers';
+import { GatedDownloadButton } from './GatedDownload';
 
 type CtaLinkProps = {
   link: BlogOfferLink;
@@ -30,9 +31,24 @@ export function BlogCtaLink({ link, offer, slug, placement, rank, className }: C
   const children = (
     <>
       <span>{link.label}</span>
-      <span className="rz-btn-arrow" aria-hidden="true">{link.external ? '↗' : '→'}</span>
+      <span className="rz-btn-arrow" aria-hidden="true">{link.gated ? '↓' : link.external ? '↗' : '→'}</span>
     </>
   );
+
+  if (link.gated) {
+    return (
+      <GatedDownloadButton
+        // The end band always renders, so it owns opening the form for links
+        // that arrive on "#download" (the old public PDF URL redirects there).
+        autoOpenOnHash={placement === 'end' ? '#download' : undefined}
+        className={className}
+        file={{ title: link.gated.title, href: link.href, slug }}
+        onClick={onClick}
+      >
+        {children}
+      </GatedDownloadButton>
+    );
+  }
 
   return link.external ? (
     <a className={className} href={href} onClick={onClick} rel="noopener noreferrer" target="_blank">
