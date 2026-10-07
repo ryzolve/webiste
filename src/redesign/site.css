@@ -5347,6 +5347,12 @@ button.rz-btn-blue {
   margin-top: 22px;
 }
 .rz-blog-inline-cta .rz-blog-inline-cta-secondary {
+  /* Also a <button> when the link opens a gated download. */
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
   display: inline-flex;
   gap: 6px;
   color: var(--rz-blue);

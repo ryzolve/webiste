@@ -82,6 +82,12 @@ export type BlogCapabilityEntry = {
   faqEyebrow?: string;
   /** End-of-article CTA copy; defaults to the offer's body. */
   ctaDescription?: string;
+  /**
+   * Puts the ctaHref file behind a short form (name, email, agency) that posts
+   * to /website/contact. The file sits under /downloads/<random>/, which is
+   * noindexed; the old /resources/ URL redirects to the post (see _redirects).
+   */
+  gatedDownload?: { title: string };
   /** Sources / disclaimer line printed after the last article section. */
   sourceNote?: string;
   /**
@@ -2626,7 +2632,8 @@ export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
       },
     ],
     ctaLabel: 'Download the Monitoring Checklist (PDF)',
-    ctaHref: '/resources/texas-hhsc-contract-monitoring-checklist.pdf',
+    ctaHref: '/downloads/k9w2r7/texas-hhsc-contract-monitoring-checklist.pdf',
+    gatedDownload: { title: 'Texas HHSC Contract Monitoring Checklist' },
     capabilitiesTitle: 'What to review before the notice letter arrives',
     relatedTitle: 'Monitoring readiness connects to the rest of your agency.',
     ctaTitle: 'Ready to keep monitoring documentation organized year-round?',

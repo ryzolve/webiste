@@ -62,7 +62,7 @@ function ShaderCanvas(props: ShaderProps) {
 // first paint even though a visitor cannot use either form yet. Keep a stable
 // placeholder and load the real widget shortly before the form is visible (or
 // immediately when the visitor starts interacting with it).
-function DeferredTurnstile({
+export function DeferredTurnstile({
   onSuccess,
   onExpire,
   onError,
@@ -165,7 +165,7 @@ function apiBaseUrl() {
   return (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
 }
 
-async function postJson(path: string, body: Record<string, unknown>) {
+export async function postJson(path: string, body: Record<string, unknown>) {
   const res = await fetch(apiBaseUrl() + path, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -338,7 +338,7 @@ function CTA({
   );
 }
 
-function ButtonBtn({
+export function ButtonBtn({
   onClick,
   variant = 'primary',
   type = 'button',
