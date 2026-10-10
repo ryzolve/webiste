@@ -10,7 +10,7 @@ import { agencyInServiceSignupHref, trainingCoursePurchaseHref } from './trainin
  * customer — and the article repeats it at the hero, mid-article, end of
  * article and in a sticky bar.
  */
-export type BlogOfferKind = 'in-service' | 'admin-course' | 'compliance' | 'demo';
+export type BlogOfferKind = 'in-service' | 'admin-course' | 'compliance' | 'growth' | 'demo';
 
 export type BlogCtaPlacement = 'hero' | 'inline' | 'body' | 'end' | 'sticky';
 
@@ -94,6 +94,21 @@ export function blogOffer(entry: BlogCapabilityEntry): BlogOffer {
       body: 'Ryzolve runs scheduled and on-demand registry checks for every employee, flags exceptions for review, and keeps the results organized for your next survey or monitoring visit.',
       points: ['Scheduled and on-demand checks', 'Exception reporting', 'Records ready for survey'],
       stickyText: 'See how Ryzolve keeps employability checks and survey records current.',
+      primary: DEMO,
+      secondary: postLink(entry),
+    };
+  }
+
+  // Posts about winning clients (referrals, marketing). Never derived: set
+  // `offer: 'growth'` on the entry.
+  if (kind === 'growth') {
+    return {
+      kind,
+      eyebrow: 'Ryzolve for growing PAS agencies',
+      title: 'Say yes to more clients without falling behind.',
+      body: 'Ryzolve keeps clients, authorizations, schedules, caregivers and claims in one place, so growth doesn\'t turn into paperwork chaos.',
+      points: ['Clients and authorizations in one place', 'Schedules and caregivers tracked', 'Records ready when HHSC asks'],
+      stickyText: 'See how Ryzolve keeps a growing agency organized.',
       primary: DEMO,
       secondary: postLink(entry),
     };
