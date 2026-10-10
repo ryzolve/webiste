@@ -112,6 +112,435 @@ export const BLOG_PAGE_SIZE = 6;
 
 export const publishedBlogCapabilities: BlogCapabilityEntry[] = [
   {
+    slug: 'mco-referrals-texas-pas-agency',
+    image: '/img/blog/mco-referrals-texas-pas-agency.jpg',
+    imageAlt: 'A home care agency owner taking notes during a phone call at her office desk',
+    label: 'MCO referrals',
+    eyebrow: 'Growing your agency',
+    title: 'How to Get Referrals from MCO Service Coordinators: A Guide for Texas PAS Agencies',
+    description:
+      'Credentialed with an MCO but no referrals yet? Here\'s how Texas PAS agencies become the agency service coordinators are glad to work with.',
+    heroDescription: 'You\'re credentialed with the MCO. So where are the referrals?',
+    publishedAt: '2026-10-10',
+    readingMinutes: 4,
+    keywords: [
+      'MCO referrals texas PAS agency',
+      'service coordinator referrals',
+      'STAR+PLUS PAS referrals',
+      'how to get PAS clients texas',
+      'home care referrals texas',
+    ],
+    offer: 'growth',
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
+    articleSections: [
+      {
+        title: '',
+        paragraphs: [
+          'I talk to a lot of PAS agency owners in Texas, and I hear some version of this all the time: "TJ, we got credentialed with the MCO months ago. Why isn\'t anything coming in?"',
+          'Here\'s the hard truth. Getting credentialed doesn\'t mean referrals start coming. It means you\'re on the list. And in most areas, that list is long.',
+        ],
+      },
+      {
+        title: 'The person who matters is the service coordinator',
+        paragraphs: [
+          'When a member needs PAS, the service coordinator gives them a list of agencies to choose from. Coordinators aren\'t supposed to steer members to one agency over another, and you should never ask them to. But members ask questions, and coordinators remember who made their job easier and who made it harder.',
+          'So the real question is: are you the easy agency to work with?',
+        ],
+      },
+      {
+        title: 'What makes you easy to work with',
+        paragraphs: [
+          'It\'s not fancy. It\'s the basics, done every single time.',
+          '**Answer the phone.** If a coordinator calls three times and gets voicemail, you\'ve lost them. Have a real person picking up during business hours.',
+          '**Respond the same day.** When a referral comes in, get back to them fast and get the client staffed quickly. Speed is what people remember.',
+          '**Be honest about what you can handle.** Know which areas you cover, which languages your caregivers speak, and whether you can staff weekends. Saying yes to a case you can\'t staff hurts you more than saying no.',
+          '**Keep them in the loop.** Let them know when care starts, when something changes, and when there\'s a problem. Nobody likes finding out last.',
+          '**Get the paperwork right the first time.** Clean ISPs, signatures where they belong, and services that match the authorization. Fewer back-and-forth emails make you the agency they\'re glad to hear from.',
+          '**Get to know them.** Find out who the coordinators are in your area. Introduce yourself and ask, "What makes an agency easy for you to work with?" Then do exactly that.',
+        ],
+      },
+      {
+        title: 'One thing to never do',
+        paragraphs: [
+          'Don\'t offer gifts, gift cards or anything of value in exchange for referrals. With Medicaid members, that can turn into a serious legal problem. You win coordinators over by being reliable, not by buying lunch.',
+        ],
+      },
+      {
+        title: 'The bottom line',
+        paragraphs: [
+          'Credentialing gets you in the door. How you show up every day is what gets you chosen.',
+          'And when the referrals start coming, the paperwork comes with them. That\'s where Ryzolve helps: authorizations, schedules, caregivers and claims in one place, so you can say yes to more clients without falling behind.',
+        ],
+      },
+    ],
+    inlineCtaAfter: 4,
+    capabilities: [],
+    faqs: [
+      {
+        q: 'How do PAS agencies get referrals from MCOs in Texas?',
+        a: 'Once you\'re credentialed and in the MCO\'s network, you\'re on the list of agencies the service coordinator shares with members who need PAS. The member picks. Being responsive, staffing cases quickly and keeping clean paperwork is what makes your agency the one people remember.',
+      },
+      {
+        q: 'Can a service coordinator recommend my agency?',
+        a: 'Coordinators give members a choice of agencies and generally shouldn\'t steer them to one. Don\'t ask them to. Focus on being reliable, so your name comes up for the right reasons.',
+      },
+      {
+        q: 'Is it okay to give gifts to service coordinators?',
+        a: 'No. Offering anything of value to get Medicaid referrals can violate federal and Texas anti-kickback laws. If you\'re unsure about something, ask a healthcare attorney first.',
+      },
+      {
+        q: 'Why am I credentialed but still not getting referrals?',
+        a: 'Credentialing only puts you on the list. In most areas, many agencies are on it. Your response time, staffing capacity and follow-through decide whether members and coordinators choose you.',
+      },
+    ],
+    relatedLinks: [
+      {
+        href: '/blogs/home-care-referral-sources-texas',
+        title: 'Build five real referral relationships',
+        description: 'Where home care referrals really come from, and a weekly routine to win them.',
+      },
+      {
+        href: '/blogs/home-care-agency-online-marketing',
+        title: 'Show up when families search',
+        description: 'A low-cost checklist for what families find when they Google you.',
+      },
+      {
+        href: '/blogs/hhsc-survey-ready-pas-agency',
+        title: 'Stay survey-ready as you grow',
+        description: 'Where growing PAS agencies slip on HHSC surveys, and how to stay ready.',
+      },
+    ],
+    ctaLabel: 'See how Ryzolve works',
+    ctaHref: '/',
+    faqEyebrow: 'Questions Texas agency owners ask',
+    faqTitle: 'MCO referrals, in plain language.',
+    relatedTitle: 'More on growing your PAS agency.',
+  },
+  {
+    slug: 'home-care-referral-sources-texas',
+    image: '/img/blog/home-care-referral-sources-texas.jpg',
+    imageAlt: 'A home care agency owner talking with a hospital discharge planner in a hospital corridor',
+    label: 'Referral sources',
+    eyebrow: 'Growing your agency',
+    title: 'How to Build Referral Sources for Your Home Care Agency in Texas',
+    description:
+      'Where home care referrals really come from, and a simple weekly routine Texas PAS agencies can use to build relationships that last.',
+    heroDescription: 'Stop dropping off flyers. Build five real referral relationships instead.',
+    publishedAt: '2026-10-10',
+    readingMinutes: 3,
+    keywords: [
+      'home care referral sources texas',
+      'how to get home care clients',
+      'PAS agency marketing texas',
+      'discharge planner referrals home care',
+      'home care business development',
+    ],
+    offer: 'growth',
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
+    articleSections: [
+      {
+        title: '',
+        paragraphs: [
+          'MCOs are one door for PAS clients. But the agencies I see growing steadily have a second engine: people in their own community who know them by name.',
+          'The mistake I see most often is trying to be everywhere. You print a stack of flyers, drop them at forty places, and nothing happens. I get it. It feels productive. But it rarely works.',
+          'Pick five places instead, and actually build a relationship with them.',
+        ],
+      },
+      {
+        title: 'Where referrals really come from',
+        paragraphs: [
+          '**Hospital and rehab discharge planners and social workers.** They need somewhere safe to send people home to, and they need it fast.',
+          '**Doctors\' offices, especially the office managers.** They often hear about families who are struggling before anyone else does.',
+          '**Senior centers, adult day centers and your local Area Agency on Aging.**',
+          '**Churches, mosques and community groups.** A lot of agency owners already have these relationships. Use them.',
+          '**Home health and hospice agencies that don\'t offer PAS.** Their patients often need attendant care too.',
+          '**Your clients\' families and your own caregivers.** Happy families talk. Good caregivers know people who need help.',
+        ],
+      },
+      {
+        title: 'Walk in asking, not selling',
+        paragraphs: [
+          'When you visit, don\'t open with a pitch. Ask questions. "What do your patients struggle with when they go home? What do you wish agencies did better?" Then follow up on what they told you.',
+          'Show up consistently. Once is a visit. Once a month for six months is a relationship.',
+          'And when they send you someone, take great care of that person and let the source know it\'s handled. That\'s what earns the next referral.',
+        ],
+      },
+      {
+        title: 'A simple weekly routine',
+        paragraphs: [
+          'Two visits, two follow-up calls and one thank-you note every week. Write it down and stick with it for 90 days. You\'ll be surprised what happens.',
+        ],
+      },
+      {
+        title: 'One reminder',
+        paragraphs: [
+          'Never pay for referrals or give gifts in exchange for them, especially for Medicaid clients. Bring helpful information and great service. That\'s what lasts.',
+          'When your referral engine starts working, you\'ll need the back office to keep up. Ryzolve keeps clients, caregivers, schedules and claims in one place, so growth doesn\'t turn into chaos.',
+        ],
+      },
+    ],
+    inlineCtaAfter: 4,
+    capabilities: [],
+    faqs: [
+      {
+        q: 'Where do home care agencies get the most referrals?',
+        a: 'Besides MCOs, the most common sources are hospital and rehab discharge planners, doctors\' offices, senior centers, Area Agencies on Aging, faith communities, other home health and hospice agencies, and your own clients\' families.',
+      },
+      {
+        q: 'How often should I visit referral sources?',
+        a: 'About once a month. One visit is an introduction. Showing up consistently for several months is what builds trust.',
+      },
+      {
+        q: 'Do flyers work for home care marketing?',
+        a: 'On their own, rarely. A flyer left behind after a real conversation can help. A flyer dropped at a front desk usually gets thrown away.',
+      },
+      {
+        q: 'Can I pay someone for referrals?',
+        a: 'Not for Medicaid or Medicare clients. Paying or giving gifts for those referrals can break federal and Texas law. Ask a healthcare attorney before setting up any referral arrangement.',
+      },
+    ],
+    relatedLinks: [
+      {
+        href: '/blogs/mco-referrals-texas-pas-agency',
+        title: 'Get referrals from MCO service coordinators',
+        description: 'Why credentialing alone doesn\'t bring referrals, and what does.',
+      },
+      {
+        href: '/blogs/home-care-agency-online-marketing',
+        title: 'Show up when families search',
+        description: 'A low-cost checklist for what families find when they Google you.',
+      },
+      {
+        href: '/blogs/hhsc-survey-ready-pas-agency',
+        title: 'Stay survey-ready as you grow',
+        description: 'Where growing PAS agencies slip on HHSC surveys, and how to stay ready.',
+      },
+    ],
+    ctaLabel: 'See how Ryzolve works',
+    ctaHref: '/',
+    faqEyebrow: 'Questions Texas agency owners ask',
+    faqTitle: 'Referral sources, in plain language.',
+    relatedTitle: 'More on growing your PAS agency.',
+  },
+  {
+    slug: 'home-care-agency-online-marketing',
+    image: '/img/blog/home-care-agency-online-marketing.jpg',
+    imageAlt: 'A woman at her kitchen counter searching on her phone for care for a parent',
+    label: 'Online marketing',
+    eyebrow: 'Growing your agency',
+    title: 'Home Care Agency Marketing: How to Show Up When Families Search Online',
+    description:
+      'Families Google your agency before they call. Here\'s a simple, low-cost checklist to make sure what they find makes them pick up the phone.',
+    heroDescription: 'Families Google you before they call you.',
+    publishedAt: '2026-10-10',
+    readingMinutes: 3,
+    keywords: [
+      'home care agency marketing',
+      'home care google business profile',
+      'home care agency reviews',
+      'PAS agency website texas',
+      'local marketing home care agency',
+    ],
+    offer: 'growth',
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
+    articleSections: [
+      {
+        title: '',
+        paragraphs: [
+          'Here\'s something a lot of agency owners don\'t think about. Even when a service coordinator or a doctor gives a family your name, what does that family do next?',
+          'They Google you.',
+          'If they find nothing, or a website that hasn\'t been updated since you opened, or a phone number that doesn\'t work, they move on to the next agency on the list. And you\'ll never even know you lost them.',
+          'The good news is you don\'t need a big marketing budget. You just need the basics done right.',
+        ],
+      },
+      {
+        title: 'Set up your Google Business Profile',
+        paragraphs: [
+          'It\'s free, and it\'s often the first thing people see. Fill in everything: your hours, phone number, service area, photos of your office and team, and the languages you speak.',
+        ],
+      },
+      {
+        title: 'Ask for reviews',
+        paragraphs: [
+          'When a family is happy with your care, ask them to leave a Google review. Make it easy by sending the direct link. Then reply to every review, good or bad, kindly and without sharing any client details.',
+        ],
+      },
+      {
+        title: 'Keep your website simple',
+        paragraphs: [
+          'You don\'t need anything fancy. One clear page that says who you serve, where you serve, what services you offer, and which languages you speak. And put your phone number somewhere big and easy to tap on a phone.',
+        ],
+      },
+      {
+        title: 'Show some life on Facebook',
+        paragraphs: [
+          'Post something real once or twice a week. A shoutout to a great caregiver, a tip for families, a community event you went to. It shows people you\'re active and you care.',
+        ],
+      },
+      {
+        title: 'Make your info match everywhere',
+        paragraphs: [
+          'Your agency name, address and phone number should be the same on Google, your website, Facebook and MCO directories. Mismatched info confuses people and search engines.',
+        ],
+      },
+      {
+        title: 'Be careful with client stories',
+        paragraphs: [
+          'Get written permission before sharing any client photo or story. When in doubt, leave it out.',
+        ],
+      },
+      {
+        title: 'Try this today',
+        paragraphs: [
+          'Search your agency\'s name on your phone and look at it like a worried daughter would. Fix the first thing that looks off.',
+          'Once families start calling, Ryzolve helps you get them from intake to care smoothly, with authorizations, schedules and caregivers all in one place.',
+        ],
+      },
+    ],
+    inlineCtaAfter: 7,
+    capabilities: [],
+    faqs: [
+      {
+        q: 'Does a home care agency need a website?',
+        a: 'Yes, but it doesn\'t need to be fancy. One clear page with who you serve, where, what services you offer, the languages you speak, and an easy-to-tap phone number is a strong start.',
+      },
+      {
+        q: 'How do I get more Google reviews for my home care agency?',
+        a: 'Ask happy families directly, and send them the link to your Google review page so it only takes them a minute. Reply to every review kindly, and never share client details in your replies.',
+      },
+      {
+        q: 'Is a Google Business Profile free?',
+        a: 'Yes. It\'s one of the most valuable free tools a home care agency has, because it\'s often the first thing people see when they search.',
+      },
+      {
+        q: 'Can I post client photos or stories online?',
+        a: 'Only with written permission. Client privacy matters, and health privacy rules may apply. When in doubt, leave it out.',
+      },
+    ],
+    relatedLinks: [
+      {
+        href: '/blogs/mco-referrals-texas-pas-agency',
+        title: 'Get referrals from MCO service coordinators',
+        description: 'Why credentialing alone doesn\'t bring referrals, and what does.',
+      },
+      {
+        href: '/blogs/home-care-referral-sources-texas',
+        title: 'Build five real referral relationships',
+        description: 'Where home care referrals really come from, and a weekly routine to win them.',
+      },
+      {
+        href: '/blogs/hhsc-survey-ready-pas-agency',
+        title: 'Stay survey-ready as you grow',
+        description: 'Where growing PAS agencies slip on HHSC surveys, and how to stay ready.',
+      },
+    ],
+    ctaLabel: 'See how Ryzolve works',
+    ctaHref: '/',
+    faqEyebrow: 'Questions Texas agency owners ask',
+    faqTitle: 'Online marketing, in plain language.',
+    relatedTitle: 'More on growing your PAS agency.',
+  },
+  {
+    slug: 'hhsc-survey-ready-pas-agency',
+    image: '/img/blog/hhsc-survey-ready-pas-agency.jpg',
+    imageAlt: 'Two home care agency staff reviewing a client file together at an office desk',
+    label: 'Survey-ready as you grow',
+    eyebrow: 'Growing your agency',
+    title: 'How to Stay HHSC Survey-Ready as Your PAS Agency Grows',
+    description:
+      'More clients means more paperwork. Here\'s where growing Texas PAS agencies slip on HHSC surveys, and how to stay ready as you scale.',
+    heroDescription: 'Your agency is growing. Is your paperwork keeping up?',
+    publishedAt: '2026-10-10',
+    readingMinutes: 4,
+    keywords: [
+      'HHSC survey ready PAS agency',
+      'texas PAS agency compliance',
+      'PAS service plan update hours change',
+      'attendant orientation texas 26 TAC 277',
+      'growing home care agency compliance',
+    ],
+    offer: 'compliance',
+    solutionTitle: '',
+    solutionDescription: '',
+    workflowSteps: [],
+    articleSections: [
+      {
+        title: '',
+        paragraphs: [
+          'Let\'s say everything works. The coordinators love you, your referral sources are sending families, and your Google reviews are glowing. You go from 10 clients to 40.',
+          'Congratulations. You also just quadrupled your paperwork.',
+          'More clients means more authorizations, more schedules, more caregivers and more files. That\'s usually when things start slipping, right when you\'re busiest. And that\'s often when HHSC shows up.',
+        ],
+      },
+      {
+        title: 'Where growing agencies slip',
+        paragraphs: [
+          '**Hours changes.** When a client\'s authorized hours change, the service plan has to be updated and the attendant oriented to the change. Under HHSC\'s Primary Home Care rules, for example, you must notify the case worker in writing within 7 days of learning about a change that may need more hours, and develop a new plan within 21 days when hours go down. If you serve STAR+PLUS members, check your MCO contract too, since timelines can differ. It\'s easy to miss when you\'re juggling dozens of clients.',
+          '**Caregiver swaps.** Every attendant has to be oriented on or before their first shift with a client, and the orientation has to be documented and signed. That includes a new caregiver stepping in mid-authorization.',
+          '**Employability checks.** Registry and background checks at hire, and ongoing checks after that. One missed check can turn into a finding.',
+          '**Records nobody can find.** The work got done. But when the surveyor asks for proof, nobody can find it fast enough.',
+          'None of this is hard on its own. It gets hard at 40 clients with two people in the office.',
+        ],
+      },
+      {
+        title: 'Build the system before you need it',
+        paragraphs: [
+          'The agencies that grow smoothly don\'t work harder. They set up their system early, so every client, caregiver and change is tracked in one place, and nothing depends on someone\'s memory or a sticky note.',
+          'That\'s exactly why we built Ryzolve. Your clients, authorizations, schedules, caregivers, compliance checks and claims all live in one place. When something changes, you know what needs to happen next. And when HHSC asks for a record, you can find it in seconds.',
+          'Grow as fast as you want. Just don\'t let the paperwork fall behind.',
+        ],
+      },
+    ],
+    inlineCtaAfter: 2,
+    capabilities: [],
+    faqs: [
+      {
+        q: 'What do HHSC surveyors look for at a PAS agency?',
+        a: 'They review client and personnel records, including authorizations, schedules, service plans, attendant orientations, and employability and background checks. The key is being able to show proof quickly.',
+      },
+      {
+        q: 'When does a PAS agency need to update a client\'s service plan?',
+        a: 'Whenever the client\'s needs or authorized hours change. Under HHSC\'s Primary Home Care rules (26 TAC §277.67), you must notify the case worker in writing within 7 days of learning about a change that may need more hours, and develop a new service delivery plan within 21 days when hours decrease. For STAR+PLUS members, follow your MCO contract as well, since timelines can differ.',
+      },
+      {
+        q: 'When does an attendant need orientation?',
+        a: 'On or before the day they start serving the client, including a new caregiver mid-authorization. When the service plan changes, the attendant needs to be oriented to the changes too, and the rules allow that one by phone. Each orientation must be documented with the tasks, schedule and hours, and signed (26 TAC §277.25).',
+      },
+      {
+        q: 'How can software help a PAS agency stay survey-ready?',
+        a: 'Good software keeps clients, authorizations, schedules, caregivers and compliance checks in one place. It shows what needs to happen when something changes and lets you pull records fast. That\'s what Ryzolve is built to do.',
+      },
+    ],
+    relatedLinks: [
+      {
+        href: '/blogs/texas-hcssa-license-survey-readiness',
+        title: 'HCSSA license survey checklist',
+        description: 'What surveyors ask for, with a checklist sent to your inbox.',
+      },
+      {
+        href: '/blogs/mco-referrals-texas-pas-agency',
+        title: 'Get referrals from MCO service coordinators',
+        description: 'Why credentialing alone doesn\'t bring referrals, and what does.',
+      },
+      {
+        href: '/blogs/home-care-referral-sources-texas',
+        title: 'Build five real referral relationships',
+        description: 'Where home care referrals really come from, and a weekly routine to win them.',
+      },
+    ],
+    ctaLabel: 'See how Ryzolve tracks compliance checks',
+    ctaHref: '/compliance-regulation',
+    faqEyebrow: 'Questions Texas agency owners ask',
+    faqTitle: 'Survey readiness, in plain language.',
+    relatedTitle: 'More on growing your PAS agency.',
+  },
+  {
     slug: 'monthly-in-service-training-texas-home-care-agencies',
     image: '/img/blog/monthly-in-service-training-texas-home-care-agencies.jpg',
     imageAlt: 'A caregiver working through a training module on a tablet at a kitchen table',

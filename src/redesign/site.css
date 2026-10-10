@@ -5123,6 +5123,12 @@ button.rz-btn-blue {
   font-size: 17px;
   line-height: 1.7;
 }
+/* A section with no heading is the post's opening: start flush, lead larger. */
+.rz-blog-article-section > p:first-child {
+  margin-top: 0;
+  color: var(--rz-ink);
+  font-size: 19px;
+}
 .rz-blog-article-list { margin-top: 22px; }
 .rz-blog-article-list + .rz-blog-article-list { margin-top: 26px; }
 .rz-blog-article-section .rz-blog-article-list-heading {

@@ -262,9 +262,10 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         )}
 
         {entry.articleSections.map((section, index) => (
-          <section className="rz-section border-y border-rule bg-paper" key={section.title}>
+          <section className="rz-section border-y border-rule bg-paper" key={section.title || `section-${index}`}>
             <div className="rz-wrap rz-blog-article-section">
-              <h2>{section.title}</h2>
+              {/* An untitled section is the post's opening paragraphs. */}
+              {section.title && <h2>{section.title}</h2>}
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{renderInlineMarkdown(paragraph)}</p>
               ))}
