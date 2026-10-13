@@ -9,7 +9,8 @@ import {
   FaqJsonLd,
 } from './structured-data';
 import type { BlogArticleBlock, BlogArticleTable, BlogCapabilityEntry } from './blog-content';
-import { getBlogCapability } from './blog-content';
+import { blogCapabilitiesByDate, getBlogCapability } from './blog-content';
+import { trackEvent } from './analytics';
 import type { BlogOffer } from './blog-offers';
 import { blogOffer } from './blog-offers';
 import { BlogCtaLink, BlogEndCta, BlogInlineCta, BlogStickyCta } from './BlogCta';
@@ -147,6 +148,54 @@ function ArticleBlock({
   );
 }
 
+/**
+ * Small thumbnail through the site's image resizer (Cloudflare Images behind
+ * /_next/image): ~3 KB instead of the ~140 KB hero. 256 is one of vinext's
+ * allowed widths.
+ */
+function thumbnail(src: string) {
+  return `/_next/image?url=${encodeURIComponent(src)}&w=256&q=70`;
+}
+
+/** Same-category posts first, then the newest of the rest. */
+function keepReading(entry: BlogCapabilityEntry, count = 5) {
+  const others = blogCapabilitiesByDate.filter((post) => post.slug !== entry.slug);
+  const sameCategory = others.filter((post) => post.eyebrow === entry.eyebrow);
+  const rest = others.filter((post) => post.eyebrow !== entry.eyebrow);
+  return [...sameCategory, ...rest].slice(0, count);
+}
+
+function BlogSidebar({ entry }: { entry: BlogCapabilityEntry }) {
+  return (
+    <aside className="rz-blog-sidebar" aria-labelledby="blog-sidebar-title">
+      <p className="rz-eyebrow" id="blog-sidebar-title">Keep reading</p>
+      <ul className="rz-blog-sidebar-list">
+        {keepReading(entry).map((post) => (
+          <li key={post.slug}>
+            <Link
+              className="rz-blog-sidebar-item"
+              href={`/blogs/${post.slug}`}
+              onClick={() => trackEvent('blog_sidebar_clicked', { slug: entry.slug, to: post.slug })}
+            >
+              {post.image && (
+                <img alt="" className="rz-blog-sidebar-thumb" height={56} loading="lazy" src={thumbnail(post.image)} width={88} />
+              )}
+              <span className="rz-blog-sidebar-text">
+                <span className="rz-blog-sidebar-eyebrow">{post.eyebrow}</span>
+                <strong>{post.title}</strong>
+                <span className="rz-blog-sidebar-meta">{post.readingMinutes} min read</span>
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link className="rz-blog-sidebar-all" href="/blogs">
+        All Ryzolve guides <span aria-hidden="true">→</span>
+      </Link>
+    </aside>
+  );
+}
+
 function formatDate(iso: string) {
   return new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', {
     month: 'long',
@@ -239,15 +288,17 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
           </div>
         </section>
 
-        <article id="article">
+        <article id="article" className="rz-blog-body">
+        {/* Article on the left, aligned with the hero headline; a sticky
+            "Keep reading" list on the right (below the article on narrow
+            screens). */}
+        <div className="rz-wrap rz-blog-layout">
+        <div className="rz-blog-main">
         {entry.workflowSteps.length > 0 && (
-        <section id="workflow" className="rz-section bg-bg" aria-labelledby="blog-workflow-title">
-          <div className="rz-wrap">
-            <div className="rz-shead rz-blog-section-head">
+        <section id="workflow" className="rz-blog-article-section" aria-labelledby="blog-workflow-title">
               <p className="rz-eyebrow">{entry.solutionEyebrow ?? 'How it works'}</p>
               <h2 id="blog-workflow-title">{entry.solutionTitle}</h2>
               {entry.solutionDescription && <p>{entry.solutionDescription}</p>}
-            </div>
             <ol className="rz-blog-workflow-grid">
               {entry.workflowSteps.map((step) => (
                 <li className="rz-blog-workflow-card" key={step.number}>
@@ -257,13 +308,12 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
                 </li>
               ))}
             </ol>
-          </div>
         </section>
         )}
 
         {entry.articleSections.map((section, index) => (
-          <section className="rz-section border-y border-rule bg-paper" key={section.title || `section-${index}`}>
-            <div className="rz-wrap rz-blog-article-section">
+          <section className="rz-blog-article-section" key={section.title || `section-${index}`}>
+            <div>
               {/* An untitled section is the post's opening paragraphs. */}
               {section.title && <h2>{section.title}</h2>}
               {section.paragraphs.map((paragraph) => (
@@ -295,9 +345,9 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
         ))}
 
         {entry.capabilities.length > 0 && (
-        <section className="rz-section border-y border-rule bg-paper" aria-labelledby="blog-capabilities-title">
-          <div className="rz-wrap rz-blog-two-column">
-            <div className="rz-shead">
+        <section className="rz-blog-article-section" aria-labelledby="blog-capabilities-title">
+          <div>
+            <div>
               <p className="rz-eyebrow">What your team can review</p>
               <h2 id="blog-capabilities-title">{entry.capabilitiesTitle ?? 'What your team can review at a glance.'}</h2>
             </div>
@@ -312,6 +362,10 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
           </div>
         </section>
         )}
+        </div>
+        <BlogSidebar entry={entry} />
+        </div>
+        </article>
 
         <BlogEndCta entry={entry} offer={offer} />
 
@@ -357,7 +411,6 @@ export function BlogCapabilityPage({ entry }: { entry: BlogCapabilityEntry }) {
             </div>
           </div>
         </section>
-        </article>
       </main>
       <BlogStickyCta entry={entry} offer={offer} />
     </SiteLayout>
