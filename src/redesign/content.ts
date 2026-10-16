@@ -830,10 +830,12 @@ export const footer = {
     { label: 'Compliance & Regulations', href: '/compliance-regulation' },
     { label: 'Claims & Billing', href: '/claims-and-bills' },
   ],
+  // Ryzolve's own profiles. Also published as `sameAs` in the Organization
+  // JSON-LD (structured-data.tsx), which is how search engines tie them to us.
   social: [
-    { label: 'FB', fullLabel: 'Facebook', href: 'https://facebook.com/ryzolve' },
-    { label: 'IG', fullLabel: 'Instagram', href: 'https://instagram.com/' },
-    { label: 'YT', fullLabel: 'YouTube', href: 'https://www.youtube.com/@Ryzolve' },
-    { label: 'X', fullLabel: 'Twitter / X', href: 'https://twitter.com/' },
-  ],
+    { network: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/company/ryzolve/' },
+    { network: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/@RyzolvePAS' },
+    { network: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61579750330228' },
+    { network: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/ryzolvecare' },
+  ] as const,
 };

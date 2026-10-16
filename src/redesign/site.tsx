@@ -557,6 +557,43 @@ function Header({ active }: { active: ActiveKey }) {
   );
 }
 
+/*
+ * Brand marks, inline like RyzolveMark: no icon library ships with the site,
+ * and four 24px paths cost less than one. currentColor, so the footer's own
+ * white/80 → white hover carries through.
+ */
+function SocialIcon({ network }: { network: (typeof footer.social)[number]['network'] }) {
+  const common = { width: 18, height: 18, viewBox: '0 0 24 24', 'aria-hidden': true } as const;
+  switch (network) {
+    case 'linkedin':
+      return (
+        <svg {...common} fill="currentColor">
+          <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+        </svg>
+      );
+    case 'youtube':
+      return (
+        <svg {...common} fill="currentColor">
+          <path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z" />
+        </svg>
+      );
+    case 'facebook':
+      return (
+        <svg {...common} fill="currentColor">
+          <path d="M24 12.07C24 5.44 18.63.07 12 .07S0 5.44 0 12.07c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.52c-1.49 0-1.95.93-1.95 1.87v2.25h3.33l-.53 3.47h-2.8v8.38C19.61 23.03 24 18.06 24 12.07z" />
+        </svg>
+      );
+    case 'instagram':
+      return (
+        <svg {...common} fill="none" stroke="currentColor" strokeWidth={2}>
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      );
+  }
+}
+
 function Footer() {
   return (
     <footer className="bg-ink px-14 pt-20 pb-8 text-white max-[640px]:px-[18px]">
@@ -603,15 +640,22 @@ function Footer() {
             <br />
             <a href={`mailto:${company.email}`}>{company.email}</a>
           </div>
-          {/* Social links hidden until client-provided social profiles are ready.
-          <div className="rz-social-row">
+          <div className="mt-6 flex gap-2.5">
             {footer.social.map((s) => (
-              <a key={s.label} href={s.href} aria-label={s.fullLabel} target="_blank" rel="noopener noreferrer">
-                {s.label}
+              <a
+                key={s.network}
+                href={s.href}
+                aria-label={`Ryzolve on ${s.label}`}
+                title={s.label}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent('social_link_clicked', { network: s.network, location: 'footer' })}
+                className="inline-flex size-10 items-center justify-center rounded-full bg-white/[0.08] text-white/80 transition-colors hover:bg-white/[0.16] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <SocialIcon network={s.network} />
               </a>
             ))}
           </div>
-          */}
         </section>
       </div>
       <div className="mx-auto mt-7 flex max-w-[1328px] items-center justify-between text-xs text-white/50">
