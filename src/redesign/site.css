@@ -1236,6 +1236,15 @@ button.rz-btn-ghost {
   margin: 0;
 }
 
+/* About's panel leads with words ("MONTHLY", "BY VISIT"), not short
+   acronyms like EVV, so the figure column is wider and a touch smaller. */
+.rz-stat-rows--words .rz-stat-row .rz-stat-big { min-width: 124px; }
+.rz-stat-rows--words .rz-stat-row .rz-stat-big > b { font-size: 22px; white-space: nowrap; }
+@media (max-width: 640px) {
+  /* Side by side, the sentence gets a ~120px strip on a phone. Stack instead. */
+  .rz-stat-rows--words .rz-stat-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
 /* ─── Strategy (3 cards) ──────────────────────────────────── */
 /* .rz-strategy / -grid → Tailwind utilities (HomeStrategy in site.tsx) */
 .rz-strategy-card {

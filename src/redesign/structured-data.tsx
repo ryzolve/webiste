@@ -58,8 +58,10 @@ export function OrganizationJsonLd() {
         '@context': 'https://schema.org',
         '@type': 'Organization',
         '@id': orgId(),
-        name: company.name,
-        legalName: company.name,
+        // Name, legal name, description, slogan, areaServed, knowsAbout and the
+        // sales contact point are TJ's (about-us-organization-schema, Oct 2026).
+        name: 'Ryzolve',
+        legalName: 'Ryzolve.com LLC',
         url: abs('/'),
         logo: {
           '@type': 'ImageObject',
@@ -70,8 +72,17 @@ export function OrganizationJsonLd() {
           height: 512,
         },
         description:
-          'Provider management software for PAS, Home Health, and Hospice agencies. Bring claims, records, and compliance workflows into one organized context.',
+          'Ryzolve is home care agency software for Texas PAS and HCSSA-licensed providers, covering hiring, compliance checks, claims and billing, and payroll hours. Ryzolve is also an HHSC-approved provider of administrator and in-service training.',
+        slogan: 'Built inside a Texas care agency',
         foundingLocation: 'New Waverly, Texas',
+        areaServed: { '@type': 'State', name: 'Texas' },
+        knowsAbout: [
+          'Home care agency management software',
+          'Personal assistance services (PAS)',
+          'HCSSA compliance',
+          'LEIE, NAR and EMR employability checks',
+          'HHSC administrator and in-service training',
+        ],
         // The profiles in the footer. sameAs is how Google ties them to this
         // organization (knowledge panel, brand search).
         sameAs: footer.social.map((s) => s.href),
@@ -81,13 +92,37 @@ export function OrganizationJsonLd() {
         contactPoint: [
           {
             '@type': 'ContactPoint',
-            contactType: 'customer support',
+            contactType: 'sales',
             telephone: '+1-936-355-0920',
             email: company.email,
-            availableLanguage: ['en'],
             areaServed: 'US',
+            availableLanguage: 'English',
+            hoursAvailable: {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+              opens: '08:00',
+              closes: '18:00',
+            },
           },
         ],
+      }}
+    />
+  );
+}
+
+/* ─── AboutPage (/about-us only) ────────────────────────────────── */
+export function AboutPageJsonLd({ name, description }: { name: string; description: string }) {
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        '@id': `${abs('/about-us')}#webpage`,
+        url: abs('/about-us'),
+        name,
+        description,
+        about: { '@id': orgId() },
+        isPartOf: { '@id': websiteId() },
       }}
     />
   );

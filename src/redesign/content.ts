@@ -352,19 +352,93 @@ export const claimsIntro = {
     'For Texas PAS agencies, Ryzolve brings billed hours and approved EVV/TMHP hours into a practical review step so billing teams can identify mismatches and support reconciliation before a claim is sent.',
 };
 
+// Copy supplied by TJ (Oct 2026), word for word. Facts here — the 1.5 hours,
+// LEIE/NAR/EMR, HHSC approval, who the platform is for — are his; check with
+// him before changing any of them.
 export const about = {
-  title: 'About Us',
-  introTitle: 'Empowering Growth Through Smart Solutions',
-  introDescription:
-    'Ryzolve is dedicated to transforming the way organizations manage learning, development, and digital adoption. With a deep understanding of modern business needs, we design scalable solutions that simplify processes, improve productivity, and foster continuous improvement.',
-  philosophyEyebrow: 'Our Philosophy ?',
-  philosophy: [
-    'At Ryzolve, we believe that progress starts with people. Our philosophy centers around user empowerment, innovation, and impact. We strive to:',
-    'Build intuitive solutions that adapt to real-world challenges.',
-    'Encourage lifelong learning and continuous development.',
-    'Collaborate closely with our partners to create measurable change.',
-  ],
-  contactTitle: "Got any questions? Don't hesitate to get in touch.",
+  seoTitle: 'About Ryzolve: Home Care Software Built Inside a Texas Agency',
+  seoDescription:
+    "Ryzolve was built inside a Texas home care agency, after too many wasted drives to hire caregivers who didn't clear screening. See what we built to fix it.",
+  heroTitle: 'Built inside a Texas care agency,',
+  heroAccent: 'after one too many wasted drives',
+  heroLead:
+    'Ryzolve helps PAS and home care agencies hire faster, stay compliant, and get claims and payroll hours right, without living in spreadsheets.',
+  story: {
+    eyebrow: 'Our story',
+    title: 'It started with a car',
+    paragraphs: [
+      "Before Ryzolve, hiring a caregiver meant a drive. Sometimes hours each way, to meet someone and collect their information. Then back to the office to run the background checks against the government databases we're required to search.",
+      "And too often, the caregiver didn't clear. The drive was wasted, the day was gone, and we started over.",
+    ],
+    question: 'We kept asking the same question. Why were we running the checks last?',
+  },
+  // Side panel next to the story: three facts from the copy below, not new claims.
+  panel: {
+    eyebrow: 'What changed',
+    title: 'The checks come first now',
+    rows: [
+      { big: '~1.5', unit: 'HRS / HIRE', text: "Saved on every caregiver you hire, in our experience. No drive to find out someone won't clear." },
+      { big: 'MONTHLY', unit: 'CHECKS', text: 'LEIE (federal and Texas), NAR and EMR, at hire and every month, every result saved.' },
+      { big: 'BY VISIT', unit: 'PAYROLL HOURS', text: 'Caregiver hours gathered and ready to export to your payroll software.' },
+    ],
+  },
+  fixes: {
+    eyebrow: 'What we built',
+    title: 'So we built it the other way around',
+    lead: 'Ryzolve began as the fix for our own problems. Four of them, mostly.',
+    items: [
+      {
+        title: 'Hire without leaving the office',
+        body: [
+          "Send a job application to a potential caregiver. They click the links, complete the application and submit. You're notified right away, run the checks inside Ryzolve, and make a hire decision on the spot.",
+          "No more hours on the road to find out someone won't clear. In our experience, that's roughly an hour and a half saved on every caregiver you hire. Time is money in this work.",
+        ],
+      },
+      {
+        title: 'Monthly checks that run themselves',
+        body: [
+          "Hiring is only the first check. Ryzolve runs LEIE (federal and Texas), NAR and EMR at hire and again every month, and saves every result so it's ready when HHSC asks.",
+          'Picture an agency with hundreds of caregivers, and one or more people running those checks by hand every month. That job is gone.',
+        ],
+      },
+      {
+        title: 'Claims and payroll hours without the long days',
+        body: [
+          "Filing claims and pulling together payroll hours used to eat up whole days, and the numbers weren't always right. Ryzolve compares approved and billed hours, flags mismatches before a claim goes out, and gathers caregiver hours by visit so they're ready to export to your payroll software.",
+        ],
+      },
+      {
+        title: 'Less paper, fewer shelves',
+        body: [
+          'Hiring, admissions and communication all happen electronically in Ryzolve. That reduces the files, folders and shelves of paper in your office, and for some agencies eliminates them.',
+        ],
+      },
+    ],
+  },
+  training: {
+    eyebrow: 'Training',
+    title: 'We train, too',
+    body: "Ryzolve is an HHSC-approved provider of administrator training (8, 12 and 16 hours) and monthly in-service training. It's self-paced and online, and administrators can see completion by learner and download a certificate for each person.",
+    cta: 'See our training',
+  },
+  audience: {
+    eyebrow: "Who we're for",
+    title: 'Texas PAS and home care agencies',
+    body: 'The Ryzolve platform is built for Texas PAS and home care agencies. Our administrator and in-service training also serves Home Health and Hospice agencies.',
+  },
+  beliefs: {
+    eyebrow: 'What we believe',
+    items: [
+      { title: 'Records should be ready before anyone asks.', body: 'Not scrambled together the week a surveyor arrives.' },
+      { title: "Paperwork shouldn't need its own staff.", body: 'If a task repeats every month, software should do it.' },
+      { title: 'You should be able to talk to someone who has done this.', body: 'Not a call center.' },
+    ],
+  },
+  contact: {
+    title: 'Talk to someone who has run an agency',
+    body: "Want to see where Ryzolve fits, and what going live would take? We'll walk you through it.",
+    hours: 'Mon to Fri, 8am to 6pm CT',
+  },
 };
 
 export const contact = {
