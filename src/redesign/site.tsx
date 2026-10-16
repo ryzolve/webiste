@@ -7,6 +7,7 @@ import SEO from './SEO';
 import { trackEvent } from './analytics';
 import { FaqAccordion } from './FaqAccordion';
 import {
+  AboutPageJsonLd,
   BreadcrumbJsonLd,
   CourseListJsonLd,
   CourseJsonLd,
@@ -2256,17 +2257,19 @@ export function AboutPage() {
   return (
     <SiteLayout active="about-us">
       <SEO
-        title="About Ryzolve — Built Inside a Texas Care Agency"
-        description="Ryzolve is provider-management and training software designed by people who ran a regulated home care agency. Texas Home Health, Hospice, and PAS — built around HHSC."
+        title={about.seoTitle}
+        description={about.seoDescription}
         path="/about-us"
         keywords={[
           'about Ryzolve',
-          'Texas home care software',
-          'PAS company',
-          'home health platform',
-          'Ryzolve LLC',
+          'Texas home care agency software',
+          'PAS agency software',
+          'HCSSA compliance',
+          'LEIE NAR EMR checks',
+          'HHSC approved administrator training',
         ]}
       />
+      <AboutPageJsonLd name={about.seoTitle} description={about.seoDescription} />
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', path: '/' },
@@ -2284,43 +2287,48 @@ export function AboutPage() {
               <span className="current">About</span>
             </p>
             <h1>
-              <span className="rz-tr-hline"><span style={{ animationDelay: '.12s' }}>{about.title}</span></span>
-            </h1>
-            <p className="rz-about-hero-subtitle">
-              <span className="rz-tr-hline">
-                <span style={{ animationDelay: '.24s' }}>
-                  <span className="rz-tr-accent">
-                    {about.introTitle}
-                    <span className="rz-tr-accent-underline" aria-hidden="true" />
+              <span className="rz-tr-hline"><span style={{ animationDelay: '.12s' }}>{about.heroTitle}</span></span>
+              {/* One heading, so search engines read the whole line; the second
+                  half wears the accent the old subtitle had. */}
+              <span className="rz-about-hero-subtitle block">
+                <span className="rz-tr-hline">
+                  <span style={{ animationDelay: '.24s' }}>
+                    <span className="rz-tr-accent">
+                      {about.heroAccent}
+                      <span className="rz-tr-accent-underline" aria-hidden="true" />
+                    </span>
                   </span>
                 </span>
               </span>
-            </p>
+            </h1>
+            <p className="mx-auto mt-6 max-w-[640px] text-[18px] leading-[1.6] text-ink-2">{about.heroLead}</p>
+            <div className="rz-page-hero-actions mt-8">
+              <CTA href="/calendly" variant="coral">Book a demo</CTA>
+            </div>
           </div>
         </section>
 
         <section className="rz-section border-y border-rule bg-paper">
           <div className="rz-wrap grid grid-cols-[1.1fr_1fr] items-center gap-20 max-[1080px]:grid-cols-1 max-[1080px]:gap-9">
             <div>
-              <p className="rz-eyebrow">Who we are</p>
-              <h2 className="m-0 text-[clamp(36px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-1.5px] text-ink">{about.introTitle}</h2>
-              <p className="mt-6 max-w-[540px] text-[17px] leading-[1.6] text-ink-2">{about.introDescription}</p>
+              <p className="rz-eyebrow">{about.story.eyebrow}</p>
+              <h2 className="m-0 text-[clamp(36px,4.5vw,52px)] font-semibold leading-[1.05] tracking-[-1.5px] text-ink">{about.story.title}</h2>
+              {about.story.paragraphs.map((para) => (
+                <p key={para} className="mt-6 max-w-[540px] text-[17px] leading-[1.6] text-ink-2">{para}</p>
+              ))}
+              <p className="mt-6 max-w-[540px] text-[19px] font-semibold leading-[1.5] text-ink">{about.story.question}</p>
             </div>
             <div className="rz-stat-panel">
-              <span className="rz-panel-eyebrow">Where we come from</span>
-              <div className="rz-panel-title">TRM Hospice Care</div>
-              <div className="rz-stat-rows">
-                {[
-                  { big: 'EVV', unit: 'CHECK', t: 'Compare approved and billed hours' },
-                  { big: 'PAYROLL', unit: 'DATA', t: 'Keep reconciliation in context' },
-                  { big: 'CLAIMS', unit: 'READY', t: 'Review mismatches before submission' },
-                ].map((row) => (
-                  <div className="rz-stat-row" key={row.t}>
+              <span className="rz-panel-eyebrow">{about.panel.eyebrow}</span>
+              <div className="rz-panel-title">{about.panel.title}</div>
+              <div className="rz-stat-rows rz-stat-rows--words">
+                {about.panel.rows.map((row) => (
+                  <div className="rz-stat-row" key={row.unit}>
                     <div className="rz-stat-big">
                       <b>{row.big}</b>
                       <span>{row.unit}</span>
                     </div>
-                    <p>{row.t}</p>
+                    <p>{row.text}</p>
                   </div>
                 ))}
               </div>
@@ -2331,14 +2339,53 @@ export function AboutPage() {
         <section className="rz-section rz-benefits rz-about-philosophy">
           <div className="rz-wrap">
             <div className="rz-shead">
-              <p className="rz-eyebrow">{about.philosophyEyebrow}</p>
-              <h2 className="rz-about-philosophy-lead">{about.philosophy[0]}</h2>
+              <p className="rz-eyebrow">{about.fixes.eyebrow}</p>
+              <h2 className="rz-about-philosophy-lead">{about.fixes.title}</h2>
+              <p className="mt-4 max-w-[640px] text-[18px] leading-[1.6] text-ink-2">{about.fixes.lead}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-6 max-[640px]:grid-cols-1">
+              {about.fixes.items.map((item, i) => (
+                <article className="rz-about-value-card" key={item.title}>
+                  <span className="rz-about-value-num">0{i + 1}</span>
+                  <h3>{item.title}</h3>
+                  {item.body.map((para) => (
+                    <p key={para} className="m-0 text-[16px] leading-[1.6] text-ink-2">{para}</p>
+                  ))}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="rz-section border-y border-rule bg-paper">
+          <div className="rz-wrap grid grid-cols-2 gap-20 max-[1080px]:grid-cols-1 max-[1080px]:gap-12">
+            <div>
+              <p className="rz-eyebrow">{about.training.eyebrow}</p>
+              <h2 className="m-0 text-[clamp(30px,3.4vw,42px)] font-semibold leading-[1.1] tracking-[-1px] text-ink">{about.training.title}</h2>
+              <p className="mt-5 max-w-[540px] text-[17px] leading-[1.6] text-ink-2">{about.training.body}</p>
+              <div className="mt-7">
+                <CTA href="/training" variant="secondary">{about.training.cta}</CTA>
+              </div>
+            </div>
+            <div>
+              <p className="rz-eyebrow">{about.audience.eyebrow}</p>
+              <h2 className="m-0 text-[clamp(30px,3.4vw,42px)] font-semibold leading-[1.1] tracking-[-1px] text-ink">{about.audience.title}</h2>
+              <p className="mt-5 max-w-[540px] text-[17px] leading-[1.6] text-ink-2">{about.audience.body}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="rz-section rz-benefits rz-about-philosophy">
+          <div className="rz-wrap">
+            <div className="rz-shead">
+              <h2 className="rz-about-philosophy-lead">{about.beliefs.eyebrow}</h2>
             </div>
             <div className="grid grid-cols-3 gap-6 max-[1080px]:grid-cols-2 max-[640px]:grid-cols-1">
-              {about.philosophy.slice(1).map((statement, i) => (
-                <article className="rz-about-value-card" key={statement}>
+              {about.beliefs.items.map((belief, i) => (
+                <article className="rz-about-value-card" key={belief.title}>
                   <span className="rz-about-value-num">0{i + 1}</span>
-                  <h3>{statement}</h3>
+                  <h3>{belief.title}</h3>
+                  <p className="m-0 text-[16px] leading-[1.6] text-ink-2">{belief.body}</p>
                 </article>
               ))}
             </div>
@@ -2348,11 +2395,11 @@ export function AboutPage() {
         <section className="rz-about-cta">
           <div className="rz-about-cta-card">
             <div>
-              <h2>{about.contactTitle}</h2>
-              <p>Talk to someone who has run an agency — not a call center. We&apos;ll walk through where Ryzolve fits and what it would take to get you live.</p>
+              <h2>{about.contact.title}</h2>
+              <p>{about.contact.body}</p>
               <div className="rz-page-hero-actions" style={{ justifyContent: 'flex-start' }}>
-                <CTA href="/contact" variant="coral">Contact us</CTA>
-                <CTA href="/calendly" variant="light" icon={false}>Book a demo</CTA>
+                <CTA href="/calendly" variant="coral">Book a demo</CTA>
+                <CTA href="/contact" variant="light" icon={false}>Contact us</CTA>
               </div>
             </div>
             <div className="rz-about-contact-card">
@@ -2370,7 +2417,7 @@ export function AboutPage() {
               </div>
               <div>
                 <span>Hours</span>
-                <span>Mon–Fri, 8am–6pm CT</span>
+                <span>{about.contact.hours}</span>
               </div>
             </div>
           </div>
