@@ -1,4 +1,4 @@
-import { company } from './content';
+import { company, footer } from './content';
 import { trainingCoursePurchaseHref, type TrainingCourseCard } from './training-courses';
 
 /* ════════════════════════════════════════════════════════════════
@@ -72,6 +72,9 @@ export function OrganizationJsonLd() {
         description:
           'Provider management software for PAS, Home Health, and Hospice agencies. Bring claims, records, and compliance workflows into one organized context.',
         foundingLocation: 'New Waverly, Texas',
+        // The profiles in the footer. sameAs is how Google ties them to this
+        // organization (knowledge panel, brand search).
+        sameAs: footer.social.map((s) => s.href),
         address: POSTAL_ADDRESS,
         telephone: '+1-936-355-0920',
         email: company.email,
